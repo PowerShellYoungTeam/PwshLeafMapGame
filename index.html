@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell Leafmap Game</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>PowerShell Leafmap Adventure</h1>
+            <div class="controls">
+                <button id="loadData">Load Game Data</button>
+                <button id="resetGame">Reset Game</button>
+                <span id="score">Score: 0</span>
+            </div>
+        </header>
+
+        <main>
+            <div id="map"></div>
+            <div id="sidebar">
+                <h3>Game Info</h3>
+                <div id="gameInfo">
+                    <p>Welcome to the PowerShell Leafmap Adventure!</p>
+                    <p>Click on markers to explore locations.</p>
+                </div>
+                <div id="inventory">
+                    <h4>Inventory</h4>
+                    <ul id="inventoryList"></ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/game.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
