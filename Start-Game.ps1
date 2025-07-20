@@ -2,7 +2,7 @@
 # This script will generate game data and start the server
 
 param(
-    [string]$City = "Dumbarton",
+    [string]$City = "New York",
     [int]$LocationCount = 15,
     [int]$Port = 8080,
     [switch]$SkipGeneration
