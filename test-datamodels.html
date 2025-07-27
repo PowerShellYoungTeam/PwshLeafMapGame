@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell Leafmap Game - Data Models Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #2d3748;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        .test-section {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success {
+            color: #38a169;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        .info {
+            color: #3182ce;
+        }
+
+        .warning {
+            color: #d69e2e;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .entity-display {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .entity-header {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .property-label {
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .property-value {
+            color: #718096;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎮 PowerShell Leafmap Game</h1>
+        <h2>JavaScript Data Models Test Suite</h2>
+
+        <div class="test-section">
+            <h3>🚀 Quick Actions</h3>
+            <button onclick="runAllTests()">Run All Tests</button>
+            <button onclick="createTestEntities()">Create Test Entities</button>
+            <button onclick="demonstrateFeatures()">Demonstrate Features</button>
+            <button onclick="clearOutput()">Clear Output</button>
+        </div>
+
+        <div id="output"></div>
+
+        <div class="test-section">
+            <h3>📊 Entity Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="playerCount">0</div>
+                    <div class="stat-label">Players</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="npcCount">0</div>
+                    <div class="stat-label">NPCs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="itemCount">0</div>
+                    <div class="stat-label">Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalEntities">0</div>
+                    <div class="stat-label">Total Entities</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="entityDisplay"></div>
+    </div>
+
+    <script src="js/datamodels.js"></script>
+    <script>
+        let entities = [];
+        let testResults = [];
+
+        function log(message, type = 'info') {
+            const output = document.getElementById('output');
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = message;
+            output.appendChild(div);
+            console.log(message);
+        }
+
+        function clearOutput() {
+            document.getElementById('output').innerHTML = '';
+            document.getElementById('entityDisplay').innerHTML = '';
+            testResults = [];
+            updateStats();
+        }
+
+        function updateStats() {
+            const players = entities.filter(e => e instanceof GameModels.Player).length;
+            const npcs = entities.filter(e => e instanceof GameModels.NPC).length;
+            const items = entities.filter(e => e instanceof GameModels.Item).length;
+
+            document.getElementById('playerCount').textContent = players;
+            document.getElementById('npcCount').textContent = npcs;
+            document.getElementById('itemCount').textContent = items;
+            document.getElementById('totalEntities').textContent = entities.length;
+        }
+
+        function displayEntity(entity, title) {
+            const display = document.getElementById('entityDisplay');
+            const div = document.createElement('div');
+            div.className = 'entity-display';
+
+            let content = `<div class="entity-header">${title}</div>`;
+            content += '<div class="property-grid">';
+
+            const data = entity.toPlainObject();
+            const importantProps = ['Id', 'Type', 'Name', 'Description'];
+
+            // Show important properties first
+            importantProps.forEach(prop => {
+                if (data[prop] !== undefined) {
+                    content += `<div class="property-label">${prop}:</div>`;
+                    content += `<div class="property-value">${data[prop]}</div>`;
+                }
+            });
+
+            // Show type-specific properties
+            if (entity instanceof GameModels.Player) {
+                content += `<div class="property-label">Level:</div><div class="property-value">${entity.Level}</div>`;
+                content += `<div class="property-label">Experience:</div><div class="property-value">${entity.Experience}</div>`;
+                content += `<div class="property-label">Currency:</div><div class="property-value">${entity.Currency}</div>`;
+            } else if (entity instanceof GameModels.NPC) {
+                content += `<div class="property-label">NPC Type:</div><div class="property-value">${entity.NPCType}</div>`;
+                content += `<div class="property-label">Race:</div><div class="property-value">${entity.Race}</div>`;
+                content += `<div class="property-label">Faction:</div><div class="property-value">${entity.Faction}</div>`;
+            } else if (entity instanceof GameModels.Item) {
+                content += `<div class="property-label">Item Type:</div><div class="property-value">${entity.ItemType}</div>`;
+                content += `<div class="property-label">Rarity:</div><div class="property-value">${entity.Rarity}</div>`;
+                content += `<div class="property-label">Value:</div><div class="property-value">${entity.Value}</div>`;
+                content += `<div class="property-label">Durability:</div><div class="property-value">${entity.Durability}/${entity.MaxDurability}</div>`;
+            }
+
+            content += '</div>';
+            div.innerHTML = content;
+            display.appendChild(div);
+        }
+
+        function runAllTests() {
+            log('<h2>🧪 Running All Data Model Tests</h2>');
+
+            // Test 1: Entity Creation
+            log('<h3>Test 1: Entity Creation</h3>');
+            try {
+                const player = GameModels.EntityFactory.createPlayer('TestUser', 'test@example.com', 'Test Player');
+                const npc = GameModels.EntityFactory.createNPC('Village Guard', 'Guard', 'A loyal village protector');
+                const item = GameModels.EntityFactory.createItem('Iron Sword', 'Weapon', 'A sturdy iron sword');
+
+                entities.push(player, npc, item);
+                log('✅ All entity types created successfully', 'success');
+
+                displayEntity(player, '👤 Test Player');
+                displayEntity(npc, '🤖 Village Guard');
+                displayEntity(item, '⚔️ Iron Sword');
+
+            } catch (error) {
+                log(`❌ Entity creation failed: ${error.message}`, 'error');
+            }
+
+            // Test 2: Validation
+            log('<h3>Test 2: Entity Validation</h3>');
+            try {
+                const validationResults = entities.map(entity => GameModels.EntityValidator.validateEntity(entity));
+                const allValid = validationResults.every(result => result.isValid);
+
+                if (allValid) {
+                    log('✅ All entities pass validation', 'success');
+                } else {
+                    log('❌ Some entities failed validation', 'error');
+                    validationResults.forEach((result, index) => {
+                        if (!result.isValid) {
+                            log(`Entity ${index} errors: ${result.errors.join(', ')}`, 'error');
+                        }
+                    });
+                }
+            } catch (error) {
+                log(`❌ Validation test failed: ${error.message}`, 'error');
+            }
+
+            // Test 3: Serialization
+            log('<h3>Test 3: JSON Serialization</h3>');
+            try {
+                const player = entities.find(e => e instanceof GameModels.Player);
+                const json = player.toJSON();
+                const deserialized = GameModels.EntityFactory.fromJSON(json, 'Player');
+
+                if (deserialized.Username === player.Username && deserialized.Level === player.Level) {
+                    log(`✅ Serialization successful (${json.length} characters)`, 'success');
+                } else {
+                    log('❌ Serialization data mismatch', 'error');
+                }
+            } catch (error) {
+                log(`❌ Serialization test failed: ${error.message}`, 'error');
+            }
+
+            // Test 4: Player Methods
+            log('<h3>Test 4: Player Methods</h3>');
+            try {
+                const player = entities.find(e => e instanceof GameModels.Player);
+                const originalLevel = player.Level;
+
+                player.addExperience(1500);
+                player.visitLocation('TestLocation');
+                player.addAchievement({ Id: 'test', Name: 'Test Achievement', Description: 'A test' });
+
+                log(`✅ Player advanced from level ${originalLevel} to ${player.Level}`, 'success');
+                log(`✅ Player visited ${player.VisitedLocations.length} locations`, 'success');
+                log(`✅ Player earned ${player.Achievements.length} achievements`, 'success');
+            } catch (error) {
+                log(`❌ Player methods test failed: ${error.message}`, 'error');
+            }
+
+            // Test 5: Item Durability
+            log('<h3>Test 5: Item Durability</h3>');
+            try {
+                const item = entities.find(e => e instanceof GameModels.Item);
+                const originalDurability = item.Durability;
+
+                item.damageItem(20);
+                item.repairItem(10);
+
+                log(`✅ Item durability: ${originalDurability} → ${originalDurability - 20} → ${item.Durability}`, 'success');
+            } catch (error) {
+                log(`❌ Item durability test failed: ${error.message}`, 'error');
+            }
+
+            updateStats();
+            log('<h2>🎉 All Tests Complete!</h2>', 'success');
+        }
+
+        function createTestEntities() {
+            log('<h2>🏗️ Creating Test Entities</h2>');
+
+            // Create multiple players
+            for (let i = 1; i <= 3; i++) {
+                const player = GameModels.EntityFactory.createPlayer(
+                    `Player${i}`,
+                    `player${i}@example.com`,
+                    `Test Player ${i}`
+                );
+                player.addExperience(i * 500);
+                entities.push(player);
+            }
+
+            // Create NPCs
+            const npcTypes = [
+                { name: 'Merchant', type: 'Vendor', desc: 'Sells various goods' },
+                { name: 'Wizard', type: 'Mage', desc: 'Offers magical services' },
+                { name: 'Guard Captain', type: 'Guard', desc: 'Protects the city' }
+            ];
+
+            npcTypes.forEach(npcData => {
+                const npc = GameModels.EntityFactory.createNPC(npcData.name, npcData.type, npcData.desc);
+                entities.push(npc);
+            });
+
+            // Create items
+            const itemTypes = [
+                { name: 'Health Potion', type: 'Consumable', value: 50, consumable: true },
+                { name: 'Steel Armor', type: 'Armor', value: 300, equippable: true },
+                { name: 'Magic Ring', type: 'Accessory', value: 1000, equippable: true, rarity: 'Rare' }
+            ];
+
+            itemTypes.forEach(itemData => {
+                const item = GameModels.EntityFactory.createItem(itemData.name, itemData.type, `A ${itemData.type.toLowerCase()}`);
+                item.Value = itemData.value;
+                if (itemData.consumable) item.IsConsumable = true;
+                if (itemData.equippable) item.IsEquippable = true;
+                if (itemData.rarity) item.Rarity = itemData.rarity;
+                entities.push(item);
+            });
+
+            log(`✅ Created ${entities.length} test entities`, 'success');
+            updateStats();
+        }
+
+        function demonstrateFeatures() {
+            log('<h2>🎯 Feature Demonstration</h2>');
+
+            // Player progression
+            log('<h3>Player Progression</h3>');
+            const player = GameModels.EntityFactory.createPlayer('DemoPlayer', 'demo@game.com', 'Demo Player');
+
+            log(`Starting player: Level ${player.Level}, ${player.Experience} XP`);
+            player.addExperience(2500);
+            log(`After gaining XP: Level ${player.Level}, ${player.Experience} XP`, 'success');
+
+            // Location exploration
+            log('<h3>Location Exploration</h3>');
+            const locations = ['Town Square', 'Forest', 'Mountain', 'Cave', 'Lake'];
+            locations.forEach(location => {
+                player.visitLocation(location);
+                log(`Visited: ${location}`, 'info');
+            });
+            log(`Total locations visited: ${player.VisitedLocations.length}`, 'success');
+
+            // Item interaction
+            log('<h3>Item Interaction</h3>');
+            const sword = GameModels.EntityFactory.createItem('Legendary Sword', 'Weapon', 'A sword of legend');
+            sword.Value = 5000;
+            sword.Rarity = 'Legendary';
+            sword.IsEquippable = true;
+
+            log(`Created ${sword.Rarity} ${sword.Name} worth ${sword.Value} gold`);
+            sword.damageItem(30);
+            log(`Sword damaged: ${sword.Durability}/${sword.MaxDurability}`, 'warning');
+            sword.repairItem();
+            log(`Sword fully repaired: ${sword.Durability}/${sword.MaxDurability}`, 'success');
+
+            // Entity communication simulation
+            log('<h3>Cross-Platform Data Exchange</h3>');
+            const jsonData = player.toJSON();
+            log(`Player serialized to ${jsonData.length} characters of JSON`);
+
+            // Simulate sending to PowerShell backend
+            log('📡 Simulating data exchange with PowerShell backend...', 'info');
+            setTimeout(() => {
+                const received = GameModels.EntityFactory.fromJSON(jsonData, 'Player');
+                log(`✅ Data successfully received and reconstructed`, 'success');
+                log(`Reconstructed player: ${received.DisplayName} (Level ${received.Level})`, 'success');
+            }, 1000);
+
+            entities.push(player, sword);
+            displayEntity(player, '🌟 Demo Player (Final State)');
+            displayEntity(sword, '🗡️ Legendary Sword');
+            updateStats();
+        }
+
+        // Initialize on page load
+        window.onload = function () {
+            log('<h2>🎮 PowerShell Leafmap Game - Data Models Ready!</h2>', 'success');
+            log('JavaScript data models loaded and ready for testing.', 'info');
+            log('Click the buttons above to run tests and demonstrations.', 'info');
+        };
+    </script>
+</body>
+
+</html>
