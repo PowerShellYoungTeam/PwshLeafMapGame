@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell Leafmap Game - State Management Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #4299e1;
+        }
+
+        .demo-section h2 {
+            color: #2d3748;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        button {
+            background: linear-gradient(45deg, #4299e1, #3182ce);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #3182ce, #2c5282);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .log-container {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+            border: 2px solid #2d3748;
+        }
+
+        .log-entry {
+            margin: 3px 0;
+            padding: 2px 0;
+        }
+
+        .log-success {
+            color: #68d391;
+        }
+
+        .log-error {
+            color: #fc8181;
+        }
+
+        .log-warning {
+            color: #fbd38d;
+        }
+
+        .log-info {
+            color: #63b3ed;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4299e1;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .entity-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .entity-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .entity-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .entity-type {
+            background: #4299e1;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .entity-dirty {
+            background: #f56565;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            margin-left: auto;
+        }
+
+        .entity-property {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .save-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .save-slot {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .save-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .save-name {
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .save-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .save-actions button {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4299e1, #3182ce);
+            transition: width 0.3s ease;
+        }
+
+        .demo-controls {
+            background: #edf2f7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            margin: 15px 0;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .control-group input,
+        .control-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .entity-list {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎮 PowerShell Leafmap Game - State Management Demo</h1>
+
+        <!-- Initialization Section -->
+        <div class="demo-section">
+            <h2><span class="icon">🚀</span> State Manager Initialization</h2>
+            <div class="button-group">
+                <button onclick="initializeStateManager()">Initialize State Manager</button>
+                <button onclick="loadFromLocalStorage()">Load from LocalStorage</button>
+                <button onclick="clearAllData()">Clear All Data</button>
+            </div>
+            <div id="init-status" class="log-container" style="max-height: 100px;"></div>
+        </div>
+
+        <!-- Entity Management Section -->
+        <div class="demo-section">
+            <h2><span class="icon">👥</span> Entity Management</h2>
+            <div class="button-group">
+                <button onclick="createDemoEntities()">Create Demo Entities</button>
+                <button onclick="updateEntityStates()">Update Entity States</button>
+                <button onclick="addRandomEntity()">Add Random Entity</button>
+                <button onclick="simulatePlayerActions()">Simulate Player Actions</button>
+            </div>
+            <div id="entities-container" class="entity-list"></div>
+        </div>
+
+        <!-- Save/Load Section -->
+        <div class="demo-section">
+            <h2><span class="icon">💾</span> Save & Load Operations</h2>
+            <div class="demo-controls">
+                <div class="control-group">
+                    <label for="save-name">Save Name:</label>
+                    <input type="text" id="save-name" value="demo_save" placeholder="Enter save name">
+                </div>
+                <div class="button-group">
+                    <button onclick="saveGameState()">Save Game State</button>
+                    <button onclick="loadGameState()">Load Game State</button>
+                    <button onclick="createQuickSave()">Quick Save</button>
+                    <button onclick="loadQuickSave()">Load Quick Save</button>
+                </div>
+            </div>
+            <div id="save-slots" class="save-slots"></div>
+        </div>
+
+        <!-- Browser-PowerShell Sync Section -->
+        <div class="demo-section">
+            <h2><span class="icon">🔄</span> PowerShell Synchronization</h2>
+            <div class="demo-controls">
+                <div class="control-group">
+                    <label for="sync-mode">Sync Mode:</label>
+                    <select id="sync-mode">
+                        <option value="Merge">Merge</option>
+                        <option value="Overwrite">Overwrite</option>
+                        <option value="Validate">Validate</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button onclick="exportForPowerShell()">Export for PowerShell</button>
+                    <button onclick="simulatePowerShellSync()">Simulate PowerShell Sync</button>
+                    <button onclick="simulateConflictResolution()">Simulate Conflict Resolution</button>
+                    <button onclick="performAutoSync()">Perform Auto Sync</button>
+                </div>
+            </div>
+            <div id="sync-log" class="log-container"></div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="demo-section">
+            <h2><span class="icon">📊</span> Performance Statistics</h2>
+            <div id="stats-grid" class="stats-grid"></div>
+            <div class="button-group">
+                <button onclick="updateStatistics()">Refresh Statistics</button>
+                <button onclick="resetMetrics()">Reset Metrics</button>
+                <button onclick="exportMetrics()">Export Metrics</button>
+            </div>
+        </div>
+
+        <!-- Activity Log -->
+        <div class="demo-section">
+            <h2><span class="icon">📝</span> Activity Log</h2>
+            <div class="button-group">
+                <button onclick="clearLog()">Clear Log</button>
+                <button onclick="downloadLog()">Download Log</button>
+            </div>
+            <div id="activity-log" class="log-container"></div>
+        </div>
+    </div>
+
+    <!-- Include State Manager JavaScript -->
+    <script src="js/stateManager.js"></script>
+
+    <script>
+        // Global state manager instance
+        let stateManager = null;
+        let activityLog = [];
+
+        // Logging functions
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = { timestamp, message, type };
+            activityLog.push(logEntry);
+
+            const logContainer = document.getElementById('activity-log');
+            const logElement = document.createElement('div');
+            logElement.className = `log-entry log-${type}`;
+            logElement.innerHTML = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logElement);
+            logContainer.scrollTop = logContainer.scrollHeight;
+
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        function logToSection(sectionId, message, type = 'info') {
+            const container = document.getElementById(sectionId);
+            const logElement = document.createElement('div');
+            logElement.className = `log-entry log-${type}`;
+            logElement.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            container.appendChild(logElement);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // State Manager Operations
+        function initializeStateManager() {
+            try {
+                stateManager = new StateManager({
+                    autoSyncInterval: 30000,
+                    maxLocalStates: 10,
+                    compressionEnabled: true,
+                    persistToLocalStorage: true,
+                    syncMode: 'Merge',
+                    conflictResolution: 'LastWriteWins',
+                    validationEnabled: true,
+                    performanceMonitoring: true
+                });
+
+                // Set up event listeners
+                stateManager.on('entityRegistered', (data) => {
+                    log(`Entity registered: ${data.entityType} (${data.entityId})`, 'success');
+                    updateEntityDisplay();
+                });
+
+                stateManager.on('entityStateUpdated', (data) => {
+                    log(`Entity updated: ${data.entityId}.${data.property} = ${data.newValue}`, 'info');
+                    updateEntityDisplay();
+                });
+
+                stateManager.on('stateSaved', (data) => {
+                    log(`State saved: ${data.saveName} (${data.saveSize} bytes, ${data.saveTime.toFixed(2)}ms)`, 'success');
+                    updateSaveSlots();
+                });
+
+                stateManager.on('stateLoaded', (data) => {
+                    log(`State loaded: ${data.saveName} (${data.entities} entities, ${data.loadTime.toFixed(2)}ms)`, 'success');
+                    updateEntityDisplay();
+                    updateSaveSlots();
+                });
+
+                stateManager.isInitialized = true;
+                logToSection('init-status', 'State Manager initialized successfully', 'success');
+                log('State Manager initialized with comprehensive configuration', 'success');
+                updateStatistics();
+            }
+            catch (error) {
+                logToSection('init-status', `Initialization failed: ${error.message}`, 'error');
+                log(`Failed to initialize State Manager: ${error.message}`, 'error');
+            }
+        }
+
+        function loadFromLocalStorage() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                stateManager.loadFromLocalStorage();
+                logToSection('init-status', 'Data loaded from LocalStorage', 'success');
+                log('Successfully loaded existing data from localStorage', 'success');
+                updateEntityDisplay();
+                updateSaveSlots();
+                updateStatistics();
+            }
+            catch (error) {
+                logToSection('init-status', `Failed to load from localStorage: ${error.message}`, 'error');
+                log(`Failed to load from localStorage: ${error.message}`, 'error');
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+                localStorage.clear();
+                if (stateManager) {
+                    stateManager.state.trackers.clear();
+                    stateManager.state.current = {};
+                }
+                logToSection('init-status', 'All data cleared', 'warning');
+                log('All localStorage data cleared', 'warning');
+                updateEntityDisplay();
+                updateSaveSlots();
+                updateStatistics();
+            }
+        }
+
+        // Entity Management
+        function createDemoEntities() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                // Create demo players
+                const player1 = {
+                    username: 'DemoPlayer1',
+                    email: 'player1@demo.com',
+                    displayName: 'Demo Player One',
+                    level: 5,
+                    experience: 2500,
+                    location: { name: 'Starter Town', id: 'town_001' },
+                    inventory: ['Health Potion', 'Iron Sword', 'Magic Ring'],
+                    currency: 150,
+                    achievements: [
+                        { id: 'first_kill', name: 'First Kill', earned: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+                        { id: 'level_5', name: 'Level 5 Hero', earned: new Date(Date.now() - 3 * 60 * 60 * 1000) }
+                    ]
+                };
+
+                const player2 = {
+                    username: 'DemoPlayer2',
+                    email: 'player2@demo.com',
+                    displayName: 'Demo Player Two',
+                    level: 3,
+                    experience: 1200,
+                    location: { name: 'Forest Grove', id: 'forest_001' },
+                    inventory: ['Health Potion', 'Wooden Staff'],
+                    currency: 75,
+                    achievements: [
+                        { id: 'first_spell', name: 'First Spell Cast', earned: new Date(Date.now() - 24 * 60 * 60 * 1000) }
+                    ]
+                };
+
+                // Create demo NPCs
+                const npc1 = {
+                    name: 'Village Elder',
+                    npcType: 'Questgiver',
+                    location: { name: 'Starter Town', id: 'town_001' },
+                    dialogue: ['Welcome, young adventurer!', 'I have a quest for you.'],
+                    questOffered: 'gather_herbs',
+                    isAvailable: true
+                };
+
+                const npc2 = {
+                    name: 'Weapon Merchant',
+                    npcType: 'Vendor',
+                    location: { name: 'Starter Town', id: 'town_001' },
+                    inventory: ['Iron Sword', 'Steel Armor', 'Magic Bow'],
+                    currency: 500,
+                    isAvailable: true
+                };
+
+                // Register entities
+                stateManager.registerEntity('player_001', 'Player', player1);
+                stateManager.registerEntity('player_002', 'Player', player2);
+                stateManager.registerEntity('npc_001', 'NPC', npc1);
+                stateManager.registerEntity('npc_002', 'NPC', npc2);
+
+                log('Created 4 demo entities (2 players, 2 NPCs)', 'success');
+                updateEntityDisplay();
+            }
+            catch (error) {
+                log(`Failed to create demo entities: ${error.message}`, 'error');
+            }
+        }
+
+        function updateEntityStates() {
+            if (!stateManager || stateManager.state.trackers.size === 0) {
+                log('No entities to update', 'warning');
+                return;
+            }
+
+            try {
+                // Update player 1
+                if (stateManager.state.trackers.has('player_001')) {
+                    stateManager.updateEntityState('player_001', 'experience', 3000);
+                    stateManager.updateEntityState('player_001', 'level', 6);
+                    stateManager.updateEntityState('player_001', 'currency', 200);
+                    stateManager.updateEntityState('player_001', 'location', { name: "Dragon's Lair", id: 'dungeon_001' });
+                }
+
+                // Update player 2
+                if (stateManager.state.trackers.has('player_002')) {
+                    stateManager.updateEntityState('player_002', 'inventory', ['Health Potion', 'Wooden Staff', 'Magic Scroll']);
+                    stateManager.updateEntityState('player_002', 'currency', 100);
+                }
+
+                // Update NPC
+                if (stateManager.state.trackers.has('npc_001')) {
+                    stateManager.updateEntityState('npc_001', 'isAvailable', false);
+                }
+
+                log('Applied state updates across entities', 'success');
+                updateEntityDisplay();
+            }
+            catch (error) {
+                log(`Failed to update entity states: ${error.message}`, 'error');
+            }
+        }
+
+        function addRandomEntity() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const entityTypes = ['Item', 'Quest', 'Location'];
+                const randomType = entityTypes[Math.floor(Math.random() * entityTypes.length)];
+                const entityId = `${randomType.toLowerCase()}_${Date.now()}`;
+
+                let entityState = {};
+
+                switch (randomType) {
+                    case 'Item':
+                        entityState = {
+                            name: `Random ${randomType} ${Math.floor(Math.random() * 1000)}`,
+                            itemType: 'Misc',
+                            value: Math.floor(Math.random() * 100) + 1,
+                            rarity: ['Common', 'Uncommon', 'Rare', 'Epic'][Math.floor(Math.random() * 4)]
+                        };
+                        break;
+                    case 'Quest':
+                        entityState = {
+                            name: `Quest ${Math.floor(Math.random() * 1000)}`,
+                            description: 'A randomly generated quest',
+                            difficulty: ['Easy', 'Medium', 'Hard'][Math.floor(Math.random() * 3)],
+                            reward: Math.floor(Math.random() * 500) + 50,
+                            isCompleted: false
+                        };
+                        break;
+                    case 'Location':
+                        entityState = {
+                            name: `Location ${Math.floor(Math.random() * 1000)}`,
+                            type: ['Town', 'Dungeon', 'Forest', 'Mountain'][Math.floor(Math.random() * 4)],
+                            dangerLevel: Math.floor(Math.random() * 10) + 1,
+                            isDiscovered: Math.random() > 0.5
+                        };
+                        break;
+                }
+
+                stateManager.registerEntity(entityId, randomType, entityState);
+                log(`Added random ${randomType}: ${entityState.name}`, 'success');
+                updateEntityDisplay();
+            }
+            catch (error) {
+                log(`Failed to add random entity: ${error.message}`, 'error');
+            }
+        }
+
+        function simulatePlayerActions() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const actions = [
+                    () => {
+                        if (stateManager.state.trackers.has('player_001')) {
+                            const currentExp = stateManager.getEntityState('player_001').experience || 0;
+                            stateManager.updateEntityState('player_001', 'experience', currentExp + Math.floor(Math.random() * 500) + 100);
+                            return 'Player 1 gained experience';
+                        }
+                    },
+                    () => {
+                        if (stateManager.state.trackers.has('player_002')) {
+                            const currentCurrency = stateManager.getEntityState('player_002').currency || 0;
+                            stateManager.updateEntityState('player_002', 'currency', currentCurrency + Math.floor(Math.random() * 50) + 10);
+                            return 'Player 2 found gold';
+                        }
+                    },
+                    () => {
+                        const locations = ['Mystic Cave', 'Ancient Ruins', 'Haunted Forest', 'Crystal Lake'];
+                        const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+                        if (stateManager.state.trackers.has('player_001')) {
+                            stateManager.updateEntityState('player_001', 'location', { name: randomLocation, id: `loc_${Date.now()}` });
+                            return `Player 1 traveled to ${randomLocation}`;
+                        }
+                    }
+                ];
+
+                const randomAction = actions[Math.floor(Math.random() * actions.length)];
+                const result = randomAction();
+                if (result) {
+                    log(result, 'info');
+                }
+
+                updateEntityDisplay();
+            }
+            catch (error) {
+                log(`Failed to simulate player actions: ${error.message}`, 'error');
+            }
+        }
+
+        // Save/Load Operations
+        async function saveGameState() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const saveName = document.getElementById('save-name').value || 'demo_save';
+                const additionalData = {
+                    gameMode: 'Adventure',
+                    difficulty: 'Normal',
+                    sessionId: generateGuid()
+                };
+
+                const result = await stateManager.saveGameState(saveName, additionalData);
+                log(`Game saved: ${saveName}`, 'success');
+                updateSaveSlots();
+            }
+            catch (error) {
+                log(`Save failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function loadGameState() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const saveName = document.getElementById('save-name').value || 'demo_save';
+                const result = await stateManager.loadGameState(saveName);
+                log(`Game loaded: ${saveName}`, 'success');
+                updateEntityDisplay();
+                updateStatistics();
+            }
+            catch (error) {
+                log(`Load failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function createQuickSave() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const quickSaveName = `quicksave_${new Date().toISOString().replace(/[:.]/g, '-')}`;
+                await stateManager.saveGameState(quickSaveName, { quickSave: true });
+                log('Quick save created', 'success');
+                updateSaveSlots();
+            }
+            catch (error) {
+                log(`Quick save failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function loadQuickSave() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const saveSlots = stateManager.getSaveSlots();
+                const quickSaves = Object.keys(saveSlots).filter(name => name.startsWith('quicksave_'));
+
+                if (quickSaves.length === 0) {
+                    log('No quick saves found', 'warning');
+                    return;
+                }
+
+                // Load the most recent quick save
+                const latestQuickSave = quickSaves.sort().pop();
+                await stateManager.loadGameState(latestQuickSave);
+                log(`Loaded quick save: ${latestQuickSave}`, 'success');
+                updateEntityDisplay();
+            }
+            catch (error) {
+                log(`Quick load failed: ${error.message}`, 'error');
+            }
+        }
+
+        // PowerShell Synchronization
+        function exportForPowerShell() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const exportData = stateManager.exportForPowerShell();
+                const exportSize = JSON.stringify(exportData).length;
+
+                logToSection('sync-log', `Exported ${exportSize} bytes for PowerShell`, 'success');
+                log(`State exported for PowerShell: ${exportSize} bytes`, 'success');
+
+                // Simulate saving to file or sending to PowerShell
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `powershell_export_${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+
+                log('Export file downloaded', 'info');
+            }
+            catch (error) {
+                logToSection('sync-log', `Export failed: ${error.message}`, 'error');
+                log(`Export failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function simulatePowerShellSync() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                const syncMode = document.getElementById('sync-mode').value;
+                logToSection('sync-log', `Starting PowerShell sync (${syncMode} mode)...`, 'info');
+
+                // Simulate PowerShell response with some modifications
+                const mockPowerShellData = stateManager.exportForPowerShell();
+
+                // Simulate some changes from PowerShell
+                if (mockPowerShellData.entities['player_001']) {
+                    mockPowerShellData.entities['player_001'].state.currency += 50;
+                    mockPowerShellData.entities['player_001'].state.lastModified = new Date();
+                }
+
+                // Add a new entity from PowerShell
+                mockPowerShellData.entities[`powershell_entity_${Date.now()}`] = {
+                    entityType: 'Item',
+                    state: {
+                        name: 'PowerShell Generated Item',
+                        itemType: 'Special',
+                        value: 100,
+                        description: 'An item created by PowerShell backend'
+                    },
+                    lastModified: new Date(),
+                    isDirty: false
+                };
+
+                const result = await stateManager.importFromPowerShell(mockPowerShellData);
+
+                logToSection('sync-log', `Sync completed: ${result.importedEntities} entities processed`, 'success');
+                log('PowerShell sync simulation completed', 'success');
+                updateEntityDisplay();
+                updateStatistics();
+            }
+            catch (error) {
+                logToSection('sync-log', `Sync failed: ${error.message}`, 'error');
+                log(`PowerShell sync failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function simulateConflictResolution() {
+            if (!stateManager || stateManager.state.trackers.size === 0) {
+                log('No entities available for conflict simulation', 'warning');
+                return;
+            }
+
+            try {
+                logToSection('sync-log', 'Simulating conflict resolution...', 'info');
+
+                // Create conflicting state
+                const conflictData = {
+                    version: '1.0.0',
+                    entities: {},
+                    gameState: {},
+                    metadata: {
+                        exportedAt: new Date(),
+                        platform: 'PowerShell'
+                    }
+                };
+
+                // Add conflicting data for existing entities
+                const entityIds = Array.from(stateManager.state.trackers.keys());
+                if (entityIds.length > 0) {
+                    const conflictEntityId = entityIds[0];
+                    const currentState = stateManager.getEntityState(conflictEntityId);
+
+                    conflictData.entities[conflictEntityId] = {
+                        entityType: stateManager.state.trackers.get(conflictEntityId).entityType,
+                        state: {
+                            ...currentState,
+                            currency: (currentState.currency || 0) + 100, // Conflict!
+                            level: (currentState.level || 1) + 1,        // Conflict!
+                            lastConflictResolution: new Date()
+                        },
+                        lastModified: new Date(Date.now() + 5 * 60 * 1000), // Future timestamp
+                        isDirty: true
+                    };
+
+                    await stateManager.importFromPowerShell(conflictData);
+
+                    logToSection('sync-log', 'Conflict resolution completed (LastWriteWins)', 'success');
+                    log('Conflict resolution simulation completed', 'success');
+                    updateEntityDisplay();
+                }
+            }
+            catch (error) {
+                logToSection('sync-log', `Conflict resolution failed: ${error.message}`, 'error');
+                log(`Conflict resolution failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function performAutoSync() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            try {
+                logToSection('sync-log', 'Performing auto-sync...', 'info');
+                await stateManager.performAutoSync();
+                logToSection('sync-log', 'Auto-sync completed', 'success');
+                log('Auto-sync performed', 'success');
+            }
+            catch (error) {
+                logToSection('sync-log', `Auto-sync failed: ${error.message}`, 'error');
+                log(`Auto-sync failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Display Functions
+        function updateEntityDisplay() {
+            if (!stateManager) return;
+
+            const container = document.getElementById('entities-container');
+            container.innerHTML = '';
+
+            stateManager.state.trackers.forEach((tracker, entityId) => {
+                const entityCard = document.createElement('div');
+                entityCard.className = 'entity-card';
+
+                const entityHeader = document.createElement('div');
+                entityHeader.className = 'entity-header';
+
+                const entityType = document.createElement('span');
+                entityType.className = 'entity-type';
+                entityType.textContent = tracker.entityType;
+
+                entityHeader.appendChild(entityType);
+
+                if (tracker.isDirty) {
+                    const dirtyIndicator = document.createElement('span');
+                    dirtyIndicator.className = 'entity-dirty';
+                    dirtyIndicator.textContent = 'DIRTY';
+                    entityHeader.appendChild(dirtyIndicator);
+                }
+
+                entityCard.appendChild(entityHeader);
+
+                // Entity ID
+                const idElement = document.createElement('div');
+                idElement.innerHTML = `<strong>ID:</strong> ${entityId}`;
+                entityCard.appendChild(idElement);
+
+                // Entity properties
+                Object.keys(tracker.currentState).forEach(key => {
+                    const value = tracker.currentState[key];
+                    const propertyElement = document.createElement('div');
+                    propertyElement.className = 'entity-property';
+
+                    let displayValue = value;
+                    if (typeof value === 'object' && value !== null) {
+                        displayValue = JSON.stringify(value);
+                        if (displayValue.length > 50) {
+                            displayValue = displayValue.substring(0, 50) + '...';
+                        }
+                    }
+
+                    propertyElement.innerHTML = `<span><strong>${key}:</strong></span> <span>${displayValue}</span>`;
+                    entityCard.appendChild(propertyElement);
+                });
+
+                // Last modified
+                const lastModified = document.createElement('div');
+                lastModified.style.fontSize = '0.8em';
+                lastModified.style.color = '#718096';
+                lastModified.style.marginTop = '10px';
+                lastModified.textContent = `Modified: ${tracker.lastModified.toLocaleString()}`;
+                entityCard.appendChild(lastModified);
+
+                container.appendChild(entityCard);
+            });
+
+            if (stateManager.state.trackers.size === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #718096;">No entities registered</p>';
+            }
+        }
+
+        function updateSaveSlots() {
+            if (!stateManager) return;
+
+            const container = document.getElementById('save-slots');
+            container.innerHTML = '';
+
+            const saveSlots = stateManager.getSaveSlots();
+            const slotNames = Object.keys(saveSlots);
+
+            if (slotNames.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #718096;">No save files found</p>';
+                return;
+            }
+
+            slotNames.forEach(slotName => {
+                const slot = saveSlots[slotName];
+                const slotCard = document.createElement('div');
+                slotCard.className = 'save-slot';
+
+                const header = document.createElement('div');
+                header.className = 'save-header';
+
+                const name = document.createElement('span');
+                name.className = 'save-name';
+                name.textContent = slotName;
+
+                const actions = document.createElement('div');
+                actions.className = 'save-actions';
+
+                const loadBtn = document.createElement('button');
+                loadBtn.textContent = 'Load';
+                loadBtn.onclick = async () => {
+                    try {
+                        await stateManager.loadGameState(slotName);
+                        log(`Loaded save: ${slotName}`, 'success');
+                        updateEntityDisplay();
+                    } catch (error) {
+                        log(`Failed to load ${slotName}: ${error.message}`, 'error');
+                    }
+                };
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.style.background = '#f56565';
+                deleteBtn.onclick = () => {
+                    if (confirm(`Delete save "${slotName}"?`)) {
+                        stateManager.deleteSave(slotName);
+                        log(`Deleted save: ${slotName}`, 'warning');
+                        updateSaveSlots();
+                    }
+                };
+
+                actions.appendChild(loadBtn);
+                actions.appendChild(deleteBtn);
+
+                header.appendChild(name);
+                header.appendChild(actions);
+
+                slotCard.appendChild(header);
+
+                // Save details
+                const details = document.createElement('div');
+                details.innerHTML = `
+                    <div><strong>Size:</strong> ${(slot.size / 1024).toFixed(2)} KB</div>
+                    <div><strong>Entities:</strong> ${slot.entities}</div>
+                    <div><strong>Created:</strong> ${new Date(slot.created).toLocaleString()}</div>
+                    <div><strong>Modified:</strong> ${new Date(slot.modified).toLocaleString()}</div>
+                `;
+                slotCard.appendChild(details);
+
+                container.appendChild(slotCard);
+            });
+        }
+
+        function updateStatistics() {
+            if (!stateManager) return;
+
+            const stats = stateManager.getStateStatistics();
+            const container = document.getElementById('stats-grid');
+            container.innerHTML = '';
+
+            const statsData = [
+                { label: 'Tracked Entities', value: stats.trackedEntities },
+                { label: 'Dirty Entities', value: stats.dirtyEntities },
+                { label: 'Total Changes', value: stats.totalChanges },
+                { label: 'Save Count', value: stats.performance.saveCount },
+                { label: 'Load Count', value: stats.performance.loadCount },
+                { label: 'Sync Count', value: stats.performance.syncCount },
+                { label: 'Avg Save Time', value: `${stats.performance.averageSaveTime.toFixed(2)}ms` },
+                { label: 'Avg Load Time', value: `${stats.performance.averageLoadTime.toFixed(2)}ms` },
+                { label: 'Total Data Size', value: `${(stats.performance.totalDataSize / 1024).toFixed(2)} KB` },
+                { label: 'Error Count', value: stats.performance.errorCount }
+            ];
+
+            statsData.forEach(stat => {
+                const statCard = document.createElement('div');
+                statCard.className = 'stat-card';
+
+                const value = document.createElement('div');
+                value.className = 'stat-value';
+                value.textContent = stat.value;
+
+                const label = document.createElement('div');
+                label.className = 'stat-label';
+                label.textContent = stat.label;
+
+                statCard.appendChild(value);
+                statCard.appendChild(label);
+                container.appendChild(statCard);
+            });
+        }
+
+        // Utility Functions
+        function clearLog() {
+            document.getElementById('activity-log').innerHTML = '';
+            activityLog = [];
+            log('Activity log cleared', 'info');
+        }
+
+        function downloadLog() {
+            const logData = activityLog.map(entry =>
+                `[${entry.timestamp}] [${entry.type.toUpperCase()}] ${entry.message}`
+            ).join('\n');
+
+            const blob = new Blob([logData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `activity_log_${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            log('Activity log downloaded', 'info');
+        }
+
+        function resetMetrics() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            stateManager.metrics = {
+                saveCount: 0,
+                loadCount: 0,
+                syncCount: 0,
+                averageSaveTime: 0,
+                averageLoadTime: 0,
+                averageSyncTime: 0,
+                totalDataSize: 0,
+                errorCount: 0,
+                lastActivity: new Date()
+            };
+
+            log('Performance metrics reset', 'warning');
+            updateStatistics();
+        }
+
+        function exportMetrics() {
+            if (!stateManager) {
+                log('State Manager not initialized', 'error');
+                return;
+            }
+
+            const stats = stateManager.getStateStatistics();
+            const blob = new Blob([JSON.stringify(stats, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `state_metrics_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            log('Metrics exported', 'info');
+        }
+
+        function generateGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // Initialize on page load
+        window.onload = function () {
+            log('🎮 PowerShell Leafmap Game - State Management Demo Ready!', 'success');
+            log('Click "Initialize State Manager" to begin the demonstration.', 'info');
+        };
+
+        // Auto-update displays every 5 seconds
+        setInterval(() => {
+            if (stateManager && stateManager.isInitialized) {
+                updateStatistics();
+            }
+        }, 5000);
+    </script>
+</body>
+
+</html>

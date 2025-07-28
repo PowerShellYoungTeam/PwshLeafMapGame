@@ -1,0 +1,14 @@
+{
+  "type": "state.saved",
+  "source": "powershell",
+  "timestamp": "2025-07-28T23:01:00.490",
+  "id": "ps_20250728_230100_dca7bdcb",
+  "data": {
+    "SaveFile": ".\\Data\\Saves\\demo_bridge_save.json",
+    "Success": true,
+    "SaveSize": 562,
+    "Timestamp": "2025-07-28T23:01:00.4900835+01:00",
+    "Entities": 2,
+    "SaveTime": 3
+  }
+}
