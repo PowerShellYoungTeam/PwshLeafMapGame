@@ -2,7 +2,31 @@
  * PowerShell Leafmap Game - Command System JavaScript Client
  * Advanced client library for interacting with the command registry and bridge
  */
-
+/**
+ * The `GameCommandClient` class provides an interface for interacting with the command registry
+ * and communication bridge in the PowerShell Leafmap Game. It manages command execution, 
+ * event handling, and connection status with the bridge.
+ *
+ * Main Features:
+ * - Manages connection to the communication bridge.
+ * - Discovers and caches available commands from the registry.
+ * - Tracks command execution statistics.
+ * - Handles reconnection logic and event listeners.
+ *
+ * Properties:
+ * - `bridgeUrl` (string): The URL of the communication bridge.
+ * - `commandCache` (Map): Cache of discovered commands.
+ * - `documentationCache` (Map): Cache of command documentation.
+ * - `stats` (object): Tracks command execution statistics.
+ *
+ * Example Usage:
+ * ```
+ * const client = new GameCommandClient('http://localhost:8082');
+ * await client.checkBridgeConnection();
+ * const commands = await client.discoverCommands();
+ * console.log('Available commands:', commands);
+ * ```
+ */
 class GameCommandClient {
     constructor(bridgeUrl = 'http://localhost:8082') {
         this.bridgeUrl = bridgeUrl.replace(/\/$/, ''); // Remove trailing slash
