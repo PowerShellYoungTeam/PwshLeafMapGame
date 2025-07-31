@@ -1,9 +1,37 @@
 /**
- * State Manager JavaScript Client
- * Browser-side state management and synchronization with PowerShell backend
+ * StateManager Class
+ * 
+ * The StateManager class is responsible for managing application state on the client side.
+ * It provides features for state synchronization with a PowerShell backend, local storage
+ * persistence, conflict resolution, and performance monitoring.
+ * 
+ * Key Features:
+ * - Automatic state synchronization at configurable intervals.
+ * - Local storage support for persisting state across sessions.
+ * - Conflict resolution strategies (e.g., LastWriteWins, Manual).
+ * - Validation and performance tracking for state operations.
+ * 
+ * Integration Patterns:
+ * - The class interacts with local storage to save and load state data.
+ * - It uses a configurable sync mode to merge or overwrite state with the backend.
+ * - Event listeners can be registered to track state changes and synchronization events.
  */
 
 class StateManager {
+    /**
+     * Creates a new instance of the StateManager class.
+     * 
+     * @param {Object} config - Configuration options for the StateManager.
+     * @param {number} [config.autoSyncInterval=30000] - Interval (in ms) for automatic state synchronization.
+     * @param {number} [config.maxLocalStates=10] - Maximum number of local state snapshots to keep.
+     * @param {boolean} [config.compressionEnabled=true] - Whether to enable state compression.
+     * @param {boolean} [config.encryptionEnabled=false] - Whether to enable state encryption.
+     * @param {boolean} [config.persistToLocalStorage=true] - Whether to persist state to local storage.
+     * @param {string} [config.syncMode='Merge'] - Synchronization mode ('Merge', 'Overwrite', 'Validate').
+     * @param {string} [config.conflictResolution='LastWriteWins'] - Conflict resolution strategy.
+     * @param {boolean} [config.validationEnabled=true] - Whether to enable state validation.
+     * @param {boolean} [config.performanceMonitoring=true] - Whether to enable performance monitoring.
+     */
     constructor(config = {}) {
         this.config = {
             autoSyncInterval: 30000, // 30 seconds
