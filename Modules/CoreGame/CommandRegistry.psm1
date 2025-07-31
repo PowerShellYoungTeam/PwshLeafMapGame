@@ -15,7 +15,7 @@
     Author:         Game Development Team
     Creation Date:  [Current Date]
     Purpose:        Centralized command management with enhanced error handling
-    
+
     Features:
     - Dynamic command registration and discovery
     - Advanced parameter validation with custom constraints
@@ -25,7 +25,7 @@
     - Event-driven architecture integration
     - Command caching and optimization
     - Asynchronous command execution support
-    
+
     Dependencies:
     - GameLogging.psm1: Standardized logging system
     - EventSystem.psm1: Event-driven communication (optional)
@@ -89,7 +89,7 @@ function Write-ErrorLog {
 
     $errorData = @{}
     if ($Data) { $errorData = $Data.Clone() }
-    
+
     if ($Exception) {
         $errorData.ExceptionMessage = $Exception.Exception.Message
         $errorData.ExceptionType = $Exception.Exception.GetType().Name
@@ -970,11 +970,15 @@ function New-CommandMiddleware {
 .PARAMETER Configuration
     Custom configuration hashtable for registry settings.
 
-.PARAMETER Verbose
-    Enable verbose logging during initialization.
+.NOTES
+    This function should be called once during application startup.
+    Verbose output is controlled by $VerbosePreference. Set to 'Continue' for detailed logging.
 
 .EXAMPLE
-    Initialize-CommandRegistry -Configuration @{ MaxCacheSize = 1000 } -Verbose
+    Initialize-CommandRegistry -Configuration @{ MaxCacheSize = 1000 }
+
+.EXAMPLE
+    $VerbosePreference = 'Continue'; Initialize-CommandRegistry
 
 .NOTES
     This function should be called once during application startup.
@@ -1011,7 +1015,7 @@ function Initialize-CommandRegistry {
         Write-GameLog -Message "Creating command registry with configuration" -Level Debug -Module "CommandRegistry" -Data $defaultConfig -Verbose:($VerbosePreference -eq 'Continue')
 
         $script:GlobalCommandRegistry = [CommandRegistry]::new($defaultConfig)
-        
+
         Write-GameLog -Message "Command Registry initialized successfully" -Level Info -Module "CommandRegistry" -Data @{
             CacheSize = $defaultConfig.MaxCacheSize
             PerformanceMonitoring = $defaultConfig.EnablePerformanceMonitoring
@@ -1034,7 +1038,7 @@ function Initialize-CommandRegistry {
         }
 
         return $script:GlobalCommandRegistry
-        
+
     } catch {
         Write-ErrorLog -Message "Failed to initialize Command Registry" -Module "CommandRegistry" -Exception $_ -Data @{
             Configuration = $Configuration
@@ -1149,7 +1153,7 @@ function Register-BuiltInCommands {
         } -Verbose:($VerbosePreference -eq 'Continue')
 
     } catch {
-        Write-ErrorLog -Message "Failed to register built-in commands" -Module "CommandRegistry" -Exception $_ 
+        Write-ErrorLog -Message "Failed to register built-in commands" -Module "CommandRegistry" -Exception $_
         throw
     }
 }

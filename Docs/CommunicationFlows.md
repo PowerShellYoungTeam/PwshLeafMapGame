@@ -678,7 +678,7 @@ These communication flow diagrams illustrate the sophisticated interaction patte
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: [Current Date]  
-**Author**: Development Team  
+**Document Version**: 1.0
+**Last Updated**: [Current Date]
+**Author**: Development Team
 **Next Review**: [Review Date]

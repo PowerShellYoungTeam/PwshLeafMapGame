@@ -94,33 +94,33 @@ function Write-GameLog {
     param(
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$Message,
-        
+
         [Parameter(Mandatory = $false)]
         [ValidateSet("Debug", "Info", "Warning", "Error", "Critical")]
         [string]$Level = "Info",
-        
+
         [Parameter(Mandatory = $false)]
         [string]$Module = "Core",
-        
+
         [Parameter(Mandatory = $false)]
         [hashtable]$Data = @{},
-        
+
         [Parameter(Mandatory = $false)]
         [switch]$ToFile,
-        
+
         [Parameter(Mandatory = $false)]
         [switch]$ToConsole,
-        
+
         [Parameter(Mandatory = $false)]
         [System.Exception]$Exception
     )
-    
+
     try {
         # Check if we should log this level
         if ($script:LogLevels[$Level] -lt $script:LoggingConfig.MinimumLevel) {
             return
         }
-        
+
         # Build log entry
         $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
         $logEntry = @{
@@ -132,7 +132,7 @@ function Write-GameLog {
             ThreadId = [System.Threading.Thread]::CurrentThread.ManagedThreadId
             ProcessId = $PID
         }
-        
+
         # Add exception details if provided
         if ($Exception) {
             $logEntry.Exception = @{
@@ -141,33 +141,33 @@ function Write-GameLog {
                 StackTrace = $Exception.StackTrace
             }
         }
-        
+
         # Format message for output
         $formattedMessage = Format-LogMessage -LogEntry $logEntry
-        
+
         # Determine output destinations
         $shouldLogToConsole = $ToConsole -or ($script:LoggingConfig.LogToConsole -and $VerbosePreference -eq 'SilentlyContinue')
         $shouldLogToFile = $ToFile -or $script:LoggingConfig.LogToFile
         $shouldLogVerbose = ($VerbosePreference -ne 'SilentlyContinue') -or $script:LoggingConfig.VerboseLogging
-        
+
         # Console output
         if ($shouldLogToConsole) {
             Write-LogToConsole -Message $formattedMessage -Level $Level
         }
-        
+
         # Verbose output
         if ($shouldLogVerbose) {
             Write-Verbose $formattedMessage
         }
-        
+
         # File output
         if ($shouldLogToFile) {
             Write-LogToFile -LogEntry $logEntry -FormattedMessage $formattedMessage
         }
-        
+
         # Update statistics
         Update-LogStatistics -Level $Level
-        
+
     } catch {
         # Fallback error handling - avoid infinite recursion
         Write-Error "Logging system error: $_"
@@ -185,7 +185,7 @@ function Format-LogMessage {
     param(
         [hashtable]$LogEntry
     )
-    
+
     switch ($script:LoggingConfig.LogFormat) {
         "JSON" {
             return $LogEntry | ConvertTo-Json -Compress
@@ -209,7 +209,7 @@ function Write-LogToConsole {
         [string]$Message,
         [string]$Level
     )
-    
+
     $color = switch ($Level) {
         "Debug" { "Gray" }
         "Info" { "White" }
@@ -218,7 +218,7 @@ function Write-LogToConsole {
         "Critical" { "Magenta" }
         default { "White" }
     }
-    
+
     Write-Host $Message -ForegroundColor $color
 }
 
@@ -231,16 +231,16 @@ function Write-LogToFile {
         [hashtable]$LogEntry,
         [string]$FormattedMessage
     )
-    
+
     try {
         # Check if log rotation is needed
         if ($script:LoggingConfig.EnableRotation) {
             Test-LogRotation
         }
-        
+
         # Write to file
         $FormattedMessage | Add-Content -Path $script:LoggingConfig.LogFilePath -Encoding UTF8
-        
+
     } catch {
         Write-Warning "Failed to write to log file: $_"
     }
@@ -254,19 +254,19 @@ function Test-LogRotation {
     if (-not (Test-Path $script:LoggingConfig.LogFilePath)) {
         return
     }
-    
+
     $fileInfo = Get-Item $script:LoggingConfig.LogFilePath
     $fileSizeMB = $fileInfo.Length / 1MB
-    
+
     if ($fileSizeMB -gt $script:LoggingConfig.MaxLogSizeMB) {
         $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
         $directory = Split-Path $script:LoggingConfig.LogFilePath -Parent
         $filename = Split-Path $script:LoggingConfig.LogFilePath -LeafBase
         $extension = Split-Path $script:LoggingConfig.LogFilePath -Extension
-        
+
         $rotatedName = Join-Path $directory "$filename`_$timestamp$extension"
         Move-Item $script:LoggingConfig.LogFilePath $rotatedName
-        
+
         Write-GameLog -Message "Log rotated to: $rotatedName" -Level Info -Module "Logging"
     }
 }
@@ -277,10 +277,10 @@ function Test-LogRotation {
 #>
 function Update-LogStatistics {
     param([string]$Level)
-    
+
     $script:LogStats.TotalLogs++
     $script:LogStats.LastLogTime = Get-Date
-    
+
     switch ($Level) {
         "Error" { $script:LogStats.ErrorCount++ }
         "Critical" { $script:LogStats.ErrorCount++ }
@@ -312,7 +312,7 @@ function Set-LoggingConfig {
         [Parameter(Mandatory = $true)]
         [hashtable]$Config
     )
-    
+
     foreach ($key in $Config.Keys) {
         if ($script:LoggingConfig.ContainsKey($key)) {
             $script:LoggingConfig[$key] = $Config[$key]
@@ -335,7 +335,7 @@ function Set-LoggingConfig {
 function Get-LoggingInfo {
     [CmdletBinding()]
     param()
-    
+
     return @{
         Configuration = $script:LoggingConfig.Clone()
         Statistics = $script:LogStats.Clone()
@@ -350,11 +350,11 @@ function Get-LoggingInfo {
 function Enable-DebugLogging {
     [CmdletBinding()]
     param()
-    
+
     $script:LoggingConfig.MinimumLevel = $script:LogLevels.Debug
     $script:LoggingConfig.DebugMode = $true
     $script:LoggingConfig.VerboseLogging = $true
-    
+
     Write-GameLog -Message "Debug logging enabled" -Level Info -Module "Logging"
 }
 
@@ -365,11 +365,11 @@ function Enable-DebugLogging {
 function Disable-DebugLogging {
     [CmdletBinding()]
     param()
-    
+
     $script:LoggingConfig.MinimumLevel = $script:LogLevels.Info
     $script:LoggingConfig.DebugMode = $false
     $script:LoggingConfig.VerboseLogging = $false
-    
+
     Write-GameLog -Message "Debug logging disabled" -Level Info -Module "Logging"
 }
 
@@ -382,14 +382,14 @@ function Write-DebugLog {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        
+
         [Parameter(Mandatory = $false)]
         [string]$Module = "Core",
-        
+
         [Parameter(Mandatory = $false)]
         [hashtable]$Data = @{}
     )
-    
+
     Write-GameLog -Message $Message -Level Debug -Module $Module -Data $Data -Verbose
 }
 
@@ -402,17 +402,17 @@ function Write-ErrorLog {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Message,
-        
+
         [Parameter(Mandatory = $false)]
         [string]$Module = "Core",
-        
+
         [Parameter(Mandatory = $false)]
         [System.Exception]$Exception,
-        
+
         [Parameter(Mandatory = $false)]
         [hashtable]$Data = @{}
     )
-    
+
     Write-GameLog -Message $Message -Level Error -Module $Module -Exception $Exception -Data $Data -ToConsole -ToFile
 }
 

@@ -322,7 +322,7 @@ Entities follow a consistent structure:
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: [Current Date]  
-**Author**: Development Team  
+**Document Version**: 1.0
+**Last Updated**: [Current Date]
+**Author**: Development Team
 **Next Review**: [Review Date]

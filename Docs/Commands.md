@@ -146,7 +146,7 @@ Invoke-GameCommand -CommandName "registry.getPerformanceMetrics" -Parameters @{ 
 Invoke-GameCommand -CommandName "player.create" -Parameters @{ Name = "John" }
 
 # Create a player with specific settings
-Invoke-GameCommand -CommandName "player.create" -Parameters @{ 
+Invoke-GameCommand -CommandName "player.create" -Parameters @{
     Name = "Jane"
     StartingLocation = "city_center"
     CharacterClass = "warrior"
@@ -167,13 +167,13 @@ Invoke-GameCommand -CommandName "player.create" -Parameters @{
 **Examples**:
 ```powershell
 # Move player north
-Invoke-GameCommand -CommandName "player.move" -Parameters @{ 
+Invoke-GameCommand -CommandName "player.move" -Parameters @{
     PlayerId = "player123"
     Direction = "north"
 }
 
 # Move to specific location
-Invoke-GameCommand -CommandName "player.move" -Parameters @{ 
+Invoke-GameCommand -CommandName "player.move" -Parameters @{
     PlayerId = "player123"
     LocationId = "location456"
 }
@@ -195,7 +195,7 @@ Invoke-GameCommand -CommandName "player.move" -Parameters @{
 Invoke-GameCommand -CommandName "player.getInfo" -Parameters @{ PlayerId = "player123" }
 
 # Get player info without inventory
-Invoke-GameCommand -CommandName "player.getInfo" -Parameters @{ 
+Invoke-GameCommand -CommandName "player.getInfo" -Parameters @{
     PlayerId = "player123"
     IncludeInventory = $false
 }
@@ -219,7 +219,7 @@ Invoke-GameCommand -CommandName "player.getInfo" -Parameters @{
 Invoke-GameCommand -CommandName "world.getLocation" -Parameters @{ LocationId = "location123" }
 
 # Get location with nearby areas
-Invoke-GameCommand -CommandName "world.getLocation" -Parameters @{ 
+Invoke-GameCommand -CommandName "world.getLocation" -Parameters @{
     LocationId = "location123"
     IncludeNearby = $true
     Radius = 2.5
@@ -240,14 +240,14 @@ Invoke-GameCommand -CommandName "world.getLocation" -Parameters @{
 **Examples**:
 ```powershell
 # Find nearby locations
-Invoke-GameCommand -CommandName "world.findNearby" -Parameters @{ 
+Invoke-GameCommand -CommandName "world.findNearby" -Parameters @{
     Latitude = 40.7128
     Longitude = -74.0060
     Radius = 5.0
 }
 
 # Find specific type of locations
-Invoke-GameCommand -CommandName "world.findNearby" -Parameters @{ 
+Invoke-GameCommand -CommandName "world.findNearby" -Parameters @{
     Latitude = 40.7128
     Longitude = -74.0060
     LocationType = "shop"
@@ -272,7 +272,7 @@ Invoke-GameCommand -CommandName "world.findNearby" -Parameters @{
 Invoke-GameCommand -CommandName "world.generateLocations" -Parameters @{ Count = 20 }
 
 # Generate shops near specific coordinates
-Invoke-GameCommand -CommandName "world.generateLocations" -Parameters @{ 
+Invoke-GameCommand -CommandName "world.generateLocations" -Parameters @{
     Count = 5
     LocationType = "shop"
     CenterLatitude = 40.7128
@@ -298,7 +298,7 @@ Invoke-GameCommand -CommandName "world.generateLocations" -Parameters @{
 **Examples**:
 ```powershell
 # Create a simple quest
-Invoke-GameCommand -CommandName "quest.create" -Parameters @{ 
+Invoke-GameCommand -CommandName "quest.create" -Parameters @{
     Title = "Explore the Forest"
     Description = "Discover hidden locations in the mystical forest"
     Objectives = @("Visit 3 forest locations", "Find the hidden grove")
@@ -322,7 +322,7 @@ Invoke-GameCommand -CommandName "quest.create" -Parameters @{
 Invoke-GameCommand -CommandName "quest.getAvailable" -Parameters @{ PlayerId = "player123" }
 
 # Get easy quests only
-Invoke-GameCommand -CommandName "quest.getAvailable" -Parameters @{ 
+Invoke-GameCommand -CommandName "quest.getAvailable" -Parameters @{
     PlayerId = "player123"
     Difficulty = "easy"
 }
@@ -339,7 +339,7 @@ Invoke-GameCommand -CommandName "quest.getAvailable" -Parameters @{
 
 **Examples**:
 ```powershell
-Invoke-GameCommand -CommandName "quest.accept" -Parameters @{ 
+Invoke-GameCommand -CommandName "quest.accept" -Parameters @{
     PlayerId = "player123"
     QuestId = "quest456"
 }
@@ -359,14 +359,14 @@ Invoke-GameCommand -CommandName "quest.accept" -Parameters @{
 **Examples**:
 ```powershell
 # Mark first objective as complete
-Invoke-GameCommand -CommandName "quest.updateProgress" -Parameters @{ 
+Invoke-GameCommand -CommandName "quest.updateProgress" -Parameters @{
     PlayerId = "player123"
     QuestId = "quest456"
     ObjectiveIndex = 0
 }
 
 # Partial progress on an objective
-Invoke-GameCommand -CommandName "quest.updateProgress" -Parameters @{ 
+Invoke-GameCommand -CommandName "quest.updateProgress" -Parameters @{
     PlayerId = "player123"
     QuestId = "quest456"
     ObjectiveIndex = 1
@@ -393,7 +393,7 @@ Invoke-GameCommand -CommandName "quest.updateProgress" -Parameters @{
 Invoke-GameCommand -CommandName "shop.getItems" -Parameters @{ ShopId = "shop123" }
 
 # Get weapons under 100 gold
-Invoke-GameCommand -CommandName "shop.getItems" -Parameters @{ 
+Invoke-GameCommand -CommandName "shop.getItems" -Parameters @{
     ShopId = "shop123"
     Category = "weapon"
     MaxPrice = 100
@@ -414,14 +414,14 @@ Invoke-GameCommand -CommandName "shop.getItems" -Parameters @{
 **Examples**:
 ```powershell
 # Purchase single item
-Invoke-GameCommand -CommandName "shop.purchase" -Parameters @{ 
+Invoke-GameCommand -CommandName "shop.purchase" -Parameters @{
     PlayerId = "player123"
     ShopId = "shop123"
     ItemId = "item456"
 }
 
 # Purchase multiple items
-Invoke-GameCommand -CommandName "shop.purchase" -Parameters @{ 
+Invoke-GameCommand -CommandName "shop.purchase" -Parameters @{
     PlayerId = "player123"
     ShopId = "shop123"
     ItemId = "item789"
@@ -443,7 +443,7 @@ Invoke-GameCommand -CommandName "shop.purchase" -Parameters @{
 **Examples**:
 ```powershell
 # Sell single item
-Invoke-GameCommand -CommandName "shop.sell" -Parameters @{ 
+Invoke-GameCommand -CommandName "shop.sell" -Parameters @{
     PlayerId = "player123"
     ShopId = "shop123"
     ItemId = "item456"
@@ -468,7 +468,7 @@ Invoke-GameCommand -CommandName "shop.sell" -Parameters @{
 Invoke-GameCommand -CommandName "inventory.getItems" -Parameters @{ PlayerId = "player123" }
 
 # Get weapons sorted by value
-Invoke-GameCommand -CommandName "inventory.getItems" -Parameters @{ 
+Invoke-GameCommand -CommandName "inventory.getItems" -Parameters @{
     PlayerId = "player123"
     Category = "weapon"
     SortBy = "value"
@@ -488,13 +488,13 @@ Invoke-GameCommand -CommandName "inventory.getItems" -Parameters @{
 **Examples**:
 ```powershell
 # Use a consumable item
-Invoke-GameCommand -CommandName "inventory.useItem" -Parameters @{ 
+Invoke-GameCommand -CommandName "inventory.useItem" -Parameters @{
     PlayerId = "player123"
     ItemId = "potion456"
 }
 
 # Use item on target
-Invoke-GameCommand -CommandName "inventory.useItem" -Parameters @{ 
+Invoke-GameCommand -CommandName "inventory.useItem" -Parameters @{
     PlayerId = "player123"
     ItemId = "key789"
     TargetId = "door123"
@@ -519,7 +519,7 @@ Invoke-GameCommand -CommandName "inventory.useItem" -Parameters @{
 Invoke-GameCommand -CommandName "admin.resetPlayer" -Parameters @{ PlayerId = "player123" }
 
 # Reset but keep inventory
-Invoke-GameCommand -CommandName "admin.resetPlayer" -Parameters @{ 
+Invoke-GameCommand -CommandName "admin.resetPlayer" -Parameters @{
     PlayerId = "player123"
     KeepInventory = $true
 }
@@ -538,7 +538,7 @@ Invoke-GameCommand -CommandName "admin.resetPlayer" -Parameters @{
 **Examples**:
 ```powershell
 # Generate player activity report
-Invoke-GameCommand -CommandName "admin.generateReport" -Parameters @{ 
+Invoke-GameCommand -CommandName "admin.generateReport" -Parameters @{
     ReportType = "player"
     TimeRange = "24h"
     Format = "HTML"
@@ -557,13 +557,13 @@ Invoke-GameCommand -CommandName "admin.generateReport" -Parameters @{
 **Examples**:
 ```powershell
 # Clean up old log files
-Invoke-GameCommand -CommandName "admin.maintenance" -Parameters @{ 
+Invoke-GameCommand -CommandName "admin.maintenance" -Parameters @{
     Operation = "cleanup"
     Scope = "logs"
 }
 
 # Optimize system cache
-Invoke-GameCommand -CommandName "admin.maintenance" -Parameters @{ 
+Invoke-GameCommand -CommandName "admin.maintenance" -Parameters @{
     Operation = "optimize"
     Scope = "cache"
 }
@@ -615,7 +615,7 @@ All commands may return error responses in the following format:
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: [Current Date]  
-**Author**: Development Team  
+**Document Version**: 1.0
+**Last Updated**: [Current Date]
+**Author**: Development Team
 **Next Review**: [Review Date]

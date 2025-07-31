@@ -11,7 +11,7 @@
     Author: PowerShell Leafmap Game Development Team
     Version: 2.0.0
     Created: July 31, 2025
-    
+
     Features:
     - Bidirectional PowerShell-JavaScript communication
     - Priority-based event handling
@@ -76,11 +76,14 @@ $script:EventMetrics = @{
 .PARAMETER Config
     Optional configuration hashtable to override default settings.
 
-.PARAMETER Verbose
-    Enable verbose logging during initialization.
+.NOTES
+    Verbose output is controlled by $VerbosePreference. Set to 'Continue' for detailed logging.
 
 .EXAMPLE
-    Initialize-EventSystem -GamePath "C:\Game" -Verbose
+    Initialize-EventSystem -GamePath "C:\Game"
+
+.EXAMPLE
+    $VerbosePreference = 'Continue'; Initialize-EventSystem -GamePath "C:\Game"
 
 .EXAMPLE
     Initialize-EventSystem -Config @{ MaxEventLogSize = 5000; EnablePersistence = $false }
@@ -93,7 +96,7 @@ function Initialize-EventSystem {
     param(
         [Parameter(Mandatory = $false)]
         [string]$GamePath = (Get-Location).Path,
-        
+
         [Parameter(Mandatory = $false)]
         [hashtable]$Config = @{}
     )
@@ -119,14 +122,14 @@ function Initialize-EventSystem {
             try {
                 $loadedEvents = Get-Content $script:EventConfig.EventLogFile -Raw | ConvertFrom-Json
                 $script:EventLog = $loadedEvents
-                
+
                 Write-GameLog -Message "Loaded existing event log with $($script:EventLog.Count) events" -Level Info -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
-                
+
                 # Clean up old events if retention is configured
                 if ($script:EventConfig.EventRetentionDays -gt 0) {
                     Clear-OldEvents
                 }
-                
+
             } catch {
                 Write-ErrorLog -Message "Could not load existing event log" -Module "EventSystem" -Exception $_ -Data @{ FilePath = $script:EventConfig.EventLogFile }
                 $script:EventLog = @()
@@ -138,7 +141,7 @@ function Initialize-EventSystem {
 
         # Initialize performance monitoring
         $script:EventMetrics.LastProcessingTime = Get-Date
-        
+
         Write-GameLog -Message "Event system initialized successfully" -Level Info -Module "EventSystem" -Data @{
             GamePath = $GamePath
             HandlersRegistered = $script:EventHandlers.Count
@@ -169,19 +172,19 @@ function Initialize-EventSystem {
 function Clear-OldEvents {
     [CmdletBinding()]
     param()
-    
+
     if ($script:EventConfig.EventRetentionDays -le 0) {
         return
     }
-    
+
     $cutoffDate = (Get-Date).AddDays(-$script:EventConfig.EventRetentionDays)
     $originalCount = $script:EventLog.Count
-    
+
     $script:EventLog = $script:EventLog | Where-Object {
         $eventDate = [DateTime]::Parse($_.Timestamp)
         $eventDate -gt $cutoffDate
     }
-    
+
     $removedCount = $originalCount - $script:EventLog.Count
     if ($removedCount -gt 0) {
         Write-GameLog -Message "Cleaned up $removedCount old events (older than $($script:EventConfig.EventRetentionDays) days)" -Level Info -Module "EventSystem"
@@ -208,8 +211,8 @@ function Clear-OldEvents {
 .PARAMETER Priority
     Priority level for handler execution (higher numbers execute first).
 
-.PARAMETER Verbose
-    Enable verbose logging for handler registration.
+.NOTES
+    Verbose output is controlled by $VerbosePreference. Set to 'Continue' for detailed logging.
 
 .EXAMPLE
     Register-GameEvent -EventType "player.connected" -ScriptBlock { param($Data) Write-Host "Player: $($Data.Name)" }
@@ -280,14 +283,19 @@ function Register-GameEvent {
 .PARAMETER Deduplicate
     Whether to check for and prevent duplicate events.
 
-.PARAMETER Verbose
-    Enable verbose logging for this event.
+.NOTES
+    Verbose output is controlled by $VerbosePreference. Set to 'Continue' for detailed logging.
+    Events can be deduplicated based on EventType and Data content to prevent spam.
+    Priority affects execution order: High > Normal > Low.
 
 .EXAMPLE
     Send-GameEvent -EventType "player.connected" -Data @{ PlayerId = "123"; Name = "John" }
 
 .EXAMPLE
-    Send-GameEvent -EventType "error.critical" -Data @{ Message = "Database error" } -Priority High -Verbose
+    Send-GameEvent -EventType "error.critical" -Data @{ Message = "Database error" } -Priority High
+
+.EXAMPLE
+    $VerbosePreference = 'Continue'; Send-GameEvent -EventType "debug.info" -Data @{ Component = "AI" } -Deduplicate
 
 .NOTES
     Events are automatically queued for JavaScript consumption and logged for auditing.
@@ -383,7 +391,7 @@ function Send-GameEvent {
             Source = $Source
             DataProvided = $null -ne $Data
         }
-        
+
         $script:EventMetrics.ErrorCount++
         throw
     }
@@ -422,7 +430,7 @@ function Process-JavaScriptCommands {
 
             # Clear processed commands
             @() | ConvertTo-Json | Set-Content $script:EventConfig.CommandQueueFile
-            
+
             Write-GameLog -Message "Cleared processed commands from queue" -Level Debug -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
         } else {
             Write-GameLog -Message "No commands to process" -Level Debug -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
@@ -457,7 +465,7 @@ function Process-JavaScriptCommand {
     )
 
     $startTime = Get-Date
-    
+
     Write-GameLog -Message "Processing command: $($Command.type)" -Level Info -Module "EventSystem" -Data @{
         CommandId = $Command.id
         CommandType = $Command.type
@@ -521,7 +529,7 @@ function Process-JavaScriptCommand {
                     CommandId = $Command.id
                     CommandType = $Command.type
                 } -Verbose:($VerbosePreference -eq 'Continue')
-                
+
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
                     commandId = $Command.id
                     commandType = $Command.type
@@ -579,10 +587,10 @@ function Invoke-EventHandlers {
 
     # Get direct handlers
     $handlers = $script:EventHandlers[$Event.type]
-    
+
     # Get wildcard handlers
     $wildcardHandlers = Get-WildcardHandlers -EventType $Event.type
-    
+
     # Combine all handlers
     $allHandlers = @()
     if ($handlers) { $allHandlers += $handlers }
@@ -598,9 +606,9 @@ function Invoke-EventHandlers {
     foreach ($handler in $allHandlers) {
         try {
             $startTime = Get-Date
-            
+
             Write-GameLog -Message "Executing handler $($handler.Id) for event: $($Event.type)" -Level Debug -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
-            
+
             & $handler.ScriptBlock $Event.data $Event
 
             $executionTime = (Get-Date) - $startTime
@@ -787,10 +795,10 @@ function Test-DuplicateEvent {
     }
 
     $cutoffTime = (Get-Date).AddMinutes(-$script:EventConfig.DeduplicationWindowMinutes)
-    $recentEvents = $script:EventLog | Where-Object { 
-        [DateTime]$_.timestamp -gt $cutoffTime -and 
-        $_.type -eq $Event.type -and 
-        $_.source -eq $Event.source 
+    $recentEvents = $script:EventLog | Where-Object {
+        [DateTime]$_.timestamp -gt $cutoffTime -and
+        $_.type -eq $Event.type -and
+        $_.source -eq $Event.source
     }
 
     foreach ($recentEvent in $recentEvents) {
@@ -818,7 +826,7 @@ function Get-WildcardHandlers {
     )
 
     $matchingHandlers = @()
-    
+
     foreach ($handlerType in $script:EventHandlers.Keys) {
         if ($handlerType -like "*.*" -and $EventType -like $handlerType) {
             $matchingHandlers += $script:EventHandlers[$handlerType]
@@ -853,7 +861,7 @@ function Update-EventProcessingMetrics {
     }
 
     $processingTimeMs = $ProcessingTime.TotalMilliseconds
-    
+
     # Update average processing time
     if ($script:EventMetrics.TotalEvents -gt 0) {
         $script:EventMetrics.AverageProcessingTimeMs = (
@@ -896,7 +904,7 @@ function Write-ErrorLog {
     )
 
     $errorData = $Data.Clone()
-    
+
     if ($Exception) {
         $errorData.ExceptionMessage = $Exception.Exception.Message
         $errorData.ExceptionType = $Exception.Exception.GetType().Name
