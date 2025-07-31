@@ -1,10 +1,10 @@
 [
   {
-    "id": "ps_20250801_002836_0ad3c7d0",
+    "id": "ps_20250801_003739_aa415b26",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.registered",
-    "timestamp": "2025-08-01T00:28:36.379",
+    "timestamp": "2025-08-01T00:37:39.153",
     "data": {
       "Module": "test",
       "Description": "Test command for state updates",
@@ -12,63 +12,63 @@
     }
   },
   {
-    "id": "ps_20250801_002836_7a7208f8",
+    "id": "ps_20250801_003739_676a80fd",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandRegistered",
-    "timestamp": "2025-08-01T00:28:36.381",
+    "timestamp": "2025-08-01T00:37:39.154",
     "data": {
       "CommandName": "test.updateState",
-      "RegistrationTime": "2025-08-01T00:28:36.3809518+01:00",
+      "RegistrationTime": "2025-08-01T00:37:39.1543466+01:00",
       "Category": null,
       "Module": "test"
     }
   },
   {
-    "id": "ps_20250801_002836_c7363380",
+    "id": "ps_20250801_003739_143b9112",
     "priority": "Normal",
     "source": "powershell",
     "type": "state.changed",
-    "timestamp": "2025-08-01T00:28:36.386",
+    "timestamp": "2025-08-01T00:37:39.158",
     "data": {
-      "timestamp": "2025-08-01T00:28:36.3864423+01:00",
+      "timestamp": "2025-08-01T00:37:39.1583299+01:00",
       "changeType": "update",
       "entityId": "test-entity-123"
     }
   },
   {
-    "id": "ps_20250801_002836_2d2f97bd",
+    "id": "ps_20250801_003739_d6c2c046",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:36.390",
+    "timestamp": "2025-08-01T00:37:39.164",
     "data": {
       "Success": true,
-      "ExecutionTime": 5.0854,
-      "ExecutionId": "ed8cd277-dbf1-49dd-a61e-a7a5f5dbf845",
+      "ExecutionTime": 6.239,
+      "ExecutionId": "19490904-d491-4aaf-8ba4-bf5fd9ee0798",
       "Command": "test.updateState"
     }
   },
   {
-    "id": "ps_20250801_002836_525a5904",
+    "id": "ps_20250801_003739_122f2a1f",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:28:36.393",
+    "timestamp": "2025-08-01T00:37:39.166",
     "data": {
-      "ExecutionTimeMs": 8.2627,
+      "ExecutionTimeMs": 9.0065,
       "CommandName": "test.updateState",
       "Success": true,
-      "ExecutionTime": "2025-08-01T00:28:36.3929494+01:00",
-      "ExecutionId": "2f77b504"
+      "ExecutionTime": "2025-08-01T00:37:39.1662946+01:00",
+      "ExecutionId": "d38cdd87"
     }
   },
   {
-    "id": "ps_20250801_002836_4e1569a8",
+    "id": "ps_20250801_003739_144d06d4",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.registered",
-    "timestamp": "2025-08-01T00:28:36.482",
+    "timestamp": "2025-08-01T00:37:39.242",
     "data": {
       "Module": "test",
       "Description": "Command that intentionally throws an error",
@@ -76,190 +76,190 @@
     }
   },
   {
-    "id": "ps_20250801_002836_d61de466",
+    "id": "ps_20250801_003739_19bbbd1f",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandRegistered",
-    "timestamp": "2025-08-01T00:28:36.483",
+    "timestamp": "2025-08-01T00:37:39.243",
     "data": {
       "CommandName": "test.errorCommand",
-      "RegistrationTime": "2025-08-01T00:28:36.4836834+01:00",
+      "RegistrationTime": "2025-08-01T00:37:39.2434871+01:00",
       "Category": null,
       "Module": "test"
     }
   },
   {
-    "id": "ps_20250801_002836_eb21b435",
+    "id": "ps_20250801_003739_88e42d90",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.error",
-    "timestamp": "2025-08-01T00:28:36.492",
+    "timestamp": "2025-08-01T00:37:39.247",
     "data": {
-      "ExecutionTime": 3.2514,
+      "ExecutionTime": 0.3703,
       "Error": "Intentional test error",
-      "ExecutionId": "e0e5fd10-ba47-45c3-8b6e-38bd1a045c93",
+      "ExecutionId": "084a19b6-c480-4141-8024-2ba88cd8393c",
       "Command": "test.errorCommand"
     }
   },
   {
-    "id": "ps_20250801_002836_86766345",
+    "id": "ps_20250801_003739_3ff56d86",
     "priority": "High",
     "source": "CommandRegistry",
     "type": "system.commandExecutionFailed",
-    "timestamp": "2025-08-01T00:28:36.496",
+    "timestamp": "2025-08-01T00:37:39.252",
     "data": {
-      "ExecutionTimeMs": 7.1244,
+      "ExecutionTimeMs": 3.0574,
       "CommandName": "test.errorCommand",
-      "ExecutionTime": "2025-08-01T00:28:36.4959896+01:00",
+      "ExecutionTime": "2025-08-01T00:37:39.2524548+01:00",
       "Error": "Intentional test error",
-      "ExecutionId": "7c9f9db3"
+      "ExecutionId": "561eb816"
     }
   },
   {
-    "id": "ps_20250801_002836_33dcb67b",
+    "id": "ps_20250801_003739_286a925f",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:36.500",
+    "timestamp": "2025-08-01T00:37:39.256",
     "data": {
       "Success": true,
-      "ExecutionTime": 0.5352,
-      "ExecutionId": "1622501c-8164-42f4-9bd5-e6d6a6cfaa95",
+      "ExecutionTime": 0.2019,
+      "ExecutionId": "70792fbe-9d7c-443f-b0a2-37f91008cda7",
       "Command": "registry.listCommands"
     }
   },
   {
-    "id": "ps_20250801_002836_9f614c32",
+    "id": "ps_20250801_003739_420fc72b",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:28:36.507",
+    "timestamp": "2025-08-01T00:37:39.259",
     "data": {
-      "ExecutionTimeMs": 7.5853,
+      "ExecutionTimeMs": 3.0934,
       "CommandName": "registry.listCommands",
       "Success": true,
-      "ExecutionTime": "2025-08-01T00:28:36.5072007+01:00",
-      "ExecutionId": "8f72b9a1"
+      "ExecutionTime": "2025-08-01T00:37:39.259321+01:00",
+      "ExecutionId": "fb7ad3d0"
     }
   },
   {
-    "id": "ps_20250801_002836_cf08cfb7",
+    "id": "ps_20250801_003739_5d11dcd7",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:36.620",
+    "timestamp": "2025-08-01T00:37:39.375",
     "data": {
       "Success": true,
-      "ExecutionTime": 0.2737,
-      "ExecutionId": "ea2d3864-5ccc-47ad-a4e7-215b115a960b",
+      "ExecutionTime": 0.2444,
+      "ExecutionId": "51be9fa5-02a2-4f9b-874c-7929af4883ff",
       "Command": "registry.listCommands"
     }
   },
   {
-    "id": "ps_20250801_002836_3f98f538",
+    "id": "ps_20250801_003739_5f3f0176",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:28:36.622",
+    "timestamp": "2025-08-01T00:37:39.377",
     "data": {
-      "ExecutionTimeMs": 3.1077,
+      "ExecutionTimeMs": 2.9553,
       "CommandName": "registry.listCommands",
       "Success": true,
-      "ExecutionTime": "2025-08-01T00:28:36.6222429+01:00",
-      "ExecutionId": "bdf2401d"
+      "ExecutionTime": "2025-08-01T00:37:39.3772941+01:00",
+      "ExecutionId": "489b9360"
     }
   },
   {
-    "id": "ps_20250801_002836_103720a8",
+    "id": "ps_20250801_003739_312cd0d2",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:36.726",
+    "timestamp": "2025-08-01T00:37:39.498",
     "data": {
       "Success": true,
-      "ExecutionTime": 0.2338,
-      "ExecutionId": "960c4ac7-2d48-4da3-a690-8d6bc59ecc7c",
+      "ExecutionTime": 0.2055,
+      "ExecutionId": "ba4362ae-f159-4dd9-bbad-0e3dec1e8404",
       "Command": "registry.listCommands"
     }
   },
   {
-    "id": "ps_20250801_002836_f7f864c9",
+    "id": "ps_20250801_003739_416d256d",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:28:36.733",
+    "timestamp": "2025-08-01T00:37:39.502",
     "data": {
-      "ExecutionTimeMs": 3.3696,
+      "ExecutionTimeMs": 4.4071,
       "CommandName": "registry.listCommands",
       "Success": true,
-      "ExecutionTime": "2025-08-01T00:28:36.7293447+01:00",
-      "ExecutionId": "93172a78"
+      "ExecutionTime": "2025-08-01T00:37:39.502326+01:00",
+      "ExecutionId": "1463c9ed"
     }
   },
   {
-    "id": "ps_20250801_002836_a17c6c33",
+    "id": "ps_20250801_003739_67810e6f",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:36.849",
+    "timestamp": "2025-08-01T00:37:39.621",
     "data": {
       "Success": true,
-      "ExecutionTime": 0.2123,
-      "ExecutionId": "77e18a98-494c-47e0-bf00-aafd6ea4fe7e",
+      "ExecutionTime": 0.2191,
+      "ExecutionId": "83cffc64-2a67-45fe-88d8-a4ac8c48b804",
       "Command": "registry.listCommands"
     }
   },
   {
-    "id": "ps_20250801_002836_9a72a770",
+    "id": "ps_20250801_003739_cddd1fec",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:28:36.855",
+    "timestamp": "2025-08-01T00:37:39.623",
     "data": {
-      "ExecutionTimeMs": 6.9245,
+      "ExecutionTimeMs": 2.7398,
       "CommandName": "registry.listCommands",
       "Success": true,
-      "ExecutionTime": "2025-08-01T00:28:36.8554054+01:00",
-      "ExecutionId": "d6d41f83"
+      "ExecutionTime": "2025-08-01T00:37:39.6232161+01:00",
+      "ExecutionId": "fb23a660"
     }
   },
   {
-    "id": "ps_20250801_002836_41c5a0d7",
+    "id": "ps_20250801_003739_25f19d01",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:36.971",
+    "timestamp": "2025-08-01T00:37:39.728",
     "data": {
       "Success": true,
-      "ExecutionTime": 0.2198,
-      "ExecutionId": "b9203442-d768-4dc4-8aee-dae5ec292c31",
+      "ExecutionTime": 0.2079,
+      "ExecutionId": "cc866787-b020-45c2-9f22-014b616723ed",
       "Command": "registry.listCommands"
     }
   },
   {
-    "id": "ps_20250801_002836_677fedf1",
+    "id": "ps_20250801_003739_ac2788e2",
     "priority": "Normal",
     "source": "CommandRegistry",
     "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:28:36.974",
+    "timestamp": "2025-08-01T00:37:39.730",
     "data": {
-      "ExecutionTimeMs": 2.8587,
+      "ExecutionTimeMs": 2.6571,
       "CommandName": "registry.listCommands",
       "Success": true,
-      "ExecutionTime": "2025-08-01T00:28:36.974001+01:00",
-      "ExecutionId": "0c516901"
+      "ExecutionTime": "2025-08-01T00:37:39.7304159+01:00",
+      "ExecutionId": "cb8a5108"
     }
   },
   {
-    "id": "ps_20250801_002837_758dc0f5",
+    "id": "ps_20250801_003739_f5cd7892",
     "priority": "Normal",
     "source": "powershell",
     "type": "command.executed",
-    "timestamp": "2025-08-01T00:28:37.095",
+    "timestamp": "2025-08-01T00:37:39.836",
     "data": {
       "Success": true,
-      "ExecutionTime": 0.1098,
-      "ExecutionId": "c71d83ef-d589-4f40-9693-9bf716425166",
+      "ExecutionTime": 0.1063,
+      "ExecutionId": "eeca4bed-1612-4e9b-92fc-511f5392aeea",
       "Command": "registry.getStatistics"
     }
   }

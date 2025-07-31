@@ -367,3 +367,101 @@
 [2025-08-01 00:28:37.097] [Info] [CommandRegistry] Command executed successfully: registry.getStatistics
 [2025-08-01 00:28:37.099] [Info] [CommandRegistry] Executing command: registry.getPerformanceMetrics
 [2025-08-01 00:28:37.105] [Error] [CommandRegistry] Failed to execute command: registry.getPerformanceMetrics
+[2025-08-01 00:34:43.015] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:34:43.019] [Info] [TestModule] Test log message
+[2025-08-01 00:34:43.021] [Warning] [TestModule] Warning message
+[2025-08-01 00:34:43.033] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:34:43.043] [Info] [EventSystem] Initializing PowerShell Event System...
+[2025-08-01 00:34:43.050] [Info] [EventSystem] Event system initialized successfully
+[2025-08-01 00:34:43.089] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:34:43.092] [Info] [CommandRegistry] Initializing Command Registry system...
+[2025-08-01 00:34:43.116] [Info] [CommandRegistry] Command Registry initialized successfully
+[2025-08-01 00:34:43.118] [Info] [CommandRegistry] Registering built-in commands...
+[2025-08-01 00:34:43.170] [Info] [CommandRegistry] Built-in commands registered successfully
+[2025-08-01 00:34:43.173] [Warning] [CommandRegistry] Failed to send initialization event
+[2025-08-01 00:34:43.176] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:34:43.213] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:34:43.215] [Info] [CommandRegistry] Executing command: registry.getDocumentation
+[2025-08-01 00:34:43.243] [Info] [CommandRegistry] Command executed successfully: registry.getDocumentation
+[2025-08-01 00:34:43.245] [Info] [CommandRegistry] Executing command: registry.getStatistics
+[2025-08-01 00:34:43.249] [Info] [CommandRegistry] Command executed successfully: registry.getStatistics
+[2025-08-01 00:34:43.269] [Info] [CommandRegistry] Registering command: test.testCommand
+[2025-08-01 00:34:43.274] [Info] [CommandRegistry] Command registered successfully: test.testCommand
+[2025-08-01 00:34:43.276] [Info] [CommandRegistry] Executing command: test.testCommand
+[2025-08-01 00:34:43.283] [Info] [CommandRegistry] Command executed successfully: test.testCommand
+[2025-08-01 00:34:43.297] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:34:43.410] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:34:43.417] [Info] [CommandRegistry] Registering command: test.updateState
+[2025-08-01 00:34:43.421] [Info] [CommandRegistry] Command registered successfully: test.updateState
+[2025-08-01 00:34:43.423] [Info] [CommandRegistry] Executing command: test.updateState
+[2025-08-01 00:34:43.429] [Info] [CommandRegistry] Command executed successfully: test.updateState
+[2025-08-01 00:34:43.502] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:34:43.517] [Error] [TestModule] Caught test exception
+[2025-08-01 00:34:43.518] [Info] [CommandRegistry] Registering command: test.errorCommand
+[2025-08-01 00:34:43.522] [Info] [CommandRegistry] Command registered successfully: test.errorCommand
+[2025-08-01 00:34:43.524] [Info] [CommandRegistry] Executing command: test.errorCommand
+[2025-08-01 00:34:43.533] [Error] [CommandRegistry] Failed to execute command: test.errorCommand
+[2025-08-01 00:34:43.538] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:34:43.542] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:34:43.655] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:34:43.660] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:34:43.777] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:34:43.780] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:34:43.898] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:34:43.901] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:34:44.005] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:34:44.008] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:34:44.115] [Info] [CommandRegistry] Executing command: registry.getStatistics
+[2025-08-01 00:34:44.118] [Info] [CommandRegistry] Command executed successfully: registry.getStatistics
+[2025-08-01 00:34:44.120] [Info] [CommandRegistry] Executing command: registry.getPerformanceMetrics
+[2025-08-01 00:34:44.125] [Error] [CommandRegistry] Failed to execute command: registry.getPerformanceMetrics
+[2025-08-01 00:37:38.938] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:37:38.940] [Info] [TestModule] Test log message
+[2025-08-01 00:37:38.941] [Warning] [TestModule] Warning message
+[2025-08-01 00:37:38.949] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:37:38.950] [Info] [EventSystem] Initializing PowerShell Event System...
+[2025-08-01 00:37:38.952] [Info] [EventSystem] Loaded existing event log with 20 events
+[2025-08-01 00:37:38.954] [Info] [EventSystem] Cleaned up 20 old events (older than 7 days)
+[2025-08-01 00:37:38.962] [Info] [EventSystem] Event system initialized successfully
+[2025-08-01 00:37:38.977] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:37:38.979] [Info] [CommandRegistry] Initializing Command Registry system...
+[2025-08-01 00:37:38.980] [Info] [CommandRegistry] Command Registry initialized successfully
+[2025-08-01 00:37:38.982] [Info] [CommandRegistry] Registering built-in commands...
+[2025-08-01 00:37:38.987] [Info] [CommandRegistry] Built-in commands registered successfully
+[2025-08-01 00:37:38.988] [Warning] [CommandRegistry] Failed to send initialization event
+[2025-08-01 00:37:38.992] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:37:38.995] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:37:38.997] [Info] [CommandRegistry] Executing command: registry.getDocumentation
+[2025-08-01 00:37:39.001] [Info] [CommandRegistry] Command executed successfully: registry.getDocumentation
+[2025-08-01 00:37:39.003] [Info] [CommandRegistry] Executing command: registry.getStatistics
+[2025-08-01 00:37:39.006] [Info] [CommandRegistry] Command executed successfully: registry.getStatistics
+[2025-08-01 00:37:39.015] [Info] [CommandRegistry] Registering command: test.testCommand
+[2025-08-01 00:37:39.018] [Info] [CommandRegistry] Command registered successfully: test.testCommand
+[2025-08-01 00:37:39.020] [Info] [CommandRegistry] Executing command: test.testCommand
+[2025-08-01 00:37:39.022] [Info] [CommandRegistry] Command executed successfully: test.testCommand
+[2025-08-01 00:37:39.037] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:37:39.146] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:37:39.152] [Info] [CommandRegistry] Registering command: test.updateState
+[2025-08-01 00:37:39.155] [Info] [CommandRegistry] Command registered successfully: test.updateState
+[2025-08-01 00:37:39.156] [Info] [CommandRegistry] Executing command: test.updateState
+[2025-08-01 00:37:39.165] [Info] [CommandRegistry] Command executed successfully: test.updateState
+[2025-08-01 00:37:39.238] [Info] [Logging] Game logging system initialized
+[2025-08-01 00:37:39.239] [Error] [TestModule] Caught test exception
+[2025-08-01 00:37:39.241] [Info] [CommandRegistry] Registering command: test.errorCommand
+[2025-08-01 00:37:39.244] [Info] [CommandRegistry] Command registered successfully: test.errorCommand
+[2025-08-01 00:37:39.245] [Info] [CommandRegistry] Executing command: test.errorCommand
+[2025-08-01 00:37:39.248] [Error] [CommandRegistry] Failed to execute command: test.errorCommand
+[2025-08-01 00:37:39.254] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:37:39.257] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:37:39.373] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:37:39.376] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:37:39.496] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:37:39.501] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:37:39.619] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:37:39.622] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:37:39.726] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2025-08-01 00:37:39.729] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2025-08-01 00:37:39.834] [Info] [CommandRegistry] Executing command: registry.getStatistics
+[2025-08-01 00:37:39.839] [Info] [CommandRegistry] Command executed successfully: registry.getStatistics
+[2025-08-01 00:37:39.842] [Info] [CommandRegistry] Executing command: registry.getPerformanceMetrics
+[2025-08-01 00:37:39.845] [Error] [CommandRegistry] Failed to execute command: registry.getPerformanceMetrics
