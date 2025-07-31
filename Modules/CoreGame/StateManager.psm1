@@ -17,7 +17,7 @@ $script:StateConfig = @{
     MaxSaveSlots = 10
     MaxBackups = 5
     AutoSaveInterval = 300  # 5 minutes in seconds
-    CompressionEnabled = $true
+    CompressionEnabled = $false
     EncryptionEnabled = $false
     SyncEnabled = $true
     ConflictResolution = "LastWriteWins"  # LastWriteWins, Manual, Merge
@@ -391,7 +391,7 @@ class GameStateManager {
     }
 
     [string] SerializeSaveData([hashtable]$SaveData) {
-        return $SaveData | ConvertTo-Json -Depth 20 -Compress
+        return $SaveData | ConvertTo-Json -Depth 6 -Compress
     }
 
     [hashtable] DeserializeSaveData([string]$JsonData) {
@@ -682,7 +682,7 @@ function Export-StateForBrowser {
         $exportData.GameState = $script:GameState.Current.Clone()
         $exportData.Metadata.EntityCount = $exportData.Entities.Count
 
-        $jsonData = $exportData | ConvertTo-Json -Depth 20 -Compress
+        $jsonData = $exportData | ConvertTo-Json -Depth 6 -Compress
 
         if ($Format -eq "Compressed") {
             $bytes = [System.Text.Encoding]::UTF8.GetBytes($jsonData)
@@ -1027,18 +1027,695 @@ function Get-SaveFiles {
     return $saveFiles
 }
 
+# Enhanced Entity Integration Functions
+function Register-Entity {
+    param(
+        [Parameter(Mandatory=$true)]
+        [object]$Entity,
+        [bool]$TrackChanges = $true
+    )
+
+    if (-not $Global:StateManager) {
+        throw "State Manager not initialized. Call Initialize-StateManager first."
+    }
+
+    # Check if entity has required methods instead of type checking
+    if (-not ($Entity.PSObject.Methods.Name -contains "ToHashtable")) {
+        throw "Entity must have ToHashtable method (GameEntity-based)"
+    }
+
+    if (-not ($Entity.PSObject.Properties.Name -contains "Id")) {
+        throw "Entity must have Id property"
+    }
+
+    # Register entity with state manager
+    $entityData = $Entity.ToHashtable()
+    $entityType = if ($Entity.PSObject.Properties.Name -contains "Type") { $Entity.Type } else { "Unknown" }
+    $Global:StateManager.RegisterEntity($Entity.Id, $entityType, $entityData)
+
+    # Setup automatic change tracking if enabled
+    if ($TrackChanges) {
+        Enable-EntityChangeTracking -Entity $Entity
+    }
+
+    $entityName = if ($Entity.PSObject.Methods.Name -contains "GetProperty") {
+        $Entity.GetProperty("Name", "Unknown")
+    } else {
+        "Unknown"
+    }
+
+    Write-Verbose "Registered entity '$entityName' ($entityType) for state management"
+
+    return @{
+        Success = $true
+        EntityId = $Entity.Id
+        EntityType = $entityType
+        Timestamp = Get-Date
+    }
+}
+
+function Enable-EntityChangeTracking {
+    param(
+        [Parameter(Mandatory=$true)]
+        [object]$Entity
+    )
+
+    # Check if entity has required methods instead of type checking
+    if (-not ($Entity.PSObject.Methods.Name -contains "ToHashtable")) {
+        throw "Entity must have ToHashtable method (GameEntity-based)"
+    }
+
+    # Add a simple change tracking flag instead of overriding methods
+    $Entity | Add-Member -Type NoteProperty -Name "StateManagerTracked" -Value $true -Force
+
+    # Add a method to notify state manager of changes
+    $Entity | Add-Member -Type ScriptMethod -Name "NotifyStateManager" -Value {
+        param([string]$PropertyName, [object]$NewValue)
+
+        if ($Global:StateManager) {
+            try {
+                Update-GameEntityState -EntityId $this.Id -Property $PropertyName -Value $NewValue
+            } catch {
+                Write-Warning "Failed to update StateManager for property change: $($_.Exception.Message)"
+            }
+        }
+    } -Force
+
+    $entityName = if ($Entity.PSObject.Methods.Name -contains "GetProperty") {
+        $Entity.GetProperty("Name", "Unknown")
+    } else {
+        "Unknown"
+    }
+
+    Write-Verbose "Enabled automatic change tracking for entity '$entityName'"
+}
+
+function Save-EntityCollection {
+    param(
+        [Parameter(Mandatory=$true)]
+        [hashtable]$Entities,
+        [string]$SaveName = "default",
+        [hashtable]$Metadata = @{}
+    )
+
+    if (-not $Global:StateManager) {
+        throw "State Manager not initialized. Call Initialize-StateManager first."
+    }
+
+    # Prepare entity data for saving
+    $entityData = @{}
+        foreach ($entityType in $Entities.Keys) {
+            $entityData[$entityType] = @{}
+            foreach ($entity in $Entities[$entityType]) {
+                # Check if entity has required methods instead of type checking
+                if ($entity.PSObject.Methods.Name -contains "ToHashtable" -and $entity.PSObject.Properties.Name -contains "Id") {
+                    # Get entity data and ensure it's serialization-friendly
+                    $rawData = $entity.ToHashtable()
+                    $cleanData = @{}
+
+                    # Clean the data to avoid serialization issues
+                    foreach ($key in $rawData.Keys) {
+                        $value = $rawData[$key]
+                        # Skip complex objects that might cause serialization issues
+                        if ($value -is [string] -or $value -is [int] -or $value -is [bool] -or $value -is [datetime] -or $value -eq $null) {
+                            $cleanData[$key] = $value
+                        } elseif ($value -is [array]) {
+                            # Handle arrays by converting complex objects to simple ones
+                            $cleanArray = @()
+                            foreach ($item in $value) {
+                                if ($item -is [hashtable]) {
+                                    $cleanArray += $item
+                                } elseif ($item -is [string] -or $item -is [int] -or $item -is [bool]) {
+                                    $cleanArray += $item
+                                } else {
+                                    $cleanArray += $item.ToString()
+                                }
+                            }
+                            $cleanData[$key] = $cleanArray
+                        } elseif ($value -is [hashtable]) {
+                            $cleanData[$key] = $value
+                        } else {
+                            # Convert complex objects to string representation
+                            $cleanData[$key] = $value.ToString()
+                        }
+                    }
+
+                    $entityData[$entityType][$entity.Id] = $cleanData
+                } else {
+                    Write-Warning "Skipping invalid entity object in collection: $entityType"
+                }
+            }
+        }    # Include metadata
+    $saveData = @{
+        Entities = $entityData
+        Metadata = $Metadata
+        SavedAt = Get-Date
+        GameVersion = "1.0.0"
+        EntityCount = ($entityData.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
+    }
+
+    # Save using StateManager
+    $result = $Global:StateManager.SaveGameState($SaveName, $saveData)
+
+    Write-Host "Saved $($saveData.EntityCount) entities to save '$SaveName'" -ForegroundColor Green
+
+    return $result
+}
+
+function Load-EntityCollection {
+    param(
+        [string]$SaveName = "default"
+    )
+
+    if (-not $Global:StateManager) {
+        throw "State Manager not initialized. Call Initialize-StateManager first."
+    }
+
+    Write-Host "Loading entities from save: $SaveName" -ForegroundColor Yellow
+
+    # Load from StateManager
+    $result = $Global:StateManager.LoadGameState($SaveName)
+
+    if (-not $result.Success) {
+        throw "Failed to load save '$SaveName': $($result.Error)"
+    }
+
+    $saveData = $result.SaveData
+    $loadedEntities = @{}
+
+    Write-Host "Save data loaded successfully. Entities section exists: $($null -ne $saveData.Entities)" -ForegroundColor Yellow
+    if ($saveData.Entities) {
+        Write-Host "Number of top-level entities: $($saveData.Entities.Keys.Count)" -ForegroundColor Yellow
+    }
+
+    # Reconstruct entities from saved data
+    if ($saveData.Entities -or ($saveData.AdditionalData -and $saveData.AdditionalData.Entities)) {
+        # Prioritize AdditionalData.Entities (from Save-EntityCollection) over StateManager tracked entities
+        $entitySource = $null
+        $sourceDescription = ""
+
+        if ($saveData.AdditionalData -and $saveData.AdditionalData.Entities) {
+            $entitySource = $saveData.AdditionalData.Entities
+            $sourceDescription = "Collection (AdditionalData)"
+        } elseif ($saveData.Entities) {
+            $entitySource = $saveData.Entities
+            $sourceDescription = "StateManager tracked"
+        }
+
+        Write-Host "Loading entities from: $sourceDescription" -ForegroundColor Yellow
+
+        # Check if we have the StateManager structure vs Collection structure
+        $isStateManagerStructure = $true
+        $firstKey = $entitySource.Keys | Select-Object -First 1
+        if ($firstKey -and $entitySource[$firstKey] -is [hashtable]) {
+            if ($entitySource[$firstKey].ContainsKey('EntityType')) {
+                $isStateManagerStructure = $true
+            } else {
+                # This looks like Collection structure: EntityType -> EntityId -> data
+                $isStateManagerStructure = $false
+            }
+        }
+
+        Write-Verbose "Loading entities with structure: $(if ($isStateManagerStructure) { 'StateManager' } else { 'Collection' })"
+
+        if ($isStateManagerStructure) {
+            # Handle StateManager structure: EntityId -> { EntityType, State, ... }
+            foreach ($entityId in $entitySource.Keys) {
+                $entityEntry = $entitySource[$entityId]
+                $entityType = $entityEntry.EntityType
+
+                # Initialize entity type array if needed
+                if (-not $loadedEntities.ContainsKey($entityType)) {
+                    $loadedEntities[$entityType] = @()
+                }
+
+                try {
+                    # Get the actual entity data from State property or use the whole entry
+                    $entityData = if ($entityEntry.ContainsKey('State')) { $entityEntry.State } else { $entityEntry }
+
+                    # Ensure entity has an Id
+                    if (-not $entityData.ContainsKey('Id')) {
+                        $entityData['Id'] = $entityId
+                    }
+
+                    Write-Verbose "Loading $entityType entity: $entityId"
+
+                    # Create entity using the most compatible approach
+                    $entity = $null
+
+                    # First try using New-GameEntity if available
+                    if (Get-Command New-GameEntity -ErrorAction SilentlyContinue) {
+                        $entity = New-GameEntity $entityData
+                    } else {
+                        # Create a compatible entity object manually
+                        $entity = New-Object PSObject
+
+                        # Copy all properties from saved data
+                        foreach ($key in $entityData.Keys) {
+                            $value = $entityData[$key]
+                            # Skip string representations of hashtables - they're corrupt
+                            if ($value -is [string] -and $value.StartsWith('@{')) {
+                                Write-Verbose "Skipping corrupt string representation: $key"
+                                continue
+                            }
+                            $entity | Add-Member -Type NoteProperty -Name $key -Value $value -Force
+                        }
+
+                        # Add essential methods for StateManager compatibility
+                        $entity | Add-Member -Type ScriptMethod -Name "ToHashtable" -Value {
+                            $ht = @{}
+                            foreach ($prop in $this.PSObject.Properties) {
+                                if ($prop.Name -notmatch '^(ToHashtable|GetProperty|SetProperty|HasChanges)$') {
+                                    $ht[$prop.Name] = $prop.Value
+                                }
+                            }
+                            return $ht
+                        } -Force
+
+                        $entity | Add-Member -Type ScriptMethod -Name "GetProperty" -Value {
+                            param([string]$Name, [object]$Default = $null)
+                            if ($this.PSObject.Properties.Name -contains $Name) {
+                                return $this.$Name
+                            }
+                            return $Default
+                        } -Force
+
+                        $entity | Add-Member -Type ScriptMethod -Name "SetProperty" -Value {
+                            param([string]$Name, [object]$Value)
+                            if ($this.PSObject.Properties.Name -contains $Name) {
+                                $this.$Name = $Value
+                            } else {
+                                $this | Add-Member -Type NoteProperty -Name $Name -Value $Value -Force
+                            }
+                        } -Force
+
+                        $entity | Add-Member -Type ScriptMethod -Name "HasChanges" -Value {
+                            return $false  # Simplified for loaded entities
+                        } -Force
+                    }
+
+                    if ($entity) {
+                        $loadedEntities[$entityType] += $entity
+                        Write-Verbose "Successfully loaded entity $entityId ($entityType)"
+                    }
+
+                } catch {
+                    Write-Warning "Failed to load entity $entityId ($entityType): $($_.Exception.Message)"
+                }
+            }
+        } else {
+            # Handle Collection structure: EntityType -> EntityId -> data
+            foreach ($entityType in $entitySource.Keys) {
+                if (-not $loadedEntities.ContainsKey($entityType)) {
+                    $loadedEntities[$entityType] = @()
+                }
+
+                foreach ($entityId in $entitySource[$entityType].Keys) {
+                    $entityData = $entitySource[$entityType][$entityId]
+
+                    try {
+                        # Ensure entity has an Id
+                        if (-not $entityData.ContainsKey('Id')) {
+                            $entityData['Id'] = $entityId
+                        }
+
+                        Write-Verbose "Loading $entityType entity: $entityId"
+
+                        # Create entity using the same approach as above
+                        $entity = $null
+
+                        if (Get-Command New-GameEntity -ErrorAction SilentlyContinue) {
+                            $entity = New-GameEntity $entityData
+                        } else {
+                            $entity = New-Object PSObject
+
+                            foreach ($key in $entityData.Keys) {
+                                $value = $entityData[$key]
+                                # Skip string representations of hashtables
+                                if ($value -is [string] -and $value.StartsWith('@{')) {
+                                    Write-Verbose "Skipping corrupt string representation: $key"
+                                    continue
+                                }
+                                $entity | Add-Member -Type NoteProperty -Name $key -Value $value -Force
+                            }
+
+                            # Add essential methods
+                            $entity | Add-Member -Type ScriptMethod -Name "ToHashtable" -Value {
+                                $ht = @{}
+                                foreach ($prop in $this.PSObject.Properties) {
+                                    if ($prop.Name -notmatch '^(ToHashtable|GetProperty|SetProperty|HasChanges)$') {
+                                        $ht[$prop.Name] = $prop.Value
+                                    }
+                                }
+                                return $ht
+                            } -Force
+
+                            $entity | Add-Member -Type ScriptMethod -Name "GetProperty" -Value {
+                                param([string]$Name, [object]$Default = $null)
+                                if ($this.PSObject.Properties.Name -contains $Name) {
+                                    return $this.$Name
+                                }
+                                return $Default
+                            } -Force
+
+                            $entity | Add-Member -Type ScriptMethod -Name "SetProperty" -Value {
+                                param([string]$Name, [object]$Value)
+                                if ($this.PSObject.Properties.Name -contains $Name) {
+                                    $this.$Name = $Value
+                                } else {
+                                    $this | Add-Member -Type NoteProperty -Name $Name -Value $Value -Force
+                                }
+                            } -Force
+
+                            $entity | Add-Member -Type ScriptMethod -Name "HasChanges" -Value {
+                                return $false
+                            } -Force
+                        }
+
+                        if ($entity) {
+                            $loadedEntities[$entityType] += $entity
+                            Write-Verbose "Successfully loaded entity $entityId ($entityType)"
+                        }
+
+                    } catch {
+                        Write-Warning "Failed to load entity $entityId ($entityType): $($_.Exception.Message)"
+                    }
+                }
+            }
+        }
+
+        # Report counts for each entity type
+        foreach ($entityType in $loadedEntities.Keys) {
+            Write-Verbose "Loaded $($loadedEntities[$entityType].Count) entities of type $entityType"
+        }
+    }
+
+    $totalLoaded = ($loadedEntities.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
+    Write-Host "Loaded $totalLoaded entities from save '$SaveName'" -ForegroundColor Green
+
+    return @{
+        Success = $true
+        Entities = $loadedEntities
+        Metadata = $saveData.Metadata
+        SavedAt = $saveData.SavedAt
+        LoadedAt = Get-Date
+    }
+}
+
+function Save-PlayerData {
+    param(
+        [Parameter(Mandatory=$true)]
+        [object]$Player,
+        [string]$SaveSlot = "player_default"
+    )
+
+    # Check if this is a player entity instead of type checking
+    if (-not ($Player.PSObject.Methods.Name -contains "ToHashtable")) {
+        throw "Must provide an entity with ToHashtable method"
+    }
+
+    $playerLevel = if ($Player.PSObject.Methods.Name -contains "GetLevel") {
+        $Player.GetLevel()
+    } else {
+        $Player.GetProperty("Level", 1)
+    }
+
+    $playerLocation = if ($Player.PSObject.Methods.Name -contains "GetCurrentLocationId") {
+        $Player.GetCurrentLocationId()
+    } else {
+        $Player.GetProperty("CurrentLocationId", "unknown")
+    }
+
+    $createdAt = $Player.GetProperty('CreatedAt', (Get-Date))
+    $playTime = (Get-Date) - $createdAt
+
+    $playerData = @{
+        PlayerData = $Player.ToHashtable()
+        SavedAt = Get-Date
+        PlayerLevel = $playerLevel
+        PlayerLocation = $playerLocation
+        PlayTime = $playTime
+    }
+
+    return Save-GameState -SaveName $SaveSlot -AdditionalData $playerData
+}
+
+function Load-PlayerData {
+    param(
+        [string]$SaveSlot = "player_default"
+    )
+
+    $result = Load-GameState -SaveName $SaveSlot
+
+    if (-not $result.Success) {
+        return $result
+    }
+
+    if ($result.Data.PlayerData) {
+        # Try to create player using available constructors
+        $player = if (Get-Command New-PlayerEntity -ErrorAction SilentlyContinue) {
+            New-PlayerEntity $result.Data.PlayerData
+        } else {
+            New-GameEntity $result.Data.PlayerData
+        }
+
+        # Register with state manager if entity supports it
+        if ($player.PSObject.Methods.Name -contains "ToHashtable" -and $player.PSObject.Properties.Name -contains "Id") {
+            Register-Entity -Entity $player -TrackChanges $true
+        }
+
+        return @{
+            Success = $true
+            Player = $player
+            Metadata = $result.Data
+            LoadedAt = Get-Date
+        }
+    }
+
+    return @{
+        Success = $false
+        Error = "No player data found in save"
+    }
+}
+
+function Backup-GameState {
+    param(
+        [string]$SaveName = "default",
+        [string]$BackupReason = "Manual backup"
+    )
+
+    if (-not $Global:StateManager) {
+        throw "State Manager not initialized. Call Initialize-StateManager first."
+    }
+
+    $sourcePath = Join-Path $script:StateConfig.SavesDirectory "$SaveName.json"
+
+    if (-not (Test-Path $sourcePath)) {
+        throw "Save file '$SaveName' not found"
+    }
+
+    $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+    $backupName = "${SaveName}_backup_${timestamp}.json"
+    $backupPath = Join-Path $script:StateConfig.BackupsDirectory $backupName
+
+    Copy-Item $sourcePath $backupPath
+
+    # Create backup metadata
+    $backupInfo = @{
+        OriginalSave = $SaveName
+        BackupName = $backupName
+        BackupReason = $BackupReason
+        CreatedAt = Get-Date
+        OriginalSize = (Get-Item $sourcePath).Length
+    }
+
+    $metadataPath = Join-Path $script:StateConfig.BackupsDirectory "${backupName}.meta"
+    $backupInfo | ConvertTo-Json | Set-Content $metadataPath
+
+    Write-Host "Created backup: $backupName" -ForegroundColor Green
+
+    return @{
+        Success = $true
+        BackupName = $backupName
+        BackupPath = $backupPath
+        Metadata = $backupInfo
+    }
+}
+
+function Get-EntityStatistics {
+    param(
+        [hashtable]$Entities = @{}
+    )
+
+    $stats = @{
+        TotalEntities = 0
+        EntityTypes = @{}
+        ChangedEntities = 0
+        DataSize = 0
+        LastModified = $null
+    }
+
+    foreach ($entityType in $Entities.Keys) {
+        $typeCount = $Entities[$entityType].Count
+        $stats.TotalEntities += $typeCount
+        $stats.EntityTypes[$entityType] = $typeCount
+
+        foreach ($entity in $Entities[$entityType]) {
+            # Check if entity has required methods instead of type checking
+            if ($entity.PSObject.Methods.Name -contains "ToHashtable" -and $entity.PSObject.Properties.Name -contains "Id") {
+                if ($entity.PSObject.Methods.Name -contains "HasChanges" -and $entity.HasChanges()) {
+                    $stats.ChangedEntities++
+                }
+
+                # Calculate data size more safely
+                try {
+                    $entityHashtable = $entity.ToHashtable()
+                    $entityJson = $entityHashtable | ConvertTo-Json -Depth 2 -Compress
+                    $stats.DataSize += $entityJson.Length
+                } catch {
+                    # Fallback size calculation
+                    $stats.DataSize += 500  # Estimated size
+                }
+
+                $entityUpdatedAt = $entity.GetProperty('UpdatedAt', $null)
+                if ($null -ne $entityUpdatedAt -and ($null -eq $stats.LastModified -or $entityUpdatedAt -gt $stats.LastModified)) {
+                    $stats.LastModified = $entityUpdatedAt
+                }
+            }
+        }
+    }
+
+    return $stats
+}
+
+function Test-SaveIntegrity {
+    param(
+        [string]$SaveName = "default"
+    )
+
+    $result = Load-GameState -SaveName $SaveName
+
+    if (-not $result.Success) {
+        return @{
+            Success = $false
+            Valid = $false
+            Error = $result.Error
+        }
+    }
+
+    $validationResults = @{
+        Success = $true
+        Valid = $true
+        Issues = @()
+        EntityCount = 0
+        ValidEntities = 0
+        InvalidEntities = 0
+    }
+
+    if ($result.Data.Entities) {
+        foreach ($entityType in $result.Data.Entities.Keys) {
+            foreach ($entityId in $result.Data.Entities[$entityType].Keys) {
+                $entityData = $result.Data.Entities[$entityType][$entityId]
+                $validationResults.EntityCount++
+
+                try {
+                    # Try to create entity to validate data using available constructors
+                    $entity = switch ($entityData.Type) {
+                        'Player' {
+                            if (Get-Command New-PlayerEntity -ErrorAction SilentlyContinue) {
+                                New-PlayerEntity $entityData
+                            } else {
+                                New-GameEntity $entityData
+                            }
+                        }
+                        'NPC' {
+                            if (Get-Command New-NPCEntity -ErrorAction SilentlyContinue) {
+                                New-NPCEntity $entityData
+                            } else {
+                                New-GameEntity $entityData
+                            }
+                        }
+                        'Item' {
+                            if (Get-Command New-ItemEntity -ErrorAction SilentlyContinue) {
+                                New-ItemEntity $entityData
+                            } else {
+                                New-GameEntity $entityData
+                            }
+                        }
+                        'Location' {
+                            if (Get-Command New-LocationEntity -ErrorAction SilentlyContinue) {
+                                New-LocationEntity $entityData
+                            } else {
+                                New-GameEntity $entityData
+                            }
+                        }
+                        'Quest' {
+                            if (Get-Command New-QuestEntity -ErrorAction SilentlyContinue) {
+                                New-QuestEntity $entityData
+                            } else {
+                                New-GameEntity $entityData
+                            }
+                        }
+                        'Faction' {
+                            if (Get-Command New-FactionEntity -ErrorAction SilentlyContinue) {
+                                New-FactionEntity $entityData
+                            } else {
+                                New-GameEntity $entityData
+                            }
+                        }
+                        default {
+                            if (Get-Command New-GameEntity -ErrorAction SilentlyContinue) {
+                                New-GameEntity $entityData
+                            } else {
+                                # Create basic validation object
+                                $obj = New-Object PSObject
+                                foreach ($key in $entityData.Keys) {
+                                    $obj | Add-Member -Type NoteProperty -Name $key -Value $entityData[$key]
+                                }
+                                $obj
+                            }
+                        }
+                    }
+
+                    $validationResults.ValidEntities++
+                } catch {
+                    $validationResults.InvalidEntities++
+                    $validationResults.Issues += "Invalid entity $entityId ($entityType): $($_.Exception.Message)"
+                    $validationResults.Valid = $false
+                }
+            }
+        }
+    }
+
+    return $validationResults
+}
+
 # Export functions
 Export-ModuleMember -Function @(
     'Initialize-StateManager',
     'Register-GameEntity',
     'Update-GameEntityState',
+    'Remove-GameEntity',
+    'Get-GameEntity',
+    'Get-AllGameEntities',
     'Save-GameState',
     'Load-GameState',
-    'Get-StateStatistics',
     'Get-SaveFiles',
+    'Auto-SaveGameState',
+    'Start-AutoSave',
+    'Stop-AutoSave',
     'Sync-StateWithBrowser',
-    'Export-StateForBrowser',
-    'Import-StateFromBrowser'
+    'Get-StateFromBrowser',
+    'Send-StateToBrowser',
+    'Register-Entity',
+    'Enable-EntityChangeTracking',
+    'Save-EntityCollection',
+    'Load-EntityCollection',
+    'Save-PlayerData',
+    'Load-PlayerData',
+    'Backup-GameState',
+    'Get-EntityStatistics',
+    'Test-SaveIntegrity'
 )
 
 # Module initialization

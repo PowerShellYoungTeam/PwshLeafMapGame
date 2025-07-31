@@ -1,14 +1,103 @@
 # PowerShell Leafmap Game - Command Registry System
 # Advanced command registration and execution framework for modular game architecture
 
+<#
+.SYNOPSIS
+    A comprehensive command registry system for the PowerShell Leafmap Game.
+
+.DESCRIPTION
+    This module provides a robust framework for registering, validating, and executing
+    game commands with support for parameter validation, access control, performance
+    monitoring, and extensive logging capabilities.
+
+.NOTES
+    Version:        2.0
+    Author:         Game Development Team
+    Creation Date:  [Current Date]
+    Purpose:        Centralized command management with enhanced error handling
+    
+    Features:
+    - Dynamic command registration and discovery
+    - Advanced parameter validation with custom constraints
+    - Role-based access control and security
+    - Performance monitoring and metrics collection
+    - Comprehensive logging with GameLogging integration
+    - Event-driven architecture integration
+    - Command caching and optimization
+    - Asynchronous command execution support
+    
+    Dependencies:
+    - GameLogging.psm1: Standardized logging system
+    - EventSystem.psm1: Event-driven communication (optional)
+#>
+
 using namespace System.Collections.Generic
 using namespace System.Collections.Concurrent
 using namespace System.ComponentModel.DataAnnotations
 
-# Import required modules
+# Import required modules for enhanced functionality
+Import-Module (Join-Path $PSScriptRoot "GameLogging.psm1") -Force
+
 # Only import EventSystem if it's not already loaded to preserve scope
 if (-not (Get-Module -Name "EventSystem")) {
-    Import-Module (Join-Path $PSScriptRoot "EventSystem.psm1") -Force
+    try {
+        Import-Module (Join-Path $PSScriptRoot "EventSystem.psm1") -Force
+        $script:EventSystemAvailable = $true
+    } catch {
+        Write-GameLog -Message "EventSystem not available, continuing without event integration" -Level Warning -Module "CommandRegistry"
+        $script:EventSystemAvailable = $false
+    }
+} else {
+    $script:EventSystemAvailable = $true
+}
+
+<#
+.SYNOPSIS
+    Writes error information to the game log with enhanced context.
+
+.DESCRIPTION
+    Standardized error logging function that captures exception details,
+    context data, and stack traces for debugging.
+
+.PARAMETER Message
+    The error message to log.
+
+.PARAMETER Module
+    The module where the error occurred.
+
+.PARAMETER Exception
+    The exception object containing error details.
+
+.PARAMETER Data
+    Additional context data to include with the error.
+#>
+function Write-ErrorLog {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Module,
+
+        [Parameter(Mandatory = $false)]
+        [System.Management.Automation.ErrorRecord]$Exception,
+
+        [Parameter(Mandatory = $false)]
+        [object]$Data = @{}
+    )
+
+    $errorData = @{}
+    if ($Data) { $errorData = $Data.Clone() }
+    
+    if ($Exception) {
+        $errorData.ExceptionMessage = $Exception.Exception.Message
+        $errorData.ExceptionType = $Exception.Exception.GetType().Name
+        $errorData.ScriptStackTrace = $Exception.ScriptStackTrace
+        $errorData.CategoryInfo = $Exception.CategoryInfo.ToString()
+    }
+
+    Write-GameLog -Message $Message -Level Error -Module $Module -Data $errorData
 }
 
 # Command parameter validation attributes
@@ -869,128 +958,439 @@ function New-CommandMiddleware {
 }
 
 # Public API functions
+<#
+.SYNOPSIS
+    Initializes the global command registry system.
+
+.DESCRIPTION
+    Sets up the command registry with configuration options, performance monitoring,
+    and comprehensive logging. Registers built-in commands and prepares the system
+    for command execution.
+
+.PARAMETER Configuration
+    Custom configuration hashtable for registry settings.
+
+.PARAMETER Verbose
+    Enable verbose logging during initialization.
+
+.EXAMPLE
+    Initialize-CommandRegistry -Configuration @{ MaxCacheSize = 1000 } -Verbose
+
+.NOTES
+    This function should be called once during application startup.
+#>
 function Initialize-CommandRegistry {
-    param([hashtable]$Configuration = @{})
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $false)]
+        [hashtable]$Configuration = @{}
+    )
+
+    Write-GameLog -Message "Initializing Command Registry system..." -Level Info -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
 
     if ($script:GlobalCommandRegistry) {
-        Write-Warning "Command Registry is already initialized"
+        Write-GameLog -Message "Command Registry is already initialized" -Level Warning -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
         return $script:GlobalCommandRegistry
     }
 
     try {
-        $script:GlobalCommandRegistry = [CommandRegistry]::new($Configuration)
-        Write-Host "Command Registry initialized successfully" -ForegroundColor Green
+        # Apply default configuration with overrides
+        $defaultConfig = @{
+            MaxCacheSize = 500
+            EnablePerformanceMonitoring = $true
+            EnableSecurityValidation = $true
+            CommandTimeoutSeconds = 30
+            MaxConcurrentCommands = 10
+            EnableEventIntegration = $script:EventSystemAvailable
+        }
+
+        foreach ($key in $Configuration.Keys) {
+            $defaultConfig[$key] = $Configuration[$key]
+        }
+
+        Write-GameLog -Message "Creating command registry with configuration" -Level Debug -Module "CommandRegistry" -Data $defaultConfig -Verbose:($VerbosePreference -eq 'Continue')
+
+        $script:GlobalCommandRegistry = [CommandRegistry]::new($defaultConfig)
+        
+        Write-GameLog -Message "Command Registry initialized successfully" -Level Info -Module "CommandRegistry" -Data @{
+            CacheSize = $defaultConfig.MaxCacheSize
+            PerformanceMonitoring = $defaultConfig.EnablePerformanceMonitoring
+            EventIntegration = $defaultConfig.EnableEventIntegration
+        } -Verbose:($VerbosePreference -eq 'Continue')
 
         # Register built-in commands
-        Register-BuiltInCommands
+        Register-BuiltInCommands -Verbose:($VerbosePreference -eq 'Continue')
+
+        # Send initialization event if EventSystem is available
+        if ($script:EventSystemAvailable) {
+            try {
+                Send-GameEvent -EventType "system.commandRegistryInitialized" -Data @{
+                    Configuration = $defaultConfig
+                    CommandCount = $script:GlobalCommandRegistry.GetRegisteredCommands().Count
+                } -Source "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+            } catch {
+                Write-GameLog -Message "Failed to send initialization event" -Level Warning -Module "CommandRegistry" -Data @{ Error = $_.Exception.Message }
+            }
+        }
 
         return $script:GlobalCommandRegistry
-    }
-    catch {
-        Write-Error "Failed to initialize Command Registry: $($_.Exception.Message)"
+        
+    } catch {
+        Write-ErrorLog -Message "Failed to initialize Command Registry" -Module "CommandRegistry" -Exception $_ -Data @{
+            Configuration = $Configuration
+            EventSystemAvailable = $script:EventSystemAvailable
+        }
         throw
     }
 }
 
+<#
+.SYNOPSIS
+    Registers built-in commands for the command registry system.
+
+.DESCRIPTION
+    Creates and registers essential system commands for registry management,
+    documentation generation, and statistics retrieval.
+
+.PARAMETER Verbose
+    Enable verbose logging during command registration.
+
+.NOTES
+    This function is automatically called during registry initialization.
+#>
 function Register-BuiltInCommands {
-    # Registry management commands
-    $listCommandsCmd = New-CommandDefinition -Name "listCommands" -Module "registry" -Handler {
-        param($Parameters, $Context)
+    [CmdletBinding()]
+    param()
 
-        $accessLevel = [AccessLevel]::Public
-        if ($Parameters.IncludeProtected) {
-            $accessLevel = [AccessLevel]::Protected
-        }
-        if ($Parameters.IncludeAdmin) {
-            $accessLevel = [AccessLevel]::Admin
-        }
+    Write-GameLog -Message "Registering built-in commands..." -Level Info -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
 
-        $commands = $script:GlobalCommandRegistry.GetAvailableCommands($accessLevel)
+    try {
+        # Registry management commands
+        $listCommandsCmd = New-CommandDefinition -Name "listCommands" -Module "registry" -Handler {
+            param($Parameters, $Context)
 
-        if ($Parameters.Module) {
-            $commands = $commands | Where-Object { $_ -like "$($Parameters.Module).*" }
-        }
-
-        return @{
-            Commands = $commands
-            TotalCount = $commands.Count
-        }
-    } -Description "List all available commands" -Category "Registry"
-
-    $listCommandsCmd.AddParameter((New-CommandParameter -Name "Module" -Type "String" -Description "Filter by module name")[0])
-    $listCommandsCmd.AddParameter((New-CommandParameter -Name "IncludeProtected" -Type "Boolean" -Description "Include protected commands" -DefaultValue $false)[0])
-    $listCommandsCmd.AddParameter((New-CommandParameter -Name "IncludeAdmin" -Type "Boolean" -Description "Include admin commands" -DefaultValue $false)[0])
-
-    $script:GlobalCommandRegistry.RegisterCommand($listCommandsCmd[0])
-
-    # Command documentation
-    $getDocCmd = New-CommandDefinition -Name "getDocumentation" -Module "registry" -Handler {
-        param($Parameters, $Context)
-
-        if ($Parameters.CommandName) {
-            $command = $script:GlobalCommandRegistry.GetCommand($Parameters.CommandName)
-            if ($command) {
-                return $command.GetDocumentation()
-            } else {
-                throw "Command not found: $($Parameters.CommandName)"
+            $accessLevel = [AccessLevel]::Public
+            if ($Parameters.IncludeProtected) {
+                $accessLevel = [AccessLevel]::Protected
             }
-        } else {
-            return $script:GlobalCommandRegistry.GenerateDocumentation($Parameters.Module, $Parameters.Format)
-        }
-    } -Description "Get command documentation" -Category "Registry"
+            if ($Parameters.IncludeAdmin) {
+                $accessLevel = [AccessLevel]::Admin
+            }
 
-    $getDocCmd.AddParameter((New-CommandParameter -Name "CommandName" -Type "String" -Description "Specific command to document")[0])
-    $getDocCmd.AddParameter((New-CommandParameter -Name "Module" -Type "String" -Description "Module to document")[0])
-    $getDocCmd.AddParameter((New-CommandParameter -Name "Format" -Type "String" -Description "Documentation format" -DefaultValue "JSON")[0])
+            $commands = $script:GlobalCommandRegistry.GetAvailableCommands($accessLevel)
 
-    $script:GlobalCommandRegistry.RegisterCommand($getDocCmd[0])
+            if ($Parameters.Module) {
+                $commands = $commands | Where-Object { $_ -like "$($Parameters.Module).*" }
+            }
 
-    # Registry statistics
-    $getStatsCmd = New-CommandDefinition -Name "getStatistics" -Module "registry" -Handler {
-        param($Parameters, $Context)
-        return $script:GlobalCommandRegistry.GetRegistryStatistics()
-    } -Description "Get registry statistics" -Category "Registry"
+            return @{
+                Commands = $commands
+                TotalCount = $commands.Count
+                AccessLevel = $accessLevel.ToString()
+                FilterModule = $Parameters.Module
+            }
+        } -Description "List all available commands with optional filtering" -Category "Registry"
 
-    $script:GlobalCommandRegistry.RegisterCommand($getStatsCmd[0])
+        $listCommandsCmd.AddParameter((New-CommandParameter -Name "Module" -Type "String" -Description "Filter by module name")[0])
+        $listCommandsCmd.AddParameter((New-CommandParameter -Name "IncludeProtected" -Type "Boolean" -Description "Include protected commands" -DefaultValue $false)[0])
+        $listCommandsCmd.AddParameter((New-CommandParameter -Name "IncludeAdmin" -Type "Boolean" -Description "Include admin commands" -DefaultValue $false)[0])
+
+        $script:GlobalCommandRegistry.RegisterCommand($listCommandsCmd[0])
+        Write-GameLog -Message "Registered listCommands command" -Level Debug -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+
+        # Command documentation
+        $getDocCmd = New-CommandDefinition -Name "getDocumentation" -Module "registry" -Handler {
+            param($Parameters, $Context)
+
+            if ($Parameters.CommandName) {
+                $command = $script:GlobalCommandRegistry.GetCommand($Parameters.CommandName)
+                if ($command) {
+                    return $command.GetDocumentation()
+                } else {
+                    throw "Command not found: $($Parameters.CommandName)"
+                }
+            } else {
+                return $script:GlobalCommandRegistry.GenerateDocumentation($Parameters.Module, $Parameters.Format)
+            }
+        } -Description "Get comprehensive command documentation" -Category "Registry"
+
+        $getDocCmd.AddParameter((New-CommandParameter -Name "CommandName" -Type "String" -Description "Specific command to document")[0])
+        $getDocCmd.AddParameter((New-CommandParameter -Name "Module" -Type "String" -Description "Module to document")[0])
+        $getDocCmd.AddParameter((New-CommandParameter -Name "Format" -Type "String" -Description "Documentation format (JSON, Markdown, XML)" -DefaultValue "JSON")[0])
+
+        $script:GlobalCommandRegistry.RegisterCommand($getDocCmd[0])
+        Write-GameLog -Message "Registered getDocumentation command" -Level Debug -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+
+        # Registry statistics
+        $getStatsCmd = New-CommandDefinition -Name "getStatistics" -Module "registry" -Handler {
+            param($Parameters, $Context)
+            return $script:GlobalCommandRegistry.GetRegistryStatistics()
+        } -Description "Get detailed registry performance and usage statistics" -Category "Registry"
+
+        $script:GlobalCommandRegistry.RegisterCommand($getStatsCmd[0])
+        Write-GameLog -Message "Registered getStatistics command" -Level Debug -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+
+        # Performance monitoring command
+        $perfMonCmd = New-CommandDefinition -Name "getPerformanceMetrics" -Module "registry" -Handler {
+            param($Parameters, $Context)
+            return $script:GlobalCommandRegistry.GetPerformanceMetrics($Parameters.CommandName, $Parameters.TimeRange)
+        } -Description "Get detailed performance metrics for commands" -Category "Registry"
+
+        $perfMonCmd.AddParameter((New-CommandParameter -Name "CommandName" -Type "String" -Description "Specific command to analyze")[0])
+        $perfMonCmd.AddParameter((New-CommandParameter -Name "TimeRange" -Type "String" -Description "Time range for metrics (1h, 24h, 7d)" -DefaultValue "1h")[0])
+
+        $script:GlobalCommandRegistry.RegisterCommand($perfMonCmd[0])
+        Write-GameLog -Message "Registered getPerformanceMetrics command" -Level Debug -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+
+        $commandCount = 4
+        Write-GameLog -Message "Built-in commands registered successfully" -Level Info -Module "CommandRegistry" -Data @{
+            RegisteredCommands = $commandCount
+            Commands = @("listCommands", "getDocumentation", "getStatistics", "getPerformanceMetrics")
+        } -Verbose:($VerbosePreference -eq 'Continue')
+
+    } catch {
+        Write-ErrorLog -Message "Failed to register built-in commands" -Module "CommandRegistry" -Exception $_ 
+        throw
+    }
 }
 
+<#
+.SYNOPSIS
+    Registers a new game command in the global registry.
+
+.DESCRIPTION
+    Adds a command definition to the registry with validation, logging,
+    and optional event notification.
+
+.PARAMETER Command
+    The CommandDefinition object to register.
+
+.PARAMETER Verbose
+    Enable verbose logging for the registration process.
+
+.EXAMPLE
+    Register-GameCommand -Command $myCommand -Verbose
+
+.NOTES
+    Command names must be unique within their module namespace.
+#>
 function Register-GameCommand {
+    [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [CommandDefinition]$Command
     )
 
     if (-not $script:GlobalCommandRegistry) {
-        throw "Command Registry not initialized. Call Initialize-CommandRegistry first."
+        $errorMsg = "Command Registry not initialized. Call Initialize-CommandRegistry first."
+        Write-GameLog -Message $errorMsg -Level Error -Module "CommandRegistry"
+        throw $errorMsg
     }
 
-    return $script:GlobalCommandRegistry.RegisterCommand($Command[0])
+    try {
+        Write-GameLog -Message "Registering command: $($Command.FullName)" -Level Info -Module "CommandRegistry" -Data @{
+            CommandName = $Command.Name
+            Module = $Command.Module
+            Category = $Command.Category
+            AccessLevel = $Command.AccessLevel.ToString()
+            ParameterCount = $Command.Parameters.Count
+        } -Verbose:($VerbosePreference -eq 'Continue')
+
+        $result = $script:GlobalCommandRegistry.RegisterCommand($Command[0])
+
+        # Send registration event if EventSystem is available
+        if ($script:EventSystemAvailable) {
+            try {
+                Send-GameEvent -EventType "system.commandRegistered" -Data @{
+                    CommandName = $Command.FullName
+                    Module = $Command.Module
+                    Category = $Command.Category
+                    RegistrationTime = Get-Date
+                } -Source "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+            } catch {
+                Write-GameLog -Message "Failed to send command registration event" -Level Warning -Module "CommandRegistry" -Data @{ Error = $_.Exception.Message }
+            }
+        }
+
+        Write-GameLog -Message "Command registered successfully: $($Command.FullName)" -Level Info -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+        return $result
+
+    } catch {
+        Write-ErrorLog -Message "Failed to register command: $($Command.FullName)" -Module "CommandRegistry" -Exception $_ -Data @{
+            CommandName = $Command.Name
+            Module = $Command.Module
+        }
+        throw
+    }
 }
 
+<#
+.SYNOPSIS
+    Unregisters a command from the global registry.
+
+.DESCRIPTION
+    Removes a command from the registry with proper cleanup and logging.
+
+.PARAMETER CommandName
+    The full name of the command to unregister (module.commandName).
+
+.PARAMETER Verbose
+    Enable verbose logging for the unregistration process.
+
+.EXAMPLE
+    Unregister-GameCommand -CommandName "player.move" -Verbose
+#>
 function Unregister-GameCommand {
+    [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]$CommandName
     )
 
     if (-not $script:GlobalCommandRegistry) {
-        throw "Command Registry not initialized."
+        $errorMsg = "Command Registry not initialized."
+        Write-GameLog -Message $errorMsg -Level Error -Module "CommandRegistry"
+        throw $errorMsg
     }
 
-    return $script:GlobalCommandRegistry.UnregisterCommand($CommandName)
+    try {
+        Write-GameLog -Message "Unregistering command: $CommandName" -Level Info -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+
+        $result = $script:GlobalCommandRegistry.UnregisterCommand($CommandName)
+
+        # Send unregistration event if EventSystem is available
+        if ($script:EventSystemAvailable) {
+            try {
+                Send-GameEvent -EventType "system.commandUnregistered" -Data @{
+                    CommandName = $CommandName
+                    UnregistrationTime = Get-Date
+                } -Source "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+            } catch {
+                Write-GameLog -Message "Failed to send command unregistration event" -Level Warning -Module "CommandRegistry" -Data @{ Error = $_.Exception.Message }
+            }
+        }
+
+        Write-GameLog -Message "Command unregistered successfully: $CommandName" -Level Info -Module "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+        return $result
+
+    } catch {
+        Write-ErrorLog -Message "Failed to unregister command: $CommandName" -Module "CommandRegistry" -Exception $_ -Data @{
+            CommandName = $CommandName
+        }
+        throw
+    }
 }
 
+<#
+.SYNOPSIS
+    Executes a registered game command with parameters and context.
+
+.DESCRIPTION
+    Invokes a command through the registry with parameter validation,
+    performance monitoring, security checks, and comprehensive logging.
+
+.PARAMETER CommandName
+    The full name of the command to execute (module.commandName).
+
+.PARAMETER Parameters
+    Hashtable of parameters to pass to the command.
+
+.PARAMETER Context
+    Execution context information (user, session, etc.).
+
+.PARAMETER Verbose
+    Enable verbose logging for command execution.
+
+.EXAMPLE
+    Invoke-GameCommand -CommandName "player.move" -Parameters @{ Direction = "north" } -Verbose
+
+.NOTES
+    Commands are executed with full validation and monitoring.
+#>
 function Invoke-GameCommand {
+    [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]$CommandName,
 
+        [Parameter(Mandatory = $false)]
         [hashtable]$Parameters = @{},
+
+        [Parameter(Mandatory = $false)]
         [hashtable]$Context = @{}
     )
 
     if (-not $script:GlobalCommandRegistry) {
-        throw "Command Registry not initialized."
+        $errorMsg = "Command Registry not initialized."
+        Write-GameLog -Message $errorMsg -Level Error -Module "CommandRegistry"
+        throw $errorMsg
+    }
+
+    $startTime = Get-Date
+    $executionId = [Guid]::NewGuid().ToString().Substring(0, 8)
+
+    try {
+        Write-GameLog -Message "Executing command: $CommandName" -Level Info -Module "CommandRegistry" -Data @{
+            CommandName = $CommandName
+            ExecutionId = $executionId
+            ParameterCount = $Parameters.Count
+            HasContext = $Context.Count -gt 0
+        } -Verbose:($VerbosePreference -eq 'Continue')
+
+        # Execute command through registry
+        $result = $script:GlobalCommandRegistry.ExecuteCommand($CommandName, $Parameters, $Context)
+
+        $executionTime = (Get-Date) - $startTime
+        Write-GameLog -Message "Command executed successfully: $CommandName" -Level Info -Module "CommandRegistry" -Data @{
+            CommandName = $CommandName
+            ExecutionId = $executionId
+            ExecutionTimeMs = $executionTime.TotalMilliseconds
+            ResultType = $result.GetType().Name
+        } -Verbose:($VerbosePreference -eq 'Continue')
+
+        # Send execution event if EventSystem is available
+        if ($script:EventSystemAvailable) {
+            try {
+                Send-GameEvent -EventType "system.commandExecuted" -Data @{
+                    CommandName = $CommandName
+                    ExecutionId = $executionId
+                    ExecutionTimeMs = $executionTime.TotalMilliseconds
+                    Success = $true
+                    ExecutionTime = Get-Date
+                } -Source "CommandRegistry" -Verbose:($VerbosePreference -eq 'Continue')
+            } catch {
+                Write-GameLog -Message "Failed to send command execution event" -Level Warning -Module "CommandRegistry" -Data @{ Error = $_.Exception.Message }
+            }
+        }
+
+        return $result
+
+    } catch {
+        $executionTime = (Get-Date) - $startTime
+        Write-ErrorLog -Message "Failed to execute command: $CommandName" -Module "CommandRegistry" -Exception $_ -Data @{
+            CommandName = $CommandName
+            ExecutionId = $executionId
+            Parameters = $Parameters
+            Context = $Context
+            ExecutionTimeMs = $executionTime.TotalMilliseconds
+        }
+
+        # Send failure event if EventSystem is available
+        if ($script:EventSystemAvailable) {
+            try {
+                Send-GameEvent -EventType "system.commandExecutionFailed" -Data @{
+                    CommandName = $CommandName
+                    ExecutionId = $executionId
+                    Error = $_.Exception.Message
+                    ExecutionTimeMs = $executionTime.TotalMilliseconds
+                    ExecutionTime = Get-Date
+                } -Source "CommandRegistry" -Priority "High"
+            } catch {
+                Write-GameLog -Message "Failed to send command execution failure event" -Level Warning -Module "CommandRegistry" -Data @{ Error = $_.Exception.Message }
+            }
+        }
+
+        throw
     }
 
     return $script:GlobalCommandRegistry.ExecuteCommand($CommandName, $Parameters, $Context)

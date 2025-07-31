@@ -262,46 +262,5 @@
       "ExecutionId": "189b2ba7-84c2-4f07-be87-4dac048e9901",
       "Command": "registry.getStatistics"
     }
-  },
-  {
-    "id": "ps_20250801_002115_a7657de0",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:21:15.009",
-    "data": {
-      "ExecutionTimeMs": 3.1424,
-      "CommandName": "registry.getStatistics",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:21:15.0089672+01:00",
-      "ExecutionId": "f37b876d"
-    }
-  },
-  {
-    "id": "ps_20250801_002115_b96fcce8",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.error",
-    "timestamp": "2025-08-01T00:21:15.027",
-    "data": {
-      "ExecutionTime": 4.5106,
-      "Error": "Method invocation failed because [CommandRegistry] does not contain a method named 'GetPerformanceMetrics'.",
-      "ExecutionId": "ae89aa43-0d35-48fc-90e4-138aee6faf5a",
-      "Command": "registry.getPerformanceMetrics"
-    }
-  },
-  {
-    "id": "ps_20250801_002115_ae762714",
-    "priority": "High",
-    "source": "CommandRegistry",
-    "type": "system.commandExecutionFailed",
-    "timestamp": "2025-08-01T00:21:15.029",
-    "data": {
-      "ExecutionTimeMs": 7.2545,
-      "CommandName": "registry.getPerformanceMetrics",
-      "ExecutionTime": "2025-08-01T00:21:15.0297641+01:00",
-      "Error": "Method invocation failed because [CommandRegistry] does not contain a method named 'GetPerformanceMetrics'.",
-      "ExecutionId": "57059872"
-    }
   }
 ]

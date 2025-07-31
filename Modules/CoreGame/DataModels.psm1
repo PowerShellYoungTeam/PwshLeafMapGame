@@ -1,7 +1,54 @@
 # Entity Data Models Module
 # Implements the core data models for PowerShell Leafmap RPG
+# Enhanced with property change tracking and full entity management
 
-# Base Entity Class
+# String constants for entity types (no enums)
+$script:EntityTypes = @{
+    Base = 'Entity'
+    Player = 'Player'
+    NPC = 'NPC'
+    Item = 'Item'
+    Location = 'Location'
+    Quest = 'Quest'
+    Faction = 'Faction'
+}
+
+$script:ItemCategories = @{
+    Weapon = 'Weapon'
+    Armor = 'Armor'
+    Consumable = 'Consumable'
+    KeyItem = 'KeyItem'
+    Material = 'Material'
+    Tool = 'Tool'
+    Accessory = 'Accessory'
+}
+
+$script:NPCBehaviorTypes = @{
+    Friendly = 'Friendly'
+    Neutral = 'Neutral'
+    Hostile = 'Hostile'
+    Vendor = 'Vendor'
+    QuestGiver = 'QuestGiver'
+}
+
+$script:QuestTypes = @{
+    Main = 'Main'
+    Side = 'Side'
+    Repeatable = 'Repeatable'
+    Daily = 'Daily'
+    Event = 'Event'
+}
+
+$script:QuestStatus = @{
+    NotStarted = 'NotStarted'
+    Available = 'Available'
+    InProgress = 'InProgress'
+    Completed = 'Completed'
+    Failed = 'Failed'
+    Abandoned = 'Abandoned'
+}
+
+# Base Entity Class with property change tracking
 class GameEntity {
     [string]$Id
     [string]$Type
@@ -13,11 +60,16 @@ class GameEntity {
     [DateTime]$UpdatedAt
     [string]$Version
     [bool]$IsActive
-    [hashtable]$CustomProperties
+    [hashtable]$Properties
+
+    # Change tracking properties
+    [hashtable]$OriginalValues
+    [hashtable]$PropertyChanges
+    [bool]$IsTrackingChanges
 
     GameEntity() {
         $this.Id = [System.Guid]::NewGuid().ToString()
-        $this.Type = 'Entity'
+        $this.Type = $script:EntityTypes.Base
         $this.Name = ''
         $this.Description = ''
         $this.Tags = @{}
@@ -26,12 +78,20 @@ class GameEntity {
         $this.UpdatedAt = Get-Date
         $this.Version = '1.0.0'
         $this.IsActive = $true
-        $this.CustomProperties = @{}
+        $this.Properties = @{}
+
+        # Initialize change tracking
+        $this.OriginalValues = @{}
+        $this.PropertyChanges = @{}
+        $this.IsTrackingChanges = $true
+
+        $this.InitializeDefaults()
+        $this.StartChangeTracking()
     }
 
     GameEntity([hashtable]$Data) {
         $this.Id = if ($Data.Id) { $Data.Id } else { [System.Guid]::NewGuid().ToString() }
-        $this.Type = if ($Data.Type) { $Data.Type } else { 'Entity' }
+        $this.Type = if ($Data.Type) { $Data.Type } else { $script:EntityTypes.Base }
         $this.Name = if ($Data.Name) { $Data.Name } else { '' }
         $this.Description = if ($Data.Description) { $Data.Description } else { '' }
         $this.Tags = if ($Data.Tags) { $Data.Tags } else { @{} }
@@ -40,814 +100,807 @@ class GameEntity {
         $this.UpdatedAt = if ($Data.UpdatedAt) { [DateTime]$Data.UpdatedAt } else { Get-Date }
         $this.Version = if ($Data.Version) { $Data.Version } else { '1.0.0' }
         $this.IsActive = if ($null -ne $Data.IsActive) { $Data.IsActive } else { $true }
-        $this.CustomProperties = if ($Data.CustomProperties) { $Data.CustomProperties } else { @{} }
+        $this.Properties = if ($Data.Properties) { $Data.Properties } else { @{} }
+
+        # Initialize change tracking
+        $this.OriginalValues = @{}
+        $this.PropertyChanges = @{}
+        $this.IsTrackingChanges = $true
+
+        $this.InitializeDefaults()
+        $this.StartChangeTracking()
     }
 
+    # Virtual method for derived classes to override
+    [void] InitializeDefaults() {
+        # Override in derived classes
+    }
+
+    # Property management methods
+    [void] SetProperty([string]$Name, [object]$Value) {
+        $this.SetProperty($Name, $Value, $true)
+    }
+
+    [void] SetProperty([string]$Name, [object]$Value, [bool]$TriggerEvent) {
+        $oldValue = $this.Properties[$Name]
+        $this.Properties[$Name] = $Value
+        $this.UpdatedAt = Get-Date
+
+        # Track changes if enabled
+        if ($this.IsTrackingChanges) {
+            if (-not $this.OriginalValues.ContainsKey($Name)) {
+                $this.OriginalValues[$Name] = $oldValue
+            }
+
+            $this.PropertyChanges[$Name] = @{
+                OldValue = $oldValue
+                NewValue = $Value
+                Timestamp = Get-Date
+            }
+        }
+
+        # Trigger property changed event if requested
+        if ($TriggerEvent) {
+            $this.OnPropertyChanged($Name, $oldValue, $Value)
+        }
+    }
+
+    [object] GetProperty([string]$Name) {
+        return $this.Properties[$Name]
+    }
+
+    [object] GetProperty([string]$Name, [object]$DefaultValue) {
+        if ($this.Properties.ContainsKey($Name)) {
+            return $this.Properties[$Name]
+        }
+        return $DefaultValue
+    }
+
+    [bool] HasProperty([string]$Name) {
+        return $this.Properties.ContainsKey($Name)
+    }
+
+    [void] RemoveProperty([string]$Name) {
+        if ($this.Properties.ContainsKey($Name)) {
+            $oldValue = $this.Properties[$Name]
+            $this.Properties.Remove($Name)
+            $this.UpdatedAt = Get-Date
+
+            if ($this.IsTrackingChanges) {
+                if (-not $this.OriginalValues.ContainsKey($Name)) {
+                    $this.OriginalValues[$Name] = $oldValue
+                }
+
+                $this.PropertyChanges[$Name] = @{
+                    OldValue = $oldValue
+                    NewValue = $null
+                    Timestamp = Get-Date
+                    Action = 'Removed'
+                }
+            }
+
+            $this.OnPropertyChanged($Name, $oldValue, $null)
+        }
+    }
+
+    # Change tracking methods
+    [void] StartChangeTracking() {
+        $this.IsTrackingChanges = $true
+        $this.OriginalValues = @{}
+        $this.PropertyChanges = @{}
+
+        # Capture current state as baseline
+        foreach ($key in $this.Properties.Keys) {
+            $this.OriginalValues[$key] = $this.Properties[$key]
+        }
+    }
+
+    [void] StopChangeTracking() {
+        $this.IsTrackingChanges = $false
+    }
+
+    [void] AcceptChanges() {
+        $this.OriginalValues = @{}
+        $this.PropertyChanges = @{}
+
+        # Capture current state as new baseline
+        foreach ($key in $this.Properties.Keys) {
+            $this.OriginalValues[$key] = $this.Properties[$key]
+        }
+    }
+
+    [void] RejectChanges() {
+        if ($this.IsTrackingChanges) {
+            # Restore original values
+            foreach ($key in $this.OriginalValues.Keys) {
+                $this.Properties[$key] = $this.OriginalValues[$key]
+            }
+
+            # Clear change tracking
+            $this.PropertyChanges = @{}
+            $this.UpdatedAt = Get-Date
+        }
+    }
+
+    [hashtable] GetChanges() {
+        return $this.PropertyChanges.Clone()
+    }
+
+    [bool] HasChanges() {
+        return $this.PropertyChanges.Count -gt 0
+    }
+
+    [array] GetChangedProperties() {
+        return @($this.PropertyChanges.Keys)
+    }
+
+    # Event handling (virtual method)
+    [void] OnPropertyChanged([string]$PropertyName, [object]$OldValue, [object]$NewValue) {
+        # Override in derived classes for custom event handling
+        Write-Verbose "Property '$PropertyName' changed from '$OldValue' to '$NewValue' on entity '$($this.Id)'"
+    }
+
+    # Serialization methods
     [hashtable] ToHashtable() {
-        return @{
+        return $this.ToHashtable(5)
+    }
+
+    [hashtable] ToHashtable([int]$Depth) {
+        $result = @{
             Id = $this.Id
             Type = $this.Type
             Name = $this.Name
             Description = $this.Description
             Tags = $this.Tags
             Metadata = $this.Metadata
-            CreatedAt = $this.CreatedAt.ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
-            UpdatedAt = $this.UpdatedAt.ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
+            CreatedAt = $this.CreatedAt
+            UpdatedAt = $this.UpdatedAt
             Version = $this.Version
             IsActive = $this.IsActive
-            CustomProperties = $this.CustomProperties
+            Properties = $this.Properties
         }
+
+        if ($Depth -gt 0) {
+            $result.OriginalValues = $this.OriginalValues
+            $result.PropertyChanges = $this.PropertyChanges
+            $result.IsTrackingChanges = $this.IsTrackingChanges
+        }
+
+        return $result
     }
 
     [string] ToJson() {
-        return $this.ToHashtable() | ConvertTo-Json -Depth 10
+        return $this.ToJson(5)
     }
 
-    [void] UpdateTimestamp() {
-        $this.UpdatedAt = Get-Date
+    [string] ToJson([int]$Depth) {
+        $data = $this.ToHashtable($Depth)
+        return $data | ConvertTo-Json -Depth $Depth -Compress
+    }
+
+    [string] ToString() {
+        return "$($this.Type): $($this.Name) ($($this.Id))"
     }
 }
 
 # Player Entity Class
 class Player : GameEntity {
-    # Identity Properties
-    [string]$Username
-    [string]$Email
-    [string]$DisplayName
-
-    # Character Properties
-    [int]$Level
-    [long]$Experience
-    [long]$ExperienceToNext
-    [hashtable]$Attributes
-    [hashtable]$Skills
-
-    # Game State
-    [hashtable]$Location
-    [string]$LastLocationId
-    [array]$VisitedLocations
-    [long]$Score
-    [string]$GameState
-
-    # Inventory & Equipment
-    [array]$Inventory
-    [hashtable]$Equipment
-    [int]$InventoryCapacity
-    [decimal]$Currency
-
-    # Progress & Achievements
-    [array]$Achievements
-    [hashtable]$QuestProgress
-    [hashtable]$Statistics
-    [array]$CompletedQuests
-
-    # Social & Multiplayer
-    [array]$Friends
-    [string]$GuildId
-    [hashtable]$Reputation
-
-    # Preferences & Settings
-    [hashtable]$Preferences
-    [hashtable]$UISettings
-    [string]$Theme
-
-    # Session Data
-    [DateTime]$LastLogin
-    [TimeSpan]$PlayTime
-    [DateTime]$SessionStart
-    [bool]$IsOnline
-
-    # Backup & Recovery
-    [string]$BackupData
-    [DateTime]$LastBackup
-
     Player() : base() {
-        $this.Type = 'Player'
+        $this.Type = $script:EntityTypes.Player
         $this.InitializeDefaults()
     }
 
     Player([hashtable]$Data) : base($Data) {
-        $this.Type = 'Player'
-        $this.Username = if ($Data.Username) { $Data.Username } else { '' }
-        $this.Email = if ($Data.Email) { $Data.Email } else { '' }
-        $this.DisplayName = if ($Data.DisplayName) { $Data.DisplayName } else { '' }
-        $this.Level = if ($Data.Level) { $Data.Level } else { 1 }
-        $this.Experience = if ($Data.Experience) { $Data.Experience } else { 0 }
-        $this.ExperienceToNext = if ($Data.ExperienceToNext) { $Data.ExperienceToNext } else { 1000 }
-        $this.Attributes = if ($Data.Attributes) { $Data.Attributes } else { $this.GetDefaultAttributes() }
-        $this.Skills = if ($Data.Skills) { $Data.Skills } else { $this.GetDefaultSkills() }
-        $this.Location = if ($Data.Location) { $Data.Location } else { @{} }
-        $this.LastLocationId = if ($Data.LastLocationId) { $Data.LastLocationId } else { '' }
-        $this.VisitedLocations = if ($Data.VisitedLocations) { @($Data.VisitedLocations) } else { @() }
-        $this.Score = if ($Data.Score) { $Data.Score } else { 0 }
-        $this.GameState = if ($Data.GameState) { $Data.GameState } else { 'Active' }
-        $this.Inventory = if ($Data.Inventory) { @($Data.Inventory) } else { @() }
-        $this.Equipment = if ($Data.Equipment) { $Data.Equipment } else { $this.GetDefaultEquipment() }
-        $this.InventoryCapacity = if ($Data.InventoryCapacity) { $Data.InventoryCapacity } else { 30 }
-        $this.Currency = if ($Data.Currency) { $Data.Currency } else { 100 }
-        $this.Achievements = if ($Data.Achievements) { @($Data.Achievements) } else { @() }
-        $this.QuestProgress = if ($Data.QuestProgress) { $Data.QuestProgress } else { @{} }
-        $this.Statistics = if ($Data.Statistics) { $Data.Statistics } else { $this.GetDefaultStatistics() }
-        $this.CompletedQuests = if ($Data.CompletedQuests) { @($Data.CompletedQuests) } else { @() }
-        $this.Friends = if ($Data.Friends) { @($Data.Friends) } else { @() }
-        $this.GuildId = if ($Data.GuildId) { $Data.GuildId } else { $null }
-        $this.Reputation = if ($Data.Reputation) { $Data.Reputation } else { @{} }
-        $this.Preferences = if ($Data.Preferences) { $Data.Preferences } else { $this.GetDefaultPreferences() }
-        $this.UISettings = if ($Data.UISettings) { $Data.UISettings } else { $this.GetDefaultUISettings() }
-        $this.Theme = if ($Data.Theme) { $Data.Theme } else { 'Default' }
-        $this.LastLogin = if ($Data.LastLogin) { [DateTime]$Data.LastLogin } else { Get-Date }
-        $this.PlayTime = if ($Data.PlayTime) { [TimeSpan]$Data.PlayTime } else { [TimeSpan]::Zero }
-        $this.SessionStart = if ($Data.SessionStart) { [DateTime]$Data.SessionStart } else { Get-Date }
-        $this.IsOnline = if ($null -ne $Data.IsOnline) { $Data.IsOnline } else { $true }
-        $this.BackupData = if ($Data.BackupData) { $Data.BackupData } else { '' }
-        $this.LastBackup = if ($Data.LastBackup) { [DateTime]$Data.LastBackup } else { Get-Date }
+        $this.Type = $script:EntityTypes.Player
+        $this.InitializeDefaults()
+
+        # Load Player-specific data without triggering events
+        if ($Data.ContainsKey('Username')) { $this.SetProperty('Username', $Data.Username, $false) }
+        if ($Data.ContainsKey('Email')) { $this.SetProperty('Email', $Data.Email, $false) }
+        if ($Data.ContainsKey('Level')) { $this.SetProperty('Level', $Data.Level, $false) }
+        if ($Data.ContainsKey('Experience')) { $this.SetProperty('Experience', $Data.Experience, $false) }
+        if ($Data.ContainsKey('Health')) { $this.SetProperty('Health', $Data.Health, $false) }
+        if ($Data.ContainsKey('MaxHealth')) { $this.SetProperty('MaxHealth', $Data.MaxHealth, $false) }
+        if ($Data.ContainsKey('Mana')) { $this.SetProperty('Mana', $Data.Mana, $false) }
+        if ($Data.ContainsKey('MaxMana')) { $this.SetProperty('MaxMana', $Data.MaxMana, $false) }
+        if ($Data.ContainsKey('Attributes')) { $this.SetProperty('Attributes', $Data.Attributes, $false) }
+        if ($Data.ContainsKey('Skills')) { $this.SetProperty('Skills', $Data.Skills, $false) }
+        if ($Data.ContainsKey('Inventory')) { $this.SetProperty('Inventory', $Data.Inventory, $false) }
+        if ($Data.ContainsKey('Equipment')) { $this.SetProperty('Equipment', $Data.Equipment, $false) }
+        if ($Data.ContainsKey('CurrentLocationId')) { $this.SetProperty('CurrentLocationId', $Data.CurrentLocationId, $false) }
+        if ($Data.ContainsKey('Quests')) { $this.SetProperty('Quests', $Data.Quests, $false) }
+        if ($Data.ContainsKey('CompletedQuests')) { $this.SetProperty('CompletedQuests', $Data.CompletedQuests, $false) }
+        if ($Data.ContainsKey('Currency')) { $this.SetProperty('Currency', $Data.Currency, $false) }
+        if ($Data.ContainsKey('FactionStandings')) { $this.SetProperty('FactionStandings', $Data.FactionStandings, $false) }
+
+        # Reset change tracking after loading
+        $this.AcceptChanges()
     }
 
     [void] InitializeDefaults() {
-        $this.Level = 1
-        $this.Experience = 0
-        $this.ExperienceToNext = 1000
-        $this.Attributes = $this.GetDefaultAttributes()
-        $this.Skills = $this.GetDefaultSkills()
-        $this.VisitedLocations = @()
-        $this.Score = 0
-        $this.GameState = 'Active'
-        $this.Inventory = @()
-        $this.Equipment = $this.GetDefaultEquipment()
-        $this.InventoryCapacity = 30
-        $this.Currency = 100
-        $this.Achievements = @()
-        $this.QuestProgress = @{}
-        $this.Statistics = $this.GetDefaultStatistics()
-        $this.CompletedQuests = @()
-        $this.Friends = @()
-        $this.Reputation = @{}
-        $this.Preferences = $this.GetDefaultPreferences()
-        $this.UISettings = $this.GetDefaultUISettings()
-        $this.Theme = 'Default'
-        $this.LastLogin = Get-Date
-        $this.PlayTime = [TimeSpan]::Zero
-        $this.SessionStart = Get-Date
-        $this.IsOnline = $true
-        $this.BackupData = ''
-        $this.LastBackup = Get-Date
-    }
+        # Player account info
+        $this.SetProperty('Username', '', $false)
+        $this.SetProperty('Email', '', $false)
+        $this.SetProperty('LastLogin', (Get-Date), $false)
 
-    [hashtable] GetDefaultAttributes() {
-        return @{
-            Strength = @{ Base = 10; Current = 10; Modifiers = @(); Maximum = 20 }
-            Dexterity = @{ Base = 10; Current = 10; Modifiers = @(); Maximum = 20 }
-            Intelligence = @{ Base = 10; Current = 10; Modifiers = @(); Maximum = 20 }
-            Constitution = @{ Base = 10; Current = 10; Modifiers = @(); Maximum = 20 }
-            Wisdom = @{ Base = 10; Current = 10; Modifiers = @(); Maximum = 20 }
-            Charisma = @{ Base = 10; Current = 10; Modifiers = @(); Maximum = 20 }
-        }
-    }
+        # Character progression
+        $this.SetProperty('Level', 1, $false)
+        $this.SetProperty('Experience', 0, $false)
+        $this.SetProperty('ExperienceToNextLevel', 1000, $false)
 
-    [hashtable] GetDefaultSkills() {
-        return @{
-            Combat = @{ Level = 1; Experience = 0; Specializations = @() }
-            Exploration = @{ Level = 1; Experience = 0; Specializations = @() }
-            Social = @{ Level = 1; Experience = 0; Specializations = @() }
-            Crafting = @{ Level = 1; Experience = 0; Specializations = @() }
-        }
-    }
+        # Health and combat
+        $this.SetProperty('Health', 100, $false)
+        $this.SetProperty('MaxHealth', 100, $false)
+        $this.SetProperty('Mana', 50, $false)
+        $this.SetProperty('MaxMana', 50, $false)
+        $this.SetProperty('IsAlive', $true, $false)
 
-    [hashtable] GetDefaultEquipment() {
-        return @{
-            Head = $null; Chest = $null; Legs = $null; Feet = $null
-            MainHand = $null; OffHand = $null; Ring1 = $null; Ring2 = $null
-        }
-    }
+        # Attributes
+        $this.SetProperty('Attributes', @{
+            Strength = 10; Dexterity = 10; Intelligence = 10
+            Constitution = 10; Wisdom = 10; Charisma = 10
+        }, $false)
 
-    [hashtable] GetDefaultStatistics() {
-        return @{
-            LocationsVisited = 0
-            QuestsCompleted = 0
-            ItemsCollected = 0
-            EnemiesDefeated = 0
-            DistanceTraveled = 0
-            TimePlayedHours = 0
-        }
-    }
+        # Skills
+        $this.SetProperty('Skills', @{}, $false)
 
-    [hashtable] GetDefaultPreferences() {
-        return @{
+        # Inventory and equipment
+        $this.SetProperty('Inventory', @(), $false)
+        $this.SetProperty('Equipment', @{
+            Weapon = $null; Armor = $null; Helmet = $null
+            Gloves = $null; Boots = $null; Ring1 = $null; Ring2 = $null
+        }, $false)
+        $this.SetProperty('InventoryCapacity', 50, $false)
+
+        # Location and movement
+        $this.SetProperty('CurrentLocationId', '', $false)
+        $this.SetProperty('SpawnLocationId', '', $false)
+        $this.SetProperty('Position', @{ X = 0; Y = 0; Z = 0 }, $false)
+
+        # Quests and progression
+        $this.SetProperty('Quests', @(), $false)
+        $this.SetProperty('CompletedQuests', @(), $false)
+        $this.SetProperty('Achievements', @(), $false)
+
+        # Economy
+        $this.SetProperty('Currency', 100, $false)
+        $this.SetProperty('BankAccount', 0, $false)
+
+        # Faction relationships
+        $this.SetProperty('FactionStandings', @{}, $false)
+
+        # Player settings
+        $this.SetProperty('Settings', @{
             AutoSave = $true
-            ShowTutorials = $true
-            DifficultyLevel = 'Normal'
+            ShowNotifications = $true
             SoundEnabled = $true
-            MusicEnabled = $true
+        }, $false)
+    }
+
+    # Convenient property accessors
+    [int] GetLevel() { return $this.GetProperty('Level', 1) }
+    [void] SetLevel([int]$Value) { $this.SetProperty('Level', $Value) }
+
+    [int] GetHealth() { return $this.GetProperty('Health', 100) }
+    [void] SetHealth([int]$Value) { $this.SetProperty('Health', $Value) }
+
+    [int] GetExperience() { return $this.GetProperty('Experience', 0) }
+    [void] SetExperience([int]$Value) { $this.SetProperty('Experience', $Value) }
+
+    [string] GetCurrentLocationId() { return $this.GetProperty('CurrentLocationId', '') }
+    [void] SetCurrentLocationId([string]$Value) { $this.SetProperty('CurrentLocationId', $Value) }
+
+    # Player-specific methods
+    [void] AddExperience([int]$Amount) {
+        $currentExp = $this.GetExperience()
+        $newExp = $currentExp + $Amount
+        $this.SetExperience($newExp)
+        $this.CheckLevelUp()
+    }
+
+    [void] CheckLevelUp() {
+        $currentLevel = $this.GetLevel()
+        $currentExp = $this.GetExperience()
+        $expNeeded = $this.GetProperty('ExperienceToNextLevel', 1000)
+
+        if ($currentExp -ge $expNeeded) {
+            $this.SetLevel($currentLevel + 1)
+            $this.SetExperience($currentExp - $expNeeded)
+            $this.SetProperty('ExperienceToNextLevel', ($currentLevel + 1) * 1000)
+            $this.OnLevelUp($currentLevel + 1)
         }
     }
 
-    [hashtable] GetDefaultUISettings() {
-        return @{
-            Theme = 'Default'
-            FontSize = 'Medium'
-            ShowMinimap = $true
-            ShowHealthBar = $true
-            ShowExperienceBar = $true
+    [void] OnLevelUp([int]$NewLevel) {
+        # Increase health and mana on level up
+        $currentMaxHealth = $this.GetProperty('MaxHealth', 100)
+        $currentMaxMana = $this.GetProperty('MaxMana', 50)
+
+        $this.SetProperty('MaxHealth', $currentMaxHealth + 10)
+        $this.SetProperty('MaxMana', $currentMaxMana + 5)
+        $this.SetProperty('Health', $currentMaxHealth + 10)  # Full heal on level up
+        $this.SetProperty('Mana', $currentMaxMana + 5)
+
+        Write-Verbose "Player $($this.Name) leveled up to $NewLevel!"
+    }
+
+    [void] AddItemToInventory([hashtable]$Item) {
+        $inventory = $this.GetProperty('Inventory', @())
+        $inventory += $Item
+        $this.SetProperty('Inventory', $inventory)
+    }
+
+    [bool] RemoveItemFromInventory([string]$ItemId, [int]$Quantity = 1) {
+        $inventory = $this.GetProperty('Inventory', @())
+        $found = $false
+
+        for ($i = 0; $i -lt $inventory.Count; $i++) {
+            if ($inventory[$i].Id -eq $ItemId) {
+                if ($inventory[$i].Quantity -gt $Quantity) {
+                    $inventory[$i].Quantity -= $Quantity
+                } else {
+                    $inventory = $inventory | Where-Object { $_.Id -ne $ItemId }
+                }
+                $found = $true
+                break
+            }
+        }
+
+        if ($found) {
+            $this.SetProperty('Inventory', $inventory)
+        }
+        return $found
+    }
+
+    [void] AddQuest([string]$QuestId) {
+        $quests = $this.GetProperty('Quests', @())
+        if ($quests -notcontains $QuestId) {
+            $quests += $QuestId
+            $this.SetProperty('Quests', $quests)
         }
     }
 
-    [hashtable] ToHashtable() {
-        $baseData = ([GameEntity]$this).ToHashtable()
-        $playerData = @{
-            Username = $this.Username
-            Email = $this.Email
-            DisplayName = $this.DisplayName
-            Level = $this.Level
-            Experience = $this.Experience
-            ExperienceToNext = $this.ExperienceToNext
-            Attributes = $this.Attributes
-            Skills = $this.Skills
-            Location = $this.Location
-            LastLocationId = $this.LastLocationId
-            VisitedLocations = $this.VisitedLocations
-            Score = $this.Score
-            GameState = $this.GameState
-            Inventory = $this.Inventory
-            Equipment = $this.Equipment
-            InventoryCapacity = $this.InventoryCapacity
-            Currency = $this.Currency
-            Achievements = $this.Achievements
-            QuestProgress = $this.QuestProgress
-            Statistics = $this.Statistics
-            CompletedQuests = $this.CompletedQuests
-            Friends = $this.Friends
-            GuildId = $this.GuildId
-            Reputation = $this.Reputation
-            Preferences = $this.Preferences
-            UISettings = $this.UISettings
-            Theme = $this.Theme
-            LastLogin = $this.LastLogin.ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
-            PlayTime = $this.PlayTime.ToString()
-            SessionStart = $this.SessionStart.ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
-            IsOnline = $this.IsOnline
-            BackupData = $this.BackupData
-            LastBackup = $this.LastBackup.ToString('yyyy-MM-ddTHH:mm:ss.fffZ')
-        }
+    [void] CompleteQuest([string]$QuestId) {
+        $quests = $this.GetProperty('Quests', @())
+        $completedQuests = $this.GetProperty('CompletedQuests', @())
 
-        return $baseData + $playerData
-    }
+        $quests = $quests | Where-Object { $_ -ne $QuestId }
+        $completedQuests += $QuestId
 
-    [void] AddExperience([long]$Amount) {
-        $this.Experience += $Amount
-        $this.UpdateTimestamp()
-
-        # Check for level up
-        while ($this.Experience -ge $this.ExperienceToNext) {
-            $this.LevelUp()
-        }
-    }
-
-    [void] LevelUp() {
-        $this.Level++
-        $this.Experience -= $this.ExperienceToNext
-        $this.ExperienceToNext = [math]::Floor($this.ExperienceToNext * 1.2)
-        $this.UpdateTimestamp()
-    }
-
-    [void] VisitLocation([string]$LocationId) {
-        if ($this.VisitedLocations -notcontains $LocationId) {
-            $this.VisitedLocations = @($this.VisitedLocations) + $LocationId
-        }
-        $this.LastLocationId = $LocationId
-        $this.Statistics.LocationsVisited = $this.VisitedLocations.Count
-        $this.UpdateTimestamp()
-    }
-
-    [void] AddAchievement([hashtable]$Achievement) {
-        $this.Achievements = @($this.Achievements) + $Achievement
-        $this.UpdateTimestamp()
-    }
-
-    [bool] HasAchievement([string]$AchievementId) {
-        return $this.Achievements | Where-Object { $_.Id -eq $AchievementId } | Measure-Object | ForEach-Object Count
+        $this.SetProperty('Quests', $quests)
+        $this.SetProperty('CompletedQuests', $completedQuests)
     }
 }
 
 # NPC Entity Class
 class NPC : GameEntity {
-    # Identity
-    [string]$NPCType
-    [string]$Race
-    [string]$Gender
-    [string]$Age
-
-    # Appearance
-    [hashtable]$Appearance
-    [string]$Portrait
-    [array]$Animations
-
-    # Behavior
-    [hashtable]$AIBehavior
-    [string]$PersonalityType
-    [array]$DialogueOptions
-    [hashtable]$Reactions
-
-    # Location & Movement
-    [hashtable]$SpawnLocation
-    [array]$PatrolRoute
-    [decimal]$MovementSpeed
-    [bool]$IsStationary
-
-    # Interaction
-    [array]$AvailableServices
-    [hashtable]$Inventory
-    [array]$QuestsOffered
-    [hashtable]$RelationshipData
-
-    # Combat (if applicable)
-    [hashtable]$CombatStats
-    [array]$Abilities
-    [string]$Faction
-    [string]$HostilityLevel
-
-    # Schedule & Availability
-    [hashtable]$Schedule
-    [array]$AvailableHours
-    [bool]$IsCurrentlyAvailable
-
     NPC() : base() {
-        $this.Type = 'NPC'
+        $this.Type = $script:EntityTypes.NPC
         $this.InitializeDefaults()
     }
 
     NPC([hashtable]$Data) : base($Data) {
-        $this.Type = 'NPC'
-        $this.NPCType = if ($Data.NPCType) { $Data.NPCType } else { 'Generic' }
-        $this.Race = if ($Data.Race) { $Data.Race } else { 'Human' }
-        $this.Gender = if ($Data.Gender) { $Data.Gender } else { 'Unknown' }
-        $this.Age = if ($Data.Age) { $Data.Age } else { 'Adult' }
-        $this.Appearance = if ($Data.Appearance) { $Data.Appearance } else { @{} }
-        $this.Portrait = if ($Data.Portrait) { $Data.Portrait } else { '' }
-        $this.Animations = if ($Data.Animations) { @($Data.Animations) } else { @() }
-        $this.AIBehavior = if ($Data.AIBehavior) { $Data.AIBehavior } else { @{} }
-        $this.PersonalityType = if ($Data.PersonalityType) { $Data.PersonalityType } else { 'Neutral' }
-        $this.DialogueOptions = if ($Data.DialogueOptions) { @($Data.DialogueOptions) } else { @() }
-        $this.Reactions = if ($Data.Reactions) { $Data.Reactions } else { @{} }
-        $this.SpawnLocation = if ($Data.SpawnLocation) { $Data.SpawnLocation } else { @{} }
-        $this.PatrolRoute = if ($Data.PatrolRoute) { @($Data.PatrolRoute) } else { @() }
-        $this.MovementSpeed = if ($Data.MovementSpeed) { $Data.MovementSpeed } else { 1.0 }
-        $this.IsStationary = if ($null -ne $Data.IsStationary) { $Data.IsStationary } else { $true }
-        $this.AvailableServices = if ($Data.AvailableServices) { @($Data.AvailableServices) } else { @() }
-        $this.Inventory = if ($Data.Inventory) { $Data.Inventory } else { @{} }
-        $this.QuestsOffered = if ($Data.QuestsOffered) { @($Data.QuestsOffered) } else { @() }
-        $this.RelationshipData = if ($Data.RelationshipData) { $Data.RelationshipData } else { @{} }
-        $this.CombatStats = if ($Data.CombatStats) { $Data.CombatStats } else { @{} }
-        $this.Abilities = if ($Data.Abilities) { @($Data.Abilities) } else { @() }
-        $this.Faction = if ($Data.Faction) { $Data.Faction } else { 'Neutral' }
-        $this.HostilityLevel = if ($Data.HostilityLevel) { $Data.HostilityLevel } else { 'Neutral' }
-        $this.Schedule = if ($Data.Schedule) { $Data.Schedule } else { @{} }
-        $this.AvailableHours = if ($Data.AvailableHours) { @($Data.AvailableHours) } else { @() }
-        $this.IsCurrentlyAvailable = if ($null -ne $Data.IsCurrentlyAvailable) { $Data.IsCurrentlyAvailable } else { $true }
+        $this.Type = $script:EntityTypes.NPC
+        $this.InitializeDefaults()
+
+        # Load NPC-specific data
+        if ($Data.ContainsKey('NPCType')) { $this.SetProperty('NPCType', $Data.NPCType, $false) }
+        if ($Data.ContainsKey('BehaviorType')) { $this.SetProperty('BehaviorType', $Data.BehaviorType, $false) }
+        if ($Data.ContainsKey('Health')) { $this.SetProperty('Health', $Data.Health, $false) }
+        if ($Data.ContainsKey('CurrentLocationId')) { $this.SetProperty('CurrentLocationId', $Data.CurrentLocationId, $false) }
+        if ($Data.ContainsKey('FactionId')) { $this.SetProperty('FactionId', $Data.FactionId, $false) }
+        if ($Data.ContainsKey('DialogOptions')) { $this.SetProperty('DialogOptions', $Data.DialogOptions, $false) }
+        if ($Data.ContainsKey('Inventory')) { $this.SetProperty('Inventory', $Data.Inventory, $false) }
+        if ($Data.ContainsKey('QuestsOffered')) { $this.SetProperty('QuestsOffered', $Data.QuestsOffered, $false) }
+        if ($Data.ContainsKey('Schedule')) { $this.SetProperty('Schedule', $Data.Schedule, $false) }
+
+        # Reset change tracking after loading
+        $this.AcceptChanges()
     }
 
     [void] InitializeDefaults() {
-        $this.NPCType = 'Generic'
-        $this.Race = 'Human'
-        $this.Gender = 'Unknown'
-        $this.Age = 'Adult'
-        $this.Appearance = @{}
-        $this.Portrait = ''
-        $this.Animations = @()
-        $this.AIBehavior = @{}
-        $this.PersonalityType = 'Neutral'
-        $this.DialogueOptions = @()
-        $this.Reactions = @{}
-        $this.SpawnLocation = @{}
-        $this.PatrolRoute = @()
-        $this.MovementSpeed = 1.0
-        $this.IsStationary = $true
-        $this.AvailableServices = @()
-        $this.Inventory = @{}
-        $this.QuestsOffered = @()
-        $this.RelationshipData = @{}
-        $this.CombatStats = @{}
-        $this.Abilities = @()
-        $this.Faction = 'Neutral'
-        $this.HostilityLevel = 'Neutral'
-        $this.Schedule = @{}
-        $this.AvailableHours = @()
-        $this.IsCurrentlyAvailable = $true
+        # Basic NPC information
+        $this.SetProperty('NPCType', 'Generic', $false)
+        $this.SetProperty('BehaviorType', $script:NPCBehaviorTypes.Neutral, $false)
+
+        # Health and combat
+        $this.SetProperty('Health', 100, $false)
+        $this.SetProperty('MaxHealth', 100, $false)
+        $this.SetProperty('IsAlive', $true, $false)
+
+        # Location and movement
+        $this.SetProperty('CurrentLocationId', '', $false)
+        $this.SetProperty('SpawnLocationId', '', $false)
+        $this.SetProperty('Position', @{ X = 0; Y = 0; Z = 0 }, $false)
+
+        # Social and interaction
+        $this.SetProperty('FactionId', '', $false)
+        $this.SetProperty('DialogOptions', @(), $false)
+        $this.SetProperty('RelationshipToPlayer', 0, $false)  # -100 to 100
+
+        # Inventory and services
+        $this.SetProperty('Inventory', @(), $false)
+        $this.SetProperty('IsVendor', $false, $false)
+        $this.SetProperty('VendorCategory', '', $false)
+        $this.SetProperty('Currency', 0, $false)
+
+        # Quests
+        $this.SetProperty('QuestsOffered', @(), $false)
+
+        # Scheduling
+        $this.SetProperty('Schedule', @{}, $false)
+        $this.SetProperty('IsCurrentlyAvailable', $true, $false)
+
+        # AI and behavior
+        $this.SetProperty('PersonalityTraits', @(), $false)
     }
 
-    [hashtable] ToHashtable() {
-        $baseData = ([GameEntity]$this).ToHashtable()
-        $npcData = @{
-            NPCType = $this.NPCType
-            Race = $this.Race
-            Gender = $this.Gender
-            Age = $this.Age
-            Appearance = $this.Appearance
-            Portrait = $this.Portrait
-            Animations = $this.Animations
-            AIBehavior = $this.AIBehavior
-            PersonalityType = $this.PersonalityType
-            DialogueOptions = $this.DialogueOptions
-            Reactions = $this.Reactions
-            SpawnLocation = $this.SpawnLocation
-            PatrolRoute = $this.PatrolRoute
-            MovementSpeed = $this.MovementSpeed
-            IsStationary = $this.IsStationary
-            AvailableServices = $this.AvailableServices
-            Inventory = $this.Inventory
-            QuestsOffered = $this.QuestsOffered
-            RelationshipData = $this.RelationshipData
-            CombatStats = $this.CombatStats
-            Abilities = $this.Abilities
-            Faction = $this.Faction
-            HostilityLevel = $this.HostilityLevel
-            Schedule = $this.Schedule
-            AvailableHours = $this.AvailableHours
-            IsCurrentlyAvailable = $this.IsCurrentlyAvailable
-        }
+    # Convenient property accessors
+    [string] GetBehaviorType() { return $this.GetProperty('BehaviorType', $script:NPCBehaviorTypes.Neutral) }
+    [void] SetBehaviorType([string]$Value) { $this.SetProperty('BehaviorType', $Value) }
 
-        return $baseData + $npcData
+    [int] GetHealth() { return $this.GetProperty('Health', 100) }
+    [void] SetHealth([int]$Value) { $this.SetProperty('Health', $Value) }
+
+    [string] GetCurrentLocationId() { return $this.GetProperty('CurrentLocationId', '') }
+    [void] SetCurrentLocationId([string]$Value) { $this.SetProperty('CurrentLocationId', $Value) }
+
+    # NPC-specific methods
+    [void] AddDialogOption([hashtable]$DialogOption) {
+        $options = $this.GetProperty('DialogOptions', @())
+        $options += $DialogOption
+        $this.SetProperty('DialogOptions', $options)
+    }
+
+    [void] AddQuestOffered([string]$QuestId) {
+        $quests = $this.GetProperty('QuestsOffered', @())
+        if ($quests -notcontains $QuestId) {
+            $quests += $QuestId
+            $this.SetProperty('QuestsOffered', $quests)
+        }
     }
 }
 
 # Item Entity Class
 class Item : GameEntity {
-    # Core Properties
-    [string]$ItemType
-    [string]$Rarity
-    [int]$StackSize
-    [decimal]$Weight
-    [decimal]$Value
-    [string]$IconPath
-
-    # Usage Properties
-    [bool]$IsConsumable
-    [bool]$IsEquippable
-    [bool]$IsTradeable
-    [bool]$IsDroppable
-    [int]$Durability
-    [int]$MaxDurability
-
-    # Requirements
-    [hashtable]$Requirements
-    [int]$LevelRequirement
-    [array]$ClassRestrictions
-
-    # Effects
-    [array]$Effects
-    [hashtable]$Bonuses
-    [array]$EnchantmentSlots
-    [array]$CurrentEnchantments
-
-    # Crafting
-    [bool]$IsCraftable
-    [array]$CraftingRecipe
-    [string]$CraftingSkill
-    [int]$CraftingLevel
-
-    # Lore & Story
-    [string]$FlavorText
-    [string]$OriginStory
-    [bool]$IsQuestItem
-    [string]$QuestId
-
     Item() : base() {
-        $this.Type = 'Item'
+        $this.Type = $script:EntityTypes.Item
         $this.InitializeDefaults()
     }
 
     Item([hashtable]$Data) : base($Data) {
-        $this.Type = 'Item'
-        $this.ItemType = if ($Data.ItemType) { $Data.ItemType } else { 'Generic' }
-        $this.Rarity = if ($Data.Rarity) { $Data.Rarity } else { 'Common' }
-        $this.StackSize = if ($Data.StackSize) { $Data.StackSize } else { 1 }
-        $this.Weight = if ($Data.Weight) { $Data.Weight } else { 0.1 }
-        $this.Value = if ($Data.Value) { $Data.Value } else { 1 }
-        $this.IconPath = if ($Data.IconPath) { $Data.IconPath } else { '' }
-        $this.IsConsumable = if ($null -ne $Data.IsConsumable) { $Data.IsConsumable } else { $false }
-        $this.IsEquippable = if ($null -ne $Data.IsEquippable) { $Data.IsEquippable } else { $false }
-        $this.IsTradeable = if ($null -ne $Data.IsTradeable) { $Data.IsTradeable } else { $true }
-        $this.IsDroppable = if ($null -ne $Data.IsDroppable) { $Data.IsDroppable } else { $true }
-        $this.Durability = if ($Data.Durability) { $Data.Durability } else { 100 }
-        $this.MaxDurability = if ($Data.MaxDurability) { $Data.MaxDurability } else { 100 }
-        $this.Requirements = if ($Data.Requirements) { $Data.Requirements } else { @{} }
-        $this.LevelRequirement = if ($Data.LevelRequirement) { $Data.LevelRequirement } else { 1 }
-        $this.ClassRestrictions = if ($Data.ClassRestrictions) { @($Data.ClassRestrictions) } else { @() }
-        $this.Effects = if ($Data.Effects) { @($Data.Effects) } else { @() }
-        $this.Bonuses = if ($Data.Bonuses) { $Data.Bonuses } else { @{} }
-        $this.EnchantmentSlots = if ($Data.EnchantmentSlots) { @($Data.EnchantmentSlots) } else { @() }
-        $this.CurrentEnchantments = if ($Data.CurrentEnchantments) { @($Data.CurrentEnchantments) } else { @() }
-        $this.IsCraftable = if ($null -ne $Data.IsCraftable) { $Data.IsCraftable } else { $false }
-        $this.CraftingRecipe = if ($Data.CraftingRecipe) { @($Data.CraftingRecipe) } else { @() }
-        $this.CraftingSkill = if ($Data.CraftingSkill) { $Data.CraftingSkill } else { '' }
-        $this.CraftingLevel = if ($Data.CraftingLevel) { $Data.CraftingLevel } else { 1 }
-        $this.FlavorText = if ($Data.FlavorText) { $Data.FlavorText } else { '' }
-        $this.OriginStory = if ($Data.OriginStory) { $Data.OriginStory } else { '' }
-        $this.IsQuestItem = if ($null -ne $Data.IsQuestItem) { $Data.IsQuestItem } else { $false }
-        $this.QuestId = if ($Data.QuestId) { $Data.QuestId } else { $null }
+        $this.Type = $script:EntityTypes.Item
+        $this.InitializeDefaults()
+
+        # Load Item-specific data
+        if ($Data.ContainsKey('Category')) { $this.SetProperty('Category', $Data.Category, $false) }
+        if ($Data.ContainsKey('Value')) { $this.SetProperty('Value', $Data.Value, $false) }
+        if ($Data.ContainsKey('Weight')) { $this.SetProperty('Weight', $Data.Weight, $false) }
+        if ($Data.ContainsKey('Rarity')) { $this.SetProperty('Rarity', $Data.Rarity, $false) }
+        if ($Data.ContainsKey('Stackable')) { $this.SetProperty('Stackable', $Data.Stackable, $false) }
+        if ($Data.ContainsKey('Durability')) { $this.SetProperty('Durability', $Data.Durability, $false) }
+        if ($Data.ContainsKey('Effects')) { $this.SetProperty('Effects', $Data.Effects, $false) }
+
+        # Reset change tracking after loading
+        $this.AcceptChanges()
     }
 
     [void] InitializeDefaults() {
-        $this.ItemType = 'Generic'
-        $this.Rarity = 'Common'
-        $this.StackSize = 1
-        $this.Weight = 0.1
-        $this.Value = 1
-        $this.IconPath = ''
-        $this.IsConsumable = $false
-        $this.IsEquippable = $false
-        $this.IsTradeable = $true
-        $this.IsDroppable = $true
-        $this.Durability = 100
-        $this.MaxDurability = 100
-        $this.Requirements = @{}
-        $this.LevelRequirement = 1
-        $this.ClassRestrictions = @()
-        $this.Effects = @()
-        $this.Bonuses = @{}
-        $this.EnchantmentSlots = @()
-        $this.CurrentEnchantments = @()
-        $this.IsCraftable = $false
-        $this.CraftingRecipe = @()
-        $this.CraftingSkill = ''
-        $this.CraftingLevel = 1
-        $this.FlavorText = ''
-        $this.OriginStory = ''
-        $this.IsQuestItem = $false
-        $this.QuestId = $null
+        # Basic item properties
+        $this.SetProperty('Category', $script:ItemCategories.Material, $false)
+        $this.SetProperty('Value', 1, $false)
+        $this.SetProperty('Weight', 1.0, $false)
+        $this.SetProperty('Rarity', 'Common', $false)
+
+        # Stack and durability
+        $this.SetProperty('Stackable', $true, $false)
+        $this.SetProperty('MaxStackSize', 99, $false)
+        $this.SetProperty('Durability', 100, $false)
+        $this.SetProperty('MaxDurability', 100, $false)
+
+        # Usage and effects
+        $this.SetProperty('Consumable', $false, $false)
+        $this.SetProperty('Effects', @(), $false)
+
+        # Trading and economy
+        $this.SetProperty('Tradeable', $true, $false)
+        $this.SetProperty('Sellable', $true, $false)
+
+        # Item state
+        $this.SetProperty('IsEquipped', $false, $false)
+        $this.SetProperty('EquipSlot', '', $false)
     }
 
-    [hashtable] ToHashtable() {
-        $baseData = ([GameEntity]$this).ToHashtable()
-        $itemData = @{
-            ItemType = $this.ItemType
-            Rarity = $this.Rarity
-            StackSize = $this.StackSize
-            Weight = $this.Weight
-            Value = $this.Value
-            IconPath = $this.IconPath
-            IsConsumable = $this.IsConsumable
-            IsEquippable = $this.IsEquippable
-            IsTradeable = $this.IsTradeable
-            IsDroppable = $this.IsDroppable
-            Durability = $this.Durability
-            MaxDurability = $this.MaxDurability
-            Requirements = $this.Requirements
-            LevelRequirement = $this.LevelRequirement
-            ClassRestrictions = $this.ClassRestrictions
-            Effects = $this.Effects
-            Bonuses = $this.Bonuses
-            EnchantmentSlots = $this.EnchantmentSlots
-            CurrentEnchantments = $this.CurrentEnchantments
-            IsCraftable = $this.IsCraftable
-            CraftingRecipe = $this.CraftingRecipe
-            CraftingSkill = $this.CraftingSkill
-            CraftingLevel = $this.CraftingLevel
-            FlavorText = $this.FlavorText
-            OriginStory = $this.OriginStory
-            IsQuestItem = $this.IsQuestItem
-            QuestId = $this.QuestId
+    # Convenient property accessors
+    [string] GetCategory() { return $this.GetProperty('Category', $script:ItemCategories.Material) }
+    [void] SetCategory([string]$Value) { $this.SetProperty('Category', $Value) }
+
+    [decimal] GetValue() { return $this.GetProperty('Value', 1) }
+    [void] SetValue([decimal]$Value) { $this.SetProperty('Value', $Value) }
+
+    [double] GetWeight() { return $this.GetProperty('Weight', 1.0) }
+    [void] SetWeight([double]$Value) { $this.SetProperty('Weight', $Value) }
+}
+
+# Location Entity Class
+class Location : GameEntity {
+    Location() : base() {
+        $this.Type = $script:EntityTypes.Location
+        $this.InitializeDefaults()
+    }
+
+    Location([hashtable]$Data) : base($Data) {
+        $this.Type = $script:EntityTypes.Location
+        $this.InitializeDefaults()
+
+        # Load Location-specific data
+        if ($Data.ContainsKey('Coordinates')) { $this.SetProperty('Coordinates', $Data.Coordinates, $false) }
+        if ($Data.ContainsKey('LocationType')) { $this.SetProperty('LocationType', $Data.LocationType, $false) }
+        if ($Data.ContainsKey('ConnectedLocations')) { $this.SetProperty('ConnectedLocations', $Data.ConnectedLocations, $false) }
+        if ($Data.ContainsKey('ResidentNPCs')) { $this.SetProperty('ResidentNPCs', $Data.ResidentNPCs, $false) }
+        if ($Data.ContainsKey('AvailableQuests')) { $this.SetProperty('AvailableQuests', $Data.AvailableQuests, $false) }
+        if ($Data.ContainsKey('Resources')) { $this.SetProperty('Resources', $Data.Resources, $false) }
+
+        # Reset change tracking after loading
+        $this.AcceptChanges()
+    }
+
+    [void] InitializeDefaults() {
+        # Geographic properties
+        $this.SetProperty('Coordinates', @{ Latitude = 0.0; Longitude = 0.0; Altitude = 0.0 }, $false)
+        $this.SetProperty('LocationType', 'Generic', $false)
+        $this.SetProperty('Region', '', $false)
+
+        # Connections and travel
+        $this.SetProperty('ConnectedLocations', @(), $false)
+        $this.SetProperty('TravelCost', 1, $false)
+        $this.SetProperty('TravelTime', 60, $false)  # seconds
+
+        # Inhabitants and content
+        $this.SetProperty('ResidentNPCs', @(), $false)
+        $this.SetProperty('AvailableQuests', @(), $false)
+
+        # Resources and services
+        $this.SetProperty('Resources', @(), $false)
+        $this.SetProperty('Services', @(), $false)  # shops, inns, etc.
+
+        # Safety and discovery
+        $this.SetProperty('DangerLevel', 0, $false)  # 0-10 scale
+        $this.SetProperty('DiscoveryStatus', @{}, $false)  # Per-player discovery
+        $this.SetProperty('SafeZone', $true, $false)
+    }
+
+    # Convenient property accessors
+    [hashtable] GetCoordinates() { return $this.GetProperty('Coordinates', @{}) }
+    [void] SetCoordinates([hashtable]$Value) { $this.SetProperty('Coordinates', $Value) }
+
+    [string] GetLocationType() { return $this.GetProperty('LocationType', 'Generic') }
+    [void] SetLocationType([string]$Value) { $this.SetProperty('LocationType', $Value) }
+
+    # Location-specific methods
+    [void] AddResidentNPC([string]$NPCId) {
+        $npcs = $this.GetProperty('ResidentNPCs', @())
+        if ($npcs -notcontains $NPCId) {
+            $npcs += $NPCId
+            $this.SetProperty('ResidentNPCs', $npcs)
         }
-
-        return $baseData + $itemData
     }
 
-    [void] RepairItem([int]$Amount = -1) {
-        if ($Amount -eq -1) {
-            $this.Durability = $this.MaxDurability
-        } else {
-            $this.Durability = [math]::Min($this.Durability + $Amount, $this.MaxDurability)
-        }
-        $this.UpdateTimestamp()
-    }
-
-    [void] DamageItem([int]$Amount) {
-        $this.Durability = [math]::Max($this.Durability - $Amount, 0)
-        $this.UpdateTimestamp()
-    }
-
-    [bool] IsFullyRepaired() {
-        return $this.Durability -eq $this.MaxDurability
-    }
-
-    [bool] IsBroken() {
-        return $this.Durability -eq 0
+    [bool] IsDiscoveredBy([string]$PlayerId) {
+        $discovery = $this.GetProperty('DiscoveryStatus', @{})
+        return $discovery.ContainsKey($PlayerId) -and $discovery[$PlayerId].Discovered
     }
 }
 
-# Entity Factory Functions
+# Quest Entity Class
+class Quest : GameEntity {
+    Quest() : base() {
+        $this.Type = $script:EntityTypes.Quest
+        $this.InitializeDefaults()
+    }
+
+    Quest([hashtable]$Data) : base($Data) {
+        $this.Type = $script:EntityTypes.Quest
+        $this.InitializeDefaults()
+
+        # Load Quest-specific data
+        if ($Data.ContainsKey('QuestType')) { $this.SetProperty('QuestType', $Data.QuestType, $false) }
+        if ($Data.ContainsKey('Status')) { $this.SetProperty('Status', $Data.Status, $false) }
+        if ($Data.ContainsKey('GiverNPCId')) { $this.SetProperty('GiverNPCId', $Data.GiverNPCId, $false) }
+        if ($Data.ContainsKey('Objectives')) { $this.SetProperty('Objectives', $Data.Objectives, $false) }
+        if ($Data.ContainsKey('Rewards')) { $this.SetProperty('Rewards', $Data.Rewards, $false) }
+        if ($Data.ContainsKey('Prerequisites')) { $this.SetProperty('Prerequisites', $Data.Prerequisites, $false) }
+        if ($Data.ContainsKey('Progress')) { $this.SetProperty('Progress', $Data.Progress, $false) }
+
+        # Reset change tracking after loading
+        $this.AcceptChanges()
+    }
+
+    [void] InitializeDefaults() {
+        # Basic quest properties
+        $this.SetProperty('QuestType', $script:QuestTypes.Side, $false)
+        $this.SetProperty('Status', $script:QuestStatus.NotStarted, $false)
+        $this.SetProperty('Priority', 'Medium', $false)
+
+        # Quest giver and location
+        $this.SetProperty('GiverNPCId', '', $false)
+        $this.SetProperty('GiverLocationId', '', $false)
+
+        # Objectives and progress
+        $this.SetProperty('Objectives', @(), $false)
+        $this.SetProperty('Progress', @{}, $false)
+        $this.SetProperty('CompletionPercentage', 0.0, $false)
+
+        # Requirements and restrictions
+        $this.SetProperty('Prerequisites', @{}, $false)
+        $this.SetProperty('LevelRequired', 1, $false)
+        $this.SetProperty('Repeatable', $false, $false)
+
+        # Rewards
+        $this.SetProperty('Rewards', @{
+            Experience = 100
+            Currency = 50
+            Items = @()
+        }, $false)
+
+        # Timing
+        $this.SetProperty('StartedAt', $null, $false)
+        $this.SetProperty('CompletedAt', $null, $false)
+
+        # Story
+        $this.SetProperty('ShortDescription', '', $false)
+        $this.SetProperty('LongDescription', '', $false)
+    }
+
+    # Convenient property accessors
+    [string] GetQuestType() { return $this.GetProperty('QuestType', $script:QuestTypes.Side) }
+    [void] SetQuestType([string]$Value) { $this.SetProperty('QuestType', $Value) }
+
+    [string] GetStatus() { return $this.GetProperty('Status', $script:QuestStatus.NotStarted) }
+    [void] SetStatus([string]$Value) { $this.SetProperty('Status', $Value) }
+
+    # Quest-specific methods
+    [void] Start() {
+        $this.SetStatus($script:QuestStatus.InProgress)
+        $this.SetProperty('StartedAt', (Get-Date))
+    }
+
+    [void] Complete() {
+        $this.SetStatus($script:QuestStatus.Completed)
+        $this.SetProperty('CompletedAt', (Get-Date))
+        $this.SetProperty('CompletionPercentage', 100.0)
+    }
+}
+
+# Faction Entity Class
+class Faction : GameEntity {
+    Faction() : base() {
+        $this.Type = $script:EntityTypes.Faction
+        $this.InitializeDefaults()
+    }
+
+    Faction([hashtable]$Data) : base($Data) {
+        $this.Type = $script:EntityTypes.Faction
+        $this.InitializeDefaults()
+
+        # Load Faction-specific data
+        if ($Data.ContainsKey('FactionType')) { $this.SetProperty('FactionType', $Data.FactionType, $false) }
+        if ($Data.ContainsKey('Alignment')) { $this.SetProperty('Alignment', $Data.Alignment, $false) }
+        if ($Data.ContainsKey('LeaderNPCId')) { $this.SetProperty('LeaderNPCId', $Data.LeaderNPCId, $false) }
+        if ($Data.ContainsKey('Members')) { $this.SetProperty('Members', $Data.Members, $false) }
+        if ($Data.ContainsKey('Territories')) { $this.SetProperty('Territories', $Data.Territories, $false) }
+        if ($Data.ContainsKey('Reputation')) { $this.SetProperty('Reputation', $Data.Reputation, $false) }
+
+        # Reset change tracking after loading
+        $this.AcceptChanges()
+    }
+
+    [void] InitializeDefaults() {
+        # Basic faction properties
+        $this.SetProperty('FactionType', 'Organization', $false)
+        $this.SetProperty('Alignment', 'Neutral', $false)
+        $this.SetProperty('Power', 50, $false)  # 0-100 scale
+        $this.SetProperty('Influence', 50, $false)  # 0-100 scale
+
+        # Leadership and hierarchy
+        $this.SetProperty('LeaderNPCId', '', $false)
+        $this.SetProperty('Members', @(), $false)
+
+        # Territory and assets
+        $this.SetProperty('Territories', @(), $false)
+
+        # Diplomatic relations
+        $this.SetProperty('Reputation', @{}, $false)     # Player reputation with faction
+        $this.SetProperty('DefaultPlayerReputation', 0, $false)  # -100 to 100
+
+        # Economy
+        $this.SetProperty('Currency', 1000, $false)
+
+        # Status
+        $this.SetProperty('Status', 'Active', $false)
+    }
+
+    # Convenient property accessors
+    [string] GetFactionType() { return $this.GetProperty('FactionType', 'Organization') }
+    [void] SetFactionType([string]$Value) { $this.SetProperty('FactionType', $Value) }
+
+    [string] GetAlignment() { return $this.GetProperty('Alignment', 'Neutral') }
+    [void] SetAlignment([string]$Value) { $this.SetProperty('Alignment', $Value) }
+
+    # Faction-specific methods
+    [void] AddMember([string]$NPCId) {
+        $members = $this.GetProperty('Members', @())
+        if ($members -notcontains $NPCId) {
+            $members += $NPCId
+            $this.SetProperty('Members', $members)
+        }
+    }
+
+    [int] GetPlayerReputation([string]$PlayerId) {
+        $rep = $this.GetProperty('Reputation', @{})
+        if ($rep.ContainsKey($PlayerId)) {
+            return $rep[$PlayerId]
+        }
+        return $this.GetProperty('DefaultPlayerReputation', 0)
+    }
+}
+
+# Helper functions for creating entities
+function New-GameEntity {
+    param([hashtable]$Data = @{})
+    return [GameEntity]::new($Data)
+}
+
 function New-PlayerEntity {
-    param(
-        [string]$Username,
-        [string]$Email,
-        [string]$DisplayName,
-        [hashtable]$AdditionalData = @{}
-    )
-
-    $playerData = @{
-        Username = $Username
-        Email = $Email
-        DisplayName = $DisplayName
-        Name = $DisplayName
-        Description = "Player character for $Username"
-    } + $AdditionalData
-
-    return [Player]::new($playerData)
+    param([hashtable]$Data = @{})
+    return [Player]::new($Data)
 }
 
 function New-NPCEntity {
-    param(
-        [string]$Name,
-        [string]$NPCType,
-        [string]$Description = '',
-        [hashtable]$AdditionalData = @{}
-    )
-
-    $npcData = @{
-        Name = $Name
-        NPCType = $NPCType
-        Description = $Description
-    } + $AdditionalData
-
-    return [NPC]::new($npcData)
+    param([hashtable]$Data = @{})
+    return [NPC]::new($Data)
 }
 
 function New-ItemEntity {
-    param(
-        [string]$Name,
-        [string]$ItemType,
-        [string]$Description = '',
-        [hashtable]$AdditionalData = @{}
-    )
-
-    $itemData = @{
-        Name = $Name
-        ItemType = $ItemType
-        Description = $Description
-    } + $AdditionalData
-
-    return [Item]::new($itemData)
+    param([hashtable]$Data = @{})
+    return [Item]::new($Data)
 }
 
-# Entity Validation Functions
-function Test-EntityValidity {
-    param(
-        [object]$Entity,
-        [string]$EntityType = $null
-    )
-
-    $validationResults = @{
-        IsValid = $true
-        Errors = @()
-        Warnings = @()
-    }
-
-    # Check if entity exists
-    if (-not $Entity) {
-        $validationResults.Errors += "Entity is null or empty"
-        $validationResults.IsValid = $false
-        return $validationResults
-    }
-
-    # Get entity data
-    $entityData = if ($Entity -is [hashtable]) { $Entity } else { $Entity.ToHashtable() }
-
-    # Required field validation
-    $requiredFields = @('Id', 'Type', 'Name', 'CreatedAt', 'UpdatedAt', 'Version', 'IsActive')
-    foreach ($field in $requiredFields) {
-        if (-not $entityData.ContainsKey($field) -or [string]::IsNullOrEmpty($entityData[$field])) {
-            $validationResults.Errors += "Required field '$field' is missing or empty"
-            $validationResults.IsValid = $false
-        }
-    }
-
-    # GUID validation
-    try {
-        [System.Guid]::Parse($entityData.Id) | Out-Null
-    }
-    catch {
-        $validationResults.Errors += "Invalid GUID format for Id: $($entityData.Id)"
-        $validationResults.IsValid = $false
-    }
-
-    # Type-specific validation
-    $typeToValidate = if ($EntityType) { $EntityType } else { $entityData.Type }
-    switch ($typeToValidate) {
-        'Player' {
-            if ($entityData.Level -lt 1 -or $entityData.Level -gt 100) {
-                $validationResults.Errors += "Player level must be between 1 and 100"
-                $validationResults.IsValid = $false
-            }
-            if ($entityData.Experience -lt 0) {
-                $validationResults.Errors += "Player experience cannot be negative"
-                $validationResults.IsValid = $false
-            }
-        }
-        'Item' {
-            if ($entityData.Value -lt 0) {
-                $validationResults.Errors += "Item value cannot be negative"
-                $validationResults.IsValid = $false
-            }
-            if ($entityData.Weight -lt 0) {
-                $validationResults.Errors += "Item weight cannot be negative"
-                $validationResults.IsValid = $false
-            }
-        }
-        'NPC' {
-            if ([string]::IsNullOrEmpty($entityData.NPCType)) {
-                $validationResults.Warnings += "NPC should have a specific type defined"
-            }
-        }
-    }
-
-    return $validationResults
+function New-LocationEntity {
+    param([hashtable]$Data = @{})
+    return [Location]::new($Data)
 }
 
-# Serialization Functions
-function ConvertTo-JsonSafe {
-    param(
-        [object]$InputObject,
-        [int]$Depth = 10
-    )
-
-    try {
-        if ($InputObject -is [GameEntity]) {
-            $data = $InputObject.ToHashtable()
-        } elseif ($InputObject -is [hashtable]) {
-            $data = $InputObject
-        } else {
-            $data = $InputObject
-        }
-
-        $jsonData = $data | ConvertTo-Json -Depth $Depth -Compress
-        return $jsonData
-    }
-    catch {
-        Write-Error "Failed to serialize object: $($_.Exception.Message)"
-        return $null
-    }
+function New-QuestEntity {
+    param([hashtable]$Data = @{})
+    return [Quest]::new($Data)
 }
 
-function ConvertFrom-JsonSafe {
-    param(
-        [string]$JsonString,
-        [string]$EntityType = $null
-    )
-
-    try {
-        $data = $JsonString | ConvertFrom-Json
-        $hashtableData = Convert-PSCustomObjectToHashtable -InputObject $data
-
-        if ($EntityType) {
-            switch ($EntityType) {
-                'Player' { return [Player]::new($hashtableData) }
-                'NPC' { return [NPC]::new($hashtableData) }
-                'Item' { return [Item]::new($hashtableData) }
-                default { return [GameEntity]::new($hashtableData) }
-            }
-        } else {
-            # Try to determine type from data
-            $type = $hashtableData.Type
-            switch ($type) {
-                'Player' { return [Player]::new($hashtableData) }
-                'NPC' { return [NPC]::new($hashtableData) }
-                'Item' { return [Item]::new($hashtableData) }
-                default { return [GameEntity]::new($hashtableData) }
-            }
-        }
-    }
-    catch {
-        Write-Error "Failed to deserialize JSON: $($_.Exception.Message)"
-        return $null
-    }
-}
-
-function Convert-PSCustomObjectToHashtable {
-    param(
-        [object]$InputObject
-    )
-
-    if ($InputObject -is [System.Management.Automation.PSCustomObject]) {
-        $hashtable = @{}
-        $InputObject.PSObject.Properties | ForEach-Object {
-            $hashtable[$_.Name] = Convert-PSCustomObjectToHashtable -InputObject $_.Value
-        }
-        return $hashtable
-    }
-    elseif ($InputObject -is [System.Array]) {
-        return @($InputObject | ForEach-Object { Convert-PSCustomObjectToHashtable -InputObject $_ })
-    }
-    else {
-        return $InputObject
-    }
+function New-FactionEntity {
+    param([hashtable]$Data = @{})
+    return [Faction]::new($Data)
 }
 
 # Export functions and classes for external use
 Export-ModuleMember -Function @(
+    'New-GameEntity',
     'New-PlayerEntity',
     'New-NPCEntity',
     'New-ItemEntity',
-    'Test-EntityValidity',
-    'ConvertTo-JsonSafe',
-    'ConvertFrom-JsonSafe',
-    'Convert-PSCustomObjectToHashtable'
+    'New-LocationEntity',
+    'New-QuestEntity',
+    'New-FactionEntity'
+)
+
+# Export the entity classes
+Export-ModuleMember -Cmdlet @()
+Export-ModuleMember -Alias @()
+
+# Export the entity type constants as variables
+Export-ModuleMember -Variable @(
+    'EntityTypes',
+    'ItemCategories',
+    'NPCBehaviorTypes',
+    'QuestTypes',
+    'QuestStatus'
 )
