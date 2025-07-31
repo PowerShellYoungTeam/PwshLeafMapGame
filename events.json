@@ -1,14 +1,71 @@
-{
-  "type": "state.saved",
-  "source": "powershell",
-  "timestamp": "2025-07-28T23:01:00.490",
-  "id": "ps_20250728_230100_dca7bdcb",
-  "data": {
-    "SaveFile": ".\\Data\\Saves\\demo_bridge_save.json",
-    "Success": true,
-    "SaveSize": 562,
-    "Timestamp": "2025-07-28T23:01:00.4900835+01:00",
-    "Entities": 2,
-    "SaveTime": 3
+[
+  {
+    "timestamp": "2025-07-31T22:25:49.675",
+    "data": {
+      "Module": "registry",
+      "Description": "List all available commands",
+      "Command": "registry.listCommands"
+    },
+    "id": "ps_20250731_222549_54a8a9de",
+    "type": "command.registered",
+    "source": "powershell"
+  },
+  {
+    "timestamp": "2025-07-31T22:25:49.677",
+    "data": {
+      "Module": "registry",
+      "Description": "Get command documentation",
+      "Command": "registry.getDocumentation"
+    },
+    "id": "ps_20250731_222549_e128a5cf",
+    "type": "command.registered",
+    "source": "powershell"
+  },
+  {
+    "timestamp": "2025-07-31T22:25:49.679",
+    "data": {
+      "Module": "registry",
+      "Description": "Get registry statistics",
+      "Command": "registry.getStatistics"
+    },
+    "id": "ps_20250731_222549_1e1f7a43",
+    "type": "command.registered",
+    "source": "powershell"
+  },
+  {
+    "timestamp": "2025-07-31T22:25:49.685",
+    "data": {
+      "Success": true,
+      "ExecutionTime": 0.6795,
+      "ExecutionId": "8a30453d-e9a9-49c3-98d2-f403ce4c7d2f",
+      "Command": "registry.listCommands"
+    },
+    "id": "ps_20250731_222549_ef9fc2c9",
+    "type": "command.executed",
+    "source": "powershell"
+  },
+  {
+    "timestamp": "2025-07-31T22:25:49.689",
+    "data": {
+      "Success": true,
+      "ExecutionTime": 0.132,
+      "ExecutionId": "bd053671-ab7d-441d-b9e4-a279f6d4faf1",
+      "Command": "registry.getStatistics"
+    },
+    "id": "ps_20250731_222549_855b101a",
+    "type": "command.executed",
+    "source": "powershell"
+  },
+  {
+    "timestamp": "2025-07-31T22:25:49.694",
+    "data": {
+      "Success": true,
+      "ExecutionTime": 1.955,
+      "ExecutionId": "4401162a-c7fa-44b4-b136-c4612db9b5f7",
+      "Command": "registry.getDocumentation"
+    },
+    "id": "ps_20250731_222549_47b55137",
+    "type": "command.executed",
+    "source": "powershell"
   }
-}
+]

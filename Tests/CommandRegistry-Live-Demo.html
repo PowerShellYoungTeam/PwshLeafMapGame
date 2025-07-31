@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell Leafmap Game - LIVE Command Registry Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .header h1 {
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .server-status {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .left-panel {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .right-panel {
+            flex: 2;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .status-item.success {
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .status-item.error {
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .status-item div:first-child {
+            font-size: 0.8rem;
+            color: #cccccc;
+            margin-bottom: 0.25rem;
+        }
+
+        .status-item div:last-child {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .commands-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .command-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .command-item:hover {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .command-item:last-child {
+            border-bottom: none;
+        }
+
+        .command-name {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .command-desc {
+            font-size: 0.8rem;
+            color: #cccccc;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .btn.secondary {
+            background: #2196F3;
+        }
+
+        .btn.secondary:hover {
+            background: #1976D2;
+        }
+
+        .btn.live {
+            background: #FF5722;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .output-area {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            min-height: 400px;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #00ff00;
+        }
+
+        .loading {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .log-entry {
+            margin-bottom: 0.25rem;
+        }
+
+        .log-success {
+            color: #4CAF50;
+        }
+
+        .log-error {
+            color: #f44336;
+        }
+
+        .log-warning {
+            color: #FFC107;
+        }
+
+        .log-info {
+            color: #2196F3;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🍃 PowerShell Leafmap Game - LIVE DEMO</h1>
+        <p>Real-time Command Registry & Communication Integration</p>
+        <div class="server-status" id="server-status">
+            🔄 Connecting to PowerShell server...
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-panel panel">
+            <div class="section">
+                <h3>🔧 System Status</h3>
+                <div class="status-grid">
+                    <div class="status-item" id="registry-status">
+                        <div>Registry</div>
+                        <div id="registry-state">Checking...</div>
+                    </div>
+                    <div class="status-item" id="bridge-status">
+                        <div>Bridge</div>
+                        <div id="bridge-state">Checking...</div>
+                    </div>
+                    <div class="status-item" id="commands-status">
+                        <div>Commands</div>
+                        <div id="commands-count">0</div>
+                    </div>
+                    <div class="status-item" id="server-status-item">
+                        <div>Server</div>
+                        <div id="server-state">Offline</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>📋 Available Commands</h3>
+                <div class="commands-list" id="commands-list">
+                    <div style="text-align: center; color: #666; padding: 1rem;">Loading commands...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel panel">
+            <div class="section">
+                <h3>🎮 Live Demo Controls</h3>
+                <div class="demo-controls">
+                    <button class="btn live" onclick="checkServerStatus()">🔄 Check Server</button>
+                    <button class="btn secondary" onclick="loadCommands()">📋 Load Commands</button>
+                    <button class="btn secondary" onclick="getStatistics()">📊 Get Statistics</button>
+                    <button class="btn secondary" onclick="executeCommand('registry.listCommands')">▶️ List
+                        Commands</button>
+                    <button class="btn secondary" onclick="executeCommand('registry.getDocumentation')">📚 Get
+                        Docs</button>
+                    <button class="btn" onclick="clearOutput()">🗑️ Clear Output</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>💻 Live Command Output</h3>
+                <div class="output-area" id="output-area">
+                    🍃 PowerShell Leafmap Game - LIVE Command Registry Demo
+                    ===============================================
+
+                    This is a REAL integration demo! The frontend communicates with an actual PowerShell server running:
+                    • CommandRegistry.psm1 - Your 1,038-line command framework
+                    • EventSystem.psm1 - Real event processing
+                    • HTTP API - Live PowerShell web server
+
+                    📋 Instructions:
+                    1. Make sure the PowerShell server is running (Demo-Server.ps1)
+                    2. Click "Check Server" to verify connection
+                    3. Use the controls to test real PowerShell integration
+
+                    Ready to test your working system!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>PowerShell Leafmap Game © 2025 | LIVE Integration Demo | Server: <span
+                id="server-url">http://localhost:8081</span> | <span id="current-time"></span></p>
+    </div>
+
+    <script>
+        // Configuration
+        const SERVER_URL = 'http://localhost:8081';
+        let serverOnline = false;
+        let commandsData = [];
+
+        // Utility functions
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString();
+        }
+
+        function updateTime() {
+            document.getElementById('current-time').textContent = getCurrentTime();
+        }
+
+        function logOutput(message, type = 'info') {
+            const outputArea = document.getElementById('output-area');
+            const timestamp = getCurrentTime();
+            const logClass = `log-${type}`;
+            const prefix = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️';
+
+            outputArea.innerHTML += `<div class="log-entry ${logClass}">[${timestamp}] ${prefix} ${message}</div>`;
+            outputArea.scrollTop = outputArea.scrollHeight;
+        }
+
+        function clearOutput() {
+            document.getElementById('output-area').innerHTML = '';
+            logOutput('Output cleared', 'info');
+        }
+
+        function updateStatus(elementId, status, className = '') {
+            const element = document.getElementById(elementId);
+            if (element) {
+                if (className) {
+                    element.className = `status-item ${className}`;
+                }
+                element.querySelector('div:last-child').textContent = status;
+            }
+        }
+
+        function updateServerStatus(online) {
+            serverOnline = online;
+            const statusElement = document.getElementById('server-status');
+            const serverStateElement = document.getElementById('server-state');
+
+            if (online) {
+                statusElement.innerHTML = '✅ Connected to PowerShell server at http://localhost:8081';
+                statusElement.style.background = 'rgba(76, 175, 80, 0.2)';
+                statusElement.style.borderColor = '#4CAF50';
+                updateStatus('server-status-item', 'Online', 'success');
+            } else {
+                statusElement.innerHTML = '❌ PowerShell server offline - Please run Demo-Server.ps1';
+                statusElement.style.background = 'rgba(244, 67, 54, 0.2)';
+                statusElement.style.borderColor = '#f44336';
+                updateStatus('server-status-item', 'Offline', 'error');
+            }
+        }
+
+        function updateCommandsList(commands) {
+            const commandsList = document.getElementById('commands-list');
+            if (!commands || commands.length === 0) {
+                commandsList.innerHTML = '<div style="text-align: center; color: #666; padding: 1rem;">No commands available</div>';
+                return;
+            }
+
+            commandsList.innerHTML = commands.map(cmd => `
+                <div class="command-item" onclick="executeCommand('${cmd.name}')">
+                    <div class="command-name">${cmd.name}</div>
+                    <div class="command-desc">${cmd.description || 'No description available'}</div>
+                </div>
+            `).join('');
+        }
+
+        // API Functions
+        async function makeApiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${SERVER_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API call failed:', error);
+                throw error;
+            }
+        }
+
+        async function checkServerStatus() {
+            logOutput('Checking PowerShell server status...', 'info');
+
+            try {
+                const status = await makeApiCall('/api/status');
+                updateServerStatus(true);
+
+                logOutput('✅ Server connection successful!', 'success');
+                logOutput(`Server timestamp: ${status.timestamp}`, 'info');
+
+                // Update status indicators
+                updateStatus('registry-state', status.registry.status, status.registry.initialized ? 'success' : 'error');
+                updateStatus('bridge-state', status.bridge.status, status.bridge.connected ? 'success' : 'error');
+
+                logOutput('Registry Status: ' + (status.registry.initialized ? 'Initialized ✅' : 'Not initialized ❌'), status.registry.initialized ? 'success' : 'error');
+                logOutput('Bridge Status: ' + (status.bridge.connected ? 'Connected ✅' : 'Disconnected ❌'), status.bridge.connected ? 'success' : 'error');
+
+                return true;
+            } catch (error) {
+                updateServerStatus(false);
+                logOutput('❌ Failed to connect to PowerShell server', 'error');
+                logOutput(`Error: ${error.message}`, 'error');
+                logOutput('Make sure Demo-Server.ps1 is running!', 'warning');
+                return false;
+            }
+        }
+
+        async function loadCommands() {
+            if (!serverOnline) {
+                logOutput('❌ Server not available. Please check server status first.', 'error');
+                return;
+            }
+
+            logOutput('Loading commands from PowerShell server...', 'info');
+
+            try {
+                const response = await makeApiCall('/api/commands');
+                commandsData = response.commands;
+
+                updateStatus('commands-count', commandsData.length, 'success');
+                updateCommandsList(commandsData);
+
+                logOutput(`✅ Loaded ${commandsData.length} commands successfully`, 'success');
+                logOutput(`Available commands: ${commandsData.map(c => c.name).join(', ')}`, 'info');
+
+            } catch (error) {
+                logOutput('❌ Failed to load commands', 'error');
+                logOutput(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function executeCommand(commandName, parameters = {}) {
+            if (!serverOnline) {
+                logOutput('❌ Server not available. Please check server status first.', 'error');
+                return;
+            }
+
+            logOutput(`🚀 Executing command: ${commandName}`, 'info');
+
+            try {
+                const response = await makeApiCall('/api/execute', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        command: commandName,
+                        parameters: parameters
+                    })
+                });
+
+                if (response.success) {
+                    logOutput(`✅ Command executed successfully`, 'success');
+                    logOutput(`Result: ${JSON.stringify(response.result, null, 2)}`, 'info');
+                } else {
+                    logOutput(`❌ Command execution failed`, 'error');
+                    logOutput(`Result: ${JSON.stringify(response.result, null, 2)}`, 'error');
+                }
+
+            } catch (error) {
+                logOutput('❌ Failed to execute command', 'error');
+                logOutput(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function getStatistics() {
+            if (!serverOnline) {
+                logOutput('❌ Server not available. Please check server status first.', 'error');
+                return;
+            }
+
+            logOutput('📊 Getting system statistics...', 'info');
+
+            try {
+                const response = await makeApiCall('/api/statistics');
+
+                logOutput('✅ Statistics retrieved successfully', 'success');
+                logOutput('📊 System Statistics:', 'info');
+
+                const stats = response.statistics;
+                if (typeof stats === 'object') {
+                    Object.keys(stats).forEach(key => {
+                        logOutput(`  • ${key}: ${stats[key]}`, 'info');
+                    });
+                } else {
+                    logOutput(`Statistics: ${stats}`, 'info');
+                }
+
+            } catch (error) {
+                logOutput('❌ Failed to get statistics', 'error');
+                logOutput(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize the demo
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Auto-check server status on load
+        setTimeout(async () => {
+            logOutput('🍃 LIVE Demo initialized! Checking server connection...', 'info');
+            const connected = await checkServerStatus();
+
+            if (connected) {
+                setTimeout(() => {
+                    loadCommands();
+                }, 1000);
+            } else {
+                logOutput('', 'info');
+                logOutput('📋 To start the server:', 'warning');
+                logOutput('  1. Open PowerShell in the project directory', 'warning');
+                logOutput('  2. Run: .\\Tests\\Demo-Server.ps1', 'warning');
+                logOutput('  3. Click "Check Server" button above', 'warning');
+            }
+        }, 1000);
+
+        // Periodically check server status
+        setInterval(async () => {
+            if (serverOnline) {
+                try {
+                    await makeApiCall('/api/status');
+                } catch (error) {
+                    updateServerStatus(false);
+                    logOutput('❌ Lost connection to server', 'error');
+                }
+            }
+        }, 10000); // Check every 10 seconds
+    </script>
+</body>
+
+</html>

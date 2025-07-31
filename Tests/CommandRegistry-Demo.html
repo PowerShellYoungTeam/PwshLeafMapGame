@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell Leafmap Game - Command Registry Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .header h1 {
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .left-panel {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .right-panel {
+            flex: 2;
+            min-width: 400px;
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section h3 {
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #4CAF50;
+            padding-bottom: 0.25rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .status-item.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4CAF50;
+        }
+
+        .status-item.error {
+            background: rgba(244, 67, 54, 0.3);
+            border: 1px solid #f44336;
+        }
+
+        .status-item.warning {
+            background: rgba(255, 193, 7, 0.3);
+            border: 1px solid #FFC107;
+        }
+
+        .commands-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            padding: 0.5rem;
+        }
+
+        .command-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0.25rem 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .command-item:hover {
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        .command-name {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .command-desc {
+            font-size: 0.8rem;
+            color: #cccccc;
+            margin-top: 0.25rem;
+        }
+
+        .demo-section {
+            margin-bottom: 1rem;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .btn.secondary {
+            background: #2196F3;
+        }
+
+        .btn.secondary:hover {
+            background: #1976D2;
+        }
+
+        .output-area {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            min-height: 400px;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #00ff00;
+        }
+
+        .loading {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .log-entry {
+            margin-bottom: 0.25rem;
+        }
+
+        .log-success {
+            color: #4CAF50;
+        }
+
+        .log-error {
+            color: #f44336;
+        }
+
+        .log-warning {
+            color: #FFC107;
+        }
+
+        .log-info {
+            color: #2196F3;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: #cccccc;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .demo-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🍃 PowerShell Leafmap Game</h1>
+        <p>Command Registry & Communication Bridge Integration Demo</p>
+    </div>
+
+    <div class="container">
+        <div class="left-panel panel">
+            <div class="section">
+                <h3>🔧 System Status</h3>
+                <div class="status-grid">
+                    <div class="status-item" id="registry-status">
+                        <div>Registry</div>
+                        <div id="registry-state">Loading...</div>
+                    </div>
+                    <div class="status-item" id="bridge-status">
+                        <div>Bridge</div>
+                        <div id="bridge-state">Loading...</div>
+                    </div>
+                    <div class="status-item" id="commands-status">
+                        <div>Commands</div>
+                        <div id="commands-count">0</div>
+                    </div>
+                    <div class="status-item" id="executions-status">
+                        <div>Executed</div>
+                        <div id="executions-count">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>📋 Available Commands</h3>
+                <div class="commands-list" id="commands-list">
+                    <div style="text-align: center; color: #666;">Loading commands...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel panel">
+            <div class="section">
+                <h3>🎮 Demo Controls</h3>
+                <div class="demo-controls">
+                    <button class="btn" onclick="initializeSystem()">🚀 Initialize System</button>
+                    <button class="btn secondary" onclick="listCommands()">📋 List Commands</button>
+                    <button class="btn secondary" onclick="getStatistics()">📊 Get Statistics</button>
+                    <button class="btn secondary" onclick="getDocumentation()">📚 Get Documentation</button>
+                    <button class="btn secondary" onclick="testIntegration()">🧪 Test Integration</button>
+                    <button class="btn" onclick="clearOutput()">🗑️ Clear Output</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>💻 Command Output</h3>
+                <div class="output-area" id="output-area">
+                    Welcome to the PowerShell Leafmap Game Command Registry Demo!
+
+                    This demo showcases the integration between:
+                    • CommandRegistry.psm1 - Advanced command registration framework
+                    • CommunicationBridge.psm1 - PowerShell ↔ JavaScript communication bridge
+
+                    Click "Initialize System" to begin the demonstration.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>PowerShell Leafmap Game © 2025 | Command Registry Integration Demo |
+            <span id="current-time"></span>
+        </p>
+    </div>
+
+    <script>
+        // Demo state
+        let systemInitialized = false;
+        let commandsData = [];
+        let statisticsData = {};
+
+        // Utility functions
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString();
+        }
+
+        function updateTime() {
+            document.getElementById('current-time').textContent = getCurrentTime();
+        }
+
+        function logOutput(message, type = 'info') {
+            const outputArea = document.getElementById('output-area');
+            const timestamp = getCurrentTime();
+            const logClass = `log-${type}`;
+            const prefix = type === 'error' ? '❌' : type === 'warning' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️';
+
+            outputArea.innerHTML += `<div class="log-entry ${logClass}">[${timestamp}] ${prefix} ${message}</div>`;
+            outputArea.scrollTop = outputArea.scrollHeight;
+        }
+
+        function clearOutput() {
+            document.getElementById('output-area').innerHTML = '';
+            logOutput('Output cleared', 'info');
+        }
+
+        function updateStatus(elementId, status, className = '') {
+            const element = document.getElementById(elementId);
+            if (element) {
+                if (className) {
+                    element.className = `status-item ${className}`;
+                }
+                element.querySelector('div:last-child').textContent = status;
+            }
+        }
+
+        function updateCommandsList(commands) {
+            const commandsList = document.getElementById('commands-list');
+            if (!commands || commands.length === 0) {
+                commandsList.innerHTML = '<div style="text-align: center; color: #666;">No commands available</div>';
+                return;
+            }
+
+            commandsList.innerHTML = commands.map(cmd => `
+                <div class="command-item" onclick="showCommandDetails('${cmd.name}')">
+                    <div class="command-name">${cmd.name}</div>
+                    <div class="command-desc">${cmd.description || 'No description available'}</div>
+                </div>
+            `).join('');
+        }
+
+        function showCommandDetails(commandName) {
+            logOutput(`Command Details: ${commandName}`, 'info');
+            logOutput(`This is a simulated command detail view. In a real implementation, this would show:`, 'info');
+            logOutput(`• Parameters and their types`, 'info');
+            logOutput(`• Usage examples`, 'info');
+            logOutput(`• Execution history`, 'info');
+            logOutput(`• Documentation`, 'info');
+        }
+
+        // Demo functions that simulate PowerShell integration
+        async function initializeSystem() {
+            logOutput('Initializing PowerShell Command Registry system...', 'info');
+
+            // Simulate initialization delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Simulate CommandRegistry initialization
+            logOutput('✅ CommandRegistry module loaded successfully', 'success');
+            updateStatus('registry-state', 'Active', 'success');
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // Simulate CommunicationBridge initialization
+            logOutput('✅ CommunicationBridge module loaded successfully', 'success');
+            updateStatus('bridge-state', 'Connected', 'success');
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // Simulate built-in commands registration
+            commandsData = [
+                { name: 'registry.listCommands', description: 'List all available commands', module: 'registry' },
+                { name: 'registry.getDocumentation', description: 'Get command documentation', module: 'registry' },
+                { name: 'registry.getStatistics', description: 'Get registry statistics', module: 'registry' },
+                { name: 'bridge.getStatus', description: 'Get bridge connection status', module: 'bridge' },
+                { name: 'bridge.sendEvent', description: 'Send event through bridge', module: 'bridge' },
+                { name: 'bridge.getConfiguration', description: 'Get bridge configuration', module: 'bridge' }
+            ];
+
+            updateStatus('commands-count', commandsData.length, 'success');
+            updateCommandsList(commandsData);
+
+            logOutput(`✅ System initialized with ${commandsData.length} commands`, 'success');
+            systemInitialized = true;
+        }
+
+        async function listCommands() {
+            if (!systemInitialized) {
+                logOutput('❌ System not initialized. Please click "Initialize System" first.', 'error');
+                return;
+            }
+
+            logOutput('Executing: registry.listCommands', 'info');
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            logOutput('Command execution successful:', 'success');
+            logOutput(`Total commands: ${commandsData.length}`, 'info');
+
+            commandsData.forEach(cmd => {
+                logOutput(`  • ${cmd.name} [${cmd.module}]`, 'info');
+            });
+        }
+
+        async function getStatistics() {
+            if (!systemInitialized) {
+                logOutput('❌ System not initialized. Please click "Initialize System" first.', 'error');
+                return;
+            }
+
+            logOutput('Executing: registry.getStatistics', 'info');
+            await new Promise(resolve => setTimeout(resolve, 400));
+
+            statisticsData = {
+                totalCommands: commandsData.length,
+                commandsExecuted: Math.floor(Math.random() * 50) + 10,
+                executionErrors: Math.floor(Math.random() * 3),
+                averageExecutionTime: Math.floor(Math.random() * 100) + 50,
+                moduleStats: {
+                    registry: { commandCount: 3, executionCount: 15, errorCount: 0 },
+                    bridge: { commandCount: 3, executionCount: 8, errorCount: 1 }
+                }
+            };
+
+            logOutput('Registry Statistics:', 'success');
+            logOutput(`  Total Commands: ${statisticsData.totalCommands}`, 'info');
+            logOutput(`  Commands Executed: ${statisticsData.commandsExecuted}`, 'info');
+            logOutput(`  Execution Errors: ${statisticsData.executionErrors}`, 'info');
+            logOutput(`  Average Execution Time: ${statisticsData.averageExecutionTime}ms`, 'info');
+
+            updateStatus('executions-count', statisticsData.commandsExecuted, 'success');
+        }
+
+        async function getDocumentation() {
+            if (!systemInitialized) {
+                logOutput('❌ System not initialized. Please click "Initialize System" first.', 'error');
+                return;
+            }
+
+            logOutput('Executing: registry.getDocumentation', 'info');
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            logOutput('Documentation Generated:', 'success');
+            logOutput('Modules:', 'info');
+            logOutput('  • registry: Command registration and management', 'info');
+            logOutput('  • bridge: PowerShell ↔ JavaScript communication', 'info');
+            logOutput('', 'info');
+            logOutput('Sample Command Documentation:', 'info');
+            logOutput('  registry.listCommands:', 'info');
+            logOutput('    Description: List all available commands', 'info');
+            logOutput('    Parameters:', 'info');
+            logOutput('      - Module (String, Optional): Filter by module name', 'info');
+            logOutput('      - IncludeProtected (Boolean, Optional): Include protected commands', 'info');
+        }
+
+        async function testIntegration() {
+            if (!systemInitialized) {
+                logOutput('❌ System not initialized. Please click "Initialize System" first.', 'error');
+                return;
+            }
+
+            logOutput('🧪 Running Integration Tests...', 'info');
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            const tests = [
+                'Module Import Test',
+                'CommandRegistry Initialization',
+                'CommunicationBridge Integration',
+                'Command Execution Test',
+                'Parameter Validation Test',
+                'Error Handling Test'
+            ];
+
+            for (let i = 0; i < tests.length; i++) {
+                await new Promise(resolve => setTimeout(resolve, 400));
+                const success = Math.random() > 0.1; // 90% success rate
+                logOutput(`${success ? '✅' : '❌'} ${tests[i]}`, success ? 'success' : 'error');
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+            logOutput('🎉 Integration test completed! System is ready for use.', 'success');
+        }
+
+        // Initialize the demo
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Auto-initialize after a short delay for demo purposes
+        setTimeout(() => {
+            logOutput('Demo ready! Click "Initialize System" to see the Command Registry in action.', 'info');
+        }, 1000);
+    </script>
+</body>
+
+</html>
