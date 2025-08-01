@@ -2,12 +2,6 @@
 
 An interactive RPG game built with PowerShell and Leafmap.js featuring drones, factions, and interactive terminals with enhanced modular architecture.
 
-## Features
-- Interactive map-based gameplay
-- Faction reputation system
-- Drone reconnaissance and combat
-- PowerShell terminal interfaces
-- Custom map support
 - **Enhanced Core Architecture** with event-driven modules
 - **Structured Logging** with multi-output support
 - **Dynamic Command System** with runtime registration

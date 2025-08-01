@@ -1,0 +1,19 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -74.0059,
+          40.7127
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "City Hall",
+        "type": "Default"
+      },
+      "type": "Feature"
+    }
+  ]
+}

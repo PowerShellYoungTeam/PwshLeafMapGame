@@ -1,0 +1,26 @@
+name: PowerShell Tests
+
+on:
+  push:
+    branches: [ main, 'feature/*', 'release/*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run Pester tests
+      shell: pwsh
+      run: |
+        Install-Module Pester -Force -SkipPublisherCheck
+        Invoke-Pester -Path ./Tests -OutputFile test-results.xml -OutputFormat NUnitXml
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: test-results.xml
+      if: always()
