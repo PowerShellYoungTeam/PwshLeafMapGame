@@ -4,11 +4,17 @@ class PwshLeafmapGame {
         this.score = 0;
         this.inventory = [];
         this.gameData = null;
+        this.eventManager = null;
+        this.gameEventHandlers = null;
 
         this.init();
     }
 
     init() {
+        // Initialize event system first
+        this.eventManager = new EventManager();
+        this.gameEventHandlers = new GameEventHandlers(this.eventManager, this);
+
         // Initialize event listeners
         document.getElementById('loadData').addEventListener('click', () => this.loadGameData());
         document.getElementById('resetGame').addEventListener('click', () => this.resetGame());
@@ -16,27 +22,63 @@ class PwshLeafmapGame {
         // Initialize the map
         this.gameMap = new GameMap('map', this);
 
+        // Register for PowerShell events
+        this.eventManager.register('powershell.commandCompleted', (data) => {
+            this.handlePowerShellResponse(data);
+        });
+
         // Load initial game state
         this.updateUI();
 
-        console.log('PowerShell Leafmap Game initialized!');
+        // Emit initialization event
+        this.eventManager.emit('system.initialized', {
+            timestamp: new Date().toISOString(),
+            version: '1.0.0'
+        });
+
+        console.log('PowerShell Leafmap Game initialized with Event System!');
     }
 
     async loadGameData() {
         try {
-            // This would typically call a PowerShell script to generate/load game data
-            console.log('Loading game data via PowerShell...');
+            // Emit event to PowerShell to generate/load game data
+            console.log('Requesting game data from PowerShell...');
 
-            // Simulate loading data (in a real app, this could call a PowerShell script)
-            this.gameData = await this.simulateDataLoad();
+            this.eventManager.emit('powershell.generateLocations', {
+                city: 'New York',
+                locationCount: 10
+            });
 
-            // Update map with new data
-            this.gameMap.loadLocations(this.gameData.locations);
-
-            this.updateGameInfo('Game data loaded successfully!');
+            this.updateGameInfo('Requesting game data from PowerShell...');
         } catch (error) {
             console.error('Error loading game data:', error);
+            this.eventManager.emit('system.error', {
+                message: error.message,
+                context: 'loadGameData'
+            });
             this.updateGameInfo('Error loading game data');
+        }
+    }
+
+    handlePowerShellResponse(data) {
+        console.log('Received PowerShell response:', data);
+
+        if (data.commandType === 'generateLocations' && data.success) {
+            this.gameData = data.result;
+
+            if (this.gameData && this.gameData.locations) {
+                // Update map with new data
+                this.gameMap.loadLocations(this.gameData.locations);
+                this.updateGameInfo('Game data loaded from PowerShell successfully!');
+
+                // Emit data loaded event
+                this.eventManager.emit('system.dataLoaded', {
+                    locations: this.gameData.locations,
+                    source: 'powershell'
+                });
+            }
+        } else if (!data.success) {
+            this.updateGameInfo(`PowerShell error: ${data.error || 'Unknown error'}`);
         }
     }
 
@@ -84,9 +126,17 @@ class PwshLeafmapGame {
     visitLocation(location) {
         console.log(`Visiting location: ${location.name}`);
 
+        // Emit location visit event
+        this.eventManager.emit('location.visited', {
+            location: location,
+            playerId: 'player1', // This would be dynamic in a real game
+            timestamp: new Date().toISOString()
+        });
+
         // Add items to inventory
         if (location.items) {
-            location.items.forEach(item => {
+            const items = Array.isArray(location.items) ? location.items : [location.items];
+            items.forEach(item => {
                 this.addToInventory(item);
             });
         }
@@ -103,12 +153,29 @@ class PwshLeafmapGame {
     addToInventory(item) {
         this.inventory.push(item);
         this.updateInventoryUI();
+
+        // Emit inventory change event
+        this.eventManager.emit('player.inventoryChanged', {
+            action: 'added',
+            item: item,
+            inventory: [...this.inventory]
+        });
+
         console.log(`Added ${item} to inventory`);
     }
 
     addScore(points) {
+        const oldScore = this.score;
         this.score += points;
         this.updateScoreUI();
+
+        // Emit score change event
+        this.eventManager.emit('player.scoreChanged', {
+            oldScore: oldScore,
+            newScore: this.score,
+            pointsAdded: points
+        });
+
         console.log(`Added ${points} points. Total score: ${this.score}`);
     }
 
@@ -120,6 +187,11 @@ class PwshLeafmapGame {
         this.gameMap.clearMap();
         this.updateUI();
         this.updateGameInfo('Game reset! Click "Load Game Data" to start a new adventure.');
+
+        // Emit reset event
+        this.eventManager.emit('game.reset', {
+            timestamp: new Date().toISOString()
+        });
 
         console.log('Game reset');
     }
