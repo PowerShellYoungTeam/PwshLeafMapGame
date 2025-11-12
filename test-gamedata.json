@@ -1,0 +1,77 @@
+{
+  "locations": [
+    {
+      "experience": 27.0,
+      "items": "historical_fact",
+      "description": "A famous site worth visiting.",
+      "type": "landmark",
+      "lat": 40.757897,
+      "id": "location_1",
+      "lng": -73.718944,
+      "points": 54,
+      "timestamp": "2025-11-12T21:08:56",
+      "name": "Cultural Site #1",
+      "discovered": false
+    },
+    {
+      "experience": 22.0,
+      "items": "historical_fact",
+      "description": "A place of historical significance.",
+      "type": "landmark",
+      "lat": 40.788506,
+      "id": "location_2",
+      "lng": -73.881586,
+      "points": 45,
+      "timestamp": "2025-11-12T21:08:56",
+      "name": "Notable Plaza #2",
+      "discovered": false
+    },
+    {
+      "experience": 45.0,
+      "items": "mysterious_clue",
+      "description": "An unexplained phenomenon occurs.",
+      "type": "mystery",
+      "lat": 40.691023,
+      "id": "location_3",
+      "lng": -74.177164,
+      "points": 90,
+      "timestamp": "2025-11-12T21:08:56",
+      "name": "Unexplained Site #3",
+      "discovered": false
+    },
+    {
+      "experience": 76.0,
+      "items": "special_key",
+      "description": "Ancient mysteries await your arrival.",
+      "type": "quest",
+      "lat": 40.867936,
+      "id": "location_4",
+      "lng": -73.937614,
+      "points": 152,
+      "timestamp": "2025-11-12T21:08:56",
+      "name": "Ancient Temple #4",
+      "discovered": false
+    },
+    {
+      "experience": 46.0,
+      "items": "riddle_piece",
+      "description": "Mysteries abound in this location.",
+      "type": "mystery",
+      "lat": 40.731611,
+      "id": "location_5",
+      "lng": -73.815234,
+      "points": 93,
+      "timestamp": "2025-11-12T21:08:56",
+      "name": "Strange Phenomenon #5",
+      "discovered": false
+    }
+  ],
+  "version": "1.0",
+  "generatedAt": "2025-11-12T21:08:56",
+  "metadata": {
+    "totalLocations": 5,
+    "generator": "PowerShell Game Data Generator",
+    "scriptVersion": "1.0"
+  },
+  "city": "New York"
+}

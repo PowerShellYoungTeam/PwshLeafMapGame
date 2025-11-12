@@ -135,11 +135,14 @@ class EventManager {
                 }
             } catch (error) {
                 console.error(`Error processing event ${event.type}:`, error);
-                this.emit('system.error', {
-                    message: error.message,
-                    eventType: event.type,
-                    handlerId: handlerInfo.id
-                });
+                // Prevent infinite loop by not emitting system.error for system.error events
+                if (event.type !== 'system.error') {
+                    this.emit('system.error', {
+                        message: error.message,
+                        eventType: event.type,
+                        handlerId: handlerInfo.id
+                    });
+                }
             }
         }
     }
@@ -198,9 +201,14 @@ class EventManager {
      * Start polling for PowerShell events
      */
     startPowerShellPolling() {
+        // Disable polling for now - it can cause browser hangs
+        // Uncomment to enable PowerShell bridge functionality
+        /*
         setInterval(() => {
             this.checkPowerShellEvents();
         }, this.pollInterval);
+        */
+        console.log('PowerShell polling disabled (use Load Game Data button for PowerShell integration)');
     }
 
     /**

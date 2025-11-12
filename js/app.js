@@ -37,6 +37,41 @@ class PwshLeafmapGame {
         });
 
         console.log('PowerShell Leafmap Game initialized with Event System!');
+        
+        // Auto-load gamedata.json if it exists
+        this.autoLoadGameData();
+    }
+    
+    async autoLoadGameData() {
+        try {
+            console.log('Attempting to load gamedata.json...');
+            const response = await fetch('gamedata.json');
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Game data received:', data);
+                if (data && data.locations && data.locations.length > 0) {
+                    this.gameData = data;
+                    console.log(`Loading ${data.locations.length} locations onto map...`);
+                    this.gameMap.loadLocations(data.locations);
+                    this.updateGameInfo(`🎮 Game ready! ${data.locations.length} locations in ${data.city}. Click markers to explore!`);
+                    console.log('✓ Game data loaded successfully');
+                    
+                    this.eventManager.emit('system.dataLoaded', {
+                        locations: data.locations,
+                        source: 'file'
+                    });
+                } else {
+                    console.warn('Game data loaded but no locations found');
+                    this.updateGameInfo('No locations found in game data');
+                }
+            } else {
+                console.log('No gamedata.json found (HTTP', response.status, ')');
+                this.updateGameInfo('Click "Load Game Data" to start your adventure!');
+            }
+        } catch (error) {
+            console.error('Error auto-loading game data:', error);
+            this.updateGameInfo('Click "Load Game Data" to start!');
+        }
     }
 
     async loadGameData() {
@@ -124,30 +159,37 @@ class PwshLeafmapGame {
     }
 
     visitLocation(location) {
-        console.log(`Visiting location: ${location.name}`);
+        try {
+            console.log(`Visiting location: ${location.name}`);
 
-        // Emit location visit event
-        this.eventManager.emit('location.visited', {
-            location: location,
-            playerId: 'player1', // This would be dynamic in a real game
-            timestamp: new Date().toISOString()
-        });
-
-        // Add items to inventory
-        if (location.items) {
-            const items = Array.isArray(location.items) ? location.items : [location.items];
-            items.forEach(item => {
-                this.addToInventory(item);
+            // Emit location visit event
+            this.eventManager.emit('location.visited', {
+                location: location,
+                playerId: 'player1', // This would be dynamic in a real game
+                timestamp: new Date().toISOString()
             });
-        }
 
-        // Add points
-        if (location.points) {
-            this.addScore(location.points);
-        }
+            // Add items to inventory
+            if (location.items) {
+                const items = Array.isArray(location.items) ? location.items : [location.items];
+                items.forEach(item => {
+                    this.addToInventory(item);
+                });
+            }
 
-        // Update game info
-        this.updateGameInfo(`Visited: ${location.name}. ${location.description}`);
+            // Add points
+            if (location.points) {
+                this.addScore(location.points);
+            }
+
+            // Update game info
+            this.updateGameInfo(`Visited: ${location.name}. ${location.description}`);
+            
+            console.log('✓ Location visit completed successfully');
+        } catch (error) {
+            console.error('Error visiting location:', error);
+            this.updateGameInfo(`Error: ${error.message}`);
+        }
     }
 
     addToInventory(item) {

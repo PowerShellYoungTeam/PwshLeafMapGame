@@ -45,14 +45,26 @@ class GameMap {
         const marker = L.marker([location.lat, location.lng], { icon })
             .addTo(this.map);
 
-        // Create popup content
-        const popupContent = this.createPopupContent(location);
+        // Store location data on marker for later access
+        marker.locationData = location;
+
+        // Create popup content with unique ID
+        const markerId = this.markers.length;
+        const popupContent = this.createPopupContent(location, markerId);
         marker.bindPopup(popupContent);
 
-        // Add click event
+        // Add click event to marker to set up button handler after popup opens
         marker.on('click', () => {
-            this.game.visitLocation(location);
-            this.updateMarkerAfterVisit(marker, location);
+            // Set up button click handler after popup opens
+            setTimeout(() => {
+                const button = document.getElementById(`visit-btn-${markerId}`);
+                if (button) {
+                    button.onclick = () => {
+                        this.game.visitLocation(marker.locationData);
+                        this.updateMarkerAfterVisit(marker, marker.locationData);
+                    };
+                }
+            }, 100);
         });
 
         // Store reference
@@ -104,15 +116,19 @@ class GameMap {
         });
     }
 
-    createPopupContent(location) {
+    createPopupContent(location, markerId) {
+        // Handle items as string or array
         let itemsList = '';
-        if (location.items && location.items.length > 0) {
-            itemsList = `
-                <h4>Items:</h4>
-                <ul>
-                    ${location.items.map(item => `<li>${item.replace('_', ' ')}</li>`).join('')}
-                </ul>
-            `;
+        if (location.items) {
+            const items = Array.isArray(location.items) ? location.items : [location.items];
+            if (items.length > 0) {
+                itemsList = `
+                    <h4>Items:</h4>
+                    <ul>
+                        ${items.map(item => `<li>${String(item).replace(/_/g, ' ')}</li>`).join('')}
+                    </ul>
+                `;
+            }
         }
 
         let pointsInfo = '';
@@ -126,7 +142,7 @@ class GameMap {
                 <p>${location.description}</p>
                 ${pointsInfo}
                 ${itemsList}
-                <button onclick="window.game.visitLocation(${JSON.stringify(location).replace(/"/g, '&quot;')})"
+                <button id="visit-btn-${markerId}"
                         style="
                             background-color: #3498db;
                             color: white;

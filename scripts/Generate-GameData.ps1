@@ -133,7 +133,22 @@ $gameData = @{
 for ($i = 1; $i -le $LocationCount; $i++) {
     $location = New-GameLocation -Id $i -City $City
     $gameData.locations += $location
-    Write-Progress -Activity "Generating locations" -Status "Creating location $i of $LocationCount" -PercentComplete (($i / $LocationCount) * 100)
+    
+    # Only show progress if running in interactive console (not redirected)
+    try {
+        if ([Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+            Write-Progress -Activity "Generating locations" -Status "Creating location $i of $LocationCount" -PercentComplete (($i / $LocationCount) * 100)
+        }
+    } catch {
+        # Silently continue if Write-Progress fails
+    }
+}
+
+# Clear progress bar
+try {
+    Write-Progress -Activity "Generating locations" -Completed
+} catch {
+    # Silently continue if Write-Progress fails
 }
 
 # Convert to JSON and save
