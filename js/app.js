@@ -37,11 +37,11 @@ class PwshLeafmapGame {
         });
 
         console.log('PowerShell Leafmap Game initialized with Event System!');
-        
+
         // Auto-load gamedata.json if it exists
         this.autoLoadGameData();
     }
-    
+
     async autoLoadGameData() {
         try {
             console.log('Attempting to load gamedata.json...');
@@ -55,7 +55,7 @@ class PwshLeafmapGame {
                     this.gameMap.loadLocations(data.locations);
                     this.updateGameInfo(`🎮 Game ready! ${data.locations.length} locations in ${data.city}. Click markers to explore!`);
                     console.log('✓ Game data loaded successfully');
-                    
+
                     this.eventManager.emit('system.dataLoaded', {
                         locations: data.locations,
                         source: 'file'
@@ -184,7 +184,7 @@ class PwshLeafmapGame {
 
             // Update game info
             this.updateGameInfo(`Visited: ${location.name}. ${location.description}`);
-            
+
             console.log('✓ Location visit completed successfully');
         } catch (error) {
             console.error('Error visiting location:', error);
