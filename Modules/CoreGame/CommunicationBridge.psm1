@@ -6,12 +6,12 @@ using module .\EventSystem.psm1
 
 # Bridge configuration
 $script:BridgeConfig = @{
-    CommandsDirectory = '.\Data\Bridge'
+    CommandsDirectory  = '.\Data\Bridge'
     ProcessedDirectory = '.\Data\Bridge\Processed'
-    EventsDirectory = '.\Data\Bridge\Events'
-    PollInterval = 100 # milliseconds
-    MaxCommandAge = 300 # seconds
-    IsInitialized = $false
+    EventsDirectory    = '.\Data\Bridge\Events'
+    PollInterval       = 100 # milliseconds
+    MaxCommandAge      = 300 # seconds
+    IsInitialized      = $false
 }
 
 function Initialize-CommunicationBridge {
@@ -45,7 +45,7 @@ function Send-BridgeCommand {
     <#
     .SYNOPSIS
     Sends a command to the JavaScript frontend
-    
+
     .PARAMETER Command
     Hashtable containing command data
     #>
@@ -67,7 +67,8 @@ function Send-BridgeCommand {
         Write-GameLog -Level Debug -Message "Sent bridge command: $($Command.Type)"
         return $true
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Error -Message "Failed to send bridge command: $_"
         return $false
     }
@@ -77,7 +78,7 @@ function Receive-BridgeCommands {
     <#
     .SYNOPSIS
     Receives commands from the JavaScript frontend
-    
+
     .OUTPUTS
     Array of command objects
     #>
@@ -107,14 +108,16 @@ function Receive-BridgeCommands {
                 $processedPath = Join-Path $script:BridgeConfig.ProcessedDirectory $file.Name
                 Move-Item -Path $file.FullName -Destination $processedPath -Force -ErrorAction SilentlyContinue
 
-            } catch {
+            }
+            catch {
                 Write-GameLog -Level Warning -Message "Failed to process command file $($file.Name): $_"
             }
         }
 
         return $commands
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Error -Message "Failed to receive bridge commands: $_"
         return @()
     }
@@ -124,10 +127,10 @@ function Send-BridgeEvent {
     <#
     .SYNOPSIS
     Sends an event to the JavaScript frontend
-    
+
     .PARAMETER EventType
     Type of event
-    
+
     .PARAMETER Data
     Event data
     #>
@@ -141,8 +144,8 @@ function Send-BridgeEvent {
     )
 
     $event = @{
-        Type = $EventType
-        Data = $Data
+        Type      = $EventType
+        Data      = $Data
         Timestamp = Get-Date -Format 'o'
     }
 
@@ -153,7 +156,7 @@ function Clear-OldBridgeFiles {
     <#
     .SYNOPSIS
     Clears old bridge files to prevent buildup
-    
+
     .PARAMETER MaxAgeMinutes
     Maximum age in minutes for files to keep
     #>
@@ -173,15 +176,16 @@ function Clear-OldBridgeFiles {
 
         foreach ($dir in $dirs) {
             if (Test-Path $dir) {
-                Get-ChildItem -Path $dir -File | 
-                    Where-Object { $_.CreationTime -lt $cutoffTime } |
-                    Remove-Item -Force -ErrorAction SilentlyContinue
+                Get-ChildItem -Path $dir -File |
+                Where-Object { $_.CreationTime -lt $cutoffTime } |
+                Remove-Item -Force -ErrorAction SilentlyContinue
             }
         }
 
         Write-GameLog -Level Debug -Message "Cleared old bridge files"
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Warning -Message "Failed to clear old bridge files: $_"
     }
 }

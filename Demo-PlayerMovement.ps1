@@ -77,26 +77,26 @@ Write-Host ""
 # Start simple HTTP server
 $ServerJob = Start-Job -ScriptBlock {
     param($RootPath)
-    
+
     $listener = New-Object System.Net.HttpListener
     $listener.Prefixes.Add("http://localhost:8080/")
     $listener.Start()
-    
+
     Write-Host "Server started on http://localhost:8080" -ForegroundColor Green
-    
+
     while ($listener.IsListening) {
         $context = $listener.GetContext()
         $request = $context.Request
         $response = $context.Response
-        
+
         $path = $request.Url.LocalPath
         if ($path -eq '/') { $path = '/player-movement-demo.html' }
-        
+
         $filePath = Join-Path $RootPath $path.TrimStart('/')
-        
+
         if (Test-Path $filePath) {
             $content = [System.IO.File]::ReadAllBytes($filePath)
-            
+
             # Set content type
             $ext = [System.IO.Path]::GetExtension($filePath)
             $contentType = switch ($ext) {
@@ -106,19 +106,20 @@ $ServerJob = Start-Job -ScriptBlock {
                 '.json' { 'application/json' }
                 default { 'application/octet-stream' }
             }
-            
+
             $response.ContentType = $contentType
             $response.StatusCode = 200
             $response.OutputStream.Write($content, 0, $content.Length)
-        } else {
+        }
+        else {
             $response.StatusCode = 404
             $errorMsg = [System.Text.Encoding]::UTF8.GetBytes("404 - File not found: $path")
             $response.OutputStream.Write($errorMsg, 0, $errorMsg.Length)
         }
-        
+
         $response.Close()
     }
-    
+
     $listener.Stop()
 } -ArgumentList $PSScriptRoot
 
@@ -152,7 +153,7 @@ try {
     while ($true) {
         # Process bridge commands
         $commands = Receive-BridgeCommands
-        
+
         foreach ($cmd in $commands) {
             switch ($cmd.Type) {
                 'StartMovement' {
@@ -169,24 +170,25 @@ try {
                 }
             }
         }
-        
+
         # Process game events
         $events = Get-GameEvent
         foreach ($event in $events) {
             # Events are already handled by registered handlers
         }
-        
+
         # Small delay to prevent CPU spinning
         Start-Sleep -Milliseconds 100
     }
-} finally {
+}
+finally {
     # Cleanup
     Write-Host "`nShutting down..." -ForegroundColor Yellow
-    
+
     if ($ServerJob) {
         Stop-Job $ServerJob
         Remove-Job $ServerJob
     }
-    
+
     Write-Host "✓ Demo stopped" -ForegroundColor Green
 }

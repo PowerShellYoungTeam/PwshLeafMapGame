@@ -345,7 +345,7 @@
                         playerPosition = path.coordinates[path.coordinates.length - 1];
                         updatePositionDisplay();
                         document.getElementById('statusDisplay').textContent = 'Ready';
-                        
+
                         // Clear path after arrival
                         setTimeout(() => {
                             pathfindingManager.clearPath();
@@ -405,13 +405,13 @@
         // Update path info display
         function updatePathInfo(path) {
             document.getElementById('pathInfo').style.display = 'block';
-            
+
             const distanceKm = (path.distance / 1000).toFixed(2);
             document.getElementById('pathDistance').textContent = `${distanceKm} km`;
-            
+
             const durationMin = Math.round(path.duration / 60);
             document.getElementById('pathDuration').textContent = `${durationMin} min`;
-            
+
             const typeText = path.type === 'road' ? '🛣️ Road Network' : '➡️ Direct Line';
             document.getElementById('pathType').textContent = typeText;
         }
@@ -419,7 +419,7 @@
         // Travel mode selection
         document.getElementById('travelMode').addEventListener('change', (e) => {
             travelMode = e.target.value;
-            
+
             const modeNames = {
                 'foot': '🚶 On Foot',
                 'car': '🚗 Car',
@@ -427,7 +427,7 @@
                 'van': '🚐 Van',
                 'aerial': '🚁 Aerial'
             };
-            
+
             document.getElementById('modeDisplay').textContent = modeNames[travelMode];
             console.log(`Travel mode changed to: ${travelMode}`);
         });

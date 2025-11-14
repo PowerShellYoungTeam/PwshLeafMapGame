@@ -19,13 +19,13 @@ function Initialize-PathfindingSystem {
 
     Write-GameLog -Level Info -Message "Initializing PathfindingSystem"
     $script:ActiveMovements = @{}
-    
+
     # Register events
     Register-GameEvent -EventType 'movement.started' -ScriptBlock {
         param($Data)
         Write-GameLog -Level Info -Message "Movement started: Unit $($Data.UnitId)"
     }
-    
+
     Register-GameEvent -EventType 'movement.completed' -ScriptBlock {
         param($Data)
         Write-GameLog -Level Info -Message "Movement completed: Unit $($Data.UnitId)"
@@ -33,7 +33,7 @@ function Initialize-PathfindingSystem {
             $script:ActiveMovements.Remove($Data.UnitId)
         }
     }
-    
+
     Write-GameLog -Level Info -Message "PathfindingSystem initialized successfully"
 }
 
@@ -41,13 +41,13 @@ function Start-UnitMovement {
     <#
     .SYNOPSIS
     Initiates unit movement to a destination
-    
+
     .PARAMETER UnitId
     The ID of the unit to move
-    
+
     .PARAMETER Destination
     Hashtable with Lat and Lng keys
-    
+
     .PARAMETER TravelMode
     How the unit is traveling (foot, car, motorcycle, van, aerial)
     #>
@@ -66,7 +66,7 @@ function Start-UnitMovement {
     try {
         # Get unit entity
         $unit = Get-GameEntity -Id $UnitId
-        
+
         if (-not $unit) {
             Write-GameLog -Level Error -Message "Unit not found: $UnitId"
             return $false
@@ -86,39 +86,42 @@ function Start-UnitMovement {
         # Determine pathfinding method
         $pathfindingType = if ($distance -lt 500) {
             'direct' # Short distance: straight line
-        } elseif ($TravelMode -eq 'aerial') {
+        }
+        elseif ($TravelMode -eq 'aerial') {
             'direct' # Aerial ignores roads
-        } elseif ($TravelMode -eq 'foot' -and $distance -gt 2000) {
+        }
+        elseif ($TravelMode -eq 'foot' -and $distance -gt 2000) {
             'warning' # Warn about long foot journey
-        } else {
+        }
+        else {
             'road' # Use road network
         }
 
         # Track active movement
         $movement = @{
-            UnitId = $UnitId
-            Start = $unit.Position
-            Destination = $Destination
-            TravelMode = $TravelMode
+            UnitId          = $UnitId
+            Start           = $unit.Position
+            Destination     = $Destination
+            TravelMode      = $TravelMode
             PathfindingType = $pathfindingType
-            StartTime = Get-Date
-            Distance = $distance
+            StartTime       = Get-Date
+            Distance        = $distance
         }
-        
+
         $script:ActiveMovements[$UnitId] = $movement
 
         # Send command to frontend for pathfinding
         $command = @{
-            Type = 'StartMovement'
-            UnitId = $UnitId
-            Start = @{
+            Type            = 'StartMovement'
+            UnitId          = $UnitId
+            Start           = @{
                 Lat = $unit.Position.Lat
                 Lng = $unit.Position.Lng
             }
-            Destination = $Destination
-            TravelMode = $TravelMode
+            Destination     = $Destination
+            TravelMode      = $TravelMode
             PathfindingType = $pathfindingType
-            Distance = $distance
+            Distance        = $distance
         }
 
         # Write command to bridge
@@ -127,24 +130,25 @@ function Start-UnitMovement {
         if (-not (Test-Path $bridgeDir)) {
             New-Item -ItemType Directory -Path $bridgeDir -Force | Out-Null
         }
-        
+
         $commandFile = Join-Path $bridgeDir "cmd_$(Get-Date -Format 'yyyyMMdd_HHmmss_fff').json"
         $commandJson | Out-File -FilePath $commandFile -Encoding utf8 -NoNewline
 
         # Emit event
         Invoke-GameEvent -EventType 'movement.started' -Data @{
-            UnitId = $UnitId
-            Destination = $Destination
-            TravelMode = $TravelMode
+            UnitId          = $UnitId
+            Destination     = $Destination
+            TravelMode      = $TravelMode
             PathfindingType = $pathfindingType
-            Distance = $distance
+            Distance        = $distance
         }
 
         Write-GameLog -Level Info -Message "Unit $UnitId moving to [$($Destination.Lat), $($Destination.Lng)] via $TravelMode ($pathfindingType pathfinding, ${distance}m)"
-        
+
         return $true
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Error -Message "Failed to start movement for unit $UnitId : $_"
         return $false
     }
@@ -154,10 +158,10 @@ function Update-UnitPosition {
     <#
     .SYNOPSIS
     Updates a unit's position on the map
-    
+
     .PARAMETER UnitId
     The ID of the unit to update
-    
+
     .PARAMETER Position
     Hashtable with Lat and Lng keys
     #>
@@ -173,7 +177,7 @@ function Update-UnitPosition {
     try {
         # Get unit entity
         $unit = Get-GameEntity -Id $UnitId
-        
+
         if (-not $unit) {
             Write-GameLog -Level Error -Message "Unit not found: $UnitId"
             return $false
@@ -192,16 +196,17 @@ function Update-UnitPosition {
 
         # Emit event
         Invoke-GameEvent -EventType 'unit.positionUpdated' -Data @{
-            UnitId = $UnitId
+            UnitId      = $UnitId
             OldPosition = $oldPosition
             NewPosition = $unit.Position
         }
 
         Write-GameLog -Level Debug -Message "Unit $UnitId position updated to [$($Position.Lat), $($Position.Lng)]"
-        
+
         return $true
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Error -Message "Failed to update position for unit $UnitId : $_"
         return $false
     }
@@ -211,10 +216,10 @@ function Complete-UnitMovement {
     <#
     .SYNOPSIS
     Marks a unit's movement as complete
-    
+
     .PARAMETER UnitId
     The ID of the unit
-    
+
     .PARAMETER FinalPosition
     The final position reached
     #>
@@ -230,33 +235,34 @@ function Complete-UnitMovement {
     try {
         # Update final position
         $updated = Update-UnitPosition -UnitId $UnitId -Position $FinalPosition
-        
+
         if ($updated) {
             # Remove from active movements
             if ($script:ActiveMovements.ContainsKey($UnitId)) {
                 $movement = $script:ActiveMovements[$UnitId]
                 $duration = ((Get-Date) - $movement.StartTime).TotalSeconds
-                
+
                 Write-GameLog -Level Info -Message "Unit $UnitId completed movement (${duration}s, $($movement.Distance)m)"
-                
+
                 $script:ActiveMovements.Remove($UnitId)
             }
-            
+
             # Emit completion event
             Invoke-GameEvent -EventType 'movement.completed' -Data @{
-                UnitId = $UnitId
+                UnitId   = $UnitId
                 Position = $FinalPosition
             }
-            
+
             # Check for location-based events
             Test-LocationEvents -UnitId $UnitId -Position $FinalPosition
-            
+
             return $true
         }
-        
+
         return $false
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Error -Message "Failed to complete movement for unit $UnitId : $_"
         return $false
     }
@@ -266,10 +272,10 @@ function Test-LocationEvents {
     <#
     .SYNOPSIS
     Checks for events triggered by arriving at a location
-    
+
     .PARAMETER UnitId
     The unit that arrived
-    
+
     .PARAMETER Position
     The position arrived at
     #>
@@ -285,7 +291,7 @@ function Test-LocationEvents {
     try {
         # Get all locations
         $locations = Get-GameEntity -Type 'Location'
-        
+
         if (-not $locations) {
             return
         }
@@ -293,22 +299,22 @@ function Test-LocationEvents {
         # Check for nearby locations (within 50 meters)
         $nearbyLocations = $locations | Where-Object {
             if (-not $_.Position) { return $false }
-            
+
             $latDiff = $Position.Lat - $_.Position.Lat
             $lngDiff = $Position.Lng - $_.Position.Lng
             $dist = [Math]::Sqrt([Math]::Pow($latDiff, 2) + [Math]::Pow($lngDiff, 2)) * 111320
-            
+
             $dist -lt 50
         }
 
         foreach ($location in $nearbyLocations) {
             Invoke-GameEvent -EventType 'location.entered' -Data @{
-                UnitId = $UnitId
-                LocationId = $location.Id
+                UnitId       = $UnitId
+                LocationId   = $location.Id
                 LocationName = $location.Name
-                Position = $Position
+                Position     = $Position
             }
-            
+
             Write-GameLog -Level Info -Message "Unit $UnitId entered location: $($location.Name)"
         }
 
@@ -316,17 +322,18 @@ function Test-LocationEvents {
         if ((Get-Random -Minimum 0 -Maximum 100) -lt 5) {
             $encounterTypes = @('enemy', 'loot', 'npc', 'event')
             $encounterType = Get-Random -InputObject $encounterTypes
-            
+
             Invoke-GameEvent -EventType 'encounter.random' -Data @{
-                UnitId = $UnitId
-                Position = $Position
+                UnitId        = $UnitId
+                Position      = $Position
                 EncounterType = $encounterType
             }
-            
+
             Write-GameLog -Level Info -Message "Random encounter triggered: $encounterType"
         }
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Warning -Message "Failed to check location events: $_"
     }
 }
@@ -346,7 +353,7 @@ function Stop-UnitMovement {
     <#
     .SYNOPSIS
     Cancels an active unit movement
-    
+
     .PARAMETER UnitId
     The unit to stop
     #>
@@ -359,29 +366,30 @@ function Stop-UnitMovement {
     try {
         if ($script:ActiveMovements.ContainsKey($UnitId)) {
             $script:ActiveMovements.Remove($UnitId)
-            
+
             # Send cancel command to frontend
             $command = @{
-                Type = 'StopMovement'
+                Type   = 'StopMovement'
                 UnitId = $UnitId
             }
-            
+
             $commandJson = $command | ConvertTo-Json -Depth 10 -Compress
             $bridgeDir = Join-Path $PSScriptRoot '..\..\Data\Bridge'
             $commandFile = Join-Path $bridgeDir "cmd_$(Get-Date -Format 'yyyyMMdd_HHmmss_fff').json"
             $commandJson | Out-File -FilePath $commandFile -Encoding utf8 -NoNewline
-            
+
             Invoke-GameEvent -EventType 'movement.cancelled' -Data @{
                 UnitId = $UnitId
             }
-            
+
             Write-GameLog -Level Info -Message "Movement cancelled for unit $UnitId"
             return $true
         }
-        
+
         return $false
 
-    } catch {
+    }
+    catch {
         Write-GameLog -Level Error -Message "Failed to stop movement for unit $UnitId : $_"
         return $false
     }
