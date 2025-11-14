@@ -1202,6 +1202,8 @@ function Get-EventStatistics {
 Export-ModuleMember -Function @(
     'Initialize-EventSystem',
     'Register-GameEvent',
+    'Invoke-GameEvent',
+    'Get-GameEvent',
     'Send-GameEvent',
     'Process-JavaScriptCommands',
     'Start-EventProcessing',

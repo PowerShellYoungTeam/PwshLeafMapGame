@@ -3,6 +3,10 @@ class GameMap {
     constructor(containerId, gameInstance) {
         this.game = gameInstance;
         this.markers = [];
+        this.playerMarker = null;
+        this.playerPosition = null;
+        this.pathfindingManager = null;
+        this.moveMode = 'foot'; // Default travel mode
 
         // Initialize the map centered on New York City
         this.map = L.map(containerId).setView([40.7128, -74.0060], 11);
@@ -19,7 +23,153 @@ class GameMap {
         //     attribution: '© OpenStreetMap contributors, © CARTO'
         // }).addTo(this.map);
 
-        console.log('GameMap initialized');
+        // Initialize pathfinding
+        this.pathfindingManager = new PathfindingManager(this.map);
+
+        // Set up click-to-move
+        this.setupClickToMove();
+
+        console.log('GameMap initialized with pathfinding');
+    }
+
+    /**
+     * Set up click-to-move functionality
+     */
+    setupClickToMove() {
+        this.map.on('click', async (e) => {
+            if (!this.playerMarker) {
+                console.warn('No player marker set. Call setPlayerPosition first.');
+                return;
+            }
+
+            const destination = e.latlng;
+            console.log(`Map clicked at [${destination.lat}, ${destination.lng}]`);
+
+            // Find path
+            const path = await this.pathfindingManager.findPath(
+                this.playerPosition,
+                destination,
+                this.moveMode
+            );
+
+            // Show path
+            this.pathfindingManager.showPath(path);
+
+            // Show info
+            const durationMinutes = Math.round(path.duration / 60);
+            const distanceKm = (path.distance / 1000).toFixed(2);
+            console.log(`Path: ${distanceKm}km, ~${durationMinutes} minutes via ${path.travelMode} (${path.type})`);
+
+            // Start movement animation
+            this.startPlayerMovement(path);
+        });
+    }
+
+    /**
+     * Set player position and create/update marker
+     */
+    setPlayerPosition(lat, lng) {
+        const position = L.latLng(lat, lng);
+        this.playerPosition = position;
+
+        if (!this.playerMarker) {
+            // Create player marker
+            const playerIcon = L.divIcon({
+                className: 'player-marker',
+                html: `<div style="
+                    background: radial-gradient(circle, #00ff00, #00aa00);
+                    border: 3px solid #ffffff;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+                    animation: pulse 2s infinite;
+                "></div>
+                <style>
+                    @keyframes pulse {
+                        0%, 100% { transform: scale(1); opacity: 1; }
+                        50% { transform: scale(1.2); opacity: 0.8; }
+                    }
+                </style>`,
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+            });
+
+            this.playerMarker = L.marker(position, {
+                icon: playerIcon,
+                zIndexOffset: 1000 // Keep player on top
+            }).addTo(this.map);
+
+            this.playerMarker.bindPopup('<strong>Player</strong><br>Click map to move');
+
+            console.log(`Player marker created at [${lat}, ${lng}]`);
+        } else {
+            // Update existing marker
+            this.playerMarker.setLatLng(position);
+            console.log(`Player marker moved to [${lat}, ${lng}]`);
+        }
+
+        // Center map on player
+        this.map.setView(position, this.map.getZoom());
+    }
+
+    /**
+     * Start player movement animation along path
+     */
+    startPlayerMovement(path) {
+        if (!this.playerMarker) return;
+
+        // Animate movement
+        this.pathfindingManager.animateMovement(
+            this.playerMarker,
+            path,
+            5.0, // Speed multiplier for demo
+            () => {
+                // On complete
+                this.playerPosition = path.coordinates[path.coordinates.length - 1];
+                console.log(`Player arrived at [${this.playerPosition.lat}, ${this.playerPosition.lng}]`);
+
+                // Send completion to PowerShell
+                if (this.game && this.game.communicationBridge) {
+                    this.game.communicationBridge.sendEvent('movement.completed', {
+                        unitId: 'player',
+                        position: {
+                            lat: this.playerPosition.lat,
+                            lng: this.playerPosition.lng
+                        }
+                    });
+                }
+
+                // Clear path after arrival
+                setTimeout(() => {
+                    this.pathfindingManager.clearPath();
+                }, 2000);
+            }
+        );
+    }
+
+    /**
+     * Set travel mode
+     */
+    setTravelMode(mode) {
+        const validModes = ['foot', 'car', 'motorcycle', 'van', 'aerial'];
+        if (validModes.includes(mode)) {
+            this.moveMode = mode;
+            console.log(`Travel mode set to: ${mode}`);
+        } else {
+            console.warn(`Invalid travel mode: ${mode}. Use one of: ${validModes.join(', ')}`);
+        }
+    }
+
+    /**
+     * Get current player position
+     */
+    getPlayerPosition() {
+        if (!this.playerPosition) return null;
+        return {
+            lat: this.playerPosition.lat,
+            lng: this.playerPosition.lng
+        };
     }
 
     loadLocations(locations) {

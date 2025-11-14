@@ -1715,7 +1715,9 @@ Export-ModuleMember -Function @(
     'Load-PlayerData',
     'Backup-GameState',
     'Get-EntityStatistics',
-    'Test-SaveIntegrity'
+    'Test-SaveIntegrity',
+    'Set-GameEntity',
+    'Get-GameEntity'
 )
 
 # Module initialization

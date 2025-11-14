@@ -355,7 +355,7 @@ class Player : GameEntity {
         # Location and movement
         $this.SetProperty('CurrentLocationId', '', $false)
         $this.SetProperty('SpawnLocationId', '', $false)
-        $this.SetProperty('Position', @{ X = 0; Y = 0; Z = 0 }, $false)
+        $this.SetProperty('Position', @{ Lat = 40.7128; Lng = -74.0060 }, $false) # Default to NYC coordinates
 
         # Quests and progression
         $this.SetProperty('Quests', @(), $false)

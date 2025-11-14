@@ -515,3 +515,22 @@
 [2025-11-12 21:04:26.753] [Info] [CommandRegistry] Command executed successfully: registry.getStatistics
 [2025-11-12 21:04:26.759] [Info] [CommandRegistry] Executing command: registry.getPerformanceMetrics
 [2025-11-12 21:04:26.766] [Error] [CommandRegistry] Failed to execute command: registry.getPerformanceMetrics
+[2025-11-14 23:00:17.365] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:00:17.396] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:00:17.440] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:00:17.632] [Info] [Core] Initializing PathfindingSystem
+[2025-11-14 23:00:17.755] [Info] [Core] PathfindingSystem initialized successfully
+[2025-11-14 23:20:15.382] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:20:15.398] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:20:15.429] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:20:15.574] [Info] [Core] Initializing PathfindingSystem
+[2025-11-14 23:20:15.582] [Info] [Core] PathfindingSystem initialized successfully
+[2025-11-14 23:20:15.584] [Info] [Core] Initializing CommunicationBridge
+[2025-11-14 23:20:15.591] [Info] [Core] CommunicationBridge initialized successfully
+[2025-11-14 23:21:19.983] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:21:19.994] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:21:20.012] [Info] [Logging] Game logging system initialized
+[2025-11-14 23:21:20.146] [Info] [Core] Initializing PathfindingSystem
+[2025-11-14 23:21:20.148] [Info] [Core] PathfindingSystem initialized successfully
+[2025-11-14 23:21:20.150] [Info] [Core] Initializing CommunicationBridge
+[2025-11-14 23:21:20.152] [Info] [Core] CommunicationBridge initialized successfully

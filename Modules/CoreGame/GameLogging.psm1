@@ -424,6 +424,7 @@ Write-GameLog -Message "Game logging system initialized" -Level Info -Module "Lo
 
 # Export functions
 Export-ModuleMember -Function @(
+    'Initialize-GameLogging',
     'Write-GameLog',
     'Set-LoggingConfig',
     'Get-LoggingInfo',
