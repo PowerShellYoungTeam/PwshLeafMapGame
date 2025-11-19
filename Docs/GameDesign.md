@@ -2,7 +2,7 @@
 
 > **Version**: 0.1.0
 > **Last Updated**: November 14, 2025
-> **Author**: [Your Name]
+> **Author**: Steven Wight
 
 ---
 
@@ -22,22 +22,30 @@
 ## Game Overview
 
 ### High Concept
-**[Fill this in]** - Describe your game in 1-2 sentences.
+- A real-time-with-pause RPG using real world maps where you start as a lone mercenary and can build a crew to take jobs and earn cash,  or even a whole faction and control territory in an Cyberpunk alternative version of todays world.
 
 **Example**: *"A real-time-with-pause cyberpunk RPG where you start as a lone mercenary and build a crew of specialists to take on high-stakes heists, territory control, and faction warfare in a neon-soaked near-future city."*
 
 ### Genre
 - **Primary**: Real-Time Tactical RPG with Pause
 - **Secondary**: Strategy, Narrative-Driven
-- **Setting**: Cyberpunk Crime-Underworld (2030s-2040s)
+- **Setting**: Cyberpunk alternative version of todays world
 
 ### Target Audience
-**[Fill this in]** - Who is this game for?
+- Players who enjoy tactical depth (XCOM, Shadowrun), narrative choices (Disco Elysium), RPG and strategy blend (Dune) and cyberpunk atmosphere (Cyberpunk 2077, Deus Ex, Syndicate).
 
 **Example**: *Players who enjoy tactical depth (XCOM, Shadowrun), narrative choices (Disco Elysium), and cyberpunk atmosphere (Cyberpunk 2077, Deus Ex).*
 
 ### Unique Selling Points
-**[Fill this in]** - What makes your game stand out?
+- Start solo, grow into commanding a criminal empire
+- Real-time tactical combat with strategic pause
+- Dynamic factions and your reputation with them affects world state
+- Live offical and black market economy which you can effect
+- OpenStreetMap integration for real-world city exploration
+- Drone and vehicle tactical support
+- Property and businesses system
+- Customizable weapons, drones, vehicles, armour, properties, hacking gadgets and more.
+
 
 **Examples**:
 - Start solo, grow into commanding a criminal empire
