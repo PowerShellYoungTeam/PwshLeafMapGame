@@ -19,10 +19,12 @@
     - Handler registration with pattern matching
     - Performance monitoring and debugging
     - Automatic event log rotation
+    
+    Dependencies: GameLogging (loaded via CoreGame.psd1 manifest)
 #>
 
-# Import logging system
-Import-Module (Join-Path $PSScriptRoot "GameLogging.psm1") -Force
+# NOTE: GameLogging is loaded as a NestedModule before this module
+# No Import-Module needed - the manifest handles load order
 
 # Event system configuration
 $script:EventConfig = @{

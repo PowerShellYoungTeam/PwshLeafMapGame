@@ -53,6 +53,38 @@ if (-not (Test-Path $logDir)) {
 
 <#
 .SYNOPSIS
+    Initializes the game logging system.
+
+.DESCRIPTION
+    Prepares the logging system for use. This function ensures the log directory
+    exists and resets log statistics. It's automatically called when the module
+    is imported, but can be called again to reset the logging system.
+
+.EXAMPLE
+    Initialize-GameLogging
+
+.NOTES
+    This function is idempotent and safe to call multiple times.
+#>
+function Initialize-GameLogging {
+    [CmdletBinding()]
+    param()
+    
+    # Ensure logs directory exists
+    $logDir = Split-Path $script:LoggingConfig.LogFilePath -Parent
+    if (-not (Test-Path $logDir)) {
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+    }
+    
+    # Reset statistics
+    $script:LogStats.SessionStartTime = Get-Date
+    $script:LogStats.LastLogTime = $null
+    
+    Write-GameLog -Message "Game logging system initialized" -Level Info -Module "Logging"
+}
+
+<#
+.SYNOPSIS
     Writes a standardized log message with multiple output options.
 
 .DESCRIPTION

@@ -1,8 +1,8 @@
 # CommunicationBridge.psm1
 # Handles bidirectional communication between PowerShell and JavaScript
 
-using module .\GameLogging.psm1
-using module .\EventSystem.psm1
+# NOTE: GameLogging and EventSystem are loaded as NestedModules before this module
+# via CoreGame.psd1 manifest. No Import-Module needed.
 
 # Bridge configuration
 $script:BridgeConfig = @{

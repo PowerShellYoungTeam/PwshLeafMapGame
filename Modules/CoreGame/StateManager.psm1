@@ -5,9 +5,8 @@ using namespace System.Collections.Generic
 using namespace System.Collections.Concurrent
 using namespace System.IO.Compression
 
-# Import required modules
-Import-Module (Join-Path $PSScriptRoot "DataModels.psm1") -Force
-Import-Module (Join-Path $PSScriptRoot "EventSystem.psm1") -Force
+# NOTE: DataModels and EventSystem are loaded as NestedModules before this module
+# No Import-Module needed - the manifest handles load order
 
 # Global state management configuration
 $script:StateConfig = @{

@@ -1,10 +1,9 @@
 # PathfindingSystem.psm1
 # Manages unit pathfinding and movement state
 
-using module .\EventSystem.psm1
-using module .\StateManager.psm1
-using module .\DataModels.psm1
-using module .\GameLogging.psm1
+# NOTE: GameLogging, EventSystem, StateManager, and DataModels are loaded 
+# as NestedModules before this module via CoreGame.psd1 manifest.
+# No Import-Module needed - the manifest handles load order.
 
 # Active movements tracking
 $script:ActiveMovements = @{}

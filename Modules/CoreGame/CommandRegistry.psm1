@@ -35,21 +35,9 @@ using namespace System.Collections.Generic
 using namespace System.Collections.Concurrent
 using namespace System.ComponentModel.DataAnnotations
 
-# Import required modules for enhanced functionality
-Import-Module (Join-Path $PSScriptRoot "GameLogging.psm1") -Force
-
-# Only import EventSystem if it's not already loaded to preserve scope
-if (-not (Get-Module -Name "EventSystem")) {
-    try {
-        Import-Module (Join-Path $PSScriptRoot "EventSystem.psm1") -Force
-        $script:EventSystemAvailable = $true
-    } catch {
-        Write-GameLog -Message "EventSystem not available, continuing without event integration" -Level Warning -Module "CommandRegistry"
-        $script:EventSystemAvailable = $false
-    }
-} else {
-    $script:EventSystemAvailable = $true
-}
+# NOTE: GameLogging and EventSystem are loaded as NestedModules before this module
+# via CoreGame.psd1 manifest. No Import-Module needed.
+$script:EventSystemAvailable = $true
 
 <#
 .SYNOPSIS

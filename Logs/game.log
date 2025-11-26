@@ -534,3 +534,15 @@
 [2025-11-14 23:21:20.148] [Info] [Core] PathfindingSystem initialized successfully
 [2025-11-14 23:21:20.150] [Info] [Core] Initializing CommunicationBridge
 [2025-11-14 23:21:20.152] [Info] [Core] CommunicationBridge initialized successfully
+[2025-11-26 22:01:05.581] [Info] [Logging] Game logging system initialized
+[2025-11-26 22:20:35.088] [Info] [Logging] Game logging system initialized
+[2025-11-26 22:24:08.321] [Info] [Logging] Game logging system initialized
+[2025-11-26 22:24:21.946] [Info] [Logging] Game logging system initialized
+[2025-11-26 22:24:21.983] [Info] [Logging] Game logging system initialized
+[2025-11-26 22:24:21.988] [Info] [EventSystem] Initializing PowerShell Event System...
+[2025-11-26 22:24:21.996] [Info] [EventSystem] Loaded existing event log with 20 events
+[2025-11-26 22:24:22.019] [Info] [EventSystem] Event system initialized successfully
+[2025-11-26 22:24:22.060] [Info] [Core] Initializing PathfindingSystem
+[2025-11-26 22:24:22.064] [Info] [Core] PathfindingSystem initialized successfully
+[2025-11-26 22:24:22.067] [Info] [Core] Initializing CommunicationBridge
+[2025-11-26 22:24:22.072] [Info] [Core] CommunicationBridge initialized successfully

@@ -1,16 +1,28 @@
 # Demo-PlayerMovement.ps1
 # Demo script for testing player movement with pathfinding
 
-# Import required modules
-$PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ModulesPath = Join-Path $PSScriptRoot 'Modules\CoreGame'
+# Import the CoreGame module using the manifest (which handles all nested modules)
+$script:PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$CoreGamePath = Join-Path $script:PSScriptRoot 'Modules\CoreGame'
 
-Import-Module (Join-Path $ModulesPath 'GameLogging.psm1') -Force
-Import-Module (Join-Path $ModulesPath 'EventSystem.psm1') -Force
-Import-Module (Join-Path $ModulesPath 'StateManager.psm1') -Force
-Import-Module (Join-Path $ModulesPath 'DataModels.psm1') -Force
-Import-Module (Join-Path $ModulesPath 'PathfindingSystem.psm1') -Force
-Import-Module (Join-Path $ModulesPath 'CommunicationBridge.psm1') -Force
+$ErrorActionPreference = 'Stop'
+try {
+    Write-Host "Loading CoreGame module..." -ForegroundColor Yellow
+    
+    # Import CoreGame.psd1 - this loads all nested modules in the correct order
+    Import-Module (Join-Path $CoreGamePath "CoreGame.psd1") -Force -Global -ErrorAction Stop
+    
+    Write-Host "  ✓ CoreGame module loaded (all subsystems included)" -ForegroundColor Green
+    Write-Host ""
+}
+catch {
+    Write-Host "ERROR: Failed to load CoreGame module - $_" -ForegroundColor Red
+    Write-Host "Error Details: $($_.Exception.Message)" -ForegroundColor Red
+    if ($_.InvocationInfo) {
+        Write-Host "At: $($_.InvocationInfo.ScriptName):$($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Red
+    }
+    exit 1
+}
 
 Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
 Write-Host "║        Player Movement & Pathfinding Demo            ║" -ForegroundColor Cyan
@@ -19,55 +31,90 @@ Write-Host ""
 
 # Initialize systems
 Write-Host "Initializing game systems..." -ForegroundColor Yellow
-Initialize-GameLogging
-Initialize-EventSystem
-Initialize-StateManager
-Initialize-PathfindingSystem
-Initialize-CommunicationBridge
+try {
+    Initialize-GameLogging
+    Write-Host "  ✓ GameLogging initialized" -ForegroundColor Green
+    
+    Initialize-EventSystem
+    Write-Host "  ✓ EventSystem initialized" -ForegroundColor Green
+    
+    Initialize-StateManager | Out-Null
+    Write-Host "  ✓ StateManager initialized" -ForegroundColor Green
+    
+    Initialize-PathfindingSystem
+    Write-Host "  ✓ PathfindingSystem initialized" -ForegroundColor Green
+    
+    Initialize-CommunicationBridge
+    Write-Host "  ✓ CommunicationBridge initialized" -ForegroundColor Green
+    Write-Host ""
+}
+catch {
+    Write-Host "`nERROR: Failed to initialize systems - $_" -ForegroundColor Red
+    Write-Host "Error Details: $($_.Exception.Message)" -ForegroundColor Red
+    exit 1
+}
 
 # Create player entity
 Write-Host "Creating player entity..." -ForegroundColor Yellow
-$player = New-PlayerEntity -Name "TestPlayer"
-$player.SetProperty('Position', @{ Lat = 40.7128; Lng = -74.0060 }) # NYC
-Set-GameEntity -Entity $player
-
-Write-Host "✓ Player created at position: [$($player.Position.Lat), $($player.Position.Lng)]" -ForegroundColor Green
-Write-Host ""
+try {
+    $player = New-PlayerEntity -Name "TestPlayer"
+    $player.SetProperty('Position', @{ Lat = 40.7128; Lng = -74.0060 }) # NYC
+    
+    # Register the player entity with StateManager
+    Register-GameEntity -EntityId $player.Id -EntityType 'Player' -InitialState @{
+        Name     = $player.Name
+        Position = $player.Position
+    }
+    
+    Write-Host "✓ Player created at position: [$($player.Position.Lat), $($player.Position.Lng)]" -ForegroundColor Green
+    Write-Host ""
+}
+catch {
+    Write-Host "ERROR: Failed to create player - $_" -ForegroundColor Red
+    Write-Host "Error Details: $($_.Exception.Message)" -ForegroundColor Red
+    exit 1
+}
 
 # Register event handlers
 Write-Host "Setting up event handlers..." -ForegroundColor Yellow
+try {
+    Register-GameEvent -EventType 'movement.started' -ScriptBlock {
+        param($Data)
+        Write-Host "`n[MOVEMENT] Player started moving to [$($Data.Destination.Lat), $($Data.Destination.Lng)]" -ForegroundColor Cyan
+        Write-Host "           Travel mode: $($Data.TravelMode)" -ForegroundColor Gray
+        Write-Host "           Pathfinding: $($Data.PathfindingType)" -ForegroundColor Gray
+        Write-Host "           Distance: $([Math]::Round($Data.Distance, 2))m" -ForegroundColor Gray
+    } | Out-Null
 
-Register-GameEvent -EventType 'movement.started' -ScriptBlock {
-    param($Data)
-    Write-Host "`n[MOVEMENT] Player started moving to [$($Data.Destination.Lat), $($Data.Destination.Lng)]" -ForegroundColor Cyan
-    Write-Host "           Travel mode: $($Data.TravelMode)" -ForegroundColor Gray
-    Write-Host "           Pathfinding: $($Data.PathfindingType)" -ForegroundColor Gray
-    Write-Host "           Distance: $([Math]::Round($Data.Distance, 2))m" -ForegroundColor Gray
-}
+    Register-GameEvent -EventType 'unit.positionUpdated' -ScriptBlock {
+        param($Data)
+        Write-Host "[UPDATE] Position updated: [$($Data.NewPosition.Lat), $($Data.NewPosition.Lng)]" -ForegroundColor DarkCyan
+    } | Out-Null
 
-Register-GameEvent -EventType 'unit.positionUpdated' -ScriptBlock {
-    param($Data)
-    Write-Host "[UPDATE] Position updated: [$($Data.NewPosition.Lat), $($Data.NewPosition.Lng)]" -ForegroundColor DarkCyan
-}
+    Register-GameEvent -EventType 'movement.completed' -ScriptBlock {
+        param($Data)
+        Write-Host "[ARRIVAL] Player arrived at [$($Data.Position.Lat), $($Data.Position.Lng)]" -ForegroundColor Green
+        Write-Host ""
+    } | Out-Null
 
-Register-GameEvent -EventType 'movement.completed' -ScriptBlock {
-    param($Data)
-    Write-Host "[ARRIVAL] Player arrived at [$($Data.Position.Lat), $($Data.Position.Lng)]" -ForegroundColor Green
+    Register-GameEvent -EventType 'location.entered' -ScriptBlock {
+        param($Data)
+        Write-Host "[LOCATION] Player entered: $($Data.LocationName)" -ForegroundColor Magenta
+    } | Out-Null
+
+    Register-GameEvent -EventType 'encounter.random' -ScriptBlock {
+        param($Data)
+        Write-Host "[ENCOUNTER] Random encounter: $($Data.EncounterType)!" -ForegroundColor Yellow
+    } | Out-Null
+
+    Write-Host "✓ Event handlers registered" -ForegroundColor Green
     Write-Host ""
 }
-
-Register-GameEvent -EventType 'location.entered' -ScriptBlock {
-    param($Data)
-    Write-Host "[LOCATION] Player entered: $($Data.LocationName)" -ForegroundColor Magenta
+catch {
+    Write-Host "ERROR: Failed to register event handlers - $_" -ForegroundColor Red
+    Write-Host "Error Details: $($_.Exception.Message)" -ForegroundColor Red
+    exit 1
 }
-
-Register-GameEvent -EventType 'encounter.random' -ScriptBlock {
-    param($Data)
-    Write-Host "[ENCOUNTER] Random encounter: $($Data.EncounterType)!" -ForegroundColor Yellow
-}
-
-Write-Host "✓ Event handlers registered" -ForegroundColor Green
-Write-Host ""
 
 # Start local server
 Write-Host "Starting local web server on http://localhost:8080..." -ForegroundColor Yellow
@@ -155,26 +202,36 @@ try {
         $commands = Receive-BridgeCommands
 
         foreach ($cmd in $commands) {
-            switch ($cmd.Type) {
-                'StartMovement' {
-                    Start-UnitMovement -UnitId $player.Id -Destination $cmd.Destination -TravelMode $cmd.TravelMode
+            try {
+                switch ($cmd.Type) {
+                    'StartMovement' {
+                        Start-UnitMovement -UnitId $player.Id -Destination $cmd.Destination -TravelMode $cmd.TravelMode
+                    }
+                    'StopMovement' {
+                        Stop-UnitMovement -UnitId $player.Id
+                    }
+                    'UpdatePosition' {
+                        Update-UnitPosition -UnitId $player.Id -Position $cmd.Position
+                    }
+                    'CompleteMovement' {
+                        Complete-UnitMovement -UnitId $player.Id -FinalPosition $cmd.FinalPosition
+                    }
                 }
-                'StopMovement' {
-                    Stop-UnitMovement -UnitId $player.Id
-                }
-                'UpdatePosition' {
-                    Update-UnitPosition -UnitId $player.Id -Position $cmd.Position
-                }
-                'CompleteMovement' {
-                    Complete-UnitMovement -UnitId $player.Id -FinalPosition $cmd.FinalPosition
-                }
+            }
+            catch {
+                Write-Host "Error processing command: $_" -ForegroundColor Red
             }
         }
 
         # Process game events
-        $events = Get-GameEvent
-        foreach ($event in $events) {
-            # Events are already handled by registered handlers
+        try {
+            $events = Get-GameEvent
+            foreach ($event in $events) {
+                # Events are already handled by registered handlers
+            }
+        }
+        catch {
+            # Silently continue if event processing fails
         }
 
         # Small delay to prevent CPU spinning
