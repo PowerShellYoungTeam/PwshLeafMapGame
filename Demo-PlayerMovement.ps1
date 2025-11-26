@@ -8,10 +8,10 @@ $CoreGamePath = Join-Path $script:PSScriptRoot 'Modules\CoreGame'
 $ErrorActionPreference = 'Stop'
 try {
     Write-Host "Loading CoreGame module..." -ForegroundColor Yellow
-    
+
     # Import CoreGame.psd1 - this loads all nested modules in the correct order
     Import-Module (Join-Path $CoreGamePath "CoreGame.psd1") -Force -Global -ErrorAction Stop
-    
+
     Write-Host "  ✓ CoreGame module loaded (all subsystems included)" -ForegroundColor Green
     Write-Host ""
 }
@@ -34,16 +34,16 @@ Write-Host "Initializing game systems..." -ForegroundColor Yellow
 try {
     Initialize-GameLogging
     Write-Host "  ✓ GameLogging initialized" -ForegroundColor Green
-    
+
     Initialize-EventSystem
     Write-Host "  ✓ EventSystem initialized" -ForegroundColor Green
-    
+
     Initialize-StateManager | Out-Null
     Write-Host "  ✓ StateManager initialized" -ForegroundColor Green
-    
+
     Initialize-PathfindingSystem
     Write-Host "  ✓ PathfindingSystem initialized" -ForegroundColor Green
-    
+
     Initialize-CommunicationBridge
     Write-Host "  ✓ CommunicationBridge initialized" -ForegroundColor Green
     Write-Host ""
@@ -59,13 +59,13 @@ Write-Host "Creating player entity..." -ForegroundColor Yellow
 try {
     $player = New-PlayerEntity -Name "TestPlayer"
     $player.SetProperty('Position', @{ Lat = 40.7128; Lng = -74.0060 }) # NYC
-    
+
     # Register the player entity with StateManager
     Register-GameEntity -EntityId $player.Id -EntityType 'Player' -InitialState @{
         Name     = $player.Name
         Position = $player.Position
     }
-    
+
     Write-Host "✓ Player created at position: [$($player.Position.Lat), $($player.Position.Lng)]" -ForegroundColor Green
     Write-Host ""
 }

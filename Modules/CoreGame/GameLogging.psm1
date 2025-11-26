@@ -69,17 +69,17 @@ if (-not (Test-Path $logDir)) {
 function Initialize-GameLogging {
     [CmdletBinding()]
     param()
-    
+
     # Ensure logs directory exists
     $logDir = Split-Path $script:LoggingConfig.LogFilePath -Parent
     if (-not (Test-Path $logDir)) {
         New-Item -ItemType Directory -Path $logDir -Force | Out-Null
     }
-    
+
     # Reset statistics
     $script:LogStats.SessionStartTime = Get-Date
     $script:LogStats.LastLogTime = $null
-    
+
     Write-GameLog -Message "Game logging system initialized" -Level Info -Module "Logging"
 }
 

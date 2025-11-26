@@ -19,7 +19,7 @@
     - Handler registration with pattern matching
     - Performance monitoring and debugging
     - Automatic event log rotation
-    
+
     Dependencies: GameLogging (loaded via CoreGame.psd1 manifest)
 #>
 
