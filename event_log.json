@@ -1,256 +1,1810 @@
 [
   {
     "priority": "Normal",
-    "type": "CharacterLevelUp",
+    "id": "ps_20260117_185258_ea9d7b1f",
     "data": {
-      "Timestamp": "2026-01-17T13:02:39.9289937+00:00",
-      "CharacterName": "LevelTestChar",
-      "NewLevel": 2,
-      "CharacterId": "61962594-4fed-4ed2-96d9-3b4f9c9979d9"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130239_e3202275",
-    "timestamp": "2026-01-17T13:02:39.932"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.435",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterLevelUp",
+    "id": "ps_20260117_185258_c9285e05",
     "data": {
-      "Timestamp": "2026-01-17T13:02:39.9871021+00:00",
-      "CharacterName": "LevelTestChar",
-      "NewLevel": 2,
-      "CharacterId": "f99d8b1f-15df-4514-abf8-59ded4808b6e"
+      "Weather": "Clear",
+      "StartTime": "2045-01-01T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130239_2e816039",
-    "timestamp": "2026-01-17T13:02:39.987"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.439",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterLevelUp",
+    "id": "ps_20260117_185258_0941fb15",
     "data": {
-      "Timestamp": "2026-01-17T13:02:40.0049074+00:00",
-      "CharacterName": "LevelTestChar",
-      "NewLevel": 2,
-      "CharacterId": "49e9f125-5652-4b37-904a-4eab2d9215d5"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_6cf76d12",
-    "timestamp": "2026-01-17T13:02:40.005"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.446",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterLevelUp",
+    "id": "ps_20260117_185258_ae666610",
     "data": {
-      "Timestamp": "2026-01-17T13:02:40.0231612+00:00",
-      "CharacterName": "LevelTestChar",
-      "NewLevel": 2,
-      "CharacterId": "eb4d4b8a-0406-46f6-957c-18816a55c008"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_6c3cea9b",
-    "timestamp": "2026-01-17T13:02:40.023"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.457",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterDamaged",
+    "id": "ps_20260117_185258_c6098def",
     "data": {
-      "DamageType": "Physical",
-      "RemainingHealth": 116,
-      "IsAlive": true,
-      "DamageDealt": 14,
-      "CharacterId": "5cf2a191-da78-4583-9bf8-b2ee068d4e14"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_e016951b",
-    "timestamp": "2026-01-17T13:02:40.060"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.462",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterDamaged",
+    "id": "ps_20260117_185258_5be03aca",
     "data": {
-      "DamageType": "Physical",
-      "RemainingHealth": 110,
-      "IsAlive": true,
-      "DamageDealt": 20,
-      "CharacterId": "512bc196-2a24-4d1a-8281-9c701cdf7c70"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_fadc32c6",
-    "timestamp": "2026-01-17T13:02:40.077"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.468",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterDamaged",
+    "id": "ps_20260117_185258_df82869f",
     "data": {
-      "DamageType": "Physical",
-      "RemainingHealth": 80,
-      "IsAlive": true,
-      "DamageDealt": 50,
-      "CharacterId": "ef82763e-fbd7-4bfe-804f-19c7dff812e4"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_069fe5b4",
-    "timestamp": "2026-01-17T13:02:40.095"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.477",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterDamaged",
+    "id": "ps_20260117_185258_5a727361",
     "data": {
-      "DamageType": "Physical",
-      "RemainingHealth": 0,
-      "IsAlive": false,
-      "DamageDealt": 1300,
-      "CharacterId": "437fec83-0f24-4a85-8229-33e9d69e492c"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_0045d535",
-    "timestamp": "2026-01-17T13:02:40.108"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.499",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterDamaged",
+    "id": "ps_20260117_185258_47d23f38",
     "data": {
-      "DamageType": "Physical",
-      "RemainingHealth": 80,
-      "IsAlive": true,
-      "DamageDealt": 50,
-      "CharacterId": "b642121f-bf7a-40eb-947d-df9209c28ccc"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_a49d9ee2",
-    "timestamp": "2026-01-17T13:02:40.125"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.503",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterHealed",
+    "id": "ps_20260117_185258_d97f54d4",
     "data": {
-      "CurrentHealth": 110,
-      "HealingAmount": 30,
-      "CharacterId": "b642121f-bf7a-40eb-947d-df9209c28ccc"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_a4c701f6",
-    "timestamp": "2026-01-17T13:02:40.129"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.512",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "CharacterHealed",
+    "id": "ps_20260117_185258_c2d5b38c",
     "data": {
-      "CurrentHealth": 130,
-      "HealingAmount": 0,
-      "CharacterId": "316fbb27-c94b-4281-880f-12b419e238d1"
+      "NewTime": "2042-06-15T22:00:00",
+      "TransitionType": "NightFall"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_25d27436",
-    "timestamp": "2026-01-17T13:02:40.145"
+    "type": "world.timeTransition",
+    "timestamp": "2026-01-17T18:52:58.516",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "SkillLevelUp",
+    "id": "ps_20260117_185258_ff60189a",
     "data": {
-      "SkillName": "Handguns",
-      "NewLevel": 1,
-      "CharacterId": "8a2c7d0a-f13b-4049-a0b6-12b671cafc2f"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_02ab5f50",
-    "timestamp": "2026-01-17T13:02:40.180"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.520",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "SkillLevelUp",
+    "id": "ps_20260117_185258_2a293aa8",
     "data": {
-      "SkillName": "Handguns",
-      "NewLevel": 1,
-      "CharacterId": "2d76119e-03c6-4cf2-affa-6a720221b1d1"
+      "NewTime": "2042-06-15T06:00:00",
+      "TransitionType": "NightFall"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_927a2320",
-    "timestamp": "2026-01-17T13:02:40.197"
+    "type": "world.timeTransition",
+    "timestamp": "2026-01-17T18:52:58.522",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "SkillLevelUp",
+    "id": "ps_20260117_185258_70456e43",
     "data": {
-      "SkillName": "Stealth",
-      "NewLevel": 1,
-      "CharacterId": "2d76119e-03c6-4cf2-affa-6a720221b1d1"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_93027402",
-    "timestamp": "2026-01-17T13:02:40.200"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.531",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "ItemEquipped",
+    "id": "ps_20260117_185258_06e28e5b",
     "data": {
-      "ItemId": "weapon-001",
-      "Slot": "WeaponSlot1",
-      "CharacterId": "93fa3925-d0ae-44e5-ad8a-3a2267a4a8eb"
+      "NewTime": "2042-06-15T02:00:00",
+      "TransitionType": "NightFall"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_8c94fad8",
-    "timestamp": "2026-01-17T13:02:40.335"
+    "type": "world.timeTransition",
+    "timestamp": "2026-01-17T18:52:58.533",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "ItemEquipped",
+    "id": "ps_20260117_185258_3b3db462",
     "data": {
-      "ItemId": "armor-001",
-      "Slot": "OuterTorso",
-      "CharacterId": "652ee0f0-8708-42bb-9a10-19713e4758a3"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_16bb1d15",
-    "timestamp": "2026-01-17T13:02:40.353"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.540",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "ItemEquipped",
+    "id": "ps_20260117_185258_028c9b18",
     "data": {
-      "ItemId": "weapon-001",
-      "Slot": "WeaponSlot1",
-      "CharacterId": "ac2bbf3b-72c8-405b-a53d-af45633ad216"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_5fabe7b9",
-    "timestamp": "2026-01-17T13:02:40.371"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.544",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "ItemUnequipped",
+    "id": "ps_20260117_185258_1287ea96",
     "data": {
-      "ItemId": "weapon-001",
-      "Slot": "WeaponSlot1",
-      "CharacterId": "ac2bbf3b-72c8-405b-a53d-af45633ad216"
+      "NewWeather": "Rain",
+      "OldWeather": "Clear",
+      "Time": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_aff24290",
-    "timestamp": "2026-01-17T13:02:40.377"
+    "type": "world.weatherChanged",
+    "timestamp": "2026-01-17T18:52:58.547",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "ItemEquipped",
+    "id": "ps_20260117_185258_c74da904",
     "data": {
-      "ItemId": "weapon-001",
-      "Slot": "WeaponSlot1",
-      "CharacterId": "cea402c2-0d84-40e2-b229-796bc72231a4"
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_a6e3ea20",
-    "timestamp": "2026-01-17T13:02:40.412"
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.551",
+    "source": "powershell"
   },
   {
     "priority": "Normal",
-    "type": "ItemUnequipped",
+    "id": "ps_20260117_185258_ca3032fe",
     "data": {
-      "ItemId": "weapon-001",
-      "Slot": "WeaponSlot1",
-      "CharacterId": "cea402c2-0d84-40e2-b229-796bc72231a4"
+      "NewWeather": "HeavyRain",
+      "OldWeather": "Clear",
+      "Time": "2042-06-15T18:00:00"
     },
-    "source": "powershell",
-    "id": "ps_20260117_130240_aefbd002",
-    "timestamp": "2026-01-17T13:02:40.417"
+    "type": "world.weatherChanged",
+    "timestamp": "2026-01-17T18:52:58.556",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_73816809",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.559",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_deb55777",
+    "data": {
+      "NewWeather": "AcidRain",
+      "OldWeather": "Clear",
+      "Time": "2042-06-15T18:00:00"
+    },
+    "type": "world.weatherChanged",
+    "timestamp": "2026-01-17T18:52:58.561",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_cfec20c0",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.565",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_c1eac6b8",
+    "data": {
+      "NewWeather": "Fog",
+      "OldWeather": "Clear",
+      "Time": "2042-06-15T18:00:00"
+    },
+    "type": "world.weatherChanged",
+    "timestamp": "2026-01-17T18:52:58.567",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_f61082f0",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.570",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_8ea1cf43",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.581",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_74dc0ecf",
+    "data": {
+      "Type": "Corporate",
+      "DistrictId": "corp-city",
+      "Name": "Corporate City"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.591",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9df89fe3",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.596",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_1fe0a278",
+    "data": {
+      "Type": "Slum",
+      "DistrictId": "slum-1",
+      "Name": "The Sprawl"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.599",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_311983c8",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.607",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_626a67fd",
+    "data": {
+      "Type": "Industrial",
+      "DistrictId": "test-1",
+      "Name": "Test"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.609",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_7df7944c",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.614",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_f29118b1",
+    "data": {
+      "Type": "Industrial",
+      "DistrictId": "test-2",
+      "Name": "Test"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.617",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_33a195af",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.620",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_739e551b",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "test-get",
+      "Name": "Test"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.622",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_4afbe63e",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.625",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_d490825e",
+    "data": {
+      "Type": "Corporate",
+      "DistrictId": "d1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.631",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_b3c4b1d3",
+    "data": {
+      "Type": "Industrial",
+      "DistrictId": "d2",
+      "Name": "District 2"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.633",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_b156e3d7",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.637",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_e1b81202",
+    "data": {
+      "Type": "Industrial",
+      "DistrictId": "contested",
+      "Name": "Contested Zone"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.639",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_a1c068be",
+    "data": {
+      "DistrictId": "contested",
+      "NewFaction": "tigers",
+      "OldFaction": "None"
+    },
+    "type": "district.controlChanged",
+    "timestamp": "2026-01-17T18:52:58.644",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_82293fe7",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.654",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_798426e9",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.661",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_3067eec2",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.665",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_748e2158",
+    "data": {
+      "LocationId": "bar-1",
+      "Type": "Bar",
+      "DistrictId": "downtown",
+      "Name": "Neon Dreams Bar"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.678",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_c7f890c1",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.689",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_b1dbcdd8",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.691",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_7fafe900",
+    "data": {
+      "LocationId": "safe-1",
+      "Type": "SafeHouse",
+      "DistrictId": "",
+      "Name": "My Safehouse"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.694",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9b9c08be",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.699",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_5df382ad",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.701",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_094f3633",
+    "data": {
+      "LocationId": "bar-2",
+      "Type": "Bar",
+      "DistrictId": "",
+      "Name": "Test Bar"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.704",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_1f4ead55",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.709",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_01ba6c79",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.711",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_990c5e97",
+    "data": {
+      "LocationId": "clinic-1",
+      "Type": "Clinic",
+      "DistrictId": "",
+      "Name": "Street Doc"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.715",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_c9637bfb",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.719",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_0a333b03",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.721",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_bab81521",
+    "data": {
+      "LocationId": "shop-1",
+      "Type": "Shop",
+      "DistrictId": "downtown",
+      "Name": "Weapon Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.724",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_e05d95d2",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.729",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_19f4f83c",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.732",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_b1d22923",
+    "data": {
+      "LocationId": "loc-get",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Test Location"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.736",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9223e71a",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.742",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_bcc3b9db",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.744",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_2d08ee84",
+    "data": {
+      "LocationId": "loc-1",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Location 1"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.750",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_a36e0bc4",
+    "data": {
+      "LocationId": "loc-2",
+      "Type": "Shop",
+      "DistrictId": "",
+      "Name": "Location 2"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.752",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_76ac6494",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.756",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_fca2d643",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.758",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_5272d573",
+    "data": {
+      "Type": "Industrial",
+      "DistrictId": "other",
+      "Name": "Other"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.760",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_895f0cb9",
+    "data": {
+      "LocationId": "in-downtown",
+      "Type": "Street",
+      "DistrictId": "downtown",
+      "Name": "In Downtown"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.762",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_51f95ba9",
+    "data": {
+      "LocationId": "in-other",
+      "Type": "Street",
+      "DistrictId": "other",
+      "Name": "In Other"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.764",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_0d51b70c",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.770",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_7b9e09c8",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.776",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_25221996",
+    "data": {
+      "LocationId": "type-bar",
+      "Type": "Bar",
+      "DistrictId": "",
+      "Name": "A Bar"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.778",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9fe5743c",
+    "data": {
+      "LocationId": "type-shop",
+      "Type": "Shop",
+      "DistrictId": "",
+      "Name": "A Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.781",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_96e12b58",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.786",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_fa4c6da8",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.788",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_40d90a44",
+    "data": {
+      "LocationId": "discover-me",
+      "Type": "Hideout",
+      "DistrictId": "",
+      "Name": "Hidden Place"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.794",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_e97e07e7",
+    "data": {
+      "LocationId": "discover-me",
+      "Type": "Hideout",
+      "Name": "Hidden Place"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:58.798",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_8dd5c09d",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.802",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_3ff817c8",
+    "data": {
+      "Type": "Entertainment",
+      "DistrictId": "downtown",
+      "Name": "Downtown"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.804",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_a177364b",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.811",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_fe74220f",
+    "data": {
+      "LocationId": "a",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Point A"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.821",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_f3dafd49",
+    "data": {
+      "LocationId": "b",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Point B"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.822",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_aab76019",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.832",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_99e8f30c",
+    "data": {
+      "LocationId": "a",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Point A"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.834",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_e6bd8d6f",
+    "data": {
+      "LocationId": "b",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Point B"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.836",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_c64780ed",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.846",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_ea21f2a1",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.850",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_7edabe54",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.852",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_a522f8d0",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.854",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_2f8637c0",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "Name": "Corner Shop"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:58.869",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_4765123f",
+    "data": {
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.discovered",
+    "timestamp": "2026-01-17T18:52:58.873",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_6aedccfa",
+    "data": {
+      "FromLocationId": "home",
+      "ToLocationId": "shop",
+      "Encounter": {
+        "Type": "Lost Tourist",
+        "DistrictId": "district-1",
+        "Location": "En route to Corner Shop"
+      },
+      "Distance": 1.0,
+      "TravelTime": 2.0,
+      "Method": "Walk"
+    },
+    "type": "travel.completed",
+    "timestamp": "2026-01-17T18:52:58.875",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_8d9220b2",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.882",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9048e3c4",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.885",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_7ffd5250",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.887",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_1dc19a6f",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.891",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_a46a451a",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "Name": "Corner Shop"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:58.894",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_7220314f",
+    "data": {
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.discovered",
+    "timestamp": "2026-01-17T18:52:58.896",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_ca04bc08",
+    "data": {
+      "FromLocationId": "home",
+      "ToLocationId": "shop",
+      "Encounter": null,
+      "Distance": 1.0,
+      "TravelTime": 2.0,
+      "Method": "Walk"
+    },
+    "type": "travel.completed",
+    "timestamp": "2026-01-17T18:52:58.899",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9c4543af",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.906",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_a6dfa973",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.910",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_330ca5b6",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.917",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_ca68f3ef",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.919",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_11e2c604",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "Name": "Corner Shop"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:58.923",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9850e44e",
+    "data": {
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.discovered",
+    "timestamp": "2026-01-17T18:52:58.926",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_2ce39819",
+    "data": {
+      "FromLocationId": "home",
+      "ToLocationId": "shop",
+      "Encounter": {
+        "Type": "Street Vendor",
+        "DistrictId": "district-1",
+        "Location": "En route to Corner Shop"
+      },
+      "Distance": 1.0,
+      "TravelTime": 2.0,
+      "Method": "Walk"
+    },
+    "type": "travel.completed",
+    "timestamp": "2026-01-17T18:52:58.928",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_dcfcb04b",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.938",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_8dda074a",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.941",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_8b547614",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.943",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_474473d8",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.946",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_e7807280",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "Name": "Corner Shop"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:58.953",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_828bf8a0",
+    "data": {
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.discovered",
+    "timestamp": "2026-01-17T18:52:58.956",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_cd435b1c",
+    "data": {
+      "FromLocationId": "home",
+      "ToLocationId": "shop",
+      "Encounter": {
+        "Type": "Street Vendor",
+        "DistrictId": "district-1",
+        "Location": "En route to Corner Shop"
+      },
+      "Distance": 1.0,
+      "TravelTime": 2.0,
+      "Method": "Walk"
+    },
+    "type": "travel.completed",
+    "timestamp": "2026-01-17T18:52:58.960",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_fbc48c60",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:58.964",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_c1d03b1d",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:58.968",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_f40d9397",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.970",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_4d27c632",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.973",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9f61113d",
+    "data": {
+      "LocationId": "walk-start",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Walk Start"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.975",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_055c16e0",
+    "data": {
+      "LocationId": "walk-end",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Walk End"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.980",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_eda81b18",
+    "data": {
+      "LocationId": "drive-start",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Drive Start"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.984",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_9c391f02",
+    "data": {
+      "LocationId": "drive-end",
+      "Type": "Street",
+      "DistrictId": "",
+      "Name": "Drive End"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:58.989",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_f3bcd420",
+    "data": {
+      "LocationId": "walk-end",
+      "Type": "Street",
+      "Name": "Walk End"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:58.991",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185258_c1c6825a",
+    "data": {
+      "FromLocationId": "walk-start",
+      "ToLocationId": "walk-end",
+      "Encounter": null,
+      "Distance": 5.0,
+      "TravelTime": 10.0,
+      "Method": "Walk"
+    },
+    "type": "travel.completed",
+    "timestamp": "2026-01-17T18:52:58.996",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_a01aa791",
+    "data": {
+      "LocationId": "drive-end",
+      "Type": "Street",
+      "Name": "Drive End"
+    },
+    "type": "location.discovered",
+    "timestamp": "2026-01-17T18:52:59.001",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_ddc1974c",
+    "data": {
+      "FromLocationId": "drive-start",
+      "ToLocationId": "drive-end",
+      "Encounter": null,
+      "Distance": 5.0,
+      "TravelTime": 4.0,
+      "Method": "Vehicle"
+    },
+    "type": "travel.completed",
+    "timestamp": "2026-01-17T18:52:59.003",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_68150d89",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.008",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_916fb96d",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:59.010",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_e3020458",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.012",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_a1c287be",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.016",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_f26abdfb",
+    "data": {
+      "LocationId": "blocked",
+      "Type": "MissionSite",
+      "DistrictId": "",
+      "Name": "Blocked"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.023",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_ebf0b786",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T12:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.032",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_c6de8aa3",
+    "data": {
+      "Type": "Residential",
+      "DistrictId": "district-1",
+      "Name": "District 1"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:59.035",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_8e74d14a",
+    "data": {
+      "LocationId": "home",
+      "Type": "SafeHouse",
+      "DistrictId": "district-1",
+      "Name": "Home"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.038",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_2a3230c6",
+    "data": {
+      "LocationId": "shop",
+      "Type": "Shop",
+      "DistrictId": "district-1",
+      "Name": "Corner Shop"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.043",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_9a65ee67",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.051",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_dc714d1d",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.061",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_16e8a75d",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.070",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_f71527db",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.079",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_2d734569",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.095",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_c1901af7",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.108",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_098fc5a8",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T14:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.141",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_51d6c5ef",
+    "data": {
+      "Type": "Corporate",
+      "DistrictId": "ws-district",
+      "Name": "Test District"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:59.144",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_38b4b25d",
+    "data": {
+      "LocationId": "ws-loc-1",
+      "Type": "Shop",
+      "DistrictId": "ws-district",
+      "Name": "Location 1"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.146",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_6a21a5eb",
+    "data": {
+      "LocationId": "ws-loc-2",
+      "Type": "Bar",
+      "DistrictId": "ws-district",
+      "Name": "Location 2"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.149",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_de0976ff",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T14:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.165",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_89e2e02a",
+    "data": {
+      "Type": "Corporate",
+      "DistrictId": "ws-district",
+      "Name": "Test District"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:59.169",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_b1f29fc7",
+    "data": {
+      "LocationId": "ws-loc-1",
+      "Type": "Shop",
+      "DistrictId": "ws-district",
+      "Name": "Location 1"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.172",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_fbcfe552",
+    "data": {
+      "LocationId": "ws-loc-2",
+      "Type": "Bar",
+      "DistrictId": "ws-district",
+      "Name": "Location 2"
+    },
+    "type": "location.created",
+    "timestamp": "2026-01-17T18:52:59.174",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_6b2ff82b",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T14:00:00"
+    },
+    "type": "world.initialized",
+    "timestamp": "2026-01-17T18:52:59.187",
+    "source": "powershell"
+  },
+  {
+    "priority": "Normal",
+    "id": "ps_20260117_185259_dcc33586",
+    "data": {
+      "Type": "Corporate",
+      "DistrictId": "ws-district",
+      "Name": "Test District"
+    },
+    "type": "district.created",
+    "timestamp": "2026-01-17T18:52:59.190",
+    "source": "powershell"
   }
 ]

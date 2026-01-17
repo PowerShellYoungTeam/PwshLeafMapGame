@@ -1,50 +1,11 @@
-[
-  {
-    "priority": "Normal",
-    "type": "command.registered",
-    "data": {
-      "Description": "List all available commands with optional filtering",
-      "Command": "registry.listCommands",
-      "Module": "registry"
-    },
-    "source": "powershell",
-    "id": "ps_20260117_130241_755fde25",
-    "timestamp": "2026-01-17T13:02:41.087"
+{
+  "priority": "Normal",
+  "id": "ps_20260117_185300_a279ac76",
+  "data": {
+    "Weather": "Clear",
+    "StartTime": "2042-06-15T18:00:00"
   },
-  {
-    "priority": "Normal",
-    "type": "command.registered",
-    "data": {
-      "Description": "Get comprehensive command documentation",
-      "Command": "registry.getDocumentation",
-      "Module": "registry"
-    },
-    "source": "powershell",
-    "id": "ps_20260117_130241_cd950ec7",
-    "timestamp": "2026-01-17T13:02:41.093"
-  },
-  {
-    "priority": "Normal",
-    "type": "command.registered",
-    "data": {
-      "Description": "Get detailed registry performance and usage statistics",
-      "Command": "registry.getStatistics",
-      "Module": "registry"
-    },
-    "source": "powershell",
-    "id": "ps_20260117_130241_a4b365e8",
-    "timestamp": "2026-01-17T13:02:41.096"
-  },
-  {
-    "priority": "Normal",
-    "type": "command.registered",
-    "data": {
-      "Description": "Get detailed performance metrics for commands",
-      "Command": "registry.getPerformanceMetrics",
-      "Module": "registry"
-    },
-    "source": "powershell",
-    "id": "ps_20260117_130241_07c5a081",
-    "timestamp": "2026-01-17T13:02:41.098"
-  }
-]
+  "type": "world.initialized",
+  "timestamp": "2026-01-17T18:53:00.173",
+  "source": "powershell"
+}
