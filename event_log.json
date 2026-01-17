@@ -1,1810 +1,1798 @@
 [
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ea9d7b1f",
+    "id": "ps_20260117_192500_a981f822",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.435",
+    "timestamp": "2026-01-17T19:25:00.634",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c9285e05",
+    "id": "ps_20260117_192500_37cfb1a2",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2045-01-01T12:00:00"
+      "StartTime": "2045-01-01T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.439",
+    "timestamp": "2026-01-17T19:25:00.644",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_0941fb15",
+    "id": "ps_20260117_192500_f704248b",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.446",
+    "timestamp": "2026-01-17T19:25:00.650",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ae666610",
+    "id": "ps_20260117_192500_5813899f",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.457",
+    "timestamp": "2026-01-17T19:25:00.657",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c6098def",
+    "id": "ps_20260117_192500_9ea51c90",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.462",
+    "timestamp": "2026-01-17T19:25:00.661",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_5be03aca",
+    "id": "ps_20260117_192500_1fdc2eef",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.468",
+    "timestamp": "2026-01-17T19:25:00.668",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_df82869f",
+    "id": "ps_20260117_192500_ea903523",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.477",
+    "timestamp": "2026-01-17T19:25:00.680",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_5a727361",
+    "id": "ps_20260117_192500_c75c7687",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.499",
+    "timestamp": "2026-01-17T19:25:00.685",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_47d23f38",
+    "id": "ps_20260117_192500_237f86dd",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.503",
+    "timestamp": "2026-01-17T19:25:00.689",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_d97f54d4",
+    "id": "ps_20260117_192500_a3cd0ba2",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.512",
+    "timestamp": "2026-01-17T19:25:00.706",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c2d5b38c",
+    "id": "ps_20260117_192500_67b5ae72",
     "data": {
       "NewTime": "2042-06-15T22:00:00",
       "TransitionType": "NightFall"
     },
     "type": "world.timeTransition",
-    "timestamp": "2026-01-17T18:52:58.516",
+    "timestamp": "2026-01-17T19:25:00.708",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ff60189a",
+    "id": "ps_20260117_192500_7be92026",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.520",
+    "timestamp": "2026-01-17T19:25:00.712",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_2a293aa8",
+    "id": "ps_20260117_192500_a4ab365f",
     "data": {
       "NewTime": "2042-06-15T06:00:00",
       "TransitionType": "NightFall"
     },
     "type": "world.timeTransition",
-    "timestamp": "2026-01-17T18:52:58.522",
+    "timestamp": "2026-01-17T19:25:00.713",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_70456e43",
+    "id": "ps_20260117_192500_7ccbc72f",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.531",
+    "timestamp": "2026-01-17T19:25:00.716",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_06e28e5b",
+    "id": "ps_20260117_192500_d2ef0944",
     "data": {
       "NewTime": "2042-06-15T02:00:00",
       "TransitionType": "NightFall"
     },
     "type": "world.timeTransition",
-    "timestamp": "2026-01-17T18:52:58.533",
+    "timestamp": "2026-01-17T19:25:00.718",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_3b3db462",
+    "id": "ps_20260117_192500_e3bb94e7",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.540",
+    "timestamp": "2026-01-17T19:25:00.727",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_028c9b18",
+    "id": "ps_20260117_192500_48472216",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.544",
+    "timestamp": "2026-01-17T19:25:00.734",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_1287ea96",
+    "id": "ps_20260117_192500_d9e8fd31",
     "data": {
+      "OldWeather": "Clear",
       "NewWeather": "Rain",
-      "OldWeather": "Clear",
       "Time": "2042-06-15T18:00:00"
     },
     "type": "world.weatherChanged",
-    "timestamp": "2026-01-17T18:52:58.547",
+    "timestamp": "2026-01-17T19:25:00.737",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c74da904",
+    "id": "ps_20260117_192500_dd3cb79d",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.551",
+    "timestamp": "2026-01-17T19:25:00.744",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ca3032fe",
+    "id": "ps_20260117_192500_bd8f9157",
     "data": {
-      "NewWeather": "HeavyRain",
       "OldWeather": "Clear",
+      "NewWeather": "Rain",
       "Time": "2042-06-15T18:00:00"
     },
     "type": "world.weatherChanged",
-    "timestamp": "2026-01-17T18:52:58.556",
+    "timestamp": "2026-01-17T19:25:00.747",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_73816809",
+    "id": "ps_20260117_192500_2ef5ffa8",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.559",
+    "timestamp": "2026-01-17T19:25:00.751",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_deb55777",
+    "id": "ps_20260117_192500_e8f399d6",
     "data": {
+      "OldWeather": "Clear",
       "NewWeather": "AcidRain",
-      "OldWeather": "Clear",
       "Time": "2042-06-15T18:00:00"
     },
     "type": "world.weatherChanged",
-    "timestamp": "2026-01-17T18:52:58.561",
+    "timestamp": "2026-01-17T19:25:00.753",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_cfec20c0",
+    "id": "ps_20260117_192500_bc6446af",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.565",
+    "timestamp": "2026-01-17T19:25:00.756",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c1eac6b8",
+    "id": "ps_20260117_192500_6dc74190",
     "data": {
+      "OldWeather": "Clear",
       "NewWeather": "Fog",
-      "OldWeather": "Clear",
       "Time": "2042-06-15T18:00:00"
     },
     "type": "world.weatherChanged",
-    "timestamp": "2026-01-17T18:52:58.567",
+    "timestamp": "2026-01-17T19:25:00.758",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_f61082f0",
+    "id": "ps_20260117_192500_c772b4e2",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.570",
+    "timestamp": "2026-01-17T19:25:00.761",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_8ea1cf43",
+    "id": "ps_20260117_192500_a6cde777",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.581",
+    "timestamp": "2026-01-17T19:25:00.772",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_74dc0ecf",
+    "id": "ps_20260117_192500_c9fb065c",
     "data": {
       "Type": "Corporate",
-      "DistrictId": "corp-city",
-      "Name": "Corporate City"
+      "Name": "Corporate City",
+      "DistrictId": "corp-city"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.591",
+    "timestamp": "2026-01-17T19:25:00.782",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9df89fe3",
+    "id": "ps_20260117_192500_ced77dad",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.596",
+    "timestamp": "2026-01-17T19:25:00.786",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_1fe0a278",
+    "id": "ps_20260117_192500_226cc664",
     "data": {
       "Type": "Slum",
-      "DistrictId": "slum-1",
-      "Name": "The Sprawl"
+      "Name": "The Sprawl",
+      "DistrictId": "slum-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.599",
+    "timestamp": "2026-01-17T19:25:00.788",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_311983c8",
+    "id": "ps_20260117_192500_b336744d",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.607",
+    "timestamp": "2026-01-17T19:25:00.795",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_626a67fd",
+    "id": "ps_20260117_192500_59b510a2",
     "data": {
       "Type": "Industrial",
-      "DistrictId": "test-1",
-      "Name": "Test"
+      "Name": "Test",
+      "DistrictId": "test-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.609",
+    "timestamp": "2026-01-17T19:25:00.798",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_7df7944c",
+    "id": "ps_20260117_192500_10619b2c",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.614",
+    "timestamp": "2026-01-17T19:25:00.802",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_f29118b1",
+    "id": "ps_20260117_192500_46d801dc",
     "data": {
       "Type": "Industrial",
-      "DistrictId": "test-2",
-      "Name": "Test"
+      "Name": "Test",
+      "DistrictId": "test-2"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.617",
+    "timestamp": "2026-01-17T19:25:00.804",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_33a195af",
+    "id": "ps_20260117_192500_2136219c",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.620",
+    "timestamp": "2026-01-17T19:25:00.807",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_739e551b",
+    "id": "ps_20260117_192500_8baefda0",
     "data": {
       "Type": "Residential",
-      "DistrictId": "test-get",
-      "Name": "Test"
+      "Name": "Test",
+      "DistrictId": "test-get"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.622",
+    "timestamp": "2026-01-17T19:25:00.809",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_4afbe63e",
+    "id": "ps_20260117_192500_31d5f518",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.625",
+    "timestamp": "2026-01-17T19:25:00.813",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_d490825e",
+    "id": "ps_20260117_192500_3da84ae3",
     "data": {
       "Type": "Corporate",
-      "DistrictId": "d1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "d1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.631",
+    "timestamp": "2026-01-17T19:25:00.817",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_b3c4b1d3",
+    "id": "ps_20260117_192500_2f0c1c25",
     "data": {
       "Type": "Industrial",
-      "DistrictId": "d2",
-      "Name": "District 2"
+      "Name": "District 2",
+      "DistrictId": "d2"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.633",
+    "timestamp": "2026-01-17T19:25:00.819",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_b156e3d7",
+    "id": "ps_20260117_192500_df137bb3",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.637",
+    "timestamp": "2026-01-17T19:25:00.822",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_e1b81202",
+    "id": "ps_20260117_192500_f4ff4066",
     "data": {
       "Type": "Industrial",
-      "DistrictId": "contested",
-      "Name": "Contested Zone"
+      "Name": "Contested Zone",
+      "DistrictId": "contested"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.639",
+    "timestamp": "2026-01-17T19:25:00.824",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_a1c068be",
+    "id": "ps_20260117_192500_54a8066c",
     "data": {
       "DistrictId": "contested",
       "NewFaction": "tigers",
       "OldFaction": "None"
     },
     "type": "district.controlChanged",
-    "timestamp": "2026-01-17T18:52:58.644",
+    "timestamp": "2026-01-17T19:25:00.828",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_82293fe7",
+    "id": "ps_20260117_192500_bee25470",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.654",
+    "timestamp": "2026-01-17T19:25:00.835",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_798426e9",
+    "id": "ps_20260117_192500_172f7c34",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.661",
+    "timestamp": "2026-01-17T19:25:00.841",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_3067eec2",
+    "id": "ps_20260117_192500_f671da9b",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.665",
+    "timestamp": "2026-01-17T19:25:00.843",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_748e2158",
+    "id": "ps_20260117_192500_2b3d2851",
     "data": {
-      "LocationId": "bar-1",
       "Type": "Bar",
+      "Name": "Neon Dreams Bar",
       "DistrictId": "downtown",
-      "Name": "Neon Dreams Bar"
+      "LocationId": "bar-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.678",
+    "timestamp": "2026-01-17T19:25:00.854",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c7f890c1",
+    "id": "ps_20260117_192500_94203c42",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.689",
+    "timestamp": "2026-01-17T19:25:00.858",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_b1dbcdd8",
+    "id": "ps_20260117_192500_65f15611",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.691",
+    "timestamp": "2026-01-17T19:25:00.860",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_7fafe900",
+    "id": "ps_20260117_192500_60b01493",
     "data": {
-      "LocationId": "safe-1",
       "Type": "SafeHouse",
+      "Name": "My Safehouse",
       "DistrictId": "",
-      "Name": "My Safehouse"
+      "LocationId": "safe-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.694",
+    "timestamp": "2026-01-17T19:25:00.866",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9b9c08be",
+    "id": "ps_20260117_192500_5a5e34c6",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.699",
+    "timestamp": "2026-01-17T19:25:00.870",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_5df382ad",
+    "id": "ps_20260117_192500_fb8a82ed",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.701",
+    "timestamp": "2026-01-17T19:25:00.872",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_094f3633",
+    "id": "ps_20260117_192500_7b392999",
     "data": {
-      "LocationId": "bar-2",
       "Type": "Bar",
+      "Name": "Test Bar",
       "DistrictId": "",
-      "Name": "Test Bar"
+      "LocationId": "bar-2"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.704",
+    "timestamp": "2026-01-17T19:25:00.875",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_1f4ead55",
+    "id": "ps_20260117_192500_cb7c4690",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.709",
+    "timestamp": "2026-01-17T19:25:00.877",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_01ba6c79",
+    "id": "ps_20260117_192500_b977b28f",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.711",
+    "timestamp": "2026-01-17T19:25:00.883",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_990c5e97",
+    "id": "ps_20260117_192500_03424674",
     "data": {
-      "LocationId": "clinic-1",
       "Type": "Clinic",
+      "Name": "Street Doc",
       "DistrictId": "",
-      "Name": "Street Doc"
+      "LocationId": "clinic-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.715",
+    "timestamp": "2026-01-17T19:25:00.886",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c9637bfb",
+    "id": "ps_20260117_192500_590f8ef5",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.719",
+    "timestamp": "2026-01-17T19:25:00.889",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_0a333b03",
+    "id": "ps_20260117_192500_6618ce77",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.721",
+    "timestamp": "2026-01-17T19:25:00.891",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_bab81521",
+    "id": "ps_20260117_192500_d3b49295",
     "data": {
-      "LocationId": "shop-1",
       "Type": "Shop",
+      "Name": "Weapon Shop",
       "DistrictId": "downtown",
-      "Name": "Weapon Shop"
+      "LocationId": "shop-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.724",
+    "timestamp": "2026-01-17T19:25:00.893",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_e05d95d2",
+    "id": "ps_20260117_192500_5f1e5199",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.729",
+    "timestamp": "2026-01-17T19:25:00.897",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_19f4f83c",
+    "id": "ps_20260117_192500_b22b7bd8",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.732",
+    "timestamp": "2026-01-17T19:25:00.903",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_b1d22923",
+    "id": "ps_20260117_192500_8f1f84d3",
     "data": {
-      "LocationId": "loc-get",
       "Type": "Street",
+      "Name": "Test Location",
       "DistrictId": "",
-      "Name": "Test Location"
+      "LocationId": "loc-get"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.736",
+    "timestamp": "2026-01-17T19:25:00.905",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9223e71a",
+    "id": "ps_20260117_192500_36eea4ea",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.742",
+    "timestamp": "2026-01-17T19:25:00.911",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_bcc3b9db",
+    "id": "ps_20260117_192500_0c6cacaa",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.744",
+    "timestamp": "2026-01-17T19:25:00.913",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_2d08ee84",
+    "id": "ps_20260117_192500_70cee374",
     "data": {
-      "LocationId": "loc-1",
       "Type": "Street",
+      "Name": "Location 1",
       "DistrictId": "",
-      "Name": "Location 1"
+      "LocationId": "loc-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.750",
+    "timestamp": "2026-01-17T19:25:00.917",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_a36e0bc4",
+    "id": "ps_20260117_192500_e5cd4466",
     "data": {
-      "LocationId": "loc-2",
       "Type": "Shop",
+      "Name": "Location 2",
       "DistrictId": "",
-      "Name": "Location 2"
+      "LocationId": "loc-2"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.752",
+    "timestamp": "2026-01-17T19:25:00.919",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_76ac6494",
+    "id": "ps_20260117_192500_10e6257c",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.756",
+    "timestamp": "2026-01-17T19:25:00.922",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_fca2d643",
+    "id": "ps_20260117_192500_317d8df8",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.758",
+    "timestamp": "2026-01-17T19:25:00.924",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_5272d573",
+    "id": "ps_20260117_192500_970009f5",
     "data": {
       "Type": "Industrial",
-      "DistrictId": "other",
-      "Name": "Other"
+      "Name": "Other",
+      "DistrictId": "other"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.760",
+    "timestamp": "2026-01-17T19:25:00.926",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_895f0cb9",
+    "id": "ps_20260117_192500_6cacfba8",
     "data": {
-      "LocationId": "in-downtown",
       "Type": "Street",
+      "Name": "In Downtown",
       "DistrictId": "downtown",
-      "Name": "In Downtown"
+      "LocationId": "in-downtown"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.762",
+    "timestamp": "2026-01-17T19:25:00.928",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_51f95ba9",
+    "id": "ps_20260117_192500_25978ca5",
     "data": {
-      "LocationId": "in-other",
       "Type": "Street",
+      "Name": "In Other",
       "DistrictId": "other",
-      "Name": "In Other"
+      "LocationId": "in-other"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.764",
+    "timestamp": "2026-01-17T19:25:00.930",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_0d51b70c",
+    "id": "ps_20260117_192500_93214554",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.770",
+    "timestamp": "2026-01-17T19:25:00.937",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_7b9e09c8",
+    "id": "ps_20260117_192500_43a7bb0f",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.776",
+    "timestamp": "2026-01-17T19:25:00.940",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_25221996",
+    "id": "ps_20260117_192500_8b9a83f6",
     "data": {
-      "LocationId": "type-bar",
       "Type": "Bar",
+      "Name": "A Bar",
       "DistrictId": "",
-      "Name": "A Bar"
+      "LocationId": "type-bar"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.778",
+    "timestamp": "2026-01-17T19:25:00.942",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9fe5743c",
+    "id": "ps_20260117_192500_a652bd48",
     "data": {
-      "LocationId": "type-shop",
       "Type": "Shop",
+      "Name": "A Shop",
       "DistrictId": "",
-      "Name": "A Shop"
+      "LocationId": "type-shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.781",
+    "timestamp": "2026-01-17T19:25:00.944",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_96e12b58",
+    "id": "ps_20260117_192500_0bda3801",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.786",
+    "timestamp": "2026-01-17T19:25:00.950",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_fa4c6da8",
+    "id": "ps_20260117_192500_9fc41377",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.788",
+    "timestamp": "2026-01-17T19:25:00.952",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_40d90a44",
+    "id": "ps_20260117_192500_8d136392",
     "data": {
-      "LocationId": "discover-me",
       "Type": "Hideout",
+      "Name": "Hidden Place",
       "DistrictId": "",
-      "Name": "Hidden Place"
+      "LocationId": "discover-me"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.794",
+    "timestamp": "2026-01-17T19:25:00.954",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_e97e07e7",
+    "id": "ps_20260117_192500_1b14530d",
     "data": {
-      "LocationId": "discover-me",
       "Type": "Hideout",
-      "Name": "Hidden Place"
+      "Name": "Hidden Place",
+      "LocationId": "discover-me"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:58.798",
+    "timestamp": "2026-01-17T19:25:00.960",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_8dd5c09d",
+    "id": "ps_20260117_192500_0a10430a",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.802",
+    "timestamp": "2026-01-17T19:25:00.968",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_3ff817c8",
+    "id": "ps_20260117_192500_1e5bb3cd",
     "data": {
       "Type": "Entertainment",
-      "DistrictId": "downtown",
-      "Name": "Downtown"
+      "Name": "Downtown",
+      "DistrictId": "downtown"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.804",
+    "timestamp": "2026-01-17T19:25:00.970",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_a177364b",
+    "id": "ps_20260117_192500_0d16d5cc",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.811",
+    "timestamp": "2026-01-17T19:25:00.979",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_fe74220f",
+    "id": "ps_20260117_192500_3f173895",
     "data": {
-      "LocationId": "a",
       "Type": "Street",
+      "Name": "Point A",
       "DistrictId": "",
-      "Name": "Point A"
+      "LocationId": "a"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.821",
+    "timestamp": "2026-01-17T19:25:00.984",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_f3dafd49",
+    "id": "ps_20260117_192500_58ee58b8",
     "data": {
-      "LocationId": "b",
       "Type": "Street",
+      "Name": "Point B",
       "DistrictId": "",
-      "Name": "Point B"
+      "LocationId": "b"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.822",
+    "timestamp": "2026-01-17T19:25:00.989",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_aab76019",
+    "id": "ps_20260117_192500_a57f3107",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.832",
+    "timestamp": "2026-01-17T19:25:00.998",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_99e8f30c",
+    "id": "ps_20260117_192501_06856987",
     "data": {
-      "LocationId": "a",
       "Type": "Street",
+      "Name": "Point A",
       "DistrictId": "",
-      "Name": "Point A"
+      "LocationId": "a"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.834",
+    "timestamp": "2026-01-17T19:25:01.000",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_e6bd8d6f",
+    "id": "ps_20260117_192501_15b46fb6",
     "data": {
-      "LocationId": "b",
       "Type": "Street",
+      "Name": "Point B",
       "DistrictId": "",
-      "Name": "Point B"
+      "LocationId": "b"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.836",
+    "timestamp": "2026-01-17T19:25:01.003",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c64780ed",
+    "id": "ps_20260117_192501_2641e295",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.846",
+    "timestamp": "2026-01-17T19:25:01.010",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ea21f2a1",
+    "id": "ps_20260117_192501_49b3751c",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.850",
+    "timestamp": "2026-01-17T19:25:01.015",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_7edabe54",
+    "id": "ps_20260117_192501_328790c6",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.852",
+    "timestamp": "2026-01-17T19:25:01.018",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_a522f8d0",
+    "id": "ps_20260117_192501_1dfe90b5",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.854",
+    "timestamp": "2026-01-17T19:25:01.019",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_2f8637c0",
+    "id": "ps_20260117_192501_84edfa9c",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
-      "Name": "Corner Shop"
+      "Name": "Corner Shop",
+      "LocationId": "shop"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:58.869",
+    "timestamp": "2026-01-17T19:25:01.029",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_4765123f",
+    "id": "ps_20260117_192501_9578f978",
     "data": {
       "DistrictId": "district-1",
       "Name": "District 1"
     },
     "type": "district.discovered",
-    "timestamp": "2026-01-17T18:52:58.873",
+    "timestamp": "2026-01-17T19:25:01.033",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_6aedccfa",
+    "id": "ps_20260117_192501_8fa22fc3",
     "data": {
-      "FromLocationId": "home",
-      "ToLocationId": "shop",
-      "Encounter": {
-        "Type": "Lost Tourist",
-        "DistrictId": "district-1",
-        "Location": "En route to Corner Shop"
-      },
-      "Distance": 1.0,
       "TravelTime": 2.0,
-      "Method": "Walk"
+      "ToLocationId": "shop",
+      "Method": "Walk",
+      "FromLocationId": "home",
+      "Distance": 1.0,
+      "Encounter": null
     },
     "type": "travel.completed",
-    "timestamp": "2026-01-17T18:52:58.875",
+    "timestamp": "2026-01-17T19:25:01.035",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_8d9220b2",
+    "id": "ps_20260117_192501_1ed4dda9",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.882",
+    "timestamp": "2026-01-17T19:25:01.044",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9048e3c4",
+    "id": "ps_20260117_192501_a3a41ccf",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.885",
+    "timestamp": "2026-01-17T19:25:01.047",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_7ffd5250",
+    "id": "ps_20260117_192501_ad1205aa",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.887",
+    "timestamp": "2026-01-17T19:25:01.049",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_1dc19a6f",
+    "id": "ps_20260117_192501_d00f0df3",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.891",
+    "timestamp": "2026-01-17T19:25:01.051",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_a46a451a",
+    "id": "ps_20260117_192501_dcdb48ba",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
-      "Name": "Corner Shop"
+      "Name": "Corner Shop",
+      "LocationId": "shop"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:58.894",
+    "timestamp": "2026-01-17T19:25:01.054",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_7220314f",
+    "id": "ps_20260117_192501_91f552ca",
     "data": {
       "DistrictId": "district-1",
       "Name": "District 1"
     },
     "type": "district.discovered",
-    "timestamp": "2026-01-17T18:52:58.896",
+    "timestamp": "2026-01-17T19:25:01.056",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ca04bc08",
+    "id": "ps_20260117_192501_e51078ba",
     "data": {
-      "FromLocationId": "home",
-      "ToLocationId": "shop",
-      "Encounter": null,
-      "Distance": 1.0,
       "TravelTime": 2.0,
-      "Method": "Walk"
+      "ToLocationId": "shop",
+      "Method": "Walk",
+      "FromLocationId": "home",
+      "Distance": 1.0,
+      "Encounter": null
     },
     "type": "travel.completed",
-    "timestamp": "2026-01-17T18:52:58.899",
+    "timestamp": "2026-01-17T19:25:01.058",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9c4543af",
+    "id": "ps_20260117_192501_18bd41a5",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.906",
+    "timestamp": "2026-01-17T19:25:01.065",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_a6dfa973",
+    "id": "ps_20260117_192501_9aae1b44",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.910",
+    "timestamp": "2026-01-17T19:25:01.068",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_330ca5b6",
+    "id": "ps_20260117_192501_d2ddff29",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.917",
+    "timestamp": "2026-01-17T19:25:01.070",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_ca68f3ef",
+    "id": "ps_20260117_192501_00e37798",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.919",
+    "timestamp": "2026-01-17T19:25:01.072",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_11e2c604",
+    "id": "ps_20260117_192501_cadf1232",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
-      "Name": "Corner Shop"
+      "Name": "Corner Shop",
+      "LocationId": "shop"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:58.923",
+    "timestamp": "2026-01-17T19:25:01.075",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9850e44e",
+    "id": "ps_20260117_192501_c26f7221",
     "data": {
       "DistrictId": "district-1",
       "Name": "District 1"
     },
     "type": "district.discovered",
-    "timestamp": "2026-01-17T18:52:58.926",
+    "timestamp": "2026-01-17T19:25:01.083",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_2ce39819",
+    "id": "ps_20260117_192501_8a517d99",
     "data": {
-      "FromLocationId": "home",
-      "ToLocationId": "shop",
-      "Encounter": {
-        "Type": "Street Vendor",
-        "DistrictId": "district-1",
-        "Location": "En route to Corner Shop"
-      },
-      "Distance": 1.0,
       "TravelTime": 2.0,
-      "Method": "Walk"
+      "ToLocationId": "shop",
+      "Method": "Walk",
+      "FromLocationId": "home",
+      "Distance": 1.0,
+      "Encounter": null
     },
     "type": "travel.completed",
-    "timestamp": "2026-01-17T18:52:58.928",
+    "timestamp": "2026-01-17T19:25:01.085",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_dcfcb04b",
+    "id": "ps_20260117_192501_ffb4dce9",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.938",
+    "timestamp": "2026-01-17T19:25:01.088",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_8dda074a",
+    "id": "ps_20260117_192501_3470bbfc",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.941",
+    "timestamp": "2026-01-17T19:25:01.091",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_8b547614",
+    "id": "ps_20260117_192501_f6fe174d",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.943",
+    "timestamp": "2026-01-17T19:25:01.096",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_474473d8",
+    "id": "ps_20260117_192501_6f8b9fee",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.946",
+    "timestamp": "2026-01-17T19:25:01.098",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_e7807280",
+    "id": "ps_20260117_192501_e16959e9",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
-      "Name": "Corner Shop"
+      "Name": "Corner Shop",
+      "LocationId": "shop"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:58.953",
+    "timestamp": "2026-01-17T19:25:01.103",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_828bf8a0",
+    "id": "ps_20260117_192501_389b8c84",
     "data": {
       "DistrictId": "district-1",
       "Name": "District 1"
     },
     "type": "district.discovered",
-    "timestamp": "2026-01-17T18:52:58.956",
+    "timestamp": "2026-01-17T19:25:01.106",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_cd435b1c",
+    "id": "ps_20260117_192501_f8ea7bc6",
     "data": {
-      "FromLocationId": "home",
-      "ToLocationId": "shop",
-      "Encounter": {
-        "Type": "Street Vendor",
-        "DistrictId": "district-1",
-        "Location": "En route to Corner Shop"
-      },
-      "Distance": 1.0,
       "TravelTime": 2.0,
-      "Method": "Walk"
+      "ToLocationId": "shop",
+      "Method": "Walk",
+      "FromLocationId": "home",
+      "Distance": 1.0,
+      "Encounter": null
     },
     "type": "travel.completed",
-    "timestamp": "2026-01-17T18:52:58.960",
+    "timestamp": "2026-01-17T19:25:01.111",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_fbc48c60",
+    "id": "ps_20260117_192501_a651c567",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:58.964",
+    "timestamp": "2026-01-17T19:25:01.115",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c1d03b1d",
+    "id": "ps_20260117_192501_1d279d37",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:58.968",
+    "timestamp": "2026-01-17T19:25:01.117",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_f40d9397",
+    "id": "ps_20260117_192501_94943360",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.970",
+    "timestamp": "2026-01-17T19:25:01.119",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_4d27c632",
+    "id": "ps_20260117_192501_2125e0e7",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.973",
+    "timestamp": "2026-01-17T19:25:01.121",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9f61113d",
+    "id": "ps_20260117_192501_ba5b2e1f",
     "data": {
-      "LocationId": "walk-start",
       "Type": "Street",
+      "Name": "Walk Start",
       "DistrictId": "",
-      "Name": "Walk Start"
+      "LocationId": "walk-start"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.975",
+    "timestamp": "2026-01-17T19:25:01.127",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_055c16e0",
+    "id": "ps_20260117_192501_a412b8d1",
     "data": {
-      "LocationId": "walk-end",
       "Type": "Street",
+      "Name": "Walk End",
       "DistrictId": "",
-      "Name": "Walk End"
+      "LocationId": "walk-end"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.980",
+    "timestamp": "2026-01-17T19:25:01.129",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_eda81b18",
+    "id": "ps_20260117_192501_6652dc76",
     "data": {
-      "LocationId": "drive-start",
       "Type": "Street",
+      "Name": "Drive Start",
       "DistrictId": "",
-      "Name": "Drive Start"
+      "LocationId": "drive-start"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.984",
+    "timestamp": "2026-01-17T19:25:01.132",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_9c391f02",
+    "id": "ps_20260117_192501_fd357ad1",
     "data": {
-      "LocationId": "drive-end",
       "Type": "Street",
+      "Name": "Drive End",
       "DistrictId": "",
-      "Name": "Drive End"
+      "LocationId": "drive-end"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:58.989",
+    "timestamp": "2026-01-17T19:25:01.135",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_f3bcd420",
+    "id": "ps_20260117_192501_2492bb4d",
     "data": {
-      "LocationId": "walk-end",
       "Type": "Street",
-      "Name": "Walk End"
+      "Name": "Walk End",
+      "LocationId": "walk-end"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:58.991",
+    "timestamp": "2026-01-17T19:25:01.140",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185258_c1c6825a",
+    "id": "ps_20260117_192501_a72d5836",
     "data": {
-      "FromLocationId": "walk-start",
-      "ToLocationId": "walk-end",
-      "Encounter": null,
-      "Distance": 5.0,
       "TravelTime": 10.0,
-      "Method": "Walk"
+      "ToLocationId": "walk-end",
+      "Method": "Walk",
+      "FromLocationId": "walk-start",
+      "Distance": 5.0,
+      "Encounter": null
     },
     "type": "travel.completed",
-    "timestamp": "2026-01-17T18:52:58.996",
+    "timestamp": "2026-01-17T19:25:01.142",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_a01aa791",
+    "id": "ps_20260117_192501_cac75ec2",
     "data": {
-      "LocationId": "drive-end",
       "Type": "Street",
-      "Name": "Drive End"
+      "Name": "Drive End",
+      "LocationId": "drive-end"
     },
     "type": "location.discovered",
-    "timestamp": "2026-01-17T18:52:59.001",
+    "timestamp": "2026-01-17T19:25:01.145",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_ddc1974c",
+    "id": "ps_20260117_192501_4f4e8d1f",
     "data": {
-      "FromLocationId": "drive-start",
-      "ToLocationId": "drive-end",
-      "Encounter": null,
-      "Distance": 5.0,
       "TravelTime": 4.0,
-      "Method": "Vehicle"
+      "ToLocationId": "drive-end",
+      "Method": "Vehicle",
+      "FromLocationId": "drive-start",
+      "Distance": 5.0,
+      "Encounter": null
     },
     "type": "travel.completed",
-    "timestamp": "2026-01-17T18:52:59.003",
+    "timestamp": "2026-01-17T19:25:01.148",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_68150d89",
+    "id": "ps_20260117_192501_8d744a6c",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.008",
+    "timestamp": "2026-01-17T19:25:01.152",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_916fb96d",
+    "id": "ps_20260117_192501_e5a3aae3",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:59.010",
+    "timestamp": "2026-01-17T19:25:01.158",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_e3020458",
+    "id": "ps_20260117_192501_db8a4331",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.012",
+    "timestamp": "2026-01-17T19:25:01.161",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_a1c287be",
+    "id": "ps_20260117_192501_13207f33",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.016",
+    "timestamp": "2026-01-17T19:25:01.164",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_f26abdfb",
+    "id": "ps_20260117_192501_bade656e",
     "data": {
-      "LocationId": "blocked",
       "Type": "MissionSite",
+      "Name": "Blocked",
       "DistrictId": "",
-      "Name": "Blocked"
+      "LocationId": "blocked"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.023",
+    "timestamp": "2026-01-17T19:25:01.167",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_ebf0b786",
+    "id": "ps_20260117_192501_b857e7c2",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T12:00:00"
+      "StartTime": "2042-06-15T12:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.032",
+    "timestamp": "2026-01-17T19:25:01.177",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_c6de8aa3",
+    "id": "ps_20260117_192501_f918b05b",
     "data": {
       "Type": "Residential",
-      "DistrictId": "district-1",
-      "Name": "District 1"
+      "Name": "District 1",
+      "DistrictId": "district-1"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:59.035",
+    "timestamp": "2026-01-17T19:25:01.180",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_8e74d14a",
+    "id": "ps_20260117_192501_620fc495",
     "data": {
-      "LocationId": "home",
       "Type": "SafeHouse",
+      "Name": "Home",
       "DistrictId": "district-1",
-      "Name": "Home"
+      "LocationId": "home"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.038",
+    "timestamp": "2026-01-17T19:25:01.183",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_2a3230c6",
+    "id": "ps_20260117_192501_7b8d1711",
     "data": {
-      "LocationId": "shop",
       "Type": "Shop",
+      "Name": "Corner Shop",
       "DistrictId": "district-1",
-      "Name": "Corner Shop"
+      "LocationId": "shop"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.043",
+    "timestamp": "2026-01-17T19:25:01.185",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_9a65ee67",
+    "id": "ps_20260117_192501_8cbdc483",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.051",
+    "timestamp": "2026-01-17T19:25:01.196",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_dc714d1d",
+    "id": "ps_20260117_192501_526e65c9",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.061",
+    "timestamp": "2026-01-17T19:25:01.203",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_16e8a75d",
+    "id": "ps_20260117_192501_74d7f03b",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.070",
+    "timestamp": "2026-01-17T19:25:01.214",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_f71527db",
+    "id": "ps_20260117_192501_5141dd62",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.079",
+    "timestamp": "2026-01-17T19:25:01.224",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_2d734569",
+    "id": "ps_20260117_192501_3f101efa",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.095",
+    "timestamp": "2026-01-17T19:25:01.237",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_c1901af7",
+    "id": "ps_20260117_192501_faf613c8",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T18:00:00"
+      "StartTime": "2042-06-15T18:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.108",
+    "timestamp": "2026-01-17T19:25:01.251",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_098fc5a8",
+    "id": "ps_20260117_192501_f731d7d8",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T14:00:00"
+      "StartTime": "2042-06-15T14:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.141",
+    "timestamp": "2026-01-17T19:25:01.276",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_51d6c5ef",
+    "id": "ps_20260117_192501_fd0a475c",
     "data": {
       "Type": "Corporate",
-      "DistrictId": "ws-district",
-      "Name": "Test District"
+      "Name": "Test District",
+      "DistrictId": "ws-district"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:59.144",
+    "timestamp": "2026-01-17T19:25:01.279",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_38b4b25d",
+    "id": "ps_20260117_192501_cde29134",
     "data": {
-      "LocationId": "ws-loc-1",
       "Type": "Shop",
+      "Name": "Location 1",
       "DistrictId": "ws-district",
-      "Name": "Location 1"
+      "LocationId": "ws-loc-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.146",
+    "timestamp": "2026-01-17T19:25:01.286",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_6a21a5eb",
+    "id": "ps_20260117_192501_e31b9ae1",
     "data": {
-      "LocationId": "ws-loc-2",
       "Type": "Bar",
+      "Name": "Location 2",
       "DistrictId": "ws-district",
-      "Name": "Location 2"
+      "LocationId": "ws-loc-2"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.149",
+    "timestamp": "2026-01-17T19:25:01.288",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_de0976ff",
+    "id": "ps_20260117_192501_89a9ff6f",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T14:00:00"
+      "StartTime": "2042-06-15T14:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.165",
+    "timestamp": "2026-01-17T19:25:01.297",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_89e2e02a",
+    "id": "ps_20260117_192501_7cda1c27",
     "data": {
       "Type": "Corporate",
-      "DistrictId": "ws-district",
-      "Name": "Test District"
+      "Name": "Test District",
+      "DistrictId": "ws-district"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:59.169",
+    "timestamp": "2026-01-17T19:25:01.303",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_b1f29fc7",
+    "id": "ps_20260117_192501_5796511f",
     "data": {
-      "LocationId": "ws-loc-1",
       "Type": "Shop",
+      "Name": "Location 1",
       "DistrictId": "ws-district",
-      "Name": "Location 1"
+      "LocationId": "ws-loc-1"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.172",
+    "timestamp": "2026-01-17T19:25:01.305",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_fbcfe552",
+    "id": "ps_20260117_192501_27e1088b",
     "data": {
-      "LocationId": "ws-loc-2",
       "Type": "Bar",
+      "Name": "Location 2",
       "DistrictId": "ws-district",
-      "Name": "Location 2"
+      "LocationId": "ws-loc-2"
     },
     "type": "location.created",
-    "timestamp": "2026-01-17T18:52:59.174",
+    "timestamp": "2026-01-17T19:25:01.308",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_6b2ff82b",
+    "id": "ps_20260117_192501_3ffda4c3",
     "data": {
-      "Weather": "Clear",
-      "StartTime": "2042-06-15T14:00:00"
+      "StartTime": "2042-06-15T14:00:00",
+      "Weather": "Clear"
     },
     "type": "world.initialized",
-    "timestamp": "2026-01-17T18:52:59.187",
+    "timestamp": "2026-01-17T19:25:01.316",
+    "priority": "Normal",
     "source": "powershell"
   },
   {
-    "priority": "Normal",
-    "id": "ps_20260117_185259_dcc33586",
+    "id": "ps_20260117_192501_3e8debd6",
     "data": {
       "Type": "Corporate",
-      "DistrictId": "ws-district",
-      "Name": "Test District"
+      "Name": "Test District",
+      "DistrictId": "ws-district"
     },
     "type": "district.created",
-    "timestamp": "2026-01-17T18:52:59.190",
+    "timestamp": "2026-01-17T19:25:01.322",
+    "priority": "Normal",
     "source": "powershell"
   }
 ]

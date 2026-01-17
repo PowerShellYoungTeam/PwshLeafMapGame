@@ -12,7 +12,7 @@
 RootModule = 'QuestSystem.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -21,16 +21,16 @@ ModuleVersion = '0.1.0'
 GUID = '25f37c0d-e5cf-47aa-b14b-4ba78ef8c691'
 
 # Author of this module
-Author = 'Your Name'
+Author = 'Steven Wight'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'PowerShellYoungTeam'
 
 # Copyright statement for this module
-Copyright = '(c) Your Name. All rights reserved.'
+Copyright = '(c) Steven Wight. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PowerShell Leafmap RPG Game - QuestSystem module'
+Description = 'Quest and mission system for cyberpunk RPG - handles quests, objectives, progress tracking, quest givers, and contracts'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -69,16 +69,41 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+FunctionsToExport = @(
+    'Initialize-QuestSystem',
+    'New-QuestTemplate',
+    'Get-QuestTemplate',
+    'Remove-QuestTemplate',
+    'New-QuestObjective',
+    'Start-Quest',
+    'Get-Quest',
+    'Set-QuestTracked',
+    'Complete-Quest',
+    'Fail-Quest',
+    'Abandon-Quest',
+    'Update-QuestObjective',
+    'Get-QuestProgress',
+    'Process-QuestEvent',
+    'Register-QuestGiver',
+    'Get-QuestGiver',
+    'Get-AvailableQuests',
+    'Update-QuestTimers',
+    'Get-QuestTimeRemaining',
+    'Get-QuestSystemState',
+    'Export-QuestData',
+    'Import-QuestData',
+    'New-Contract',
+    'Accept-Contract'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = '*'
+CmdletsToExport = @()
 
 # Variables to export from this module
-VariablesToExport = '*'
+VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = '*'
+AliasesToExport = @()
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

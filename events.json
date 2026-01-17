@@ -1,11 +1,11 @@
 {
-  "priority": "Normal",
-  "id": "ps_20260117_185300_a279ac76",
+  "id": "ps_20260117_192502_c0d7e8ec",
   "data": {
-    "Weather": "Clear",
-    "StartTime": "2042-06-15T18:00:00"
+    "StartTime": "2042-06-15T18:00:00",
+    "Weather": "Clear"
   },
   "type": "world.initialized",
-  "timestamp": "2026-01-17T18:53:00.173",
+  "timestamp": "2026-01-17T19:25:02.243",
+  "priority": "Normal",
   "source": "powershell"
 }
