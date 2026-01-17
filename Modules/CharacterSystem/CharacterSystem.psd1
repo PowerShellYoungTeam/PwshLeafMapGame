@@ -21,16 +21,16 @@ ModuleVersion = '0.1.0'
 GUID = '5ecf0e55-f899-4902-b5b8-48551cd2baef'
 
 # Author of this module
-Author = 'Your Name'
+Author = 'PowerShell Leafmap Game Team'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'PowerShellYoungTeam'
 
 # Copyright statement for this module
-Copyright = '(c) Your Name. All rights reserved.'
+Copyright = '(c) 2025 PowerShell Leafmap Game Team. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PowerShell Leafmap RPG Game - CharacterSystem module'
+Description = 'Character management module for PowerShell Leafmap Cyberpunk RPG. Provides functions for character creation, attributes, leveling, combat, skills, inventory, and equipment management.'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -51,6 +51,7 @@ PowerShellVersion = '5.1'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
+# Note: CoreGame must be loaded before CharacterSystem. Load order is managed by game startup.
 # RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
@@ -68,17 +69,56 @@ PowerShellVersion = '5.1'
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
 
-# Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+# Functions to export from this module
+# Explicit list for best performance - see CharacterSystem.psm1 for function documentation
+FunctionsToExport = @(
+    # Initialization
+    'Initialize-CharacterSystem'
+    # Character Creation
+    'New-Character'
+    # Attributes
+    'Get-CharacterAttribute'
+    'Set-CharacterAttribute'
+    'Add-CharacterAttributePoint'
+    'Update-CharacterDerivedStats'
+    # Leveling
+    'Add-CharacterExperience'
+    'Get-ExperienceForLevel'
+    'Test-CharacterCanLevelUp'
+    'Invoke-CharacterLevelUp'
+    # Combat
+    'Add-CharacterDamage'
+    'Add-CharacterHealing'
+    'Get-CharacterTotalArmor'
+    # Skills
+    'Get-CharacterSkill'
+    'Add-CharacterSkillPoint'
+    'Get-AllCharacterSkills'
+    # Inventory
+    'Add-CharacterItem'
+    'Remove-CharacterItem'
+    'Get-CharacterInventory'
+    'Get-CharacterInventoryWeight'
+    # Equipment
+    'Set-CharacterEquipment'
+    'Remove-CharacterEquipment'
+    'Get-CharacterEquipment'
+    # Currency
+    'Add-CharacterCredits'
+    'Remove-CharacterCredits'
+    'Get-CharacterCredits'
+    # Summary
+    'Get-CharacterSummary'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = '*'
+CmdletsToExport = @()
 
 # Variables to export from this module
-VariablesToExport = '*'
+VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = '*'
+AliasesToExport = @()
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

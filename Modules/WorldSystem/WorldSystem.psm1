@@ -1,5 +1,36 @@
 # WorldSystem Module - Map and world management
 
+# Module state
+$script:WorldSystemInitialized = $false
+$script:WorldConfig = @{
+    DefaultMapType = "Outdoor"
+    MaxMapPoints = 1000
+    MaxLayers = 50
+}
+
+function Initialize-WorldSystem {
+    [CmdletBinding()]
+    param(
+        [hashtable]$Configuration = @{}
+    )
+    
+    # Merge custom configuration
+    foreach ($key in $Configuration.Keys) {
+        if ($script:WorldConfig.ContainsKey($key)) {
+            $script:WorldConfig[$key] = $Configuration[$key]
+        }
+    }
+    
+    $script:WorldSystemInitialized = $true
+    Write-Verbose "WorldSystem initialized with config: $($script:WorldConfig | ConvertTo-Json -Compress)"
+    
+    return @{
+        Initialized = $true
+        ModuleName = 'WorldSystem'
+        Configuration = $script:WorldConfig
+    }
+}
+
 function New-GameMap {
     param(
         [string]$Name,
@@ -141,4 +172,4 @@ function Import-GameMap {
 }
 
 # Export all functions
-Export-ModuleMember -Function New-GameMap, Add-MapLayer, Add-MapPoint, Export-GameMap, Import-GameMap
+Export-ModuleMember -Function Initialize-WorldSystem, New-GameMap, Add-MapLayer, Add-MapPoint, Export-GameMap, Import-GameMap

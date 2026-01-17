@@ -1,18 +1,20 @@
 Describe "CoreGame Module" {
     BeforeAll {
-        # Import the module
-        Import-Module "..\..\Modules\CoreGame\CoreGame.psm1" -Force
+        # Import the module using proper path resolution
+        $ModulePath = Join-Path $PSScriptRoot "..\..\Modules\CoreGame\CoreGame.psd1"
+        Import-Module $ModulePath -Force -Global
     }
     
     Context "Module Loading" {
         It "Should import without errors" {
-            { Import-Module "..\..\Modules\CoreGame\CoreGame.psm1" -Force } | Should -Not -Throw
+            $ModulePath = Join-Path $PSScriptRoot "..\..\Modules\CoreGame\CoreGame.psd1"
+            { Import-Module $ModulePath -Force } | Should -Not -Throw
         }
     }
     
-    Context "Initialize-CoreGame" {
+    Context "Initialize-GameEngine" {
         It "Should initialize successfully" {
-            $result = Initialize-CoreGame
+            $result = Initialize-GameEngine
             $result.Initialized | Should -Be $true
         }
     }

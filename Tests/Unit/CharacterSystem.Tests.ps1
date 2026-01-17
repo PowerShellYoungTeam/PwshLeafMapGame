@@ -1,12 +1,17 @@
 Describe "CharacterSystem Module" {
     BeforeAll {
-        # Import the module
-        Import-Module "..\..\Modules\CharacterSystem\CharacterSystem.psm1" -Force
+        # Import CoreGame first (dependency)
+        $CorePath = Join-Path $PSScriptRoot "..\..\Modules\CoreGame\CoreGame.psd1"
+        Import-Module $CorePath -Force -Global
+        # Import CharacterSystem
+        $ModulePath = Join-Path $PSScriptRoot "..\..\Modules\CharacterSystem\CharacterSystem.psd1"
+        Import-Module $ModulePath -Force
     }
     
     Context "Module Loading" {
         It "Should import without errors" {
-            { Import-Module "..\..\Modules\CharacterSystem\CharacterSystem.psm1" -Force } | Should -Not -Throw
+            $ModulePath = Join-Path $PSScriptRoot "..\..\Modules\CharacterSystem\CharacterSystem.psd1"
+            { Import-Module $ModulePath -Force } | Should -Not -Throw
         }
     }
     
@@ -17,5 +22,5 @@ Describe "CharacterSystem Module" {
         }
     }
     
-    # Add more tests specific to this module
+    # Full tests are in Tests/CharacterSystem.Tests.ps1
 }

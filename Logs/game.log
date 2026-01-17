@@ -546,3 +546,106 @@
 [2025-11-26 22:24:22.064] [Info] [Core] PathfindingSystem initialized successfully
 [2025-11-26 22:24:22.067] [Info] [Core] Initializing CommunicationBridge
 [2025-11-26 22:24:22.072] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-17 12:22:12.684] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:28:59.141] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:29:25.876] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:29:44.773] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:29:53.239] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:31:41.128] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:31:53.530] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:32:06.978] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:32:28.614] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:32:56.324] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:37:09.707] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:37:30.701] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:38:31.426] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:39:27.350] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:39:36.773] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:40:19.728] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:40:32.308] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:40:41.650] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:41:05.386] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:48:35.815] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:49:02.120] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:49:12.442] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:53:20.760] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:53:31.031] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:54:11.926] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:54:25.548] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:54:36.770] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:54:37.793] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:37.305] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:38.149] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:39.551] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:39.747] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:39.796] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:39.850] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:39.859] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-17 12:57:39.869] [Info] [EventSystem] Loaded existing event log with 20 events
+[2026-01-17 12:57:39.892] [Error] [EventSystem] Could not load existing event log
+[2026-01-17 12:57:39.919] [Info] [EventSystem] Event system initialized successfully
+[2026-01-17 12:57:39.949] [Info] [Core] Initializing PathfindingSystem
+[2026-01-17 12:57:39.953] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-17 12:57:39.956] [Info] [Core] Initializing CommunicationBridge
+[2026-01-17 12:57:39.964] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-17 12:57:39.969] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-17 12:57:40.003] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-17 12:57:40.013] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-17 12:57:40.080] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-17 12:57:40.084] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-17 12:57:40.168] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:40.509] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:40.633] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:40.750] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:40.870] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:57:40.988] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:26.420] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:27.200] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:28.377] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:28.526] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:28.583] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:28.631] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:28.643] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-17 12:59:28.653] [Info] [EventSystem] Loaded existing event log with 20 events
+[2026-01-17 12:59:28.683] [Error] [EventSystem] Could not load existing event log
+[2026-01-17 12:59:28.700] [Info] [EventSystem] Event system initialized successfully
+[2026-01-17 12:59:28.730] [Info] [Core] Initializing PathfindingSystem
+[2026-01-17 12:59:28.734] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-17 12:59:28.737] [Info] [Core] Initializing CommunicationBridge
+[2026-01-17 12:59:28.749] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-17 12:59:28.755] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-17 12:59:28.786] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-17 12:59:28.790] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-17 12:59:28.870] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-17 12:59:28.874] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-17 12:59:28.954] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:29.297] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:29.426] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:29.546] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:29.670] [Info] [Logging] Game logging system initialized
+[2026-01-17 12:59:29.797] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:38.623] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:39.405] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:40.636] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:40.761] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:40.811] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:40.868] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:40.878] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-17 13:02:40.887] [Info] [EventSystem] Loaded existing event log with 20 events
+[2026-01-17 13:02:40.915] [Error] [EventSystem] Could not load existing event log
+[2026-01-17 13:02:40.931] [Info] [EventSystem] Event system initialized successfully
+[2026-01-17 13:02:40.972] [Info] [Core] Initializing PathfindingSystem
+[2026-01-17 13:02:40.976] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-17 13:02:40.980] [Info] [Core] Initializing CommunicationBridge
+[2026-01-17 13:02:40.986] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-17 13:02:40.991] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-17 13:02:41.023] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-17 13:02:41.028] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-17 13:02:41.101] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-17 13:02:41.105] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-17 13:02:41.185] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:41.359] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:41.484] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:41.604] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:41.725] [Info] [Logging] Game logging system initialized
+[2026-01-17 13:02:41.843] [Info] [Logging] Game logging system initialized

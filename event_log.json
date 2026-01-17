@@ -1,266 +1,256 @@
 [
   {
-    "data": {
-      "Command": "test.updateState",
-      "Module": "test",
-      "Description": "Test command for state updates"
-    },
     "priority": "Normal",
-    "type": "command.registered",
-    "id": "ps_20251112_210425_fed835b3",
+    "type": "CharacterLevelUp",
+    "data": {
+      "Timestamp": "2026-01-17T13:02:39.9289937+00:00",
+      "CharacterName": "LevelTestChar",
+      "NewLevel": 2,
+      "CharacterId": "61962594-4fed-4ed2-96d9-3b4f9c9979d9"
+    },
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:25.983"
+    "id": "ps_20260117_130239_e3202275",
+    "timestamp": "2026-01-17T13:02:39.932"
   },
   {
-    "data": {
-      "RegistrationTime": "2025-11-12T21:04:25.9844755+00:00",
-      "CommandName": "test.updateState",
-      "Category": null,
-      "Module": "test"
-    },
     "priority": "Normal",
-    "type": "system.commandRegistered",
-    "id": "ps_20251112_210425_a6814643",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:25.984"
-  },
-  {
+    "type": "CharacterLevelUp",
     "data": {
-      "entityId": "test-entity-123",
-      "changeType": "update",
-      "timestamp": "2025-11-12T21:04:25.9927858+00:00"
+      "Timestamp": "2026-01-17T13:02:39.9871021+00:00",
+      "CharacterName": "LevelTestChar",
+      "NewLevel": 2,
+      "CharacterId": "f99d8b1f-15df-4514-abf8-59ded4808b6e"
     },
-    "priority": "Normal",
-    "type": "state.changed",
-    "id": "ps_20251112_210425_f87bf4a1",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:25.992"
+    "id": "ps_20260117_130239_2e816039",
+    "timestamp": "2026-01-17T13:02:39.987"
   },
   {
-    "data": {
-      "ExecutionTime": 7.1641,
-      "Success": true,
-      "Command": "test.updateState",
-      "ExecutionId": "fde66c2e-4be0-49bb-9ea9-aa58f3daa90d"
-    },
     "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210425_6629aad7",
+    "type": "CharacterLevelUp",
+    "data": {
+      "Timestamp": "2026-01-17T13:02:40.0049074+00:00",
+      "CharacterName": "LevelTestChar",
+      "NewLevel": 2,
+      "CharacterId": "49e9f125-5652-4b37-904a-4eab2d9215d5"
+    },
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:25.997"
+    "id": "ps_20260117_130240_6cf76d12",
+    "timestamp": "2026-01-17T13:02:40.005"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.0018082+00:00",
-      "Success": true,
-      "CommandName": "test.updateState",
-      "ExecutionTimeMs": 12.4322,
-      "ExecutionId": "4749a959"
-    },
     "priority": "Normal",
-    "type": "system.commandExecuted",
-    "id": "ps_20251112_210426_2e3d742c",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.001"
-  },
-  {
+    "type": "CharacterLevelUp",
     "data": {
-      "Command": "test.errorCommand",
-      "Module": "test",
-      "Description": "Command that intentionally throws an error"
+      "Timestamp": "2026-01-17T13:02:40.0231612+00:00",
+      "CharacterName": "LevelTestChar",
+      "NewLevel": 2,
+      "CharacterId": "eb4d4b8a-0406-46f6-957c-18816a55c008"
     },
-    "priority": "Normal",
-    "type": "command.registered",
-    "id": "ps_20251112_210426_cc7acaa8",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.090"
+    "id": "ps_20260117_130240_6c3cea9b",
+    "timestamp": "2026-01-17T13:02:40.023"
   },
   {
-    "data": {
-      "RegistrationTime": "2025-11-12T21:04:26.0933098+00:00",
-      "CommandName": "test.errorCommand",
-      "Category": null,
-      "Module": "test"
-    },
     "priority": "Normal",
-    "type": "system.commandRegistered",
-    "id": "ps_20251112_210426_21cac303",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.093"
-  },
-  {
+    "type": "CharacterDamaged",
     "data": {
-      "ExecutionTime": 5.0664,
-      "Command": "test.errorCommand",
-      "Error": "Intentional test error",
-      "ExecutionId": "b65b9cf7-313f-4aea-93d2-33a20b47b081"
+      "DamageType": "Physical",
+      "RemainingHealth": 116,
+      "IsAlive": true,
+      "DamageDealt": 14,
+      "CharacterId": "5cf2a191-da78-4583-9bf8-b2ee068d4e14"
     },
-    "priority": "Normal",
-    "type": "command.error",
-    "id": "ps_20251112_210426_11080f68",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.106"
+    "id": "ps_20260117_130240_e016951b",
+    "timestamp": "2026-01-17T13:02:40.060"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.1185103+00:00",
-      "CommandName": "test.errorCommand",
-      "Error": "Intentional test error",
-      "ExecutionTimeMs": 10.3137,
-      "ExecutionId": "d3009033"
-    },
-    "priority": "High",
-    "type": "system.commandExecutionFailed",
-    "id": "ps_20251112_210426_c1177a9a",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.118"
-  },
-  {
-    "data": {
-      "ExecutionTime": 0.3518,
-      "Success": true,
-      "Command": "registry.listCommands",
-      "ExecutionId": "ae9629b4-5121-4976-929a-bfda38dd1ab0"
-    },
     "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210426_19a14a93",
+    "type": "CharacterDamaged",
+    "data": {
+      "DamageType": "Physical",
+      "RemainingHealth": 110,
+      "IsAlive": true,
+      "DamageDealt": 20,
+      "CharacterId": "512bc196-2a24-4d1a-8281-9c701cdf7c70"
+    },
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.125"
+    "id": "ps_20260117_130240_fadc32c6",
+    "timestamp": "2026-01-17T13:02:40.077"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.1319551+00:00",
-      "Success": true,
-      "CommandName": "registry.listCommands",
-      "ExecutionTimeMs": 7.4111,
-      "ExecutionId": "cb86fe38"
-    },
     "priority": "Normal",
-    "type": "system.commandExecuted",
-    "id": "ps_20251112_210426_e6f8ade4",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.132"
-  },
-  {
+    "type": "CharacterDamaged",
     "data": {
-      "ExecutionTime": 0.2854,
-      "Success": true,
-      "Command": "registry.listCommands",
-      "ExecutionId": "b7d020b1-c46c-473e-843b-68c37ebb2ffd"
+      "DamageType": "Physical",
+      "RemainingHealth": 80,
+      "IsAlive": true,
+      "DamageDealt": 50,
+      "CharacterId": "ef82763e-fbd7-4bfe-804f-19c7dff812e4"
     },
-    "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210426_a486ad7e",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.258"
+    "id": "ps_20260117_130240_069fe5b4",
+    "timestamp": "2026-01-17T13:02:40.095"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.2608146+00:00",
-      "Success": true,
-      "CommandName": "registry.listCommands",
-      "ExecutionTimeMs": 3.53,
-      "ExecutionId": "82076ae0"
-    },
     "priority": "Normal",
-    "type": "system.commandExecuted",
-    "id": "ps_20251112_210426_90eac360",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.260"
-  },
-  {
+    "type": "CharacterDamaged",
     "data": {
-      "ExecutionTime": 0.2586,
-      "Success": true,
-      "Command": "registry.listCommands",
-      "ExecutionId": "99c59785-a042-4b46-bc80-3099b63bc212"
+      "DamageType": "Physical",
+      "RemainingHealth": 0,
+      "IsAlive": false,
+      "DamageDealt": 1300,
+      "CharacterId": "437fec83-0f24-4a85-8229-33e9d69e492c"
     },
-    "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210426_8d4d2921",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.382"
+    "id": "ps_20260117_130240_0045d535",
+    "timestamp": "2026-01-17T13:02:40.108"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.3863813+00:00",
-      "Success": true,
-      "CommandName": "registry.listCommands",
-      "ExecutionTimeMs": 3.8771,
-      "ExecutionId": "d0627246"
-    },
     "priority": "Normal",
-    "type": "system.commandExecuted",
-    "id": "ps_20251112_210426_0c317298",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.386"
-  },
-  {
+    "type": "CharacterDamaged",
     "data": {
-      "ExecutionTime": 0.2244,
-      "Success": true,
-      "Command": "registry.listCommands",
-      "ExecutionId": "727b7016-d900-4bce-9537-620f0d3e73c6"
+      "DamageType": "Physical",
+      "RemainingHealth": 80,
+      "IsAlive": true,
+      "DamageDealt": 50,
+      "CharacterId": "b642121f-bf7a-40eb-947d-df9209c28ccc"
     },
-    "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210426_2ef6d88a",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.506"
+    "id": "ps_20260117_130240_a49d9ee2",
+    "timestamp": "2026-01-17T13:02:40.125"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.508997+00:00",
-      "Success": true,
-      "CommandName": "registry.listCommands",
-      "ExecutionTimeMs": 3.4571,
-      "ExecutionId": "cff9712a"
-    },
     "priority": "Normal",
-    "type": "system.commandExecuted",
-    "id": "ps_20251112_210426_a2a5cfe2",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.509"
-  },
-  {
+    "type": "CharacterHealed",
     "data": {
-      "ExecutionTime": 0.219,
-      "Success": true,
-      "Command": "registry.listCommands",
-      "ExecutionId": "62ffa132-4980-43b5-ba91-0184d7561763"
+      "CurrentHealth": 110,
+      "HealingAmount": 30,
+      "CharacterId": "b642121f-bf7a-40eb-947d-df9209c28ccc"
     },
-    "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210426_68581e6e",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.629"
+    "id": "ps_20260117_130240_a4c701f6",
+    "timestamp": "2026-01-17T13:02:40.129"
   },
   {
-    "data": {
-      "ExecutionTime": "2025-11-12T21:04:26.6323813+00:00",
-      "Success": true,
-      "CommandName": "registry.listCommands",
-      "ExecutionTimeMs": 5.1186,
-      "ExecutionId": "d0e62638"
-    },
     "priority": "Normal",
-    "type": "system.commandExecuted",
-    "id": "ps_20251112_210426_b174f19c",
-    "source": "CommandRegistry",
-    "timestamp": "2025-11-12T21:04:26.632"
-  },
-  {
+    "type": "CharacterHealed",
     "data": {
-      "ExecutionTime": 0.1172,
-      "Success": true,
-      "Command": "registry.getStatistics",
-      "ExecutionId": "77906bdb-fd99-41d6-b737-05ca4650b587"
+      "CurrentHealth": 130,
+      "HealingAmount": 0,
+      "CharacterId": "316fbb27-c94b-4281-880f-12b419e238d1"
     },
-    "priority": "Normal",
-    "type": "command.executed",
-    "id": "ps_20251112_210426_5d6d9528",
     "source": "powershell",
-    "timestamp": "2025-11-12T21:04:26.751"
+    "id": "ps_20260117_130240_25d27436",
+    "timestamp": "2026-01-17T13:02:40.145"
+  },
+  {
+    "priority": "Normal",
+    "type": "SkillLevelUp",
+    "data": {
+      "SkillName": "Handguns",
+      "NewLevel": 1,
+      "CharacterId": "8a2c7d0a-f13b-4049-a0b6-12b671cafc2f"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_02ab5f50",
+    "timestamp": "2026-01-17T13:02:40.180"
+  },
+  {
+    "priority": "Normal",
+    "type": "SkillLevelUp",
+    "data": {
+      "SkillName": "Handguns",
+      "NewLevel": 1,
+      "CharacterId": "2d76119e-03c6-4cf2-affa-6a720221b1d1"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_927a2320",
+    "timestamp": "2026-01-17T13:02:40.197"
+  },
+  {
+    "priority": "Normal",
+    "type": "SkillLevelUp",
+    "data": {
+      "SkillName": "Stealth",
+      "NewLevel": 1,
+      "CharacterId": "2d76119e-03c6-4cf2-affa-6a720221b1d1"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_93027402",
+    "timestamp": "2026-01-17T13:02:40.200"
+  },
+  {
+    "priority": "Normal",
+    "type": "ItemEquipped",
+    "data": {
+      "ItemId": "weapon-001",
+      "Slot": "WeaponSlot1",
+      "CharacterId": "93fa3925-d0ae-44e5-ad8a-3a2267a4a8eb"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_8c94fad8",
+    "timestamp": "2026-01-17T13:02:40.335"
+  },
+  {
+    "priority": "Normal",
+    "type": "ItemEquipped",
+    "data": {
+      "ItemId": "armor-001",
+      "Slot": "OuterTorso",
+      "CharacterId": "652ee0f0-8708-42bb-9a10-19713e4758a3"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_16bb1d15",
+    "timestamp": "2026-01-17T13:02:40.353"
+  },
+  {
+    "priority": "Normal",
+    "type": "ItemEquipped",
+    "data": {
+      "ItemId": "weapon-001",
+      "Slot": "WeaponSlot1",
+      "CharacterId": "ac2bbf3b-72c8-405b-a53d-af45633ad216"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_5fabe7b9",
+    "timestamp": "2026-01-17T13:02:40.371"
+  },
+  {
+    "priority": "Normal",
+    "type": "ItemUnequipped",
+    "data": {
+      "ItemId": "weapon-001",
+      "Slot": "WeaponSlot1",
+      "CharacterId": "ac2bbf3b-72c8-405b-a53d-af45633ad216"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_aff24290",
+    "timestamp": "2026-01-17T13:02:40.377"
+  },
+  {
+    "priority": "Normal",
+    "type": "ItemEquipped",
+    "data": {
+      "ItemId": "weapon-001",
+      "Slot": "WeaponSlot1",
+      "CharacterId": "cea402c2-0d84-40e2-b229-796bc72231a4"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_a6e3ea20",
+    "timestamp": "2026-01-17T13:02:40.412"
+  },
+  {
+    "priority": "Normal",
+    "type": "ItemUnequipped",
+    "data": {
+      "ItemId": "weapon-001",
+      "Slot": "WeaponSlot1",
+      "CharacterId": "cea402c2-0d84-40e2-b229-796bc72231a4"
+    },
+    "source": "powershell",
+    "id": "ps_20260117_130240_aefbd002",
+    "timestamp": "2026-01-17T13:02:40.417"
   }
 ]
