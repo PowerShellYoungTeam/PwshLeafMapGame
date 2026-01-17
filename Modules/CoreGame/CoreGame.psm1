@@ -15,17 +15,17 @@
 #>
 
 # Import all submodules in dependency order
-# The functions will be available because we explicitly Export-ModuleMember at the end
+# Using -Global flag to ensure functions are exported to the caller's scope
 $script:ModulePath = $PSScriptRoot
 
-# Import each module and capture their exported functions
-Import-Module (Join-Path $script:ModulePath "GameLogging.psm1") -Force -DisableNameChecking
-Import-Module (Join-Path $script:ModulePath "DataModels.psm1") -Force -DisableNameChecking
-Import-Module (Join-Path $script:ModulePath "EventSystem.psm1") -Force -DisableNameChecking
-Import-Module (Join-Path $script:ModulePath "StateManager.psm1") -Force -DisableNameChecking
-Import-Module (Join-Path $script:ModulePath "PathfindingSystem.psm1") -Force -DisableNameChecking
-Import-Module (Join-Path $script:ModulePath "CommunicationBridge.psm1") -Force -DisableNameChecking
-Import-Module (Join-Path $script:ModulePath "CommandRegistry.psm1") -Force -DisableNameChecking
+# Import each module with -Global to make functions available globally
+Import-Module (Join-Path $script:ModulePath "GameLogging.psm1") -Force -Global -DisableNameChecking
+Import-Module (Join-Path $script:ModulePath "DataModels.psm1") -Force -Global -DisableNameChecking
+Import-Module (Join-Path $script:ModulePath "EventSystem.psm1") -Force -Global -DisableNameChecking
+Import-Module (Join-Path $script:ModulePath "StateManager.psm1") -Force -Global -DisableNameChecking
+Import-Module (Join-Path $script:ModulePath "PathfindingSystem.psm1") -Force -Global -DisableNameChecking
+Import-Module (Join-Path $script:ModulePath "CommunicationBridge.psm1") -Force -Global -DisableNameChecking
+Import-Module (Join-Path $script:ModulePath "CommandRegistry.psm1") -Force -Global -DisableNameChecking
 
 function Initialize-GameEngine {
     <#
@@ -106,3 +106,6 @@ function Initialize-GameEngine {
         Version     = '0.2.0'
     }
 }
+
+# Export the root module function
+Export-ModuleMember -Function Initialize-GameEngine

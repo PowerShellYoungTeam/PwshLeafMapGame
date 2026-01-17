@@ -106,6 +106,42 @@ Log Sources ──► GameLogging ──► Multiple Outputs
 └─ Context Data ────┘
 ```
 
+## Module Loading Architecture
+
+The CoreGame module uses an **Import-Module approach** in the root module rather than `NestedModules` in the manifest. This design decision was made to properly handle function scoping across PowerShell versions.
+
+### Load Order
+```
+CoreGame.psm1 (root)
+    ├── Import GameLogging.psm1       (no dependencies)
+    ├── Import DataModels.psm1        (no dependencies)
+    ├── Import EventSystem.psm1       (depends on GameLogging)
+    ├── Import StateManager.psm1      (depends on DataModels, EventSystem)
+    ├── Import PathfindingSystem.psm1 (depends on GameLogging, EventSystem, StateManager, DataModels)
+    ├── Import CommunicationBridge.psm1 (depends on GameLogging, EventSystem)
+    └── Import CommandRegistry.psm1   (depends on GameLogging, EventSystem)
+```
+
+### Usage Pattern
+```powershell
+# Single import loads all subsystems
+Import-Module ./Modules/CoreGame/CoreGame.psd1 -Force
+
+# Initialize all systems at once
+Initialize-GameEngine -DebugMode
+
+# Or initialize individually
+Initialize-GameLogging
+Initialize-EventSystem
+Initialize-StateManager
+```
+
+### Function Export Strategy
+The manifest (`CoreGame.psd1`) explicitly lists all exported functions from all submodules. This follows Microsoft best practices for:
+- **Performance**: Explicit exports are faster than wildcards
+- **Discoverability**: Clear documentation of public API
+- **Maintainability**: Changes to exports are version-controlled
+
 ### Specialized Modules
 
 #### Character System (Modules/CharacterSystem/)
