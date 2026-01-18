@@ -1,4123 +1,1086 @@
 [
   {
-    "timestamp": "2026-01-17T19:27:04.007",
-    "type": "world.initialized",
+    "timestamp": "2026-01-18T03:36:55.541",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_224d4073",
     "data": {
       "Weather": "Clear",
       "StartTime": "2042-06-15T18:00:00"
     },
-    "id": "ps_20260117_192704_0ae8f487"
+    "type": "world.initialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.571",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.550",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_c42d2391",
     "data": {
-      "Timestamp": "2026-01-17T19:41:49.5713186+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.5505231+00:00",
       "Configuration": {
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
+      }
+    },
+    "type": "QuestSystemInitialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.552",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_50599f32",
+    "data": {
+      "Timestamp": "2026-01-18T03:36:55.5525519+00:00",
+      "Configuration": {
+        "ReputationDecayEnabled": false,
         "ReputationDecayRate": 1,
+        "MinReputation": -1000,
         "RivalrySpreadFactor": 0.5,
         "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
+        "MaxReputation": 1000,
+        "DefaultPlayerReputation": 0
+      },
+      "FactionTypes": [
+        "YoungTeam",
+        "Player",
+        "Corporation",
+        "Syndicate",
+        "Crew",
+        "Independent",
+        "Underground"
+      ]
     },
-    "id": "ps_20260117_194149_b33ce0bf"
+    "type": "FactionSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.573",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.572",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_d27068b5",
     "data": {
-      "Timestamp": "2026-01-17T19:41:49.5736032+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.5725841+00:00",
       "Configuration": {
+        "ReputationDecayEnabled": false,
         "ReputationDecayRate": 1,
+        "MinReputation": -1000,
         "RivalrySpreadFactor": 0.5,
         "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_88d210c7"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.580",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.5804451+00:00",
+        "MaxReputation": 1000,
+        "DefaultPlayerReputation": 0
+      },
       "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
         "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_8d380c5d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.582",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.5827534+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
         "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_f485c193"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.594",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.5943795+00:00",
-      "FactionTypes": [
         "Corporation",
-        "Underground",
-        "Crew",
         "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_a6844d2d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.597",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.5973033+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
         "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
+        "Independent",
+        "Underground"
+      ]
     },
-    "id": "ps_20260117_194149_b5f1d3df"
+    "type": "FactionSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.604",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.574",
     "source": "powershell",
     "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.6046045+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_9340056f"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.606",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.6068449+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "MinReputation": -1000,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "DefaultPlayerReputation": 10,
-        "MaxReputation": 500,
-        "ReputationDecayEnabled": false,
-        "ReputationDecayRate": 1
-      }
-    },
-    "id": "ps_20260117_194149_ce83ff28"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.617",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.617179+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_488a392c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.630",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "omnitech",
-      "Name": "OmniTech Industries"
-    },
-    "id": "ps_20260117_194149_a779da59"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.644",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.6446179+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_a05301b1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.647",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
+    "id": "ps_20260118_033655_475e8b21",
     "data": {
       "Type": "Crew",
-      "FactionId": "iron_wolves",
-      "Name": "Iron Wolves"
+      "FactionId": "netrunners",
+      "Name": "Netrunners"
     },
-    "id": "ps_20260117_194149_3e7a8ce4"
+    "type": "FactionCreated"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.657",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.576",
     "source": "powershell",
     "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.6570888+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_84778049"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.659",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "neon_serpents",
-      "Name": "Neon Serpents"
-    },
-    "id": "ps_20260117_194149_a069fd72"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.667",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.667084+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_118b593b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.672",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "westside_razors",
-      "Name": "Westside Razors"
-    },
-    "id": "ps_20260117_194149_755fe1b1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.677",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.6776487+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_7f34ff31"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.680",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Underground",
-      "FactionId": "fixers_guild",
-      "Name": "Fixers' Guild"
-    },
-    "id": "ps_20260117_194149_f203da74"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.687",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.6869421+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_5888a4f5"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.698",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "test_corp",
-      "Name": "Test Corp"
-    },
-    "id": "ps_20260117_194149_23efee11"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.709",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7099154+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_d9042013"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.713",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "corp1",
-      "Name": "Corp One"
-    },
-    "id": "ps_20260117_194149_0786fc76"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.718",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7184495+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_d9de16d0"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.720",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "shadow_council",
-      "Name": "Shadow Council"
-    },
-    "id": "ps_20260117_194149_21993135"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.736",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7361363+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_0ce0b699"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.738",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "corp1",
-      "Name": "Corp 1"
-    },
-    "id": "ps_20260117_194149_162763e8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.740",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "crew1",
-      "Name": "Crew 1"
-    },
-    "id": "ps_20260117_194149_e6ffebb1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.741",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "yt1",
-      "Name": "Young Team 1"
-    },
-    "id": "ps_20260117_194149_f30c132b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.747",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7470676+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_4d17b4e2"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.750",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "corp1",
-      "Name": "Corp 1"
-    },
-    "id": "ps_20260117_194149_3c30b2f8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.756",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "crew1",
-      "Name": "Crew 1"
-    },
-    "id": "ps_20260117_194149_50c96914"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.758",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "yt1",
-      "Name": "Young Team 1"
-    },
-    "id": "ps_20260117_194149_46a6ce94"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.763",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7637573+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_26e35abd"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.765",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "corp1",
-      "Name": "Corp 1"
-    },
-    "id": "ps_20260117_194149_1281e3b8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.768",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "crew1",
-      "Name": "Crew 1"
-    },
-    "id": "ps_20260117_194149_1b0f7d03"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.770",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "yt1",
-      "Name": "Young Team 1"
-    },
-    "id": "ps_20260117_194149_f262f0f8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.778",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7787799+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_0175c382"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.783",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "test_faction",
-      "Name": "Test"
-    },
-    "id": "ps_20260117_194149_bae05dd3"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.787",
-    "type": "FactionStatusChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionId": "test_faction",
-      "IsActive": false
-    },
-    "id": "ps_20260117_194149_dc61510c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.794",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.7948805+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_d3d7f0c1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.797",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "test_faction",
-      "Name": "Test"
-    },
-    "id": "ps_20260117_194149_6a2c6c13"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.803",
-    "type": "FactionStatusChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionId": "test_faction",
-      "IsActive": false
-    },
-    "id": "ps_20260117_194149_340a19f4"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.805",
-    "type": "FactionStatusChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionId": "test_faction",
-      "IsActive": true
-    },
-    "id": "ps_20260117_194149_a227b9d3"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.813",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.8134536+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_802925f9"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.816",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "to_remove",
-      "Name": "Doomed"
-    },
-    "id": "ps_20260117_194149_64326bb7"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.824",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.8242855+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_ae3c2d0b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.826",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "to_remove",
-      "Name": "Doomed"
-    },
-    "id": "ps_20260117_194149_942701e2"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.840",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.8403375+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_ee459e49"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.843",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194149_d3e893d1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.855",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.8551807+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_f7ff1d47"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.857",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194149_12d05821"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.867",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.8672181+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_2accfb26"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.869",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194149_2670af7f"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.885",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.8851194+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_a627ef99"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.887",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194149_f0d68b62"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.893",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
+    "id": "ps_20260118_033655_726cfddd",
     "data": {
       "Reputation": 50,
       "NewStanding": "Friendly",
-      "FactionId": "rep_test",
+      "FactionId": "netrunners",
       "OldStanding": "Neutral"
     },
-    "id": "ps_20260117_194149_86c0234b"
+    "type": "FactionStandingChanged"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.902",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.579",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_c0e7ac47",
     "data": {
-      "Timestamp": "2026-01-17T19:41:49.9022397+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.5796958+00:00",
       "Configuration": {
+        "ReputationDecayEnabled": false,
         "ReputationDecayRate": 1,
+        "MinReputation": -1000,
         "RivalrySpreadFactor": 0.5,
         "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194149_c09abdd4"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.907",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194149_d2a46825"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.910",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 1000,
-      "NewStanding": "Allied",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194149_8a1f3e14"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.917",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.9174274+00:00",
+        "MaxReputation": 1000,
+        "DefaultPlayerReputation": 0
+      },
       "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
         "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
+        "Player",
+        "Corporation",
+        "Syndicate",
+        "Crew",
+        "Independent",
+        "Underground"
+      ]
     },
-    "id": "ps_20260117_194149_fa83a149"
+    "type": "FactionSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.919",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.581",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_ca42e39d",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
+      "Type": "Corporation",
+      "FactionId": "corpo",
+      "Name": "Arasaka"
     },
-    "id": "ps_20260117_194149_c6f43663"
+    "type": "FactionCreated"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.926",
-    "type": "FactionStandingChanged",
+    "timestamp": "2026-01-18T03:36:55.590",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_d957f058",
     "data": {
-      "Reputation": -1000,
+      "Reputation": -60,
       "NewStanding": "Hostile",
-      "FactionId": "rep_test",
+      "FactionId": "corpo",
       "OldStanding": "Neutral"
     },
-    "id": "ps_20260117_194149_27a5f321"
+    "type": "FactionStandingChanged"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.935",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.628",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_12104dc4",
     "data": {
-      "Timestamp": "2026-01-17T19:41:49.935756+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.6284844+00:00",
       "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
       }
     },
-    "id": "ps_20260117_194149_57a07c04"
+    "type": "QuestSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.938",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.645",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_f609cadb",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
+      "QuestType": "MainStory",
+      "ObjectiveCount": 0,
+      "QuestId": "main_001",
+      "Name": "The Heist"
     },
-    "id": "ps_20260117_194149_8e5d45ee"
+    "type": "QuestStarted"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.942",
-    "type": "FactionStandingChanged",
+    "timestamp": "2026-01-18T03:36:55.655",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_fe0aef68",
     "data": {
-      "Reputation": 30,
-      "NewStanding": "Friendly",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194149_c888da84"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:49.975",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:49.9750525+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.6555491+00:00",
       "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
       }
     },
-    "id": "ps_20260117_194149_118fe7a6"
+    "type": "QuestSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.977",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.658",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_911fb06d",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
+      "QuestType": "Side",
+      "ObjectiveCount": 0,
+      "QuestId": "side_001",
+      "Name": "Side Job"
     },
-    "id": "ps_20260117_194149_975d732d"
+    "type": "QuestStarted"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.980",
-    "type": "FactionStandingChanged",
+    "timestamp": "2026-01-18T03:36:55.669",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_48425466",
     "data": {
-      "Reputation": -20,
-      "NewStanding": "Unfriendly",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
+      "QuestType": "Side",
+      "QuestId": "side_001",
+      "Duration": 0.00012452166666666666,
+      "Rewards": {
+        "Experience": 0,
+        "Items": [],
+        "Credits": 0,
+        "Reputation": {}
+      },
+      "Name": "Side Job"
     },
-    "id": "ps_20260117_194149_c5322ce7"
+    "type": "QuestCompleted"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.986",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.683",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_541f3c8b",
     "data": {
-      "Timestamp": "2026-01-17T19:41:49.9867202+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+      "VendorType": "BlackMarket",
+      "ShopId": "weapons_dealer",
+      "FactionId": "",
+      "Name": "Weapons R Us"
+    },
+    "type": "ShopCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.687",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_59ae4acd",
+    "data": {
+      "VendorType": "StreetVendor",
+      "ShopId": "test_shop",
+      "FactionId": "",
+      "Name": "Test Shop"
+    },
+    "type": "ShopCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.689",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_d12c634c",
+    "data": {
+      "NewBalance": 1500,
+      "Amount": 500,
+      "Source": "Unknown"
+    },
+    "type": "CurrencyChanged"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.693",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_3e3f731c",
+    "data": {
+      "ItemName": "Test Item",
+      "Quantity": 1,
+      "Source": "Purchased from Test Shop",
+      "ItemId": "item_01"
+    },
+    "type": "ItemAcquired"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.695",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_e6790943",
+    "data": {
+      "ItemName": "Test Item",
+      "Quantity": 1,
+      "TotalPrice": 100,
+      "ShopId": "test_shop",
+      "ItemId": "item_01"
+    },
+    "type": "ItemPurchased"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.703",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_4a7747cd",
+    "data": {
+      "DroneId": "drone_f3975891",
+      "IsEnemy": false,
+      "OwnerId": "player",
+      "Type": "Scout"
+    },
+    "type": "DroneCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.705",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_267821d5",
+    "data": {
+      "OldStatus": "Idle",
+      "DroneId": "drone_f3975891",
+      "NewStatus": "Deployed"
+    },
+    "type": "DroneStatusChanged"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.706",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_b3957c31",
+    "data": {
+      "Position": {
+        "X": 100,
+        "Z": 50,
+        "Y": 100
+      },
+      "DroneId": "drone_f3975891",
+      "Type": "Scout"
+    },
+    "type": "DroneDeployed"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.715",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_08743fb6",
+    "data": {
+      "DroneId": "drone_ce4d57f3",
+      "IsEnemy": false,
+      "OwnerId": "player",
+      "Type": "Scout"
+    },
+    "type": "DroneCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.717",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_23773f2c",
+    "data": {
+      "OldStatus": "Idle",
+      "DroneId": "drone_ce4d57f3",
+      "NewStatus": "Deployed"
+    },
+    "type": "DroneStatusChanged"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.718",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_aecbd7a4",
+    "data": {
+      "Position": {
+        "X": 0,
+        "Z": 50,
+        "Y": 0
+      },
+      "DroneId": "drone_ce4d57f3",
+      "Type": "Scout"
+    },
+    "type": "DroneDeployed"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.719",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_13206db3",
+    "data": {
+      "Action": "Scan",
+      "DroneId": "drone_ce4d57f3",
+      "Result": {
+        "Action": "Scan",
+        "EnergyRemaining": 85,
+        "Time": "2026-01-18T03:36:55.7197081+00:00",
+        "Position": {
+          "X": 0,
+          "Z": 50,
+          "Y": 0
+        },
+        "DroneId": "drone_ce4d57f3",
+        "Success": true,
+        "Message": "Scan complete. Radius: 200",
+        "ScanRadius": 200
       }
     },
-    "id": "ps_20260117_194149_9ab5d570"
+    "type": "DroneActionExecuted"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.990",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.723",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_a3d6edb0",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
+      "DroneId": "enemy_01",
+      "IsEnemy": true,
+      "OwnerId": "player",
+      "Type": "Combat"
     },
-    "id": "ps_20260117_194149_8f8c3125"
+    "type": "DroneCreated"
   },
   {
-    "timestamp": "2026-01-17T19:41:49.993",
-    "type": "FactionStandingChanged",
+    "timestamp": "2026-01-18T03:36:55.725",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_78f908c1",
     "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
+      "DroneId": "enemy_01",
+      "NewOwner": "player",
+      "DroneType": "Combat"
     },
-    "id": "ps_20260117_194149_20d78aef"
+    "type": "DroneOverridden"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.006",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.737",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_ed2bf4b4",
     "data": {
-      "Timestamp": "2026-01-17T19:41:50.0063681+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.741",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_d2a65533",
+    "data": {
+      "DistrictId": "",
+      "Type": "Shop",
+      "LocationId": "market_district",
+      "Name": "Market District"
+    },
+    "type": "location.created"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.744",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_e5a2e957",
+    "data": {
+      "VendorType": "StreetVendor",
+      "ShopId": "market_shop",
+      "FactionId": "",
+      "Name": "Market Vendor"
+    },
+    "type": "ShopCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.748",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_b26fbb75",
+    "data": {
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.755",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_838024b4",
+    "data": {
+      "DistrictId": "",
+      "Type": "Workshop",
+      "LocationId": "tech_hub",
+      "Name": "Tech Hub"
+    },
+    "type": "location.created"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.757",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_2dd2ea5b",
+    "data": {
+      "Type": "PublicTerminal",
+      "TerminalId": "hub_terminal",
+      "LocationId": "tech_hub"
+    },
+    "type": "TerminalCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.764",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_b6de05cb",
+    "data": {
+      "Type": "CorporateTerminal",
+      "TerminalId": "secure_01",
+      "LocationId": ""
+    },
+    "type": "TerminalCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.766",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_a8d96efb",
+    "data": {
+      "XP": 150,
+      "TerminalId": "secure_01",
+      "HackerId": "netrunner1"
+    },
+    "type": "HackSucceeded"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.769",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_a45a1a2c",
+    "data": {
+      "Type": "PublicTerminal",
+      "TerminalId": "prog_term",
+      "LocationId": ""
+    },
+    "type": "TerminalCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.772",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_c381e545",
+    "data": {
+      "XP": 25,
+      "TerminalId": "prog_term",
+      "HackerId": "player"
+    },
+    "type": "HackSucceeded"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.784",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_ae790531",
+    "data": {
+      "Timestamp": "2026-01-18T03:36:55.7842726+00:00",
       "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
       }
     },
-    "id": "ps_20260117_194150_0d627b22"
+    "type": "QuestSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.009",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.786",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_0ee456ee",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194150_ec975b1d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.012",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": -100,
-      "NewStanding": "Hostile",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_65aab7fd"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.021",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.0215371+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.7862479+00:00",
       "Configuration": {
+        "ReputationDecayEnabled": false,
         "ReputationDecayRate": 1,
+        "MinReputation": -1000,
         "RivalrySpreadFactor": 0.5,
         "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+        "MaxReputation": 1000,
+        "DefaultPlayerReputation": 0
+      },
+      "FactionTypes": [
+        "YoungTeam",
+        "Player",
+        "Corporation",
+        "Syndicate",
+        "Crew",
+        "Independent",
+        "Underground"
+      ]
+    },
+    "type": "FactionSystemInitialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.789",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_706584b9",
+    "data": {
+      "Type": "Independent",
+      "FactionId": "fixers",
+      "Name": "Fixers Network"
+    },
+    "type": "FactionCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.792",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_eec57a8c",
+    "data": {
+      "QuestType": "Faction",
+      "ObjectiveCount": 0,
+      "QuestId": "fixer_job",
+      "Name": "Fixer Job"
+    },
+    "type": "QuestStarted"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.794",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_4666e6d6",
+    "data": {
+      "QuestType": "Faction",
+      "QuestId": "fixer_job",
+      "Duration": 4.061E-05,
+      "Rewards": {
+        "Experience": 0,
+        "Items": [],
+        "Credits": 0,
+        "Reputation": {}
+      },
+      "Name": "Fixer Job"
+    },
+    "type": "QuestCompleted"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.806",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_4c9aa8c0",
+    "data": {
+      "DroneId": "player_combat",
+      "IsEnemy": false,
+      "OwnerId": "player",
+      "Type": "Combat"
+    },
+    "type": "DroneCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.808",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_30d1fbf7",
+    "data": {
+      "DroneId": "enemy_combat",
+      "IsEnemy": true,
+      "OwnerId": "player",
+      "Type": "Combat"
+    },
+    "type": "DroneCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.809",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_918606ca",
+    "data": {
+      "Action": "Attack",
+      "DroneId": "player_combat",
+      "Result": {
+        "Action": "Attack",
+        "Damage": 25,
+        "EnergyRemaining": 70,
+        "TargetId": "enemy_combat",
+        "Time": "2026-01-18T03:36:55.8096072+00:00",
+        "IsCritical": false,
+        "DroneId": "player_combat",
+        "Success": true
       }
     },
-    "id": "ps_20260117_194150_d98d4a0c"
+    "type": "DroneActionExecuted"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.024",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.814",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_fd2b758f",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
+      "DroneId": "event_drone",
+      "IsEnemy": false,
+      "OwnerId": "player",
+      "Type": "Scout"
     },
-    "id": "ps_20260117_194150_644df699"
+    "type": "DroneCreated"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.027",
-    "type": "FactionStandingChanged",
+    "timestamp": "2026-01-18T03:36:55.816",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_35bce828",
     "data": {
-      "Reputation": -30,
-      "NewStanding": "Unfriendly",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
+      "OldStatus": "Idle",
+      "DroneId": "event_drone",
+      "NewStatus": "Deployed"
     },
-    "id": "ps_20260117_194150_53aaa146"
+    "type": "DroneStatusChanged"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.033",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.824",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_43116982",
     "data": {
-      "Timestamp": "2026-01-17T19:41:50.0331291+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Weather": "Clear",
+      "StartTime": "2042-06-15T18:00:00"
+    },
+    "type": "world.initialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.826",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_cecc4fa5",
+    "data": {
+      "Timestamp": "2026-01-18T03:36:55.8266223+00:00",
       "Configuration": {
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
+      }
+    },
+    "type": "QuestSystemInitialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.829",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_d4aaeae2",
+    "data": {
+      "Timestamp": "2026-01-18T03:36:55.829585+00:00",
+      "Configuration": {
+        "ReputationDecayEnabled": false,
         "ReputationDecayRate": 1,
+        "MinReputation": -1000,
         "RivalrySpreadFactor": 0.5,
         "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_c76b745c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.035",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194150_a9f63929"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.050",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.0504256+00:00",
+        "MaxReputation": 1000,
+        "DefaultPlayerReputation": 0
+      },
       "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
         "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_560bc46b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.054",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194150_da2496db"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.058",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_9750f10e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.069",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.0692044+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
         "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_27100333"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.073",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194150_0cce1223"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.076",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 100,
-      "NewStanding": "Allied",
-      "FactionId": "rep_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_12043f04"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.090",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.0909319+00:00",
-      "FactionTypes": [
         "Corporation",
-        "Underground",
-        "Crew",
         "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_4ed021f0"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.094",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "rep_test",
-      "Name": "Rep Test"
-    },
-    "id": "ps_20260117_194150_b36207fe"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.097",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "corp_rep",
-      "Name": "Corp"
-    },
-    "id": "ps_20260117_194150_e409a3fb"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.100",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "gang_rep",
-      "Name": "Gang"
-    },
-    "id": "ps_20260117_194150_d4fce3bd"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.108",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "corp_rep",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_4373b546"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.113",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": -30,
-      "NewStanding": "Unfriendly",
-      "FactionId": "gang_rep",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_ddd734bb"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.135",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.1349601+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
         "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
+        "Independent",
+        "Underground"
+      ]
     },
-    "id": "ps_20260117_194150_e45fcc91"
+    "type": "FactionSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.137",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.833",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_ffc7b14d",
     "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
+      "DistrictId": "",
+      "Type": "Street",
+      "LocationId": "watson",
+      "Name": "Watson District"
     },
-    "id": "ps_20260117_194150_f32f6190"
+    "type": "location.created"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.140",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.836",
     "source": "powershell",
     "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_e2ca5d23"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.142",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
+    "id": "ps_20260118_033655_35e9b02d",
     "data": {
       "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
+      "FactionId": "maelstrom",
+      "Name": "Maelstrom"
     },
-    "id": "ps_20260117_194150_68237f10"
+    "type": "FactionCreated"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.145",
-    "type": "FactionRelationshipChanged",
+    "timestamp": "2026-01-18T03:36:55.842",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_22c2d91a",
     "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Hostile"
+      "VendorType": "BlackMarket",
+      "ShopId": "watson_arms",
+      "FactionId": "",
+      "Name": "Watson Arms Dealer"
     },
-    "id": "ps_20260117_194150_fdd6242f"
+    "type": "ShopCreated"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.152",
-    "type": "FactionSystemInitialized",
+    "timestamp": "2026-01-18T03:36:55.844",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_2baa4307",
     "data": {
-      "Timestamp": "2026-01-17T19:41:50.152445+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+      "Type": "PublicTerminal",
+      "TerminalId": "watson_access",
+      "LocationId": "watson"
+    },
+    "type": "TerminalCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.846",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_eb3cb796",
+    "data": {
+      "QuestType": "Faction",
+      "ObjectiveCount": 0,
+      "QuestId": "gang_war",
+      "Name": "Gang War"
+    },
+    "type": "QuestStarted"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.849",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_11dd61a7",
+    "data": {
+      "DroneId": "drone_ef2f007a",
+      "IsEnemy": false,
+      "OwnerId": "player",
+      "Type": "Scout"
+    },
+    "type": "DroneCreated"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.851",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_3783cca2",
+    "data": {
+      "OldStatus": "Idle",
+      "DroneId": "drone_ef2f007a",
+      "NewStatus": "Deployed"
+    },
+    "type": "DroneStatusChanged"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.853",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_ff1373f1",
+    "data": {
+      "Position": {
+        "X": 50,
+        "Z": 100,
+        "Y": 50
+      },
+      "DroneId": "drone_ef2f007a",
+      "Type": "Scout"
+    },
+    "type": "DroneDeployed"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.855",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_7e435578",
+    "data": {
+      "Action": "Scan",
+      "DroneId": "drone_ef2f007a",
+      "Result": {
+        "Action": "Scan",
+        "EnergyRemaining": 85,
+        "Time": "2026-01-18T03:36:55.855014+00:00",
+        "Position": {
+          "X": 50,
+          "Z": 100,
+          "Y": 50
+        },
+        "DroneId": "drone_ef2f007a",
+        "Success": true,
+        "Message": "Scan complete. Radius: 200",
+        "ScanRadius": 200
       }
     },
-    "id": "ps_20260117_194150_1ab04377"
+    "type": "DroneActionExecuted"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.155",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.858",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_97a76b57",
     "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
+      "XP": 25,
+      "TerminalId": "watson_access",
+      "HackerId": "player"
     },
-    "id": "ps_20260117_194150_73ebd54f"
+    "type": "HackSucceeded"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.161",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.865",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_0dceb084",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
+      "QuestType": "Faction",
+      "QuestId": "gang_war",
+      "Duration": 0.00032013666666666664,
+      "Rewards": {
+        "Experience": 0,
+        "Items": [],
+        "Credits": 0,
+        "Reputation": {}
+      },
+      "Name": "Gang War"
     },
-    "id": "ps_20260117_194150_b2e35dd9"
+    "type": "QuestCompleted"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.165",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.868",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_91e5e912",
     "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
+      "NewBalance": 3000,
+      "Amount": 2000,
+      "Source": "Unknown"
     },
-    "id": "ps_20260117_194150_c635ca8a"
+    "type": "CurrencyChanged"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.168",
-    "type": "FactionRelationshipChanged",
+    "timestamp": "2026-01-18T03:36:55.870",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_e47b3312",
     "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "AtWar"
+      "ItemName": "Street SMG",
+      "Quantity": 1,
+      "Source": "Purchased from Watson Arms Dealer",
+      "ItemId": "smg_01"
     },
-    "id": "ps_20260117_194150_bf63a150"
+    "type": "ItemAcquired"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.172",
-    "type": "FactionRelationshipChanged",
+    "timestamp": "2026-01-18T03:36:55.872",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_108885d8",
     "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Hostile"
+      "ItemName": "Street SMG",
+      "Quantity": 1,
+      "TotalPrice": 900,
+      "ShopId": "watson_arms",
+      "ItemId": "smg_01"
     },
-    "id": "ps_20260117_194150_bfe9acbb"
+    "type": "ItemPurchased"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.178",
-    "type": "FactionRelationshipChanged",
+    "timestamp": "2026-01-18T03:36:55.880",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_c32fbf65",
     "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Rival"
+      "RemainingEnergy": 85,
+      "DroneId": "drone_ef2f007a",
+      "FlightTime": 0.0004763116666666667,
+      "Type": "Scout"
     },
-    "id": "ps_20260117_194150_16d2e3d0"
+    "type": "DroneRecalled"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.181",
-    "type": "FactionRelationshipChanged",
+    "timestamp": "2026-01-18T03:36:55.888",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_c77dd52f",
     "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Neutral"
-    },
-    "id": "ps_20260117_194150_76d56c13"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.183",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Friendly"
-    },
-    "id": "ps_20260117_194150_006fdc1e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.186",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Allied"
-    },
-    "id": "ps_20260117_194150_0e8c8813"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.197",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.1976465+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.8882266+00:00",
       "Configuration": {
+        "ReputationDecayEnabled": false,
         "ReputationDecayRate": 1,
+        "MinReputation": -1000,
         "RivalrySpreadFactor": 0.5,
         "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_5fbc769d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.200",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_6ac143d8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.203",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_2cbff07c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.206",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_7bd92359"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.212",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "AtWar"
-    },
-    "id": "ps_20260117_194150_841a2a7e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.219",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.2192032+00:00",
+        "MaxReputation": 1000,
+        "DefaultPlayerReputation": 0
+      },
       "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
         "YoungTeam",
-        "Independent"
-      ],
+        "Player",
+        "Corporation",
+        "Syndicate",
+        "Crew",
+        "Independent",
+        "Underground"
+      ]
+    },
+    "type": "FactionSystemInitialized"
+  },
+  {
+    "timestamp": "2026-01-18T03:36:55.915",
+    "source": "powershell",
+    "priority": "Normal",
+    "id": "ps_20260118_033655_c3ebb143",
+    "data": {
+      "Timestamp": "2026-01-18T03:36:55.9158151+00:00",
       "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
       }
     },
-    "id": "ps_20260117_194150_f9f85e77"
+    "type": "QuestSystemInitialized"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.221",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.928",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_5b08dcef",
     "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
+      "QuestType": "Side",
+      "ObjectiveCount": 0,
+      "QuestId": "orphan_quest",
+      "Name": "Orphan Quest"
     },
-    "id": "ps_20260117_194150_6b42eb96"
+    "type": "QuestStarted"
   },
   {
-    "timestamp": "2026-01-17T19:41:50.224",
-    "type": "FactionCreated",
+    "timestamp": "2026-01-18T03:36:55.932",
     "source": "powershell",
     "priority": "Normal",
+    "id": "ps_20260118_033655_66ec58a3",
     "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_cf8734eb"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.229",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_956942c4"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.235",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.2356948+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
+      "Timestamp": "2026-01-18T03:36:55.9328609+00:00",
       "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
+        "EnableTimeLimit": true,
+        "MaxTrackedQuests": 5,
+        "MaxActiveQuests": 20,
+        "DefaultTimeLimitHours": 24,
+        "AutoTrackNewQuests": true,
+        "QuestMarkerColor": "#FFD700",
+        "ObjectiveMarkerColor": "#00FF00",
+        "ShowQuestNotifications": true
       }
     },
-    "id": "ps_20260117_194150_2638b7ec"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.238",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_1caa727f"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.240",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_170541ea"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.242",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_6cbf4f56"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.247",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Allied"
-    },
-    "id": "ps_20260117_194150_c71c4ba7"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.259",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.2593669+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_a25dbe54"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.262",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_2834a738"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.264",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_173b3e00"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.270",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_6b64d642"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.273",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Hostile"
-    },
-    "id": "ps_20260117_194150_b5c2dcf2"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.275",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionC",
-      "Relationship": "Allied"
-    },
-    "id": "ps_20260117_194150_3340bbf4"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.287",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.2873657+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_ab87e8ff"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.290",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_04d4746b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.296",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_fd70f522"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.301",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_69ec1c28"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.304",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "AtWar"
-    },
-    "id": "ps_20260117_194150_c74b1ce1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.309",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.3094879+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_ab7def5c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.312",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_6a06306d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.314",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_76842f8d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.320",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_121eb2e1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.323",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Hostile"
-    },
-    "id": "ps_20260117_194150_10f66989"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.330",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.3300172+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_c0927b99"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.332",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_0a6132de"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.339",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_2c249475"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.344",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_30a768f1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.356",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.3566106+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_a2468ce1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.359",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_27f5ab4b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.361",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_00dd438f"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.364",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_cc37afc1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.370",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Allied"
-    },
-    "id": "ps_20260117_194150_9e997517"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.377",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.3775245+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_5e685044"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.382",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_dc809035"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.384",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_ffd218a0"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.387",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_28c45257"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.393",
-    "type": "FactionRelationshipChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "FactionA": "factionA",
-      "FactionB": "factionB",
-      "Relationship": "Friendly"
-    },
-    "id": "ps_20260117_194150_8eda8f3c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.399",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.3990885+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_172faf99"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.402",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "factionA",
-      "Name": "Faction A"
-    },
-    "id": "ps_20260117_194150_a2eba05d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.404",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "factionB",
-      "Name": "Faction B"
-    },
-    "id": "ps_20260117_194150_86984f74"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.410",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "factionC",
-      "Name": "Faction C"
-    },
-    "id": "ps_20260117_194150_d9195b1a"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.421",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.4218813+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_b6c0e29d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.424",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_16cda2f5"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.426",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_8fdadc4a"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.435",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "north_block",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_a1a12f32"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.442",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.4425969+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_69c7b475"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.447",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_a61d6f87"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.450",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_e697ff9b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.453",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "east_side",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_4fd14004"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.465",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.4655076+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_798c7439"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.468",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_19d7df7c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.470",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_98458cc1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.476",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "test_zone",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_962c5c22"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.482",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.4826416+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_c4fc8c3d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.485",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_182f9ced"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.491",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_0b586e5a"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.502",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.5028618+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_298eace7"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.505",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_a4184868"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.508",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_b36b52a9"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.516",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "zone1",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_ddd643c2"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.518",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "zone2",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_3600562d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.532",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.5320491+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_b63a7d31"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.534",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_f7dea89f"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.537",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_f9110b2e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.540",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "contested",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_6a4fecef"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.548",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": "terr_faction1",
-      "TerritoryId": "contested",
-      "NewController": "terr_faction2"
-    },
-    "id": "ps_20260117_194150_1cffa6d3"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.557",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.5573994+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_bdad74bd"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.559",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "terr_faction1",
-      "Name": "Faction 1"
-    },
-    "id": "ps_20260117_194150_6bf6cc5b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.562",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "terr_faction2",
-      "Name": "Faction 2"
-    },
-    "id": "ps_20260117_194150_c8277aca"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.567",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "takeover_zone",
-      "NewController": "terr_faction1"
-    },
-    "id": "ps_20260117_194150_0c495f02"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.569",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": "terr_faction1",
-      "TerritoryId": "takeover_zone",
-      "NewController": "terr_faction2"
-    },
-    "id": "ps_20260117_194150_e83b17ec"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.585",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.5857374+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_a4fbc222"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.588",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_56feb2e1"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.591",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "effects_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_1219b02f"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.605",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.605828+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_1e9840fd"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.608",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_0265b411"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.612",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "effects_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_005327df"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.619",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.6189657+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_573b0d31"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.624",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_899b2a2c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.626",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": -100,
-      "NewStanding": "Hostile",
-      "FactionId": "effects_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_f4058334"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.641",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.6413934+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_d348a26c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.644",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_1a1d3080"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.650",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.6504289+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_97513a1a"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.656",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_48338f97"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.659",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": -100,
-      "NewStanding": "Hostile",
-      "FactionId": "effects_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_cbf805b6"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.668",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.6687001+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_2b5455df"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.674",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_4c8d9c95"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.683",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 100,
-      "NewStanding": "Allied",
-      "FactionId": "effects_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_0cd76d1d"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.689",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.6892812+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_53b80f4b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.693",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "effects_test",
-      "Name": "Effects Test"
-    },
-    "id": "ps_20260117_194150_6529caec"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.701",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": -100,
-      "NewStanding": "Hostile",
-      "FactionId": "effects_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_40990769"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.714",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.7138596+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_17cb9c36"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.718",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "event_faction",
-      "Name": "Event Faction"
-    },
-    "id": "ps_20260117_194150_12157071"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.734",
-    "type": "ReputationChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Change": 25,
-      "NewStanding": "Neutral",
-      "FactionId": "event_faction",
-      "Reason": "Quest completed: Test Quest",
-      "NewReputation": 25
-    },
-    "id": "ps_20260117_194150_0f0326db"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.743",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.7430079+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_b2be9e5e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.747",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "event_faction",
-      "Name": "Event Faction"
-    },
-    "id": "ps_20260117_194150_246ed024"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.756",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "event_faction",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_be635645"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.766",
-    "type": "ReputationChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Change": -15,
-      "NewStanding": "Friendly",
-      "FactionId": "event_faction",
-      "Reason": "Quest failed: Failed Quest",
-      "NewReputation": 35
-    },
-    "id": "ps_20260117_194150_00514e3e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.772",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.7724408+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_99845a1c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.775",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "event_faction",
-      "Name": "Event Faction"
-    },
-    "id": "ps_20260117_194150_c5b29001"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.780",
-    "type": "ReputationChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Change": 5,
-      "NewStanding": "Neutral",
-      "FactionId": "event_faction",
-      "Reason": "Killed faction member",
-      "NewReputation": 5
-    },
-    "id": "ps_20260117_194150_e4512c71"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.813",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.8137943+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_0c867d3e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.816",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "export_test",
-      "Name": "Export Test"
-    },
-    "id": "ps_20260117_194150_36ac3f9e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.820",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "export_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_27530177"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.823",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "export_zone",
-      "NewController": "export_test"
-    },
-    "id": "ps_20260117_194150_ec632169"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.837",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.8370349+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_a6764314"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.841",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "export_test",
-      "Name": "Export Test"
-    },
-    "id": "ps_20260117_194150_0efb5e45"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.844",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "export_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_f00e0364"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.852",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "export_zone",
-      "NewController": "export_test"
-    },
-    "id": "ps_20260117_194150_7967415a"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.859",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.8593032+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_4b75dfa3"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.868",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "export_test",
-      "Name": "Export Test"
-    },
-    "id": "ps_20260117_194150_29be0c6e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.871",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "export_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_d85da9e8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.874",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "export_zone",
-      "NewController": "export_test"
-    },
-    "id": "ps_20260117_194150_e2194c37"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.886",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.8860708+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_db0cd25e"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.894",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "export_test",
-      "Name": "Export Test"
-    },
-    "id": "ps_20260117_194150_f70db543"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.897",
-    "type": "FactionStandingChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Reputation": 50,
-      "NewStanding": "Friendly",
-      "FactionId": "export_test",
-      "OldStanding": "Neutral"
-    },
-    "id": "ps_20260117_194150_6a732c8a"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.903",
-    "type": "TerritoryControlChanged",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "OldController": null,
-      "TerritoryId": "export_zone",
-      "NewController": "export_test"
-    },
-    "id": "ps_20260117_194150_8082a754"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.913",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.9135911+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_3f486eff"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.933",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.9338105+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_30bf1b85"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.936",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Corporation",
-      "FactionId": "nexus_corp",
-      "Name": "Nexus Corporation"
-    },
-    "id": "ps_20260117_194150_4daa67f8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.950",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.9502629+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_7b12da6c"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.953",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Crew",
-      "FactionId": "black_ops",
-      "Name": "Black Ops Division"
-    },
-    "id": "ps_20260117_194150_dd17d240"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.961",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.9611814+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_59e5360b"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.964",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "Syndicate",
-      "FactionId": "jade_dragons",
-      "Name": "Jade Dragons"
-    },
-    "id": "ps_20260117_194150_e072d6e0"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.972",
-    "type": "FactionSystemInitialized",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Timestamp": "2026-01-17T19:41:50.9726155+00:00",
-      "FactionTypes": [
-        "Corporation",
-        "Underground",
-        "Crew",
-        "Syndicate",
-        "Player",
-        "YoungTeam",
-        "Independent"
-      ],
-      "Configuration": {
-        "ReputationDecayRate": 1,
-        "RivalrySpreadFactor": 0.5,
-        "RivalryReputationSpread": true,
-        "ReputationDecayEnabled": false,
-        "DefaultPlayerReputation": 0,
-        "MinReputation": -1000,
-        "MaxReputation": 1000
-      }
-    },
-    "id": "ps_20260117_194150_909f63e8"
-  },
-  {
-    "timestamp": "2026-01-17T19:41:50.975",
-    "type": "FactionCreated",
-    "source": "powershell",
-    "priority": "Normal",
-    "data": {
-      "Type": "YoungTeam",
-      "FactionId": "eastend_razors",
-      "Name": "Eastend Razors"
-    },
-    "id": "ps_20260117_194150_bab59a34"
+    "type": "QuestSystemInitialized"
   }
 ]
