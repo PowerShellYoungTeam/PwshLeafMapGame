@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Movement Demo - PwshLeafMapGame</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eaeaea;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .controls {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #00a8cc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        select {
+            background: #2d2d44;
+            color: #eaeaea;
+            border: 2px solid #667eea;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .info-panel {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 1rem;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: #a0a0b0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        #map {
+            flex: 1;
+            position: relative;
+        }
+
+        #sidebar {
+            width: 300px;
+            background: #16213e;
+            padding: 1.5rem;
+            overflow-y: auto;
+            border-left: 2px solid #667eea;
+        }
+
+        #sidebar h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        #instructions {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        #instructions h4 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        #instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #instructions li {
+            padding: 0.4rem 0;
+            color: #c0c0d0;
+            line-height: 1.5;
+        }
+
+        #instructions li:before {
+            content: "▸ ";
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        #pathInfo {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #00d4ff;
+            margin-top: 1rem;
+        }
+
+        #pathInfo h4 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #a0a0b0;
+        }
+
+        .stat-value {
+            color: #eaeaea;
+            font-weight: 600;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: rgba(26, 26, 46, 0.95);
+            color: #eaeaea;
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+        }
+
+        .leaflet-popup-content {
+            margin: 1rem;
+        }
+
+        .leaflet-popup-tip {
+            background: rgba(26, 26, 46, 0.95);
+            border: 2px solid #00d4ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>🎮 Player Movement Demo</h1>
+            <div class="controls">
+                <button id="centerPlayer">Center on Player</button>
+                <label style="color: white; margin-left: 1rem;">Travel Mode:</label>
+                <select id="travelMode">
+                    <option value="foot">🚶 On Foot</option>
+                    <option value="car">🚗 Car</option>
+                    <option value="motorcycle">🏍️ Motorcycle</option>
+                    <option value="van">🚐 Van</option>
+                    <option value="aerial">🚁 Aerial</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="info-panel">
+            <div class="info-item">
+                <span class="info-label">Position</span>
+                <span class="info-value" id="positionDisplay">---, ---</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Travel Mode</span>
+                <span class="info-value" id="modeDisplay">On Foot</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="info-value" id="statusDisplay">Ready</span>
+            </div>
+        </div>
+
+        <main>
+            <div id="map"></div>
+            <div id="sidebar">
+                <h3>Instructions</h3>
+                <div id="instructions">
+                    <h4>How to Play:</h4>
+                    <ul>
+                        <li>Click anywhere on the map to move</li>
+                        <li>Green marker is your player</li>
+                        <li>Path shows your route</li>
+                        <li>Choose travel mode for different speeds</li>
+                        <li>Short distances use direct paths</li>
+                        <li>Vehicles use road networks (OSRM)</li>
+                    </ul>
+                </div>
+
+                <div id="pathInfo" style="display: none;">
+                    <h4>Current Path</h4>
+                    <div class="stat">
+                        <span class="stat-label">Distance:</span>
+                        <span class="stat-value" id="pathDistance">--</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Duration:</span>
+                        <span class="stat-value" id="pathDuration">--</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Path Type:</span>
+                        <span class="stat-value" id="pathType">--</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Pathfinding module -->
+    <script src="js/pathfinding.js"></script>
+
+    <!-- Demo Script -->
+    <script>
+        // Simple demo without full game framework
+        let map = null;
+        let playerMarker = null;
+        let playerPosition = null;
+        let pathfindingManager = null;
+        let travelMode = 'foot';
+
+        // Initialize map
+        function initMap() {
+            // Create map centered on NYC
+            map = L.map('map').setView([40.7128, -74.0060], 13);
+
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Initialize pathfinding
+            pathfindingManager = new PathfindingManager(map);
+
+            // Create player marker
+            createPlayerMarker([40.7128, -74.0060]);
+
+            // Set up click-to-move
+            map.on('click', async (e) => {
+                const destination = e.latlng;
+                console.log(`Moving to [${destination.lat}, ${destination.lng}]`);
+
+                // Update status
+                document.getElementById('statusDisplay').textContent = 'Calculating path...';
+
+                // Find path
+                const path = await pathfindingManager.findPath(
+                    playerPosition,
+                    destination,
+                    travelMode
+                );
+
+                // Show path
+                pathfindingManager.showPath(path);
+
+                // Update path info
+                updatePathInfo(path);
+
+                // Start movement
+                document.getElementById('statusDisplay').textContent = 'Moving...';
+                pathfindingManager.animateMovement(
+                    playerMarker,
+                    path,
+                    5.0, // Speed multiplier
+                    () => {
+                        playerPosition = path.coordinates[path.coordinates.length - 1];
+                        updatePositionDisplay();
+                        document.getElementById('statusDisplay').textContent = 'Ready';
+
+                        // Clear path after arrival
+                        setTimeout(() => {
+                            pathfindingManager.clearPath();
+                            document.getElementById('pathInfo').style.display = 'none';
+                        }, 2000);
+                    }
+                );
+            });
+
+            console.log('Map initialized');
+        }
+
+        // Create player marker
+        function createPlayerMarker(latlng) {
+            playerPosition = L.latLng(latlng[0], latlng[1]);
+
+            const playerIcon = L.divIcon({
+                className: 'player-marker',
+                html: `<div style="
+                    background: radial-gradient(circle, #00ff00, #00aa00);
+                    border: 3px solid #ffffff;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+                    animation: pulse 2s infinite;
+                "></div>
+                <style>
+                    @keyframes pulse {
+                        0%, 100% { transform: scale(1); opacity: 1; }
+                        50% { transform: scale(1.2); opacity: 0.8; }
+                    }
+                </style>`,
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+            });
+
+            playerMarker = L.marker(playerPosition, {
+                icon: playerIcon,
+                zIndexOffset: 1000
+            }).addTo(map);
+
+            playerMarker.bindPopup('<strong>🎮 Player</strong><br>Click map to move');
+
+            updatePositionDisplay();
+        }
+
+        // Update position display
+        function updatePositionDisplay() {
+            if (playerPosition) {
+                const lat = playerPosition.lat.toFixed(4);
+                const lng = playerPosition.lng.toFixed(4);
+                document.getElementById('positionDisplay').textContent = `${lat}, ${lng}`;
+            }
+        }
+
+        // Update path info display
+        function updatePathInfo(path) {
+            document.getElementById('pathInfo').style.display = 'block';
+
+            const distanceKm = (path.distance / 1000).toFixed(2);
+            document.getElementById('pathDistance').textContent = `${distanceKm} km`;
+
+            const durationMin = Math.round(path.duration / 60);
+            document.getElementById('pathDuration').textContent = `${durationMin} min`;
+
+            const typeText = path.type === 'road' ? '🛣️ Road Network' : '➡️ Direct Line';
+            document.getElementById('pathType').textContent = typeText;
+        }
+
+        // Travel mode selection
+        document.getElementById('travelMode').addEventListener('change', (e) => {
+            travelMode = e.target.value;
+
+            const modeNames = {
+                'foot': '🚶 On Foot',
+                'car': '🚗 Car',
+                'motorcycle': '🏍️ Motorcycle',
+                'van': '🚐 Van',
+                'aerial': '🚁 Aerial'
+            };
+
+            document.getElementById('modeDisplay').textContent = modeNames[travelMode];
+            console.log(`Travel mode changed to: ${travelMode}`);
+        });
+
+        // Center on player button
+        document.getElementById('centerPlayer').addEventListener('click', () => {
+            if (playerPosition) {
+                map.setView(playerPosition, map.getZoom());
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initMap();
+        });
+    </script>
+</body>
+
+</html>

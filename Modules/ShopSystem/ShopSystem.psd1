@@ -12,7 +12,7 @@
 RootModule = 'ShopSystem.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -69,7 +69,46 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+FunctionsToExport = @(
+    'Initialize-ShopSystem'
+    'Get-ShopSystemState'
+    'New-Item'
+    'Get-Item'
+    'Remove-Item'
+    'New-Shop'
+    'Get-Shop'
+    'Set-ShopOpen'
+    'Remove-Shop'
+    'Add-ShopInventory'
+    'Remove-ShopInventory'
+    'Get-ShopInventory'
+    'Restock-Shop'
+    'Get-ItemPrice'
+    'Get-ItemSellPrice'
+    'Set-SupplyModifier'
+    'Get-SupplyModifier'
+    'Get-PlayerInventory'
+    'Add-PlayerInventory'
+    'Remove-PlayerInventory'
+    'Test-HasItem'
+    'Get-PlayerCurrency'
+    'Add-PlayerCurrency'
+    'Remove-PlayerCurrency'
+    'Set-PlayerCurrency'
+    'Set-InventoryCapacity'
+    'Invoke-Purchase'
+    'Invoke-Sale'
+    'Get-TransactionHistory'
+    'Test-CanAccessShop'
+    'Get-AvailableShops'
+    'Process-ShopEvent'
+    'Export-ShopData'
+    'Import-ShopData'
+    'Get-VendorTypes'
+    'Get-RarityLevels'
+    'Get-ItemCategories'
+    'Get-StandingPriceModifiers'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'

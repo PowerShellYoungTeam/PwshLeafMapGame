@@ -12,7 +12,7 @@
 RootModule = 'TerminalSystem.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) Your Name. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PowerShell Leafmap RPG Game - TerminalSystem module'
+Description = 'TerminalSystem module for PowerShell Leafmap RPG Game - Provides hacking, terminals, network intrusion, data theft, ICE management, and security systems'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -69,7 +69,57 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+FunctionsToExport = @(
+    # Initialization
+    'Initialize-TerminalSystem'
+    
+    # Terminal Management
+    'New-Terminal'
+    'Get-Terminal'
+    'Set-TerminalActive'
+    'Remove-Terminal'
+    
+    # Network Management
+    'New-Network'
+    'Get-Network'
+    'Add-TerminalToNetwork'
+    'Remove-TerminalFromNetwork'
+    
+    # Hacking System
+    'Get-HackChance'
+    'Start-Hack'
+    'Invoke-DataTheft'
+    'Invoke-TerminalAction'
+    
+    # ICE Management
+    'Get-TerminalICE'
+    'Invoke-ICEBypass'
+    'Reset-TerminalICE'
+    
+    # Hacking Programs
+    'Get-HackingProgram'
+    'Add-HackingProgram'
+    'Remove-HackingProgram'
+    
+    # Security Alerts
+    'Get-SecurityAlert'
+    'Clear-SecurityAlert'
+    'Get-TraceLevel'
+    'Add-TraceLevel'
+    'Reduce-TraceLevel'
+    
+    # Hack History
+    'Get-HackHistory'
+    'Get-HackStatistics'
+    
+    # State Management
+    'Get-TerminalSystemState'
+    'Export-TerminalData'
+    'Import-TerminalData'
+    
+    # Event Processing
+    'Process-TerminalEvent'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'

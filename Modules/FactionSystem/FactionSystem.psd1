@@ -12,7 +12,7 @@
 RootModule = 'FactionSystem.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -21,13 +21,13 @@ ModuleVersion = '0.1.0'
 GUID = '8e0fb933-454f-4dc6-8b4b-b841df4ab1c5'
 
 # Author of this module
-Author = 'Your Name'
+Author = 'Steven Wight'
 
 # Company or vendor of this module
 CompanyName = 'Unknown'
 
 # Copyright statement for this module
-Copyright = '(c) Your Name. All rights reserved.'
+Copyright = '(c) Steven Wight. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'PowerShell Leafmap RPG Game - FactionSystem module'
@@ -69,16 +69,57 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+FunctionsToExport = @(
+    # Initialization
+    'Initialize-FactionSystem',
+    
+    # Faction Management
+    'New-Faction',
+    'Get-Faction',
+    'Set-FactionActive',
+    'Remove-Faction',
+    
+    # Reputation
+    'Get-Reputation',
+    'Set-Reputation',
+    'Add-Reputation',
+    'Get-AllReputations',
+    
+    # Relationships
+    'Set-FactionRelationship',
+    'Get-FactionRelationship',
+    'Get-FactionRelationships',
+    'Test-FactionsHostile',
+    'Test-FactionsAllied',
+    
+    # Territory
+    'Set-TerritoryControl',
+    'Get-TerritoryController',
+    'Get-FactionTerritories',
+    'Transfer-Territory',
+    
+    # Standing Effects
+    'Get-StandingEffects',
+    'Test-CanAccessFaction',
+    'Get-PriceModifier',
+    
+    # Events
+    'Process-FactionEvent',
+    
+    # State
+    'Get-FactionSystemState',
+    'Export-FactionData',
+    'Import-FactionData'
+)
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = '*'
+CmdletsToExport = @()
 
 # Variables to export from this module
-VariablesToExport = '*'
+VariablesToExport = @()
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-AliasesToExport = '*'
+AliasesToExport = @()
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

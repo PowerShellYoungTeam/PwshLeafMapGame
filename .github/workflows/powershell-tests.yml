@@ -2,24 +2,66 @@ name: PowerShell Tests
 
 on:
   push:
-    branches: [ main, 'feature/*', 'release/*' ]
+    branches: [ main, core-architecture, 'feature/*', 'release/*' ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, core-architecture ]
 
 jobs:
   test:
     runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
     
-    - name: Run Pester tests
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Validate Module Manifests
       shell: pwsh
       run: |
-        Install-Module Pester -Force -SkipPublisherCheck
-        Invoke-Pester -Path ./Tests -OutputFile test-results.xml -OutputFormat NUnitXml
-        
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
+        $manifests = Get-ChildItem -Path ./Modules -Filter "*.psd1" -Recurse
+        $failed = $false
+        foreach ($manifest in $manifests) {
+            Write-Host "Testing manifest: $($manifest.FullName)"
+            try {
+                Test-ModuleManifest -Path $manifest.FullName -ErrorAction Stop
+                Write-Host "  ✓ Valid" -ForegroundColor Green
+            } catch {
+                Write-Host "  ✗ Invalid: $_" -ForegroundColor Red
+                $failed = $true
+            }
+        }
+        if ($failed) { exit 1 }
+    
+    - name: Test Module Import
+      shell: pwsh
+      run: |
+        Write-Host "Importing CoreGame module..."
+        Import-Module ./Modules/CoreGame/CoreGame.psd1 -Force -DisableNameChecking -ErrorAction Stop
+        $exportedFunctions = (Get-Module CoreGame).ExportedFunctions.Count
+        Write-Host "CoreGame loaded with $exportedFunctions exported functions"
+        if ($exportedFunctions -lt 50) {
+            Write-Error "Expected at least 50 exported functions, got $exportedFunctions"
+            exit 1
+        }
+    
+    - name: Install Pester
+      shell: pwsh
+      run: |
+        Install-Module Pester -Force -SkipPublisherCheck -MinimumVersion 5.0
+        Import-Module Pester
+    
+    - name: Run Pester Tests
+      shell: pwsh
+      run: |
+        $config = New-PesterConfiguration
+        $config.Run.Path = "./Tests"
+        $config.Run.Exit = $true
+        $config.TestResult.Enabled = $true
+        $config.TestResult.OutputPath = "test-results.xml"
+        $config.TestResult.OutputFormat = "NUnitXml"
+        $config.Output.Verbosity = "Detailed"
+        Invoke-Pester -Configuration $config
+    
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: test-results.xml

@@ -5,47 +5,46 @@ using namespace System.Collections.Generic
 using namespace System.Collections.Concurrent
 using namespace System.IO.Compression
 
-# Import required modules
-Import-Module (Join-Path $PSScriptRoot "DataModels.psm1") -Force
-Import-Module (Join-Path $PSScriptRoot "EventSystem.psm1") -Force
+# NOTE: DataModels and EventSystem are loaded as NestedModules before this module
+# No Import-Module needed - the manifest handles load order
 
 # Global state management configuration
 $script:StateConfig = @{
-    SavesDirectory = ".\Data\Saves"
-    BackupsDirectory = ".\Data\Backups"
-    TempDirectory = ".\Data\Temp"
-    MaxSaveSlots = 10
-    MaxBackups = 5
-    AutoSaveInterval = 300  # 5 minutes in seconds
-    CompressionEnabled = $false
-    EncryptionEnabled = $false
-    SyncEnabled = $true
-    ConflictResolution = "LastWriteWins"  # LastWriteWins, Manual, Merge
-    StateValidation = $true
+    SavesDirectory        = ".\Data\Saves"
+    BackupsDirectory      = ".\Data\Backups"
+    TempDirectory         = ".\Data\Temp"
+    MaxSaveSlots          = 10
+    MaxBackups            = 5
+    AutoSaveInterval      = 300  # 5 minutes in seconds
+    CompressionEnabled    = $false
+    EncryptionEnabled     = $false
+    SyncEnabled           = $true
+    ConflictResolution    = "LastWriteWins"  # LastWriteWins, Manual, Merge
+    StateValidation       = $true
     PerformanceMonitoring = $true
 }
 
 # Global state containers
 $script:GameState = @{
-    Current = @{}
-    Previous = @{}
-    Snapshots = @{}
-    ChangeLog = @()
-    SyncQueue = @()
+    Current          = @{}
+    Previous         = @{}
+    Snapshots        = @{}
+    ChangeLog        = @()
+    SyncQueue        = @()
     ValidationErrors = @()
 }
 
 # Performance metrics
 $script:StateMetrics = @{
-    SaveCount = 0
-    LoadCount = 0
-    SyncCount = 0
+    SaveCount       = 0
+    LoadCount       = 0
+    SyncCount       = 0
     AverageSaveTime = 0
     AverageLoadTime = 0
-    LastSaveSize = 0
-    TotalDataSize = 0
-    ErrorCount = 0
-    LastActivity = Get-Date
+    LastSaveSize    = 0
+    TotalDataSize   = 0
+    ErrorCount      = 0
+    LastActivity    = Get-Date
 }
 
 # State change tracking
@@ -72,13 +71,13 @@ class StateChangeTracker {
 
     [void] RecordChange([string]$Property, [object]$OldValue, [object]$NewValue, [string]$ChangeType = "Update") {
         $change = @{
-            Id = [System.Guid]::NewGuid().ToString()
-            Property = $Property
-            OldValue = $OldValue
-            NewValue = $NewValue
+            Id         = [System.Guid]::NewGuid().ToString()
+            Property   = $Property
+            OldValue   = $OldValue
+            NewValue   = $NewValue
             ChangeType = $ChangeType  # Create, Update, Delete
-            Timestamp = Get-Date
-            Source = "StateManager"
+            Timestamp  = Get-Date
+            Source     = "StateManager"
         }
 
         $this.Changes.Add($change)
@@ -90,10 +89,10 @@ class StateChangeTracker {
     [hashtable] GetChangesSince([DateTime]$Since) {
         $recentChanges = $this.Changes | Where-Object { $_.Timestamp -gt $Since }
         return @{
-            EntityId = $this.EntityId
-            EntityType = $this.EntityType
-            Changes = $recentChanges
-            ChangeCount = $recentChanges.Count
+            EntityId     = $this.EntityId
+            EntityType   = $this.EntityType
+            Changes      = $recentChanges
+            ChangeCount  = $recentChanges.Count
             LastModified = $this.LastModified
         }
     }
@@ -105,11 +104,11 @@ class StateChangeTracker {
 
     [hashtable] GetDiff() {
         $diff = @{
-            EntityId = $this.EntityId
+            EntityId   = $this.EntityId
             EntityType = $this.EntityType
-            Added = @{}
-            Modified = @{}
-            Removed = @{}
+            Added      = @{}
+            Modified   = @{}
+            Removed    = @{}
         }
 
         # Compare current state with original
@@ -260,12 +259,12 @@ class GameStateManager {
             $script:StateMetrics.LastActivity = Get-Date
 
             $result = @{
-                Success = $true
-                SaveFile = $saveFile
-                SaveSize = (Get-Item $saveFile).Length
-                SaveTime = $stopwatch.ElapsedMilliseconds
+                Success   = $true
+                SaveFile  = $saveFile
+                SaveSize  = (Get-Item $saveFile).Length
+                SaveTime  = $stopwatch.ElapsedMilliseconds
                 Timestamp = Get-Date
-                Entities = $this.Trackers.Count
+                Entities  = $this.Trackers.Count
             }
 
             # Send save event
@@ -275,9 +274,9 @@ class GameStateManager {
         }
         catch {
             $result = @{
-                Success = $false
-                Error = $_.Exception.Message
-                SaveTime = $stopwatch.ElapsedMilliseconds
+                Success   = $false
+                Error     = $_.Exception.Message
+                SaveTime  = $stopwatch.ElapsedMilliseconds
                 Timestamp = Get-Date
             }
 
@@ -331,12 +330,12 @@ class GameStateManager {
             $script:StateMetrics.LastActivity = Get-Date
 
             $result = @{
-                Success = $true
-                SaveFile = $saveFile
-                LoadTime = $stopwatch.ElapsedMilliseconds
+                Success   = $true
+                SaveFile  = $saveFile
+                LoadTime  = $stopwatch.ElapsedMilliseconds
                 Timestamp = Get-Date
-                Entities = $saveData.Entities.Count
-                SaveData = $saveData
+                Entities  = $saveData.Entities.Count
+                SaveData  = $saveData
             }
 
             Send-GameEvent -EventType "state.loaded" -Data $result
@@ -345,9 +344,9 @@ class GameStateManager {
         }
         catch {
             $result = @{
-                Success = $false
-                Error = $_.Exception.Message
-                LoadTime = $stopwatch.ElapsedMilliseconds
+                Success   = $false
+                Error     = $_.Exception.Message
+                LoadTime  = $stopwatch.ElapsedMilliseconds
                 Timestamp = Get-Date
             }
 
@@ -366,27 +365,27 @@ class GameStateManager {
 
         foreach ($tracker in $this.Trackers.Values) {
             $entities[$tracker.EntityId] = @{
-                EntityType = $tracker.EntityType
-                State = $tracker.CurrentState
-                Changes = $tracker.Changes
+                EntityType   = $tracker.EntityType
+                State        = $tracker.CurrentState
+                Changes      = $tracker.Changes
                 LastModified = $tracker.LastModified
-                IsDirty = $tracker.IsDirty
+                IsDirty      = $tracker.IsDirty
             }
         }
 
         return @{
-            Version = "1.0.0"
-            GameState = $script:GameState.Current.Clone()
-            Entities = $entities
-            Metadata = @{
-                SavedAt = Get-Date
-                GameVersion = "1.0.0"
-                Platform = "PowerShell"
-                PlayerCount = ($entities.Values | Where-Object { $_.EntityType -eq "Player" }).Count
+            Version        = "1.0.0"
+            GameState      = $script:GameState.Current.Clone()
+            Entities       = $entities
+            Metadata       = @{
+                SavedAt       = Get-Date
+                GameVersion   = "1.0.0"
+                Platform      = "PowerShell"
+                PlayerCount   = ($entities.Values | Where-Object { $_.EntityType -eq "Player" }).Count
                 TotalEntities = $entities.Count
             }
             AdditionalData = $AdditionalData
-            Performance = $script:StateMetrics.Clone()
+            Performance    = $script:StateMetrics.Clone()
         }
     }
 
@@ -451,7 +450,7 @@ class GameStateManager {
 
     [void] CleanupOldBackups() {
         $backups = Get-ChildItem $this.Configuration.BackupsDirectory -Filter "*.json" |
-                   Sort-Object LastWriteTime -Descending
+        Sort-Object LastWriteTime -Descending
 
         if ($backups.Count -gt $this.Configuration.MaxBackups) {
             $backupsToRemove = $backups | Select-Object -Skip $this.Configuration.MaxBackups
@@ -478,13 +477,15 @@ class GameStateManager {
 
             $tracker.LastModified = if ($entityData.LastModified) {
                 [DateTime]$entityData.LastModified
-            } else {
+            }
+            else {
                 Get-Date
             }
 
             $tracker.IsDirty = if ($null -ne $entityData.IsDirty) {
                 $entityData.IsDirty
-            } else {
+            }
+            else {
                 $false
             }
 
@@ -496,8 +497,8 @@ class GameStateManager {
 
     [hashtable] ValidateSaveData([hashtable]$SaveData) {
         $validation = @{
-            IsValid = $true
-            Errors = @()
+            IsValid  = $true
+            Errors   = @()
             Warnings = @()
         }
 
@@ -563,11 +564,11 @@ class GameStateManager {
     [hashtable] GetStateStatistics() {
         $stats = @{
             TrackedEntities = $this.Trackers.Count
-            DirtyEntities = ($this.Trackers.Values | Where-Object { $_.IsDirty }).Count
-            TotalChanges = ($this.Trackers.Values | ForEach-Object { $_.Changes.Count } | Measure-Object -Sum).Sum
-            Performance = $script:StateMetrics.Clone()
-            Configuration = $this.Configuration.Clone()
-            LastActivity = $script:StateMetrics.LastActivity
+            DirtyEntities   = ($this.Trackers.Values | Where-Object { $_.IsDirty }).Count
+            TotalChanges    = ($this.Trackers.Values | ForEach-Object { $_.Changes.Count } | Measure-Object -Sum).Sum
+            Performance     = $script:StateMetrics.Clone()
+            Configuration   = $this.Configuration.Clone()
+            LastActivity    = $script:StateMetrics.LastActivity
         }
 
         return $stats
@@ -600,12 +601,12 @@ function Sync-StateWithBrowser {
 
     try {
         $syncResult = @{
-            Success = $true
-            ConflictCount = 0
+            Success         = $true
+            ConflictCount   = 0
             UpdatedEntities = @()
-            Errors = @()
-            SyncTime = 0
-            Timestamp = Get-Date
+            Errors          = @()
+            SyncTime        = 0
+            Timestamp       = Get-Date
         }
 
         $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
@@ -632,8 +633,8 @@ function Sync-StateWithBrowser {
     }
     catch {
         $errorResult = @{
-            Success = $false
-            Error = $_.Exception.Message
+            Success   = $false
+            Error     = $_.Exception.Message
             Timestamp = Get-Date
         }
 
@@ -650,14 +651,14 @@ function Export-StateForBrowser {
 
     try {
         $exportData = @{
-            Version = "1.0.0"
+            Version   = "1.0.0"
             Timestamp = Get-Date
-            Entities = @{}
+            Entities  = @{}
             GameState = @{}
-            Metadata = @{
-                ExportedAt = Get-Date
+            Metadata  = @{
+                ExportedAt  = Get-Date
                 EntityCount = 0
-                Platform = "PowerShell"
+                Platform    = "PowerShell"
             }
         }
 
@@ -672,10 +673,10 @@ function Export-StateForBrowser {
         foreach ($entityId in $targetEntities) {
             $tracker = $Global:StateManager.Trackers[$entityId]
             $exportData.Entities[$entityId] = @{
-                EntityType = $tracker.EntityType
-                State = $tracker.CurrentState
+                EntityType   = $tracker.EntityType
+                State        = $tracker.CurrentState
                 LastModified = $tracker.LastModified
-                IsDirty = $tracker.IsDirty
+                IsDirty      = $tracker.IsDirty
             }
         }
 
@@ -762,9 +763,9 @@ function Import-StateFromBrowser {
         }
 
         $result = @{
-            Success = $true
+            Success          = $true
             ImportedEntities = $importedCount
-            Timestamp = Get-Date
+            Timestamp        = Get-Date
         }
 
         Send-GameEvent -EventType "state.browserImported" -Data $result
@@ -773,8 +774,8 @@ function Import-StateFromBrowser {
     }
     catch {
         $errorResult = @{
-            Success = $false
-            Error = $_.Exception.Message
+            Success   = $false
+            Error     = $_.Exception.Message
             Timestamp = Get-Date
         }
 
@@ -788,10 +789,10 @@ function Merge-BrowserState {
     param([hashtable]$BrowserState)
 
     $result = @{
-        Success = $true
-        ConflictCount = 0
+        Success         = $true
+        ConflictCount   = 0
         UpdatedEntities = @()
-        Errors = @()
+        Errors          = @()
     }
 
     foreach ($entityId in $BrowserState.Entities.Keys) {
@@ -809,8 +810,8 @@ function Merge-BrowserState {
 
                     if ($currentValue -ne $browserValue) {
                         $conflicts += @{
-                            Property = $property
-                            BrowserValue = $browserValue
+                            Property        = $property
+                            BrowserValue    = $browserValue
                             PowerShellValue = $currentValue
                         }
                     }
@@ -834,7 +835,7 @@ function Merge-BrowserState {
                         "Manual" {
                             # Store conflicts for manual resolution
                             $script:GameState.ValidationErrors += @{
-                                EntityId = $entityId
+                                EntityId  = $entityId
                                 Conflicts = $conflicts
                                 Timestamp = Get-Date
                             }
@@ -860,10 +861,10 @@ function Overwrite-WithBrowserState {
     param([hashtable]$BrowserState)
 
     $result = @{
-        Success = $true
-        ConflictCount = 0
+        Success         = $true
+        ConflictCount   = 0
         UpdatedEntities = @()
-        Errors = @()
+        Errors          = @()
     }
 
     foreach ($entityId in $BrowserState.Entities.Keys) {
@@ -886,10 +887,10 @@ function Validate-BrowserState {
     param([hashtable]$BrowserState)
 
     $result = @{
-        Success = $true
-        ConflictCount = 0
-        UpdatedEntities = @()
-        Errors = @()
+        Success          = $true
+        ConflictCount    = 0
+        UpdatedEntities  = @()
+        Errors           = @()
         ValidationResult = @{}
     }
 
@@ -921,8 +922,8 @@ function Initialize-StateManager {
         }
 
         return @{
-            Success = $true
-            Message = "State Manager initialized"
+            Success       = $true
+            Message       = "State Manager initialized"
             Configuration = $Global:StateManager.Configuration
         }
     }
@@ -946,10 +947,10 @@ function Register-GameEntity {
     $Global:StateManager.RegisterEntity($EntityId, $EntityType, $InitialState)
 
     return @{
-        Success = $true
-        EntityId = $EntityId
+        Success    = $true
+        EntityId   = $EntityId
         EntityType = $EntityType
-        Timestamp = Get-Date
+        Timestamp  = Get-Date
     }
 }
 
@@ -968,10 +969,10 @@ function Update-GameEntityState {
     $Global:StateManager.UpdateEntityState($EntityId, $Property, $Value, $ChangeType)
 
     return @{
-        Success = $true
-        EntityId = $EntityId
-        Property = $Property
-        Value = $Value
+        Success   = $true
+        EntityId  = $EntityId
+        Property  = $Property
+        Value     = $Value
         Timestamp = Get-Date
     }
 }
@@ -1016,10 +1017,10 @@ function Get-SaveFiles {
 
     $saveFiles = Get-ChildItem $savesDir -Filter "*.json" | ForEach-Object {
         @{
-            Name = $_.BaseName
+            Name     = $_.BaseName
             FullPath = $_.FullName
-            Size = $_.Length
-            Created = $_.CreationTime
+            Size     = $_.Length
+            Created  = $_.CreationTime
             Modified = $_.LastWriteTime
         }
     }
@@ -1030,7 +1031,7 @@ function Get-SaveFiles {
 # Enhanced Entity Integration Functions
 function Register-Entity {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [object]$Entity,
         [bool]$TrackChanges = $true
     )
@@ -1060,23 +1061,24 @@ function Register-Entity {
 
     $entityName = if ($Entity.PSObject.Methods.Name -contains "GetProperty") {
         $Entity.GetProperty("Name", "Unknown")
-    } else {
+    }
+    else {
         "Unknown"
     }
 
     Write-Verbose "Registered entity '$entityName' ($entityType) for state management"
 
     return @{
-        Success = $true
-        EntityId = $Entity.Id
+        Success    = $true
+        EntityId   = $Entity.Id
         EntityType = $entityType
-        Timestamp = Get-Date
+        Timestamp  = Get-Date
     }
 }
 
 function Enable-EntityChangeTracking {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [object]$Entity
     )
 
@@ -1095,7 +1097,8 @@ function Enable-EntityChangeTracking {
         if ($Global:StateManager) {
             try {
                 Update-GameEntityState -EntityId $this.Id -Property $PropertyName -Value $NewValue
-            } catch {
+            }
+            catch {
                 Write-Warning "Failed to update StateManager for property change: $($_.Exception.Message)"
             }
         }
@@ -1103,7 +1106,8 @@ function Enable-EntityChangeTracking {
 
     $entityName = if ($Entity.PSObject.Methods.Name -contains "GetProperty") {
         $Entity.GetProperty("Name", "Unknown")
-    } else {
+    }
+    else {
         "Unknown"
     }
 
@@ -1112,7 +1116,7 @@ function Enable-EntityChangeTracking {
 
 function Save-EntityCollection {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [hashtable]$Entities,
         [string]$SaveName = "default",
         [hashtable]$Metadata = @{}
@@ -1124,52 +1128,58 @@ function Save-EntityCollection {
 
     # Prepare entity data for saving
     $entityData = @{}
-        foreach ($entityType in $Entities.Keys) {
-            $entityData[$entityType] = @{}
-            foreach ($entity in $Entities[$entityType]) {
-                # Check if entity has required methods instead of type checking
-                if ($entity.PSObject.Methods.Name -contains "ToHashtable" -and $entity.PSObject.Properties.Name -contains "Id") {
-                    # Get entity data and ensure it's serialization-friendly
-                    $rawData = $entity.ToHashtable()
-                    $cleanData = @{}
+    foreach ($entityType in $Entities.Keys) {
+        $entityData[$entityType] = @{}
+        foreach ($entity in $Entities[$entityType]) {
+            # Check if entity has required methods instead of type checking
+            if ($entity.PSObject.Methods.Name -contains "ToHashtable" -and $entity.PSObject.Properties.Name -contains "Id") {
+                # Get entity data and ensure it's serialization-friendly
+                $rawData = $entity.ToHashtable()
+                $cleanData = @{}
 
-                    # Clean the data to avoid serialization issues
-                    foreach ($key in $rawData.Keys) {
-                        $value = $rawData[$key]
-                        # Skip complex objects that might cause serialization issues
-                        if ($value -is [string] -or $value -is [int] -or $value -is [bool] -or $value -is [datetime] -or $value -eq $null) {
-                            $cleanData[$key] = $value
-                        } elseif ($value -is [array]) {
-                            # Handle arrays by converting complex objects to simple ones
-                            $cleanArray = @()
-                            foreach ($item in $value) {
-                                if ($item -is [hashtable]) {
-                                    $cleanArray += $item
-                                } elseif ($item -is [string] -or $item -is [int] -or $item -is [bool]) {
-                                    $cleanArray += $item
-                                } else {
-                                    $cleanArray += $item.ToString()
-                                }
-                            }
-                            $cleanData[$key] = $cleanArray
-                        } elseif ($value -is [hashtable]) {
-                            $cleanData[$key] = $value
-                        } else {
-                            # Convert complex objects to string representation
-                            $cleanData[$key] = $value.ToString()
-                        }
+                # Clean the data to avoid serialization issues
+                foreach ($key in $rawData.Keys) {
+                    $value = $rawData[$key]
+                    # Skip complex objects that might cause serialization issues
+                    if ($value -is [string] -or $value -is [int] -or $value -is [bool] -or $value -is [datetime] -or $value -eq $null) {
+                        $cleanData[$key] = $value
                     }
-
-                    $entityData[$entityType][$entity.Id] = $cleanData
-                } else {
-                    Write-Warning "Skipping invalid entity object in collection: $entityType"
+                    elseif ($value -is [array]) {
+                        # Handle arrays by converting complex objects to simple ones
+                        $cleanArray = @()
+                        foreach ($item in $value) {
+                            if ($item -is [hashtable]) {
+                                $cleanArray += $item
+                            }
+                            elseif ($item -is [string] -or $item -is [int] -or $item -is [bool]) {
+                                $cleanArray += $item
+                            }
+                            else {
+                                $cleanArray += $item.ToString()
+                            }
+                        }
+                        $cleanData[$key] = $cleanArray
+                    }
+                    elseif ($value -is [hashtable]) {
+                        $cleanData[$key] = $value
+                    }
+                    else {
+                        # Convert complex objects to string representation
+                        $cleanData[$key] = $value.ToString()
+                    }
                 }
+
+                $entityData[$entityType][$entity.Id] = $cleanData
             }
-        }    # Include metadata
+            else {
+                Write-Warning "Skipping invalid entity object in collection: $entityType"
+            }
+        }
+    }    # Include metadata
     $saveData = @{
-        Entities = $entityData
-        Metadata = $Metadata
-        SavedAt = Get-Date
+        Entities    = $entityData
+        Metadata    = $Metadata
+        SavedAt     = Get-Date
         GameVersion = "1.0.0"
         EntityCount = ($entityData.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
     }
@@ -1217,7 +1227,8 @@ function Load-EntityCollection {
         if ($saveData.AdditionalData -and $saveData.AdditionalData.Entities) {
             $entitySource = $saveData.AdditionalData.Entities
             $sourceDescription = "Collection (AdditionalData)"
-        } elseif ($saveData.Entities) {
+        }
+        elseif ($saveData.Entities) {
             $entitySource = $saveData.Entities
             $sourceDescription = "StateManager tracked"
         }
@@ -1230,7 +1241,8 @@ function Load-EntityCollection {
         if ($firstKey -and $entitySource[$firstKey] -is [hashtable]) {
             if ($entitySource[$firstKey].ContainsKey('EntityType')) {
                 $isStateManagerStructure = $true
-            } else {
+            }
+            else {
                 # This looks like Collection structure: EntityType -> EntityId -> data
                 $isStateManagerStructure = $false
             }
@@ -1266,7 +1278,8 @@ function Load-EntityCollection {
                     # First try using New-GameEntity if available
                     if (Get-Command New-GameEntity -ErrorAction SilentlyContinue) {
                         $entity = New-GameEntity $entityData
-                    } else {
+                    }
+                    else {
                         # Create a compatible entity object manually
                         $entity = New-Object PSObject
 
@@ -1304,7 +1317,8 @@ function Load-EntityCollection {
                             param([string]$Name, [object]$Value)
                             if ($this.PSObject.Properties.Name -contains $Name) {
                                 $this.$Name = $Value
-                            } else {
+                            }
+                            else {
                                 $this | Add-Member -Type NoteProperty -Name $Name -Value $Value -Force
                             }
                         } -Force
@@ -1319,11 +1333,13 @@ function Load-EntityCollection {
                         Write-Verbose "Successfully loaded entity $entityId ($entityType)"
                     }
 
-                } catch {
+                }
+                catch {
                     Write-Warning "Failed to load entity $entityId ($entityType): $($_.Exception.Message)"
                 }
             }
-        } else {
+        }
+        else {
             # Handle Collection structure: EntityType -> EntityId -> data
             foreach ($entityType in $entitySource.Keys) {
                 if (-not $loadedEntities.ContainsKey($entityType)) {
@@ -1346,7 +1362,8 @@ function Load-EntityCollection {
 
                         if (Get-Command New-GameEntity -ErrorAction SilentlyContinue) {
                             $entity = New-GameEntity $entityData
-                        } else {
+                        }
+                        else {
                             $entity = New-Object PSObject
 
                             foreach ($key in $entityData.Keys) {
@@ -1382,7 +1399,8 @@ function Load-EntityCollection {
                                 param([string]$Name, [object]$Value)
                                 if ($this.PSObject.Properties.Name -contains $Name) {
                                     $this.$Name = $Value
-                                } else {
+                                }
+                                else {
                                     $this | Add-Member -Type NoteProperty -Name $Name -Value $Value -Force
                                 }
                             } -Force
@@ -1397,7 +1415,8 @@ function Load-EntityCollection {
                             Write-Verbose "Successfully loaded entity $entityId ($entityType)"
                         }
 
-                    } catch {
+                    }
+                    catch {
                         Write-Warning "Failed to load entity $entityId ($entityType): $($_.Exception.Message)"
                     }
                 }
@@ -1414,17 +1433,17 @@ function Load-EntityCollection {
     Write-Host "Loaded $totalLoaded entities from save '$SaveName'" -ForegroundColor Green
 
     return @{
-        Success = $true
+        Success  = $true
         Entities = $loadedEntities
         Metadata = $saveData.Metadata
-        SavedAt = $saveData.SavedAt
+        SavedAt  = $saveData.SavedAt
         LoadedAt = Get-Date
     }
 }
 
 function Save-PlayerData {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [object]$Player,
         [string]$SaveSlot = "player_default"
     )
@@ -1436,13 +1455,15 @@ function Save-PlayerData {
 
     $playerLevel = if ($Player.PSObject.Methods.Name -contains "GetLevel") {
         $Player.GetLevel()
-    } else {
+    }
+    else {
         $Player.GetProperty("Level", 1)
     }
 
     $playerLocation = if ($Player.PSObject.Methods.Name -contains "GetCurrentLocationId") {
         $Player.GetCurrentLocationId()
-    } else {
+    }
+    else {
         $Player.GetProperty("CurrentLocationId", "unknown")
     }
 
@@ -1450,11 +1471,11 @@ function Save-PlayerData {
     $playTime = (Get-Date) - $createdAt
 
     $playerData = @{
-        PlayerData = $Player.ToHashtable()
-        SavedAt = Get-Date
-        PlayerLevel = $playerLevel
+        PlayerData     = $Player.ToHashtable()
+        SavedAt        = Get-Date
+        PlayerLevel    = $playerLevel
         PlayerLocation = $playerLocation
-        PlayTime = $playTime
+        PlayTime       = $playTime
     }
 
     return Save-GameState -SaveName $SaveSlot -AdditionalData $playerData
@@ -1475,7 +1496,8 @@ function Load-PlayerData {
         # Try to create player using available constructors
         $player = if (Get-Command New-PlayerEntity -ErrorAction SilentlyContinue) {
             New-PlayerEntity $result.Data.PlayerData
-        } else {
+        }
+        else {
             New-GameEntity $result.Data.PlayerData
         }
 
@@ -1485,8 +1507,8 @@ function Load-PlayerData {
         }
 
         return @{
-            Success = $true
-            Player = $player
+            Success  = $true
+            Player   = $player
             Metadata = $result.Data
             LoadedAt = Get-Date
         }
@@ -1494,7 +1516,7 @@ function Load-PlayerData {
 
     return @{
         Success = $false
-        Error = "No player data found in save"
+        Error   = "No player data found in save"
     }
 }
 
@@ -1523,9 +1545,9 @@ function Backup-GameState {
     # Create backup metadata
     $backupInfo = @{
         OriginalSave = $SaveName
-        BackupName = $backupName
+        BackupName   = $backupName
         BackupReason = $BackupReason
-        CreatedAt = Get-Date
+        CreatedAt    = Get-Date
         OriginalSize = (Get-Item $sourcePath).Length
     }
 
@@ -1535,10 +1557,10 @@ function Backup-GameState {
     Write-Host "Created backup: $backupName" -ForegroundColor Green
 
     return @{
-        Success = $true
+        Success    = $true
         BackupName = $backupName
         BackupPath = $backupPath
-        Metadata = $backupInfo
+        Metadata   = $backupInfo
     }
 }
 
@@ -1548,11 +1570,11 @@ function Get-EntityStatistics {
     )
 
     $stats = @{
-        TotalEntities = 0
-        EntityTypes = @{}
+        TotalEntities   = 0
+        EntityTypes     = @{}
         ChangedEntities = 0
-        DataSize = 0
-        LastModified = $null
+        DataSize        = 0
+        LastModified    = $null
     }
 
     foreach ($entityType in $Entities.Keys) {
@@ -1572,7 +1594,8 @@ function Get-EntityStatistics {
                     $entityHashtable = $entity.ToHashtable()
                     $entityJson = $entityHashtable | ConvertTo-Json -Depth 2 -Compress
                     $stats.DataSize += $entityJson.Length
-                } catch {
+                }
+                catch {
                     # Fallback size calculation
                     $stats.DataSize += 500  # Estimated size
                 }
@@ -1598,17 +1621,17 @@ function Test-SaveIntegrity {
     if (-not $result.Success) {
         return @{
             Success = $false
-            Valid = $false
-            Error = $result.Error
+            Valid   = $false
+            Error   = $result.Error
         }
     }
 
     $validationResults = @{
-        Success = $true
-        Valid = $true
-        Issues = @()
-        EntityCount = 0
-        ValidEntities = 0
+        Success         = $true
+        Valid           = $true
+        Issues          = @()
+        EntityCount     = 0
+        ValidEntities   = 0
         InvalidEntities = 0
     }
 
@@ -1624,49 +1647,56 @@ function Test-SaveIntegrity {
                         'Player' {
                             if (Get-Command New-PlayerEntity -ErrorAction SilentlyContinue) {
                                 New-PlayerEntity $entityData
-                            } else {
+                            }
+                            else {
                                 New-GameEntity $entityData
                             }
                         }
                         'NPC' {
                             if (Get-Command New-NPCEntity -ErrorAction SilentlyContinue) {
                                 New-NPCEntity $entityData
-                            } else {
+                            }
+                            else {
                                 New-GameEntity $entityData
                             }
                         }
                         'Item' {
                             if (Get-Command New-ItemEntity -ErrorAction SilentlyContinue) {
                                 New-ItemEntity $entityData
-                            } else {
+                            }
+                            else {
                                 New-GameEntity $entityData
                             }
                         }
                         'Location' {
                             if (Get-Command New-LocationEntity -ErrorAction SilentlyContinue) {
                                 New-LocationEntity $entityData
-                            } else {
+                            }
+                            else {
                                 New-GameEntity $entityData
                             }
                         }
                         'Quest' {
                             if (Get-Command New-QuestEntity -ErrorAction SilentlyContinue) {
                                 New-QuestEntity $entityData
-                            } else {
+                            }
+                            else {
                                 New-GameEntity $entityData
                             }
                         }
                         'Faction' {
                             if (Get-Command New-FactionEntity -ErrorAction SilentlyContinue) {
                                 New-FactionEntity $entityData
-                            } else {
+                            }
+                            else {
                                 New-GameEntity $entityData
                             }
                         }
                         default {
                             if (Get-Command New-GameEntity -ErrorAction SilentlyContinue) {
                                 New-GameEntity $entityData
-                            } else {
+                            }
+                            else {
                                 # Create basic validation object
                                 $obj = New-Object PSObject
                                 foreach ($key in $entityData.Keys) {
@@ -1678,7 +1708,8 @@ function Test-SaveIntegrity {
                     }
 
                     $validationResults.ValidEntities++
-                } catch {
+                }
+                catch {
                     $validationResults.InvalidEntities++
                     $validationResults.Issues += "Invalid entity $entityId ($entityType): $($_.Exception.Message)"
                     $validationResults.Valid = $false
@@ -1715,7 +1746,8 @@ Export-ModuleMember -Function @(
     'Load-PlayerData',
     'Backup-GameState',
     'Get-EntityStatistics',
-    'Test-SaveIntegrity'
+    'Test-SaveIntegrity',
+    'Set-GameEntity'
 )
 
 # Module initialization

@@ -21,13 +21,13 @@ function Get-RandomCoordinates {
             LngMin = -74.2591
             LngMax = -73.7004
         }
-        "London" = @{
+        "London"   = @{
             LatMin = 51.2868
             LatMax = 51.6918
             LngMin = -0.5103
             LngMax = 0.3340
         }
-        "Tokyo" = @{
+        "Tokyo"    = @{
             LatMin = 35.5494
             LatMax = 35.8174
             LngMin = 139.5792
@@ -81,36 +81,36 @@ function New-GameLocation {
 
     $names = @{
         "treasure" = @("Hidden Cache", "Forgotten Vault", "Secret Stash", "Buried Treasure")
-        "quest" = @("Ancient Temple", "Mystical Portal", "Guardian's Keep", "Sacred Grove")
-        "shop" = @("Merchant's Post", "Trading Hub", "Supply Station", "Market Square")
+        "quest"    = @("Ancient Temple", "Mystical Portal", "Guardian's Keep", "Sacred Grove")
+        "shop"     = @("Merchant's Post", "Trading Hub", "Supply Station", "Market Square")
         "landmark" = @("Historic Monument", "Famous Building", "Cultural Site", "Notable Plaza")
-        "mystery" = @("Enigmatic Location", "Strange Phenomenon", "Unexplained Site", "Curious Spot")
+        "mystery"  = @("Enigmatic Location", "Strange Phenomenon", "Unexplained Site", "Curious Spot")
     }
 
     $name = ($names[$type] | Get-Random) + " #$Id"
 
     $descriptions = @{
         "treasure" = @("A hidden treasure awaits discovery!", "Riches beyond imagination lie here.", "Ancient wealth sleeps in this location.")
-        "quest" = @("A challenging quest begins here.", "Ancient mysteries await your arrival.", "Brave adventurers are needed here.")
-        "shop" = @("Useful items and supplies available.", "A place to trade and resupply.", "Merchants offer their wares here.")
+        "quest"    = @("A challenging quest begins here.", "Ancient mysteries await your arrival.", "Brave adventurers are needed here.")
+        "shop"     = @("Useful items and supplies available.", "A place to trade and resupply.", "Merchants offer their wares here.")
         "landmark" = @("A place of historical significance.", "An important cultural location.", "A famous site worth visiting.")
-        "mystery" = @("Something strange happens here...", "An unexplained phenomenon occurs.", "Mysteries abound in this location.")
+        "mystery"  = @("Something strange happens here...", "An unexplained phenomenon occurs.", "Mysteries abound in this location.")
     }
 
     $description = $descriptions[$type] | Get-Random
 
     return @{
-        id = "location_$Id"
-        lat = $coordinates.Latitude
-        lng = $coordinates.Longitude
-        name = $name
-        type = $type
+        id          = "location_$Id"
+        lat         = $coordinates.Latitude
+        lng         = $coordinates.Longitude
+        name        = $name
+        type        = $type
         description = $description
-        items = $items
-        points = $points
-        experience = [math]::Round($points / 2)
-        discovered = $false
-        timestamp = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ss")
+        items       = $items
+        points      = $points
+        experience  = [math]::Round($points / 2)
+        discovered  = $false
+        timestamp   = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ss")
     }
 }
 
@@ -119,13 +119,13 @@ Write-Host "Generating game data for $City with $LocationCount locations..." -Fo
 
 $gameData = @{
     generatedAt = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ss")
-    city = $City
-    version = "1.0"
-    locations = @()
-    metadata = @{
+    city        = $City
+    version     = "1.0"
+    locations   = @()
+    metadata    = @{
         totalLocations = $LocationCount
-        generator = "PowerShell Game Data Generator"
-        scriptVersion = "1.0"
+        generator      = "PowerShell Game Data Generator"
+        scriptVersion  = "1.0"
     }
 }
 
@@ -133,7 +133,24 @@ $gameData = @{
 for ($i = 1; $i -le $LocationCount; $i++) {
     $location = New-GameLocation -Id $i -City $City
     $gameData.locations += $location
-    Write-Progress -Activity "Generating locations" -Status "Creating location $i of $LocationCount" -PercentComplete (($i / $LocationCount) * 100)
+
+    # Only show progress if running in interactive console (not redirected)
+    try {
+        if ([Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+            Write-Progress -Activity "Generating locations" -Status "Creating location $i of $LocationCount" -PercentComplete (($i / $LocationCount) * 100)
+        }
+    }
+    catch {
+        # Silently continue if Write-Progress fails
+    }
+}
+
+# Clear progress bar
+try {
+    Write-Progress -Activity "Generating locations" -Completed
+}
+catch {
+    # Silently continue if Write-Progress fails
 }
 
 # Convert to JSON and save

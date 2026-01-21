@@ -6,6 +6,8 @@ class PwshLeafmapGame {
         this.gameData = null;
         this.eventManager = null;
         this.gameEventHandlers = null;
+        this.travelMode = 'foot';
+        this.communicationBridge = null;
 
         this.init();
     }
@@ -15,9 +17,24 @@ class PwshLeafmapGame {
         this.eventManager = new EventManager();
         this.gameEventHandlers = new GameEventHandlers(this.eventManager, this);
 
+        // Initialize communication bridge
+        this.initCommunicationBridge();
+
         // Initialize event listeners
         document.getElementById('loadData').addEventListener('click', () => this.loadGameData());
         document.getElementById('resetGame').addEventListener('click', () => this.resetGame());
+
+        // Center on player button
+        const centerBtn = document.getElementById('centerPlayer');
+        if (centerBtn) {
+            centerBtn.addEventListener('click', () => this.centerOnPlayer());
+        }
+
+        // Travel mode selector
+        const travelModeSelect = document.getElementById('travelMode');
+        if (travelModeSelect) {
+            travelModeSelect.addEventListener('change', (e) => this.setTravelMode(e.target.value));
+        }
 
         // Initialize the map
         this.gameMap = new GameMap('map', this);
@@ -25,6 +42,19 @@ class PwshLeafmapGame {
         // Register for PowerShell events
         this.eventManager.register('powershell.commandCompleted', (data) => {
             this.handlePowerShellResponse(data);
+        });
+
+        // Register for movement events
+        this.eventManager.register('movement.started', (data) => {
+            this.updateStatus('Moving...');
+            this.updatePathInfo(data);
+        });
+
+        this.eventManager.register('movement.completed', (data) => {
+            this.updateStatus('Ready');
+            this.updatePositionDisplay(data.position);
+            // Send to PowerShell bridge
+            this.sendMovementEvent('movement.completed', data);
         });
 
         // Load initial game state
@@ -37,26 +67,180 @@ class PwshLeafmapGame {
         });
 
         console.log('PowerShell Leafmap Game initialized with Event System!');
+
+        // Auto-load gamedata.json if it exists
+        this.autoLoadGameData();
+    }
+
+    initCommunicationBridge() {
+        // Initialize the communication bridge if available
+        if (typeof CommunicationBridge !== 'undefined') {
+            this.communicationBridge = new CommunicationBridge({
+                bridgeUrl: 'http://localhost:8082',
+                autoReconnect: true
+            });
+
+            this.communicationBridge.on('connected', () => {
+                console.log('Connected to PowerShell bridge');
+                this.updateStatus('Bridge Connected');
+            });
+
+            this.communicationBridge.on('disconnected', () => {
+                console.log('Disconnected from PowerShell bridge');
+            });
+
+            // Try to connect
+            this.communicationBridge.connect().catch(err => {
+                console.log('Bridge not available (standalone mode):', err.message);
+            });
+        }
+    }
+
+    sendMovementEvent(eventType, data) {
+        if (this.communicationBridge && this.communicationBridge.isConnected()) {
+            this.communicationBridge.sendCommand('movement.event', {
+                type: eventType,
+                ...data
+            }).catch(err => console.log('Bridge send failed:', err.message));
+        }
+    }
+
+    setTravelMode(mode) {
+        this.travelMode = mode;
+        if (this.gameMap) {
+            this.gameMap.setTravelMode(mode);
+        }
+
+        const modeNames = {
+            'foot': '🚶 On Foot',
+            'car': '🚗 Car',
+            'motorcycle': '🏍️ Motorcycle',
+            'van': '🚐 Van',
+            'aerial': '🚁 Aerial'
+        };
+
+        const modeDisplay = document.getElementById('modeDisplay');
+        if (modeDisplay) {
+            modeDisplay.textContent = modeNames[mode] || mode;
+        }
+
+        console.log(`Travel mode set to: ${mode}`);
+    }
+
+    centerOnPlayer() {
+        if (this.gameMap && this.gameMap.playerPosition) {
+            this.gameMap.map.setView(this.gameMap.playerPosition, this.gameMap.map.getZoom());
+        }
+    }
+
+    updateStatus(status) {
+        const statusDisplay = document.getElementById('statusDisplay');
+        if (statusDisplay) {
+            statusDisplay.textContent = status;
+        }
+    }
+
+    updatePositionDisplay(position) {
+        const posDisplay = document.getElementById('positionDisplay');
+        if (posDisplay && position) {
+            const lat = position.lat.toFixed(4);
+            const lng = position.lng.toFixed(4);
+            posDisplay.textContent = `${lat}, ${lng}`;
+        }
+    }
+
+    updatePathInfo(data) {
+        const pathPanel = document.getElementById('pathInfoPanel');
+        const pathDisplay = document.getElementById('pathInfoDisplay');
+
+        if (pathPanel && pathDisplay && data) {
+            pathPanel.style.display = 'flex';
+            const distKm = (data.distance / 1000).toFixed(2);
+            const durMin = Math.round(data.duration / 60);
+            pathDisplay.textContent = `${distKm}km • ~${durMin}min • ${data.travelMode}`;
+        }
+    }
+
+    hidePathInfo() {
+        const pathPanel = document.getElementById('pathInfoPanel');
+        if (pathPanel) {
+            pathPanel.style.display = 'none';
+        }
+    }
+
+    async autoLoadGameData() {
+        try {
+            console.log('Attempting to load gamedata.json...');
+            const response = await fetch('gamedata.json');
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Game data received:', data);
+                if (data && data.locations && data.locations.length > 0) {
+                    this.gameData = data;
+                    console.log(`Loading ${data.locations.length} locations onto map...`);
+                    this.gameMap.loadLocations(data.locations);
+                    this.updateGameInfo(`🎮 Game ready! ${data.locations.length} locations in ${data.city}. Click markers to explore!`);
+                    console.log('✓ Game data loaded successfully');
+
+                    this.eventManager.emit('system.dataLoaded', {
+                        locations: data.locations,
+                        source: 'file'
+                    });
+                } else {
+                    console.warn('Game data loaded but no locations found');
+                    this.updateGameInfo('No locations found in game data');
+                }
+            } else {
+                console.log('No gamedata.json found (HTTP', response.status, ')');
+                this.updateGameInfo('Click "Load Game Data" to start your adventure!');
+            }
+        } catch (error) {
+            console.error('Error auto-loading game data:', error);
+            this.updateGameInfo('Click "Load Game Data" to start!');
+        }
     }
 
     async loadGameData() {
         try {
-            // Emit event to PowerShell to generate/load game data
-            console.log('Requesting game data from PowerShell...');
+            console.log('Loading game data...');
+            this.updateGameInfo('Loading game data...');
 
-            this.eventManager.emit('powershell.generateLocations', {
-                city: 'New York',
-                locationCount: 10
-            });
+            // First try to fetch from the local gamedata.json file
+            const response = await fetch('gamedata.json');
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Game data received:', data);
+                if (data && data.locations && data.locations.length > 0) {
+                    this.gameData = data;
+                    console.log(`Loading ${data.locations.length} locations onto map...`);
+                    this.gameMap.loadLocations(data.locations);
+                    this.updateGameInfo(`🎮 Game loaded! ${data.locations.length} locations in ${data.city || 'the city'}. Click markers to explore!`);
+                    console.log('✓ Game data loaded successfully');
 
-            this.updateGameInfo('Requesting game data from PowerShell...');
+                    this.eventManager.emit('system.dataLoaded', {
+                        locations: data.locations,
+                        source: 'file'
+                    });
+                } else {
+                    console.warn('Game data loaded but no locations found');
+                    this.updateGameInfo('No locations found in game data. Try regenerating.');
+                }
+            } else {
+                console.warn('gamedata.json not found, attempting PowerShell bridge...');
+                // Fall back to PowerShell bridge if file not found
+                this.eventManager.emit('powershell.generateLocations', {
+                    city: 'New York',
+                    locationCount: 10
+                });
+                this.updateGameInfo('Requesting game data from PowerShell...');
+            }
         } catch (error) {
             console.error('Error loading game data:', error);
             this.eventManager.emit('system.error', {
                 message: error.message,
                 context: 'loadGameData'
             });
-            this.updateGameInfo('Error loading game data');
+            this.updateGameInfo('Error loading game data: ' + error.message);
         }
     }
 
@@ -124,30 +308,48 @@ class PwshLeafmapGame {
     }
 
     visitLocation(location) {
-        console.log(`Visiting location: ${location.name}`);
+        try {
+            // Check if player is within visit range (100m)
+            if (this.map && !this.map.isWithinVisitRange(location)) {
+                const distance = this.map.getDistanceToLocation(location);
+                const distanceText = distance < 1000
+                    ? `${Math.round(distance)}m`
+                    : `${(distance / 1000).toFixed(1)}km`;
+                this.updateGameInfo(`❌ Too far to visit ${location.name} (${distanceText} away). Get within 100m first!`);
+                console.log(`Cannot visit ${location.name} - too far (${distanceText})`);
+                return;
+            }
 
-        // Emit location visit event
-        this.eventManager.emit('location.visited', {
-            location: location,
-            playerId: 'player1', // This would be dynamic in a real game
-            timestamp: new Date().toISOString()
-        });
+            console.log(`Visiting location: ${location.name}`);
 
-        // Add items to inventory
-        if (location.items) {
-            const items = Array.isArray(location.items) ? location.items : [location.items];
-            items.forEach(item => {
-                this.addToInventory(item);
+            // Emit location visit event
+            this.eventManager.emit('location.visited', {
+                location: location,
+                playerId: 'player1', // This would be dynamic in a real game
+                timestamp: new Date().toISOString()
             });
-        }
 
-        // Add points
-        if (location.points) {
-            this.addScore(location.points);
-        }
+            // Add items to inventory
+            if (location.items) {
+                const items = Array.isArray(location.items) ? location.items : [location.items];
+                items.forEach(item => {
+                    this.addToInventory(item);
+                });
+            }
 
-        // Update game info
-        this.updateGameInfo(`Visited: ${location.name}. ${location.description}`);
+            // Add points
+            if (location.points) {
+                this.addScore(location.points);
+            }
+
+            // Update game info
+            this.updateGameInfo(`✅ Visited: ${location.name}. ${location.description}`);
+
+            console.log('✓ Location visit completed successfully');
+        } catch (error) {
+            console.error('Error visiting location:', error);
+            this.updateGameInfo(`Error: ${error.message}`);
+        }
     }
 
     addToInventory(item) {

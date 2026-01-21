@@ -135,11 +135,14 @@ class EventManager {
                 }
             } catch (error) {
                 console.error(`Error processing event ${event.type}:`, error);
-                this.emit('system.error', {
-                    message: error.message,
-                    eventType: event.type,
-                    handlerId: handlerInfo.id
-                });
+                // Prevent infinite loop by not emitting system.error for system.error events
+                if (event.type !== 'system.error') {
+                    this.emit('system.error', {
+                        message: error.message,
+                        eventType: event.type,
+                        handlerId: handlerInfo.id
+                    });
+                }
             }
         }
     }
@@ -198,9 +201,14 @@ class EventManager {
      * Start polling for PowerShell events
      */
     startPowerShellPolling() {
+        // Disable polling for now - it can cause browser hangs
+        // Uncomment to enable PowerShell bridge functionality
+        /*
         setInterval(() => {
             this.checkPowerShellEvents();
         }, this.pollInterval);
+        */
+        console.log('PowerShell polling disabled (use Load Game Data button for PowerShell integration)');
     }
 
     /**
@@ -409,14 +417,12 @@ class GameEventHandlers {
     }
 
     handleLocationVisit(data) {
-        console.log('Location visited:', data.location.name);
+        console.log('Location visited event received:', data.location.name);
 
-        // Update game state
-        if (this.game) {
-            this.game.visitLocation(data.location);
-        }
+        // DON'T call game.visitLocation again - it already happened!
+        // This would create an infinite loop
 
-        // Trigger PowerShell location processing
+        // Just trigger PowerShell location processing for backend sync
         this.eventManager.emit('powershell.processLocation', {
             locationId: data.location.id,
             playerId: data.playerId,

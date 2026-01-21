@@ -4,48 +4,48 @@
 
 # String constants for entity types (no enums)
 $script:EntityTypes = @{
-    Base = 'Entity'
-    Player = 'Player'
-    NPC = 'NPC'
-    Item = 'Item'
+    Base     = 'Entity'
+    Player   = 'Player'
+    NPC      = 'NPC'
+    Item     = 'Item'
     Location = 'Location'
-    Quest = 'Quest'
-    Faction = 'Faction'
+    Quest    = 'Quest'
+    Faction  = 'Faction'
 }
 
 $script:ItemCategories = @{
-    Weapon = 'Weapon'
-    Armor = 'Armor'
+    Weapon     = 'Weapon'
+    Armor      = 'Armor'
     Consumable = 'Consumable'
-    KeyItem = 'KeyItem'
-    Material = 'Material'
-    Tool = 'Tool'
-    Accessory = 'Accessory'
+    KeyItem    = 'KeyItem'
+    Material   = 'Material'
+    Tool       = 'Tool'
+    Accessory  = 'Accessory'
 }
 
 $script:NPCBehaviorTypes = @{
-    Friendly = 'Friendly'
-    Neutral = 'Neutral'
-    Hostile = 'Hostile'
-    Vendor = 'Vendor'
+    Friendly   = 'Friendly'
+    Neutral    = 'Neutral'
+    Hostile    = 'Hostile'
+    Vendor     = 'Vendor'
     QuestGiver = 'QuestGiver'
 }
 
 $script:QuestTypes = @{
-    Main = 'Main'
-    Side = 'Side'
+    Main       = 'Main'
+    Side       = 'Side'
     Repeatable = 'Repeatable'
-    Daily = 'Daily'
-    Event = 'Event'
+    Daily      = 'Daily'
+    Event      = 'Event'
 }
 
 $script:QuestStatus = @{
     NotStarted = 'NotStarted'
-    Available = 'Available'
+    Available  = 'Available'
     InProgress = 'InProgress'
-    Completed = 'Completed'
-    Failed = 'Failed'
-    Abandoned = 'Abandoned'
+    Completed  = 'Completed'
+    Failed     = 'Failed'
+    Abandoned  = 'Abandoned'
 }
 
 # Base Entity Class with property change tracking
@@ -133,8 +133,8 @@ class GameEntity {
             }
 
             $this.PropertyChanges[$Name] = @{
-                OldValue = $oldValue
-                NewValue = $Value
+                OldValue  = $oldValue
+                NewValue  = $Value
                 Timestamp = Get-Date
             }
         }
@@ -172,10 +172,10 @@ class GameEntity {
                 }
 
                 $this.PropertyChanges[$Name] = @{
-                    OldValue = $oldValue
-                    NewValue = $null
+                    OldValue  = $oldValue
+                    NewValue  = $null
                     Timestamp = Get-Date
-                    Action = 'Removed'
+                    Action    = 'Removed'
                 }
             }
 
@@ -247,17 +247,17 @@ class GameEntity {
 
     [hashtable] ToHashtable([int]$Depth) {
         $result = @{
-            Id = $this.Id
-            Type = $this.Type
-            Name = $this.Name
+            Id          = $this.Id
+            Type        = $this.Type
+            Name        = $this.Name
             Description = $this.Description
-            Tags = $this.Tags
-            Metadata = $this.Metadata
-            CreatedAt = $this.CreatedAt
-            UpdatedAt = $this.UpdatedAt
-            Version = $this.Version
-            IsActive = $this.IsActive
-            Properties = $this.Properties
+            Tags        = $this.Tags
+            Metadata    = $this.Metadata
+            CreatedAt   = $this.CreatedAt
+            UpdatedAt   = $this.UpdatedAt
+            Version     = $this.Version
+            IsActive    = $this.IsActive
+            Properties  = $this.Properties
         }
 
         if ($Depth -gt 0) {
@@ -337,9 +337,9 @@ class Player : GameEntity {
 
         # Attributes
         $this.SetProperty('Attributes', @{
-            Strength = 10; Dexterity = 10; Intelligence = 10
-            Constitution = 10; Wisdom = 10; Charisma = 10
-        }, $false)
+                Strength = 10; Dexterity = 10; Intelligence = 10
+                Constitution = 10; Wisdom = 10; Charisma = 10
+            }, $false)
 
         # Skills
         $this.SetProperty('Skills', @{}, $false)
@@ -347,15 +347,15 @@ class Player : GameEntity {
         # Inventory and equipment
         $this.SetProperty('Inventory', @(), $false)
         $this.SetProperty('Equipment', @{
-            Weapon = $null; Armor = $null; Helmet = $null
-            Gloves = $null; Boots = $null; Ring1 = $null; Ring2 = $null
-        }, $false)
+                Weapon = $null; Armor = $null; Helmet = $null
+                Gloves = $null; Boots = $null; Ring1 = $null; Ring2 = $null
+            }, $false)
         $this.SetProperty('InventoryCapacity', 50, $false)
 
         # Location and movement
         $this.SetProperty('CurrentLocationId', '', $false)
         $this.SetProperty('SpawnLocationId', '', $false)
-        $this.SetProperty('Position', @{ X = 0; Y = 0; Z = 0 }, $false)
+        $this.SetProperty('Position', @{ Lat = 40.7128; Lng = -74.0060 }, $false) # Default to NYC coordinates
 
         # Quests and progression
         $this.SetProperty('Quests', @(), $false)
@@ -371,10 +371,10 @@ class Player : GameEntity {
 
         # Player settings
         $this.SetProperty('Settings', @{
-            AutoSave = $true
-            ShowNotifications = $true
-            SoundEnabled = $true
-        }, $false)
+                AutoSave          = $true
+                ShowNotifications = $true
+                SoundEnabled      = $true
+            }, $false)
     }
 
     # Convenient property accessors
@@ -438,7 +438,8 @@ class Player : GameEntity {
             if ($inventory[$i].Id -eq $ItemId) {
                 if ($inventory[$i].Quantity -gt $Quantity) {
                     $inventory[$i].Quantity -= $Quantity
-                } else {
+                }
+                else {
                     $inventory = $inventory | Where-Object { $_.Id -ne $ItemId }
                 }
                 $found = $true
@@ -738,10 +739,10 @@ class Quest : GameEntity {
 
         # Rewards
         $this.SetProperty('Rewards', @{
-            Experience = 100
-            Currency = 50
-            Items = @()
-        }, $false)
+                Experience = 100
+                Currency   = 50
+                Items      = @()
+            }, $false)
 
         # Timing
         $this.SetProperty('StartedAt', $null, $false)

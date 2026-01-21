@@ -21,9 +21,49 @@
             <div class="controls">
                 <button id="loadData">Load Game Data</button>
                 <button id="resetGame">Reset Game</button>
+                <button id="centerPlayer">Center on Player</button>
+                <label style="color: white; margin-left: 1rem;">Travel Mode:</label>
+                <select id="travelMode">
+                    <option value="foot">🚶 On Foot</option>
+                    <option value="car">🚗 Car</option>
+                    <option value="motorcycle">🏍️ Motorcycle</option>
+                    <option value="van">🚐 Van</option>
+                    <option value="aerial">🚁 Aerial</option>
+                </select>
                 <span id="score">Score: 0</span>
             </div>
         </header>
+
+        <div class="info-panel"
+            style="background: rgba(26, 26, 46, 0.95); padding: 0.75rem 1.5rem; border-bottom: 2px solid #667eea; display: flex; gap: 2rem; align-items: center;">
+            <div class="info-item" style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <span class="info-label"
+                    style="font-size: 0.75rem; color: #a0a0b0; text-transform: uppercase; letter-spacing: 0.5px;">Position</span>
+                <span class="info-value" id="positionDisplay"
+                    style="font-size: 1rem; font-weight: 600; color: #00d4ff;">---, ---</span>
+            </div>
+            <div class="info-item" style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <span class="info-label"
+                    style="font-size: 0.75rem; color: #a0a0b0; text-transform: uppercase; letter-spacing: 0.5px;">Travel
+                    Mode</span>
+                <span class="info-value" id="modeDisplay" style="font-size: 1rem; font-weight: 600; color: #00d4ff;">On
+                    Foot</span>
+            </div>
+            <div class="info-item" style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <span class="info-label"
+                    style="font-size: 0.75rem; color: #a0a0b0; text-transform: uppercase; letter-spacing: 0.5px;">Status</span>
+                <span class="info-value" id="statusDisplay"
+                    style="font-size: 1rem; font-weight: 600; color: #00d4ff;">Ready</span>
+            </div>
+            <div class="info-item" id="pathInfoPanel"
+                style="display: none; flex-direction: column; gap: 0.15rem; border-left: 1px solid #667eea; padding-left: 1rem;">
+                <span class="info-label"
+                    style="font-size: 0.75rem; color: #a0a0b0; text-transform: uppercase; letter-spacing: 0.5px;">Path
+                    Info</span>
+                <span class="info-value" id="pathInfoDisplay"
+                    style="font-size: 1rem; font-weight: 600; color: #00d4ff;">--</span>
+            </div>
+        </div>
 
         <main>
             <div id="map"></div>
@@ -32,7 +72,20 @@
                 <div id="gameInfo">
                     <p>Welcome to the PowerShell Leafmap Adventure!</p>
                     <p>Click on markers to explore locations.</p>
+                    <p><strong>Movement:</strong> Click anywhere on the map to move your player!</p>
                 </div>
+
+                <div id="movementHelp"
+                    style="background: rgba(102, 126, 234, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0;">
+                    <h4 style="color: #00d4ff; margin-bottom: 0.5rem;">How to Move:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #c0c0d0;">
+                        <li style="padding: 0.3rem 0;">▸ Click map to move player</li>
+                        <li style="padding: 0.3rem 0;">▸ Green marker = your player</li>
+                        <li style="padding: 0.3rem 0;">▸ Blue line = your path</li>
+                        <li style="padding: 0.3rem 0;">▸ Change travel mode for speed</li>
+                    </ul>
+                </div>
+
                 <div id="inventory">
                     <h4>Inventory</h4>
                     <ul id="inventoryList"></ul>
@@ -47,6 +100,9 @@
 
     <!-- Custom JavaScript -->
     <script src="js/events.js"></script>
+    <script src="js/gameCommands.js"></script>
+    <script src="js/communicationBridge.js"></script>
+    <script src="js/pathfinding.js"></script>
     <script src="js/game.js"></script>
     <script src="js/map.js"></script>
     <script src="js/app.js"></script>

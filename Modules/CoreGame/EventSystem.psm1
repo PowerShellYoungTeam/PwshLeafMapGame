@@ -19,24 +19,26 @@
     - Handler registration with pattern matching
     - Performance monitoring and debugging
     - Automatic event log rotation
+
+    Dependencies: GameLogging (loaded via CoreGame.psd1 manifest)
 #>
 
-# Import logging system
-Import-Module (Join-Path $PSScriptRoot "GameLogging.psm1") -Force
+# NOTE: GameLogging is loaded as a NestedModule before this module
+# No Import-Module needed - the manifest handles load order
 
 # Event system configuration
 $script:EventConfig = @{
-    EventQueueFile = "events.json"
-    CommandQueueFile = "commands.json"
-    EventLogFile = "event_log.json"
-    MaxEventLogSize = 1000
-    ProcessingInterval = 1
-    EnablePersistence = $true
-    EnableEventDeduplication = $true
+    EventQueueFile             = "events.json"
+    CommandQueueFile           = "commands.json"
+    EventLogFile               = "event_log.json"
+    MaxEventLogSize            = 1000
+    ProcessingInterval         = 1
+    EnablePersistence          = $true
+    EnableEventDeduplication   = $true
     DeduplicationWindowMinutes = 5
-    MaxQueueSize = 10000
-    EventRetentionDays = 7
-    PerformanceMonitoring = $true
+    MaxQueueSize               = 10000
+    EventRetentionDays         = 7
+    PerformanceMonitoring      = $true
 }
 
 # Event queue for JavaScript consumption
@@ -53,12 +55,12 @@ $script:EventHandlers = @{}
 
 # Performance metrics
 $script:EventMetrics = @{
-    TotalEvents = 0
-    EventsProcessed = 0
-    HandlersRegistered = 0
+    TotalEvents           = 0
+    EventsProcessed       = 0
+    HandlersRegistered    = 0
     AverageProcessingTime = 0
-    LastProcessingTime = $null
-    ErrorCount = 0
+    LastProcessingTime    = $null
+    ErrorCount            = 0
 }
 
 <#
@@ -130,7 +132,8 @@ function Initialize-EventSystem {
                     Clear-OldEvents
                 }
 
-            } catch {
+            }
+            catch {
                 Write-ErrorLog -Message "Could not load existing event log" -Module "EventSystem" -Exception $_ -Data @{ FilePath = $script:EventConfig.EventLogFile }
                 $script:EventLog = @()
             }
@@ -143,20 +146,21 @@ function Initialize-EventSystem {
         $script:EventMetrics.LastProcessingTime = Get-Date
 
         Write-GameLog -Message "Event system initialized successfully" -Level Info -Module "EventSystem" -Data @{
-            GamePath = $GamePath
+            GamePath           = $GamePath
             HandlersRegistered = $script:EventHandlers.Count
             PersistenceEnabled = $script:EventConfig.EnablePersistence
-            MaxQueueSize = $script:EventConfig.MaxQueueSize
+            MaxQueueSize       = $script:EventConfig.MaxQueueSize
         } -Verbose:($VerbosePreference -eq 'Continue')
 
         return @{
-            Success = $true
-            HandlersRegistered = $script:EventHandlers.Count
+            Success              = $true
+            HandlersRegistered   = $script:EventHandlers.Count
             ConfigurationApplied = $Config
-            EventLogSize = $script:EventLog.Count
+            EventLogSize         = $script:EventLog.Count
         }
 
-    } catch {
+    }
+    catch {
         Write-ErrorLog -Message "Failed to initialize event system" -Module "EventSystem" -Exception $_ -Data @{ GamePath = $GamePath }
         throw
     }
@@ -238,10 +242,10 @@ function Register-GameEvent {
     }
 
     $handler = @{
-        ScriptBlock = $ScriptBlock
-        Priority = $Priority
-        Once = $Once
-        Id = (New-Guid).ToString()
+        ScriptBlock  = $ScriptBlock
+        Priority     = $Priority
+        Once         = $Once
+        Id           = (New-Guid).ToString()
         RegisteredAt = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
     }
 
@@ -328,17 +332,17 @@ function Send-GameEvent {
     try {
         # Create event object
         $event = @{
-            type = $EventType
-            data = $Data
+            type      = $EventType
+            data      = $Data
             timestamp = $startTime.ToString('yyyy-MM-ddTHH:mm:ss.fff')
-            id = "ps_$(Get-Date -Format 'yyyyMMdd_HHmmss')_$(((New-Guid).ToString().Substring(0,8)))"
-            source = $Source
-            priority = $Priority
+            id        = "ps_$(Get-Date -Format 'yyyyMMdd_HHmmss')_$(((New-Guid).ToString().Substring(0,8)))"
+            source    = $Source
+            priority  = $Priority
         }
 
         Write-GameLog -Message "Sending event: $EventType" -Level Debug -Module "EventSystem" -Data @{
-            EventId = $event.id
-            Source = $Source
+            EventId  = $event.id
+            Source   = $Source
             Priority = $Priority
             DataSize = ($Data | ConvertTo-Json -Compress).Length
         } -Verbose:($VerbosePreference -eq 'Continue')
@@ -379,16 +383,17 @@ function Send-GameEvent {
         Update-EventProcessingMetrics -ProcessingTime $processingTime
 
         Write-GameLog -Message "Event sent successfully: $EventType" -Level Debug -Module "EventSystem" -Data @{
-            EventId = $event.id
+            EventId          = $event.id
             ProcessingTimeMs = $processingTime.TotalMilliseconds
         } -Verbose:($VerbosePreference -eq 'Continue')
 
         return $event.id
 
-    } catch {
+    }
+    catch {
         Write-ErrorLog -Message "Failed to send event: $EventType" -Module "EventSystem" -Exception $_ -Data @{
-            EventType = $EventType
-            Source = $Source
+            EventType    = $EventType
+            Source       = $Source
             DataProvided = $null -ne $Data
         }
 
@@ -432,10 +437,12 @@ function Process-JavaScriptCommands {
             @() | ConvertTo-Json | Set-Content $script:EventConfig.CommandQueueFile
 
             Write-GameLog -Message "Cleared processed commands from queue" -Level Debug -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
-        } else {
+        }
+        else {
             Write-GameLog -Message "No commands to process" -Level Debug -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
         }
-    } catch {
+    }
+    catch {
         Write-ErrorLog -Message "Error processing JavaScript commands" -Module "EventSystem" -Exception $_ -Data @{
             CommandQueueFile = $script:EventConfig.CommandQueueFile
         }
@@ -467,8 +474,8 @@ function Process-JavaScriptCommand {
     $startTime = Get-Date
 
     Write-GameLog -Message "Processing command: $($Command.type)" -Level Info -Module "EventSystem" -Data @{
-        CommandId = $Command.id
-        CommandType = $Command.type
+        CommandId    = $Command.id
+        CommandType  = $Command.type
         DataProvided = $null -ne $Command.data
     } -Verbose:($VerbosePreference -eq 'Continue')
 
@@ -477,88 +484,89 @@ function Process-JavaScriptCommand {
             "powershell.generateLocations" {
                 $result = Invoke-GenerateLocations -Parameters $Command.data
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-                    commandId = $Command.id
+                    commandId   = $Command.id
                     commandType = "generateLocations"
-                    result = $result
-                    success = $true
+                    result      = $result
+                    success     = $true
                 } -Source "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
             }
 
             "powershell.saveProgress" {
                 $result = Save-PlayerProgressInternal -PlayerName $Command.data.playerName -Progress $Command.data.progress
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-                    commandId = $Command.id
+                    commandId   = $Command.id
                     commandType = "saveProgress"
-                    result = $result
-                    success = $true
+                    result      = $result
+                    success     = $true
                 } -Source "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
             }
 
             "powershell.loadProgress" {
                 $result = Get-PlayerProgressInternal -PlayerName $Command.data.playerName
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-                    commandId = $Command.id
+                    commandId   = $Command.id
                     commandType = "loadProgress"
-                    result = $result
-                    success = $true
+                    result      = $result
+                    success     = $true
                 } -Source "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
             }
 
             "powershell.calculateStats" {
                 $result = Get-GameStatisticsInternal -GameData $Command.data.gameData
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-                    commandId = $Command.id
+                    commandId   = $Command.id
                     commandType = "calculateStats"
-                    result = $result
-                    success = $true
+                    result      = $result
+                    success     = $true
                 } -Source "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
             }
 
             "powershell.findNearby" {
                 $result = Find-NearbyLocationsInternal -GameData $Command.data.gameData -Latitude $Command.data.latitude -Longitude $Command.data.longitude -RadiusKm $Command.data.radius
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-                    commandId = $Command.id
+                    commandId   = $Command.id
                     commandType = "findNearby"
-                    result = $result
-                    success = $true
+                    result      = $result
+                    success     = $true
                 } -Source "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
             }
 
             default {
                 Write-GameLog -Message "Unknown command type: $($Command.type)" -Level Warning -Module "EventSystem" -Data @{
-                    CommandId = $Command.id
+                    CommandId   = $Command.id
                     CommandType = $Command.type
                 } -Verbose:($VerbosePreference -eq 'Continue')
 
                 Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-                    commandId = $Command.id
+                    commandId   = $Command.id
                     commandType = $Command.type
-                    error = "Unknown command type"
-                    success = $false
+                    error       = "Unknown command type"
+                    success     = $false
                 } -Source "EventSystem" -Priority "High" -Verbose:($VerbosePreference -eq 'Continue')
             }
         }
 
         $processingTime = (Get-Date) - $startTime
         Write-GameLog -Message "Command processed successfully" -Level Debug -Module "EventSystem" -Data @{
-            CommandId = $Command.id
-            CommandType = $Command.type
+            CommandId        = $Command.id
+            CommandType      = $Command.type
             ProcessingTimeMs = $processingTime.TotalMilliseconds
         } -Verbose:($VerbosePreference -eq 'Continue')
 
-    } catch {
+    }
+    catch {
         Write-ErrorLog -Message "Error processing command: $($Command.type)" -Module "EventSystem" -Exception $_ -Data @{
-            CommandId = $Command.id
+            CommandId   = $Command.id
             CommandType = $Command.type
             CommandData = $Command.data
         }
 
         # Send error response
         Send-GameEvent -EventType "powershell.commandCompleted" -Data @{
-            commandId = $Command.id
+            commandId   = $Command.id
             commandType = $Command.type
-            error = $_.Exception.Message
-            success = $false
+            error       = $_.Exception.Message
+            success     = $false
         } -Source "EventSystem" -Priority "High"
     }
 }
@@ -613,8 +621,8 @@ function Invoke-EventHandlers {
 
             $executionTime = (Get-Date) - $startTime
             Write-GameLog -Message "Handler executed successfully in $($executionTime.TotalMilliseconds)ms" -Level Debug -Module "EventSystem" -Data @{
-                HandlerId = $handler.Id
-                EventType = $Event.type
+                HandlerId       = $handler.Id
+                EventType       = $Event.type
                 ExecutionTimeMs = $executionTime.TotalMilliseconds
             } -Verbose:($VerbosePreference -eq 'Continue')
 
@@ -623,24 +631,26 @@ function Invoke-EventHandlers {
                 $script:EventHandlers[$Event.type] = $script:EventHandlers[$Event.type] | Where-Object { $_.Id -ne $handler.Id }
                 Write-GameLog -Message "Removed one-time handler: $($handler.Id)" -Level Debug -Module "EventSystem" -Verbose:($VerbosePreference -eq 'Continue')
             }
-        } catch {
+        }
+        catch {
             Write-ErrorLog -Message "Error executing event handler for $($Event.type)" -Module "EventSystem" -Exception $_ -Data @{
                 HandlerId = $handler.Id
                 EventType = $Event.type
-                EventId = $Event.id
+                EventId   = $Event.id
             }
 
             # Send error event (but prevent infinite loops)
             if ($Event.type -ne "system.error") {
                 try {
                     Send-GameEvent -EventType "system.error" -Data @{
-                        message = $_.Exception.Message
-                        eventType = $Event.type
-                        handlerId = $handler.Id
-                        source = "powershell"
+                        message         = $_.Exception.Message
+                        eventType       = $Event.type
+                        handlerId       = $handler.Id
+                        source          = "powershell"
                         originalEventId = $Event.id
                     } -Source "EventSystem" -Priority "High"
-                } catch {
+                }
+                catch {
                     Write-Warning "Failed to send error event for handler failure: $($_.Exception.Message)"
                 }
             }
@@ -658,14 +668,14 @@ function Register-DefaultEventHandlers {
         # Initialize player data files
         $playerFile = "player_$($Data.playerName).json"
         $initialData = @{
-            playerName = $Data.playerName
-            createdAt = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
-            level = 1
-            experience = 0
-            score = 0
+            playerName       = $Data.playerName
+            createdAt        = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
+            level            = 1
+            experience       = 0
+            score            = 0
             visitedLocations = @()
-            inventory = @()
-            achievements = @()
+            inventory        = @()
+            achievements     = @()
         }
 
         $initialData | ConvertTo-Json -Depth 5 | Set-Content $playerFile
@@ -698,20 +708,20 @@ function Register-DefaultEventHandlers {
 
         # Log location visit
         $visitLog = @{
-            playerId = $Data.playerId
-            locationId = $Data.location.id
+            playerId     = $Data.playerId
+            locationId   = $Data.location.id
             locationName = $Data.location.name
-            timestamp = $Event.timestamp
-            points = $Data.location.points
-            items = $Data.location.items
+            timestamp    = $Event.timestamp
+            points       = $Data.location.points
+            items        = $Data.location.items
         }
 
         Add-ToVisitLog -Visit $visitLog
 
         # Send achievement check event
         Send-GameEvent -EventType "achievement.check" -Data @{
-            playerId = $Data.playerId
-            action = "locationVisit"
+            playerId   = $Data.playerId
+            action     = "locationVisit"
             locationId = $Data.location.id
         }
     }
@@ -723,7 +733,7 @@ function Register-DefaultEventHandlers {
 
         # Perform startup tasks
         Send-GameEvent -EventType "system.dataLoaded" -Data @{
-            message = "System initialized"
+            message   = "System initialized"
             timestamp = $Event.timestamp
         }
     }
@@ -739,7 +749,8 @@ function Register-DefaultEventHandlers {
 function Save-EventQueue {
     try {
         $script:EventQueue | ConvertTo-Json -Depth 10 | Set-Content $script:EventConfig.EventQueueFile
-    } catch {
+    }
+    catch {
         Write-Warning "Failed to save event queue: $($_.Exception.Message)"
     }
 }
@@ -757,7 +768,7 @@ function Add-ToEventLog {
 
     # Trim log if too large
     if ($script:EventLog.Count -gt $script:EventConfig.MaxEventLogSize) {
-        $script:EventLog = $script:EventLog[-$script:EventConfig.MaxEventLogSize..-1]
+        $script:EventLog = $script:EventLog[ - $script:EventConfig.MaxEventLogSize..-1]
     }
 
     # Save log to file periodically
@@ -770,7 +781,8 @@ function Add-ToEventLog {
 function Save-EventLog {
     try {
         $script:EventLog | ConvertTo-Json -Depth 10 | Set-Content $script:EventConfig.EventLogFile
-    } catch {
+    }
+    catch {
         Write-Warning "Failed to save event log: $($_.Exception.Message)"
     }
 }
@@ -852,11 +864,11 @@ function Update-EventProcessingMetrics {
 
     if (-not $script:EventMetrics) {
         $script:EventMetrics = @{
-            TotalEvents = 0
-            ErrorCount = 0
+            TotalEvents             = 0
+            ErrorCount              = 0
             AverageProcessingTimeMs = 0
-            MaxProcessingTimeMs = 0
-            LastUpdated = Get-Date
+            MaxProcessingTimeMs     = 0
+            LastUpdated             = Get-Date
         }
     }
 
@@ -867,7 +879,8 @@ function Update-EventProcessingMetrics {
         $script:EventMetrics.AverageProcessingTimeMs = (
             ($script:EventMetrics.AverageProcessingTimeMs * ($script:EventMetrics.TotalEvents - 1)) + $processingTimeMs
         ) / $script:EventMetrics.TotalEvents
-    } else {
+    }
+    else {
         $script:EventMetrics.AverageProcessingTimeMs = $processingTimeMs
     }
 
@@ -927,7 +940,8 @@ function Add-ToVisitLog {
             $visits = Get-Content $visitLogFile -Raw | ConvertFrom-Json
             # Ensure it's an array
             $visits = @($visits)
-        } catch {
+        }
+        catch {
             Write-Warning "Could not load existing visit log"
         }
     }
@@ -936,7 +950,8 @@ function Add-ToVisitLog {
 
     try {
         $visits | ConvertTo-Json -Depth 5 | Set-Content $visitLogFile
-    } catch {
+    }
+    catch {
         Write-Warning "Could not save visit log"
     }
 }
@@ -959,32 +974,32 @@ function Check-Achievements {
             # First visit achievement
             if ($visitCount -eq 1) {
                 Send-GameEvent -EventType "achievement.unlocked" -Data @{
-                    playerId = $PlayerId
+                    playerId      = $PlayerId
                     achievementId = "first_visit"
-                    title = "First Steps"
-                    description = "Visited your first location"
-                    points = 50
+                    title         = "First Steps"
+                    description   = "Visited your first location"
+                    points        = 50
                 }
             }
 
             # Explorer achievements
             if ($visitCount -eq 5) {
                 Send-GameEvent -EventType "achievement.unlocked" -Data @{
-                    playerId = $PlayerId
+                    playerId      = $PlayerId
                     achievementId = "explorer"
-                    title = "Explorer"
-                    description = "Visited 5 locations"
-                    points = 100
+                    title         = "Explorer"
+                    description   = "Visited 5 locations"
+                    points        = 100
                 }
             }
 
             if ($visitCount -eq 10) {
                 Send-GameEvent -EventType "achievement.unlocked" -Data @{
-                    playerId = $PlayerId
+                    playerId      = $PlayerId
                     achievementId = "veteran_explorer"
-                    title = "Veteran Explorer"
-                    description = "Visited 10 locations"
-                    points = 200
+                    title         = "Veteran Explorer"
+                    description   = "Visited 10 locations"
+                    points        = 200
                 }
             }
         }
@@ -999,19 +1014,20 @@ function Get-PlayerProgressInternal {
     if (Test-Path $progressFile) {
         try {
             return Get-Content $progressFile -Raw | ConvertFrom-Json
-        } catch {
+        }
+        catch {
             Write-Warning "Could not load player progress for $($PlayerName): $($_.Exception.Message)"
         }
     }
 
     # Return new player data if file doesn't exist or couldn't be loaded
     return @{
-        playerName = $PlayerName
-        score = 0
+        playerName       = $PlayerName
+        score            = 0
         visitedLocations = @()
-        inventory = @()
-        achievements = @()
-        startTime = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
+        inventory        = @()
+        achievements     = @()
+        startTime        = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
     }
 }
 
@@ -1027,7 +1043,8 @@ function Save-PlayerProgressInternal {
         $Progress | ConvertTo-Json -Depth 5 | Set-Content $progressFile
         Write-Host "Player progress saved to: $($progressFile)" -ForegroundColor Green
         return $progressFile
-    } catch {
+    }
+    catch {
         Write-Warning "Could not save player progress for $($PlayerName): $($_.Exception.Message)"
         return $null
     }
@@ -1055,16 +1072,16 @@ function Invoke-GenerateLocations {
             $lng = [math]::Round((-74.0060 + (Get-Random -Minimum -0.1 -Maximum 0.1)), 6)
 
             $location = @{
-                id = "generated_location_$($i)"
-                lat = $lat
-                lng = $lng
-                name = "$($type) Location #$($i)"
-                type = $type
+                id          = "generated_location_$($i)"
+                lat         = $lat
+                lng         = $lng
+                name        = "$($type) Location #$($i)"
+                type        = $type
                 description = "A dynamically generated $($type) location"
-                points = Get-Random -Minimum 25 -Maximum 150
-                items = @("item_$($i)")
-                discovered = $false
-                timestamp = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
+                points      = Get-Random -Minimum 25 -Maximum 150
+                items       = @("item_$($i)")
+                discovered  = $false
+                timestamp   = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
             }
 
             $locations = @($locations)
@@ -1073,22 +1090,23 @@ function Invoke-GenerateLocations {
 
         $result = @{
             generatedAt = (Get-Date).ToString('yyyy-MM-ddTHH:mm:ss')
-            city = $city
-            version = "1.0"
-            locations = $locations
-            metadata = @{
+            city        = $city
+            version     = "1.0"
+            locations   = $locations
+            metadata    = @{
                 totalLocations = $locationCount
-                generator = "PowerShell Event System"
+                generator      = "PowerShell Event System"
             }
         }
 
         Write-Host "Successfully generated $($locationCount) locations" -ForegroundColor Green
         return $result
 
-    } catch {
+    }
+    catch {
         Write-Warning "Error generating locations: $($_.Exception.Message)"
         return @{
-            error = $_.Exception.Message
+            error     = $_.Exception.Message
             locations = @()
         }
     }
@@ -1100,7 +1118,7 @@ function Get-GameStatisticsInternal {
 
     if (-not $GameData -or -not $GameData.locations) {
         return @{
-            error = "No game data provided"
+            error          = "No game data provided"
             TotalLocations = 0
         }
     }
@@ -1108,18 +1126,20 @@ function Get-GameStatisticsInternal {
     try {
         $stats = @{
             TotalLocations = $GameData.locations.Count
-            LocationTypes = $GameData.locations | Group-Object type | ForEach-Object { @{ Type = $_.Name; Count = $_.Count } }
-            TotalPoints = ($GameData.locations | Where-Object { $_.points } | Measure-Object points -Sum).Sum
-            AveragePoints = if ($GameData.locations.Count -gt 0) {
+            LocationTypes  = $GameData.locations | Group-Object type | ForEach-Object { @{ Type = $_.Name; Count = $_.Count } }
+            TotalPoints    = ($GameData.locations | Where-Object { $_.points } | Measure-Object points -Sum).Sum
+            AveragePoints  = if ($GameData.locations.Count -gt 0) {
                 [math]::Round(($GameData.locations | Where-Object { $_.points } | Measure-Object points -Average).Average, 2)
-            } else { 0 }
+            }
+            else { 0 }
         }
 
         return $stats
-    } catch {
+    }
+    catch {
         Write-Warning "Error calculating game statistics: $($_.Exception.Message)"
         return @{
-            error = $_.Exception.Message
+            error          = $_.Exception.Message
             TotalLocations = 0
         }
     }
@@ -1159,7 +1179,8 @@ function Find-NearbyLocationsInternal {
         }
 
         return $nearbyLocations | Sort-Object Distance
-    } catch {
+    }
+    catch {
         Write-Warning "Error finding nearby locations: $($_.Exception.Message)"
         return @()
     }
@@ -1180,7 +1201,8 @@ function Start-EventProcessing {
             $script:EventQueue = @()
 
             Start-Sleep -Seconds $IntervalSeconds
-        } catch {
+        }
+        catch {
             Write-Error "Error in event processing loop: $($_.Exception.Message)"
             Start-Sleep -Seconds $IntervalSeconds
         }
@@ -1190,11 +1212,11 @@ function Start-EventProcessing {
 # Get event statistics
 function Get-EventStatistics {
     return @{
-        TotalEventsLogged = $script:EventLog.Count
+        TotalEventsLogged  = $script:EventLog.Count
         RegisteredHandlers = $script:EventHandlers.Keys.Count
-        QueuedEvents = $script:EventQueue.Count
-        EventTypes = $script:EventLog | Group-Object type | ForEach-Object { @{ Type = $_.Name; Count = $_.Count } }
-        RecentEvents = $script:EventLog | Select-Object -Last 10
+        QueuedEvents       = $script:EventQueue.Count
+        EventTypes         = $script:EventLog | Group-Object type | ForEach-Object { @{ Type = $_.Name; Count = $_.Count } }
+        RecentEvents       = $script:EventLog | Select-Object -Last 10
     }
 }
 
@@ -1202,6 +1224,8 @@ function Get-EventStatistics {
 Export-ModuleMember -Function @(
     'Initialize-EventSystem',
     'Register-GameEvent',
+    'Invoke-GameEvent',
+    'Get-GameEvent',
     'Send-GameEvent',
     'Process-JavaScriptCommands',
     'Start-EventProcessing',

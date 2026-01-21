@@ -1,307 +1,50 @@
 [
   {
-    "id": "ps_20250801_003739_aa415b26",
-    "priority": "Normal",
-    "source": "powershell",
     "type": "command.registered",
-    "timestamp": "2025-08-01T00:37:39.153",
-    "data": {
-      "Module": "test",
-      "Description": "Test command for state updates",
-      "Command": "test.updateState"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_676a80fd",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandRegistered",
-    "timestamp": "2025-08-01T00:37:39.154",
-    "data": {
-      "CommandName": "test.updateState",
-      "RegistrationTime": "2025-08-01T00:37:39.1543466+01:00",
-      "Category": null,
-      "Module": "test"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_143b9112",
+    "timestamp": "2026-01-21T19:35:02.929",
     "priority": "Normal",
     "source": "powershell",
-    "type": "state.changed",
-    "timestamp": "2025-08-01T00:37:39.158",
     "data": {
-      "timestamp": "2025-08-01T00:37:39.1583299+01:00",
-      "changeType": "update",
-      "entityId": "test-entity-123"
-    }
+      "Command": "registry.listCommands",
+      "Module": "registry",
+      "Description": "List all available commands with optional filtering"
+    },
+    "id": "ps_20260121_193502_6017b9ad"
   },
   {
-    "id": "ps_20250801_003739_d6c2c046",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.164",
-    "data": {
-      "Success": true,
-      "ExecutionTime": 6.239,
-      "ExecutionId": "19490904-d491-4aaf-8ba4-bf5fd9ee0798",
-      "Command": "test.updateState"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_122f2a1f",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.166",
-    "data": {
-      "ExecutionTimeMs": 9.0065,
-      "CommandName": "test.updateState",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.1662946+01:00",
-      "ExecutionId": "d38cdd87"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_144d06d4",
-    "priority": "Normal",
-    "source": "powershell",
     "type": "command.registered",
-    "timestamp": "2025-08-01T00:37:39.242",
-    "data": {
-      "Module": "test",
-      "Description": "Command that intentionally throws an error",
-      "Command": "test.errorCommand"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_19bbbd1f",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandRegistered",
-    "timestamp": "2025-08-01T00:37:39.243",
-    "data": {
-      "CommandName": "test.errorCommand",
-      "RegistrationTime": "2025-08-01T00:37:39.2434871+01:00",
-      "Category": null,
-      "Module": "test"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_88e42d90",
+    "timestamp": "2026-01-21T19:35:02.959",
     "priority": "Normal",
     "source": "powershell",
-    "type": "command.error",
-    "timestamp": "2025-08-01T00:37:39.247",
     "data": {
-      "ExecutionTime": 0.3703,
-      "Error": "Intentional test error",
-      "ExecutionId": "084a19b6-c480-4141-8024-2ba88cd8393c",
-      "Command": "test.errorCommand"
-    }
+      "Command": "registry.getDocumentation",
+      "Module": "registry",
+      "Description": "Get comprehensive command documentation"
+    },
+    "id": "ps_20260121_193502_8c72a8ec"
   },
   {
-    "id": "ps_20250801_003739_3ff56d86",
-    "priority": "High",
-    "source": "CommandRegistry",
-    "type": "system.commandExecutionFailed",
-    "timestamp": "2025-08-01T00:37:39.252",
-    "data": {
-      "ExecutionTimeMs": 3.0574,
-      "CommandName": "test.errorCommand",
-      "ExecutionTime": "2025-08-01T00:37:39.2524548+01:00",
-      "Error": "Intentional test error",
-      "ExecutionId": "561eb816"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_286a925f",
+    "type": "command.registered",
+    "timestamp": "2026-01-21T19:35:02.964",
     "priority": "Normal",
     "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.256",
     "data": {
-      "Success": true,
-      "ExecutionTime": 0.2019,
-      "ExecutionId": "70792fbe-9d7c-443f-b0a2-37f91008cda7",
-      "Command": "registry.listCommands"
-    }
+      "Command": "registry.getStatistics",
+      "Module": "registry",
+      "Description": "Get detailed registry performance and usage statistics"
+    },
+    "id": "ps_20260121_193502_1809abae"
   },
   {
-    "id": "ps_20250801_003739_420fc72b",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.259",
-    "data": {
-      "ExecutionTimeMs": 3.0934,
-      "CommandName": "registry.listCommands",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.259321+01:00",
-      "ExecutionId": "fb7ad3d0"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_5d11dcd7",
+    "type": "command.registered",
+    "timestamp": "2026-01-21T19:35:02.967",
     "priority": "Normal",
     "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.375",
     "data": {
-      "Success": true,
-      "ExecutionTime": 0.2444,
-      "ExecutionId": "51be9fa5-02a2-4f9b-874c-7929af4883ff",
-      "Command": "registry.listCommands"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_5f3f0176",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.377",
-    "data": {
-      "ExecutionTimeMs": 2.9553,
-      "CommandName": "registry.listCommands",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.3772941+01:00",
-      "ExecutionId": "489b9360"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_312cd0d2",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.498",
-    "data": {
-      "Success": true,
-      "ExecutionTime": 0.2055,
-      "ExecutionId": "ba4362ae-f159-4dd9-bbad-0e3dec1e8404",
-      "Command": "registry.listCommands"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_416d256d",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.502",
-    "data": {
-      "ExecutionTimeMs": 4.4071,
-      "CommandName": "registry.listCommands",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.502326+01:00",
-      "ExecutionId": "1463c9ed"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_67810e6f",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.621",
-    "data": {
-      "Success": true,
-      "ExecutionTime": 0.2191,
-      "ExecutionId": "83cffc64-2a67-45fe-88d8-a4ac8c48b804",
-      "Command": "registry.listCommands"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_cddd1fec",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.623",
-    "data": {
-      "ExecutionTimeMs": 2.7398,
-      "CommandName": "registry.listCommands",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.6232161+01:00",
-      "ExecutionId": "fb23a660"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_25f19d01",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.728",
-    "data": {
-      "Success": true,
-      "ExecutionTime": 0.2079,
-      "ExecutionId": "cc866787-b020-45c2-9f22-014b616723ed",
-      "Command": "registry.listCommands"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_ac2788e2",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.730",
-    "data": {
-      "ExecutionTimeMs": 2.6571,
-      "CommandName": "registry.listCommands",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.7304159+01:00",
-      "ExecutionId": "cb8a5108"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_f5cd7892",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.executed",
-    "timestamp": "2025-08-01T00:37:39.836",
-    "data": {
-      "Success": true,
-      "ExecutionTime": 0.1063,
-      "ExecutionId": "eeca4bed-1612-4e9b-92fc-511f5392aeea",
-      "Command": "registry.getStatistics"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_e1a1f2d7",
-    "priority": "Normal",
-    "source": "CommandRegistry",
-    "type": "system.commandExecuted",
-    "timestamp": "2025-08-01T00:37:39.840",
-    "data": {
-      "ExecutionTimeMs": 4.769,
-      "CommandName": "registry.getStatistics",
-      "Success": true,
-      "ExecutionTime": "2025-08-01T00:37:39.8402804+01:00",
-      "ExecutionId": "976a842a"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_787fe6eb",
-    "priority": "Normal",
-    "source": "powershell",
-    "type": "command.error",
-    "timestamp": "2025-08-01T00:37:39.844",
-    "data": {
-      "ExecutionTime": 0.7192,
-      "Error": "Method invocation failed because [CommandRegistry] does not contain a method named 'GetPerformanceMetrics'.",
-      "ExecutionId": "81558295-35df-48a7-b8fc-a3951672c966",
-      "Command": "registry.getPerformanceMetrics"
-    }
-  },
-  {
-    "id": "ps_20250801_003739_c74cc809",
-    "priority": "High",
-    "source": "CommandRegistry",
-    "type": "system.commandExecutionFailed",
-    "timestamp": "2025-08-01T00:37:39.847",
-    "data": {
-      "ExecutionTimeMs": 3.5532,
-      "CommandName": "registry.getPerformanceMetrics",
-      "ExecutionTime": "2025-08-01T00:37:39.8469989+01:00",
-      "Error": "Method invocation failed because [CommandRegistry] does not contain a method named 'GetPerformanceMetrics'.",
-      "ExecutionId": "cc0d380b"
-    }
+      "Command": "registry.getPerformanceMetrics",
+      "Module": "registry",
+      "Description": "Get detailed performance metrics for commands"
+    },
+    "id": "ps_20260121_193502_e759ccea"
   }
 ]

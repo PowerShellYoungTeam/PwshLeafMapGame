@@ -15,33 +15,33 @@
 
 # Module-level configuration
 $script:LogLevels = @{
-    Debug = 0
-    Info = 1
-    Warning = 2
-    Error = 3
+    Debug    = 0
+    Info     = 1
+    Warning  = 2
+    Error    = 3
     Critical = 4
-    None = 5
+    None     = 5
 }
 
 $script:LoggingConfig = @{
-    MinimumLevel = $script:LogLevels.Info
-    LogToFile = $true
-    LogFilePath = ".\Logs\game.log"
-    LogToConsole = $true
-    IncludeTimestamp = $true
-    MaxLogSizeMB = 10
-    EnableRotation = $true
-    DebugMode = $false
-    VerboseLogging = $false
+    MinimumLevel      = $script:LogLevels.Info
+    LogToFile         = $true
+    LogFilePath       = ".\Logs\game.log"
+    LogToConsole      = $true
+    IncludeTimestamp  = $true
+    MaxLogSizeMB      = 10
+    EnableRotation    = $true
+    DebugMode         = $false
+    VerboseLogging    = $false
     StructuredLogging = $true
-    LogFormat = "Standard"  # Standard, JSON, Structured
+    LogFormat         = "Standard"  # Standard, JSON, Structured
 }
 
 $script:LogStats = @{
-    TotalLogs = 0
-    ErrorCount = 0
-    WarningCount = 0
-    LastLogTime = $null
+    TotalLogs        = 0
+    ErrorCount       = 0
+    WarningCount     = 0
+    LastLogTime      = $null
     SessionStartTime = Get-Date
 }
 
@@ -49,6 +49,38 @@ $script:LogStats = @{
 $logDir = Split-Path $script:LoggingConfig.LogFilePath -Parent
 if (-not (Test-Path $logDir)) {
     New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+}
+
+<#
+.SYNOPSIS
+    Initializes the game logging system.
+
+.DESCRIPTION
+    Prepares the logging system for use. This function ensures the log directory
+    exists and resets log statistics. It's automatically called when the module
+    is imported, but can be called again to reset the logging system.
+
+.EXAMPLE
+    Initialize-GameLogging
+
+.NOTES
+    This function is idempotent and safe to call multiple times.
+#>
+function Initialize-GameLogging {
+    [CmdletBinding()]
+    param()
+
+    # Ensure logs directory exists
+    $logDir = Split-Path $script:LoggingConfig.LogFilePath -Parent
+    if (-not (Test-Path $logDir)) {
+        New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+    }
+
+    # Reset statistics
+    $script:LogStats.SessionStartTime = Get-Date
+    $script:LogStats.LastLogTime = $null
+
+    Write-GameLog -Message "Game logging system initialized" -Level Info -Module "Logging"
 }
 
 <#
@@ -125,19 +157,19 @@ function Write-GameLog {
         $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
         $logEntry = @{
             Timestamp = $timestamp
-            Level = $Level
-            Module = $Module
-            Message = $Message
-            Data = $Data
-            ThreadId = [System.Threading.Thread]::CurrentThread.ManagedThreadId
+            Level     = $Level
+            Module    = $Module
+            Message   = $Message
+            Data      = $Data
+            ThreadId  = [System.Threading.Thread]::CurrentThread.ManagedThreadId
             ProcessId = $PID
         }
 
         # Add exception details if provided
         if ($Exception) {
             $logEntry.Exception = @{
-                Type = $Exception.GetType().Name
-                Message = $Exception.Message
+                Type       = $Exception.GetType().Name
+                Message    = $Exception.Message
                 StackTrace = $Exception.StackTrace
             }
         }
@@ -168,7 +200,8 @@ function Write-GameLog {
         # Update statistics
         Update-LogStatistics -Level $Level
 
-    } catch {
+    }
+    catch {
         # Fallback error handling - avoid infinite recursion
         Write-Error "Logging system error: $_"
     }
@@ -241,7 +274,8 @@ function Write-LogToFile {
         # Write to file
         $FormattedMessage | Add-Content -Path $script:LoggingConfig.LogFilePath -Encoding UTF8
 
-    } catch {
+    }
+    catch {
         Write-Warning "Failed to write to log file: $_"
     }
 }
@@ -338,8 +372,8 @@ function Get-LoggingInfo {
 
     return @{
         Configuration = $script:LoggingConfig.Clone()
-        Statistics = $script:LogStats.Clone()
-        Levels = $script:LogLevels.Clone()
+        Statistics    = $script:LogStats.Clone()
+        Levels        = $script:LogLevels.Clone()
     }
 }
 
@@ -418,12 +452,13 @@ function Write-ErrorLog {
 
 # Initialize logging on module import
 Write-GameLog -Message "Game logging system initialized" -Level Info -Module "Logging" -Data @{
-    Version = "1.0.0"
+    Version    = "1.0.0"
     ConfigFile = $script:LoggingConfig.LogFilePath
 }
 
 # Export functions
 Export-ModuleMember -Function @(
+    'Initialize-GameLogging',
     'Write-GameLog',
     'Set-LoggingConfig',
     'Get-LoggingInfo',
