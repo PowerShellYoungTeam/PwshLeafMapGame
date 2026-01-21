@@ -41,15 +41,11 @@ function Initialize-GameEngine {
         5. CommunicationBridge - for JS/PS communication
         6. CommandRegistry - for command handling
 
-    .PARAMETER ConfigPath
-        Path to the game configuration file
-
     .PARAMETER DebugMode
         Enable debug logging
     #>
     [CmdletBinding()]
     param(
-        [string]$ConfigPath = ".\Data\config.json",
         [switch]$DebugMode
     )
 
@@ -102,7 +98,6 @@ function Initialize-GameEngine {
     return @{
         Initialized = $true
         DebugMode   = $DebugMode.IsPresent
-        ConfigPath  = $ConfigPath
         Version     = '0.2.0'
     }
 }

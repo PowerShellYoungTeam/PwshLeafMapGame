@@ -737,3 +737,171 @@
 [2026-01-18 03:35:19.832] [Info] [Logging] Game logging system initialized
 [2026-01-18 03:36:11.182] [Info] [Logging] Game logging system initialized
 [2026-01-18 03:36:55.496] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:02:53.702] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:02:54.569] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:03:02.097] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:03:02.318] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:03:02.329] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:03:02.355] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:03:02.392] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:03:02.421] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:03:02.454] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:03:02.458] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:03:02.465] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:03:02.471] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:03:02.477] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:03:02.510] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:03:02.515] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:03:02.623] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:03:02.627] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-18 04:03:11.227] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:03:11.300] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:03:11.324] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:03:11.330] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:05:18.295] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:05:18.475] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:05:18.486] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:05:18.511] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:05:18.538] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:05:18.565] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:05:18.595] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:05:18.599] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:05:18.606] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:05:18.613] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:05:18.618] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:05:18.649] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:05:18.654] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:05:18.759] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:05:18.763] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-18 04:05:19.576] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:05:19.654] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:05:19.698] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:05:19.711] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:07:32.334] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:07:32.523] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:07:32.534] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:07:32.564] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:07:32.590] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:07:32.617] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:07:32.648] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:07:32.653] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:07:32.661] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:07:32.669] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:07:32.674] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:07:32.707] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:07:32.714] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:07:32.821] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:07:32.825] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-18 04:08:16.217] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:08:16.404] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:08:16.414] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:08:16.438] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:08:16.468] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:08:16.495] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:08:16.525] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:08:16.530] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:08:16.537] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:08:16.544] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:08:16.549] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:08:16.581] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:08:16.588] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:08:16.693] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:08:16.699] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-18 04:12:39.599] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:12:39.780] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:12:39.790] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:12:39.815] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:12:39.841] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:12:39.867] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:12:39.898] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:12:39.903] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:12:39.910] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:12:39.916] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:12:39.921] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:12:39.952] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:12:39.957] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:12:40.066] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:12:40.070] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-18 04:12:40.815] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:12:40.893] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:12:40.929] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:12:40.936] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:15:12.653] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:15:12.835] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:15:12.845] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:15:12.873] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:15:12.902] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:15:12.929] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:15:12.993] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:15:12.998] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:15:13.006] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:15:13.012] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:15:13.017] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:15:13.048] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:15:13.052] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:15:13.153] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:15:13.157] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-18 04:15:13.860] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:15:13.929] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:15:13.961] [Info] [CommandRegistry] Executing command: registry.listCommands
+[2026-01-18 04:15:13.969] [Info] [CommandRegistry] Command executed successfully: registry.listCommands
+[2026-01-18 04:17:26.904] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:17:27.097] [Info] [Logging] Game logging system initialized
+[2026-01-18 04:17:27.108] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-18 04:17:27.132] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-18 04:17:27.162] [Error] [EventSystem] Could not load existing event log
+[2026-01-18 04:17:27.188] [Info] [EventSystem] Event system initialized successfully
+[2026-01-18 04:17:27.219] [Info] [Core] Initializing PathfindingSystem
+[2026-01-18 04:17:27.223] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-18 04:17:27.231] [Info] [Core] Initializing CommunicationBridge
+[2026-01-18 04:17:27.239] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-18 04:17:27.244] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-18 04:17:27.275] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-18 04:17:27.279] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-18 04:17:27.386] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-18 04:17:27.391] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-21 19:06:27.408] [Info] [Logging] Game logging system initialized
+[2026-01-21 19:06:27.649] [Info] [Logging] Game logging system initialized
+[2026-01-21 19:06:27.661] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-21 19:06:27.687] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-21 19:06:27.732] [Error] [EventSystem] Could not load existing event log
+[2026-01-21 19:06:27.754] [Info] [EventSystem] Event system initialized successfully
+[2026-01-21 19:06:27.787] [Info] [Core] Initializing PathfindingSystem
+[2026-01-21 19:06:27.792] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-21 19:06:27.799] [Info] [Core] Initializing CommunicationBridge
+[2026-01-21 19:06:27.806] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-21 19:06:27.811] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-21 19:06:27.844] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-21 19:06:27.849] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-21 19:06:27.956] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-21 19:06:27.961] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-21 19:21:55.726] [Info] [Logging] Game logging system initialized
+[2026-01-21 19:21:55.908] [Info] [Logging] Game logging system initialized
+[2026-01-21 19:21:55.919] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-21 19:21:55.943] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-21 19:21:55.970] [Error] [EventSystem] Could not load existing event log
+[2026-01-21 19:21:55.996] [Info] [EventSystem] Event system initialized successfully
+[2026-01-21 19:21:56.027] [Info] [Core] Initializing PathfindingSystem
+[2026-01-21 19:21:56.032] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-21 19:21:56.040] [Info] [Core] Initializing CommunicationBridge
+[2026-01-21 19:21:56.046] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-21 19:21:56.050] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-21 19:21:56.082] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-21 19:21:56.087] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-21 19:21:56.193] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-21 19:21:56.197] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-21 19:35:02.435] [Info] [Logging] Game logging system initialized
+[2026-01-21 19:35:02.643] [Info] [Logging] Game logging system initialized
+[2026-01-21 19:35:02.654] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-21 19:35:02.680] [Info] [EventSystem] Loaded existing event log with 470 events
+[2026-01-21 19:35:02.709] [Error] [EventSystem] Could not load existing event log
+[2026-01-21 19:35:02.739] [Info] [EventSystem] Event system initialized successfully
+[2026-01-21 19:35:02.775] [Info] [Core] Initializing PathfindingSystem
+[2026-01-21 19:35:02.782] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-21 19:35:02.791] [Info] [Core] Initializing CommunicationBridge
+[2026-01-21 19:35:02.800] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-21 19:35:02.808] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-21 19:35:02.846] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-21 19:35:02.852] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-21 19:35:02.970] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-21 19:35:02.974] [Warning] [CommandRegistry] Failed to send initialization event
