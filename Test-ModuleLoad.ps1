@@ -1,5 +1,7 @@
 # Quick test of module loading
-$ModulesPath = 'S:\AI-Game-Dev\PwshLeafMapGame\Modules\CoreGame'
+param(
+    [string]$ModulesPath = (Join-Path -Path $PSScriptRoot -ChildPath 'Modules\CoreGame')
+)
 Push-Location $ModulesPath
 
 Write-Host "Loading GameLogging..." -ForegroundColor Yellow
