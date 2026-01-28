@@ -8,6 +8,14 @@ class PathfindingManager {
         this.routeCache = new Map();
         this.currentPath = null;
         this.pathLayer = null;
+        this.osmDataService = null; // Will be set by GameMap
+    }
+
+    /**
+     * Set the OSM data service for terrain/surface queries
+     */
+    setOSMDataService(service) {
+        this.osmDataService = service;
     }
 
     /**
@@ -97,37 +105,82 @@ class PathfindingManager {
     /**
      * Get direct line path (fallback)
      */
+    /**
+     * Get direct line path (fallback)
+     */
     getDirectPath(start, destination, travelMode) {
         const distance = start.distanceTo(destination);
-        const duration = this.calculateTravelTime(distance, travelMode);
+        
+        // Get surface modifier for the path
+        const surfaceModifier = this.getPathSurfaceModifier([start, destination]);
+        const duration = this.calculateTravelTime(distance, travelMode, surfaceModifier);
 
         const path = {
             coordinates: [start, destination],
             distance: distance,
             duration: duration,
             type: 'direct',
-            travelMode: travelMode
+            travelMode: travelMode,
+            surfaceModifier: surfaceModifier
         };
 
-        console.log(`Direct path: ${path.distance}m, ${path.duration}s`);
+        console.log(`Direct path: ${path.distance}m, ${path.duration}s (surface modifier: ${surfaceModifier.toFixed(2)})`);
 
         return path;
     }
 
     /**
      * Calculate travel time based on mode and distance
+     * @param {number} distance - Distance in meters
+     * @param {string} travelMode - Travel mode
+     * @param {number} surfaceModifier - Optional surface speed modifier (0.4 to 1.0)
      */
-    calculateTravelTime(distance, travelMode) {
+    calculateTravelTime(distance, travelMode, surfaceModifier = 1.0) {
         const speeds = {
             'foot': 1.4,        // m/s (5 km/h)
             'car': 13.9,        // m/s (50 km/h city)
             'motorcycle': 16.7, // m/s (60 km/h)
             'van': 11.1,        // m/s (40 km/h)
+            'transit': 8.3,     // m/s (30 km/h average including stops)
             'aerial': 20        // m/s (72 km/h)
         };
 
         const speed = speeds[travelMode] || speeds['foot'];
-        return distance / speed; // seconds
+        
+        // Apply surface modifier (mainly affects foot/bike travel)
+        const effectiveModifier = (travelMode === 'foot') ? surfaceModifier : 
+                                  (travelMode === 'motorcycle') ? Math.max(0.7, surfaceModifier) : 1.0;
+        
+        return distance / (speed * effectiveModifier); // seconds
+    }
+
+    /**
+     * Get average surface modifier for a path
+     * @param {Array} coordinates - Path coordinates
+     * @returns {number} Average surface speed modifier
+     */
+    getPathSurfaceModifier(coordinates) {
+        if (!this.osmDataService || coordinates.length < 2) {
+            return 1.0;
+        }
+
+        let totalModifier = 0;
+        let sampleCount = 0;
+
+        // Sample points along the path
+        const sampleInterval = Math.max(1, Math.floor(coordinates.length / 10));
+        
+        for (let i = 0; i < coordinates.length; i += sampleInterval) {
+            const coord = coordinates[i];
+            const lat = coord.lat || coord[0];
+            const lng = coord.lng || coord[1];
+            
+            const modifier = this.osmDataService.getSurfaceSpeedModifier(lat, lng);
+            totalModifier += modifier;
+            sampleCount++;
+        }
+
+        return sampleCount > 0 ? totalModifier / sampleCount : 1.0;
     }
 
     /**

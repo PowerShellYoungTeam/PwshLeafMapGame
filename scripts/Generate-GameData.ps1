@@ -1,10 +1,12 @@
 # PowerShell script to generate game data
 # This script can create dynamic game content based on real data
+# Note: Client-side OSMDataService validates positions against water bodies
 
 param(
     [string]$OutputFile = "gamedata.json",
     [int]$LocationCount = 10,
-    [string]$City = "New York"
+    [string]$City = "New York",
+    [switch]$IncludeWaterLocations
 )
 
 # Function to generate random coordinates within a city bounds
@@ -55,6 +57,12 @@ function New-GameLocation {
     )
 
     $locationTypes = @("treasure", "quest", "shop", "landmark", "mystery")
+    
+    # Add water-based location types if enabled
+    if ($IncludeWaterLocations) {
+        $locationTypes += @("dock", "pier", "marina", "platform")
+    }
+    
     $type = $locationTypes | Get-Random
 
     $coordinates = Get-RandomCoordinates -CityName $City
@@ -66,6 +74,10 @@ function New-GameLocation {
         "shop" { @("health_potion", "map_upgrade", "tool") | Get-Random -Count (Get-Random -Minimum 1 -Maximum 2) }
         "landmark" { @("tourist_info", "historical_fact") | Get-Random -Count 1 }
         "mystery" { @("mysterious_clue", "riddle_piece") | Get-Random -Count 1 }
+        "dock" { @("shipping_manifest", "cargo_crate", "nautical_chart") | Get-Random -Count 1 }
+        "pier" { @("fishing_rod", "binoculars", "tide_table") | Get-Random -Count 1 }
+        "marina" { @("boat_key", "sailing_manual", "life_jacket") | Get-Random -Count 1 }
+        "platform" { @("research_data", "weather_report", "radio_equipment") | Get-Random -Count 1 }
         default { @("common_item") }
     }
 
@@ -76,6 +88,10 @@ function New-GameLocation {
         "shop" { Get-Random -Minimum 10 -Maximum 50 }
         "landmark" { Get-Random -Minimum 20 -Maximum 80 }
         "mystery" { Get-Random -Minimum 75 -Maximum 125 }
+        "dock" { Get-Random -Minimum 30 -Maximum 70 }
+        "pier" { Get-Random -Minimum 15 -Maximum 40 }
+        "marina" { Get-Random -Minimum 25 -Maximum 60 }
+        "platform" { Get-Random -Minimum 100 -Maximum 175 }
         default { 10 }
     }
 
@@ -85,6 +101,10 @@ function New-GameLocation {
         "shop"     = @("Merchant's Post", "Trading Hub", "Supply Station", "Market Square")
         "landmark" = @("Historic Monument", "Famous Building", "Cultural Site", "Notable Plaza")
         "mystery"  = @("Enigmatic Location", "Strange Phenomenon", "Unexplained Site", "Curious Spot")
+        "dock"     = @("Harbor Dock", "Shipping Terminal", "Cargo Bay", "Ferry Landing")
+        "pier"     = @("Fishing Pier", "Observation Pier", "Marina Pier", "Commercial Pier")
+        "marina"   = @("Yacht Marina", "Boat Harbor", "Sailing Club", "Maritime Center")
+        "platform" = @("Oil Platform", "Research Platform", "Weather Station", "Observation Deck")
     }
 
     $name = ($names[$type] | Get-Random) + " #$Id"
@@ -95,6 +115,10 @@ function New-GameLocation {
         "shop"     = @("Useful items and supplies available.", "A place to trade and resupply.", "Merchants offer their wares here.")
         "landmark" = @("A place of historical significance.", "An important cultural location.", "A famous site worth visiting.")
         "mystery"  = @("Something strange happens here...", "An unexplained phenomenon occurs.", "Mysteries abound in this location.")
+        "dock"     = @("Ships come and go from this busy dock.", "A commercial hub on the water.", "Maritime trade flows through here.")
+        "pier"     = @("A structure extending into the water.", "Watch the boats from this pier.", "A gathering place by the water.")
+        "marina"   = @("Boats of all sizes are moored here.", "A haven for sailing enthusiasts.", "Yacht owners frequent this spot.")
+        "platform" = @("An offshore structure in the water.", "Research activities take place here.", "A remote outpost on the waves.")
     }
 
     $description = $descriptions[$type] | Get-Random

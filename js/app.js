@@ -30,6 +30,12 @@ class PwshLeafmapGame {
             centerBtn.addEventListener('click', () => this.centerOnPlayer());
         }
 
+        // Refresh map data button
+        const refreshMapBtn = document.getElementById('refreshMapData');
+        if (refreshMapBtn) {
+            refreshMapBtn.addEventListener('click', () => this.refreshMapData());
+        }
+
         // Travel mode selector
         const travelModeSelect = document.getElementById('travelMode');
         if (travelModeSelect) {
@@ -116,6 +122,7 @@ class PwshLeafmapGame {
             'car': '🚗 Car',
             'motorcycle': '🏍️ Motorcycle',
             'van': '🚐 Van',
+            'transit': '🚌 Transit',
             'aerial': '🚁 Aerial'
         };
 
@@ -125,6 +132,29 @@ class PwshLeafmapGame {
         }
 
         console.log(`Travel mode set to: ${mode}`);
+    }
+
+    async refreshMapData() {
+        const btn = document.getElementById('refreshMapData');
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = '⏳ Refreshing...';
+        }
+
+        try {
+            if (this.gameMap) {
+                await this.gameMap.refreshMapData();
+                this.updateGameInfo('✅ Map data refreshed successfully!');
+            }
+        } catch (error) {
+            console.error('Failed to refresh map data:', error);
+            this.updateGameInfo('❌ Failed to refresh map data');
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = '🔄 Refresh Map Data';
+            }
+        }
     }
 
     centerOnPlayer() {

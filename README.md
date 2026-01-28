@@ -1,12 +1,32 @@
 # PowerShell Leafmap RPG Game
 
-An interactive RPG game built with PowerShell and Leafmap.js featuring drones, factions, and interactive terminals with enhanced modular architecture.
+An interactive RPG game built with PowerShell and **Leaflet.js** (JavaScript mapping library) featuring drones, factions, and interactive terminals with enhanced modular architecture.
+
+> **Note**: The game is named "Leafmap" as a play on words, but uses **Leaflet.js** for mapping - not the Python "leafmap" package which is for Jupyter notebooks.
 
 - **Enhanced Core Architecture** with event-driven modules
 - **Structured Logging** with multi-output support
 - **Dynamic Command System** with runtime registration
 - **Persistent State Management** with entity tracking
 - **Cross-Module Communication** via events
+- **OpenStreetMap Integration** with terrain awareness and real-world data
+
+## Features
+
+### Map & Movement
+- **Click-to-move** pathfinding with animated player movement
+- **Multiple travel modes**: Foot, Car, Motorcycle, Van, Transit, Aerial
+- **Transit mode** requires proximity to bus/train/subway stops (200m)
+- **Surface-aware speed** - terrain affects travel time
+- **Real-world building data** from OpenStreetMap
+
+### OSM Data Integration
+- Pre-cached OpenStreetMap data via Overpass API
+- Terrain validation (land vs water detection)
+- Building addresses for shop/quest locations
+- Public transport stops (bus, train, subway, tram, ferry)
+- Surface type data for speed modifiers
+- 24-hour local cache with manual refresh option
 
 ## Enhanced Core Modules
 

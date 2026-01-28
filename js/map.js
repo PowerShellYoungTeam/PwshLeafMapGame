@@ -6,8 +6,12 @@ class GameMap {
         this.playerMarker = null;
         this.playerPosition = null;
         this.pathfindingManager = null;
+        this.osmDataService = null;
         this.moveMode = 'foot'; // Default travel mode
         this.isMoving = false;
+        this.transportStopMarkers = []; // For transit stop display
+        this.footpathLayer = null; // For walkable paths overlay
+        this.showingFootpaths = false;
 
         // Initialize the map centered on New York City
         this.map = L.map(containerId).setView([40.7128, -74.0060], 11);
@@ -21,10 +25,176 @@ class GameMap {
         // Initialize pathfinding
         this.pathfindingManager = new PathfindingManager(this.map);
 
+        // Initialize OSM data service
+        this.initOSMDataService();
+
         // Set up click-to-move
         this.setupClickToMove();
 
-        console.log('GameMap initialized with pathfinding');
+        console.log('GameMap initialized with pathfinding and OSM data service');
+    }
+
+    /**
+     * Initialize the OSM data service
+     */
+    async initOSMDataService() {
+        this.osmDataService = new OSMDataService();
+        
+        // Set up callbacks
+        this.osmDataService.onLoadStart = () => {
+            this.updateGameStatus('Loading map data...');
+        };
+        
+        this.osmDataService.onLoadComplete = (info) => {
+            console.log(`OSM data loaded from: ${info.source}`);
+            this.updateGameStatus(`Map data loaded (${info.source})`);
+            
+            // Connect to pathfinding manager
+            this.pathfindingManager.setOSMDataService(this.osmDataService);
+            
+            // Display transport stops if any
+            this.displayTransportStops();
+        };
+        
+        this.osmDataService.onLoadError = (error) => {
+            console.error('OSM data load error:', error);
+            this.updateGameStatus('Map data load failed, using fallback');
+        };
+        
+        // Get current map bounds and initialize
+        const bounds = this.map.getBounds();
+        const osmBounds = {
+            south: bounds.getSouth(),
+            west: bounds.getWest(),
+            north: bounds.getNorth(),
+            east: bounds.getEast()
+        };
+        
+        // Expand bounds slightly for better coverage
+        const latBuffer = (osmBounds.north - osmBounds.south) * 0.1;
+        const lngBuffer = (osmBounds.east - osmBounds.west) * 0.1;
+        osmBounds.south -= latBuffer;
+        osmBounds.north += latBuffer;
+        osmBounds.west -= lngBuffer;
+        osmBounds.east += lngBuffer;
+        
+        await this.osmDataService.initialize(osmBounds);
+    }
+
+    /**
+     * Refresh OSM map data
+     */
+    async refreshMapData() {
+        if (this.osmDataService) {
+            this.updateGameStatus('Refreshing map data...');
+            await this.osmDataService.refreshMapData();
+            this.displayTransportStops();
+        }
+    }
+
+    /**
+     * Display transport stops on the map
+     */
+    displayTransportStops() {
+        // Clear existing transport markers
+        this.transportStopMarkers.forEach(marker => marker.remove());
+        this.transportStopMarkers = [];
+        
+        if (!this.osmDataService || !this.osmDataService.transportStops) return;
+        
+        const stopIcons = {
+            'bus': { emoji: '🚌', color: '#3498db' },
+            'train': { emoji: '🚂', color: '#e74c3c' },
+            'subway': { emoji: '🚇', color: '#9b59b6' },
+            'tram': { emoji: '🚊', color: '#f39c12' },
+            'ferry': { emoji: '⛴️', color: '#1abc9c' },
+            'transit': { emoji: '🚏', color: '#95a5a6' },
+            'unknown': { emoji: '🚏', color: '#95a5a6' }
+        };
+        
+        for (const stop of this.osmDataService.transportStops) {
+            const iconConfig = stopIcons[stop.type] || stopIcons['unknown'];
+            
+            const icon = L.divIcon({
+                className: 'transport-stop-marker',
+                html: `<div style="
+                    background-color: ${iconConfig.color};
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 12px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                ">${iconConfig.emoji}</div>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+            
+            const marker = L.marker([stop.lat, stop.lng], { icon })
+                .bindPopup(`
+                    <strong>${stop.name}</strong><br>
+                    Type: ${stop.type}<br>
+                    ${stop.routes ? `Routes: ${stop.routes}` : ''}
+                    ${stop.operator ? `<br>Operator: ${stop.operator}` : ''}
+                `)
+                .addTo(this.map);
+            
+            this.transportStopMarkers.push(marker);
+        }
+        
+        console.log(`Displayed ${this.transportStopMarkers.length} transport stops`);
+    }
+
+    /**
+     * Toggle footpath layer visibility
+     */
+    toggleFootpathLayer() {
+        if (this.showingFootpaths) {
+            // Hide footpaths
+            if (this.footpathLayer) {
+                this.map.removeLayer(this.footpathLayer);
+            }
+            this.showingFootpaths = false;
+        } else {
+            // Show footpaths
+            this.displayFootpaths();
+            this.showingFootpaths = true;
+        }
+        return this.showingFootpaths;
+    }
+
+    /**
+     * Display footpaths on the map
+     */
+    displayFootpaths() {
+        if (!this.osmDataService || !this.osmDataService.footpaths) return;
+        
+        // Remove existing layer
+        if (this.footpathLayer) {
+            this.map.removeLayer(this.footpathLayer);
+        }
+        
+        const pathLines = [];
+        
+        for (const path of this.osmDataService.footpaths) {
+            if (path.coordinates && path.coordinates.length >= 2) {
+                pathLines.push(path.coordinates);
+            }
+        }
+        
+        if (pathLines.length > 0) {
+            this.footpathLayer = L.polyline(pathLines, {
+                color: '#27ae60',
+                weight: 2,
+                opacity: 0.6,
+                dashArray: '5, 5'
+            }).addTo(this.map);
+        }
+        
+        console.log(`Displayed ${pathLines.length} footpaths`);
     }
 
     /**
@@ -53,6 +223,15 @@ class GameMap {
 
             const destination = e.latlng;
             console.log(`Map clicked at [${destination.lat}, ${destination.lng}]`);
+
+            // Check for transit mode requirements
+            if (this.moveMode === 'transit') {
+                const transitCheck = this.checkTransitAvailability(destination);
+                if (!transitCheck.canUseTransit) {
+                    this.updateGameStatus(transitCheck.message);
+                    return;
+                }
+            }
 
             // Update status
             this.updateGameStatus('Calculating path...');
@@ -258,14 +437,78 @@ class GameMap {
      * Set travel mode
      */
     setTravelMode(mode) {
-        const validModes = ['foot', 'car', 'motorcycle', 'van', 'aerial'];
+        const validModes = ['foot', 'car', 'motorcycle', 'van', 'transit', 'aerial'];
         if (validModes.includes(mode)) {
             this.moveMode = mode;
             this.travelMode = mode; // Alias for compatibility
             console.log(`Travel mode set to: ${mode}`);
+            
+            // Check transit availability if switching to transit mode
+            if (mode === 'transit' && this.playerPosition) {
+                const transit = this.getTransitInfo();
+                if (!transit.available) {
+                    this.updateGameStatus('⚠️ No transit stops nearby! Walk to a stop first.');
+                } else {
+                    this.updateGameStatus(`Transit available: ${transit.nearestStop.name} (${Math.round(transit.nearestStop.distance)}m)`);
+                }
+            }
         } else {
             console.warn(`Invalid travel mode: ${mode}. Use one of: ${validModes.join(', ')}`);
         }
+    }
+
+    /**
+     * Check transit availability for movement
+     */
+    checkTransitAvailability(destination) {
+        if (!this.osmDataService || !this.playerPosition) {
+            return { canUseTransit: false, message: 'Transit data not available' };
+        }
+
+        const playerLat = this.playerPosition.lat;
+        const playerLng = this.playerPosition.lng;
+        
+        // Check if player is near a transit stop (200m)
+        const nearPlayerStops = this.osmDataService.getNearbyTransportStops(playerLat, playerLng, 200);
+        
+        if (nearPlayerStops.length === 0) {
+            return { 
+                canUseTransit: false, 
+                message: '🚌 No transit stops within 200m. Walk to a stop first!' 
+            };
+        }
+
+        // Check if destination is near a transit stop (200m)
+        const nearDestStops = this.osmDataService.getNearbyTransportStops(destination.lat, destination.lng, 200);
+        
+        if (nearDestStops.length === 0) {
+            return { 
+                canUseTransit: false, 
+                message: '🚌 No transit stops near destination. Choose a location near transit!' 
+            };
+        }
+
+        return {
+            canUseTransit: true,
+            startStop: nearPlayerStops[0],
+            endStop: nearDestStops[0],
+            message: `Transit: ${nearPlayerStops[0].name} → ${nearDestStops[0].name}`
+        };
+    }
+
+    /**
+     * Get transit info for current player position
+     */
+    getTransitInfo() {
+        if (!this.osmDataService || !this.playerPosition) {
+            return { available: false };
+        }
+
+        return this.osmDataService.getTransitAvailability(
+            this.playerPosition.lat,
+            this.playerPosition.lng,
+            200
+        );
     }
 
     /**

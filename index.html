@@ -22,12 +22,14 @@
                 <button id="loadData">Load Game Data</button>
                 <button id="resetGame">Reset Game</button>
                 <button id="centerPlayer">Center on Player</button>
+                <button id="refreshMapData" title="Refresh OSM map data from server">🔄 Refresh Map Data</button>
                 <label style="color: white; margin-left: 1rem;">Travel Mode:</label>
                 <select id="travelMode">
                     <option value="foot">🚶 On Foot</option>
                     <option value="car">🚗 Car</option>
                     <option value="motorcycle">🏍️ Motorcycle</option>
                     <option value="van">🚐 Van</option>
+                    <option value="transit">🚌 Transit</option>
                     <option value="aerial">🚁 Aerial</option>
                 </select>
                 <span id="score">Score: 0</span>
@@ -98,7 +100,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+    <!-- Turf.js for geospatial operations -->
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
     <!-- Custom JavaScript -->
+    <script src="js/osmDataService.js"></script>
     <script src="js/events.js"></script>
     <script src="js/gameCommands.js"></script>
     <script src="js/communicationBridge.js"></script>

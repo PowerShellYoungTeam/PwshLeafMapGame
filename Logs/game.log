@@ -905,3 +905,44 @@
 [2026-01-21 19:35:02.852] [Info] [CommandRegistry] Registering built-in commands...
 [2026-01-21 19:35:02.970] [Info] [CommandRegistry] Built-in commands registered successfully
 [2026-01-21 19:35:02.974] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-22 01:34:37.613] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:34:37.626] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:03.026] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:03.029] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:03.225] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:03.228] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:08.950] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:08.954] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:09.146] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:09.148] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:16.186] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:16.188] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:16.389] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:16.392] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:19.524] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:19.526] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:19.724] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:19.726] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:22.691] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:22.693] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-22 01:35:32.123] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-22 01:35:32.126] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-28 21:47:51.801] [Info] [Logging] Game logging system initialized
+[2026-01-28 21:47:52.038] [Info] [Logging] Game logging system initialized
+[2026-01-28 21:47:52.050] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-28 21:47:52.068] [Info] [EventSystem] Loaded existing event log with 10 events
+[2026-01-28 21:47:52.114] [Error] [EventSystem] Could not load existing event log
+[2026-01-28 21:47:52.141] [Info] [EventSystem] Event system initialized successfully
+[2026-01-28 21:47:52.175] [Info] [Core] Initializing PathfindingSystem
+[2026-01-28 21:47:52.180] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-28 21:47:52.184] [Info] [Core] Initializing CommunicationBridge
+[2026-01-28 21:47:52.192] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-28 21:47:52.198] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-28 21:47:52.232] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-28 21:47:52.240] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-28 21:47:52.371] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-28 21:47:52.374] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-28 21:53:55.229] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-28 21:53:55.255] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-28 21:56:03.972] [Info] [CommandRegistry] Executing command: movement.event
+[2026-01-28 21:56:03.977] [Error] [CommandRegistry] Failed to execute command: movement.event

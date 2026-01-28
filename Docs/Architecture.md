@@ -4,6 +4,8 @@
 
 The PowerShell Leafmap Game is a sophisticated hybrid web-based game that combines PowerShell backend processing with JavaScript frontend interaction. The architecture is designed for modularity, scalability, and real-time communication between different system components.
 
+> **Note on Naming**: The game is named "Leafmap" as a play on words, but the frontend uses **Leaflet.js** (a JavaScript mapping library), not the Python package "leafmap" which is designed for Jupyter notebooks and cannot be used in browser-based applications.
+
 ## Core Architecture Principles
 
 ### 1. Modular Design
@@ -328,6 +330,114 @@ Entities follow a consistent structure:
 2. Implement parameter validation
 3. Add security and access controls
 4. Register with appropriate modules
+
+## OpenStreetMap Integration
+
+The game integrates with OpenStreetMap data through the Overpass API to provide real-world terrain awareness, building data, and transport information.
+
+### OSMDataService (js/osmDataService.js)
+
+**Purpose**: Query and cache OpenStreetMap data for terrain validation, building locations, and transport stops.
+
+**Key Features**:
+- **Pre-caching**: Queries Overpass API once on game load for entire city bounds (~10km²)
+- **Fallback Chain**: Primary endpoint → Secondary endpoint → Random generation
+- **Local Storage Cache**: 24-hour TTL with manual refresh option
+- **Terrain Validation**: Check if coordinates are on land vs water using Turf.js
+
+**Data Types Cached**:
+| Data Type | OSM Tags | Usage |
+|-----------|----------|-------|
+| Water Bodies | `natural=water`, `natural=wetland` | Position validation |
+| Buildings | `building=*`, `addr:*` | Location placement with real addresses |
+| Transport Stops | `highway=bus_stop`, `railway=station`, etc. | Transit mode travel |
+| Footpaths | `highway=footway\|pedestrian\|path` | Walkable route visualization |
+| Surface Types | `surface=*` | Speed modifiers for travel time |
+
+**Overpass API Endpoints**:
+- Primary: `https://overpass-api.de/api/interpreter`
+- Fallback: `https://overpass.kumi.systems/api/interpreter`
+
+**Architecture**:
+```
+Game Initialization
+        │
+        ▼
+┌─────────────────────────┐
+│   Check localStorage    │
+│   for cached OSM data   │
+└───────────┬─────────────┘
+            │
+    ┌───────┴───────┐
+    │ Cache Valid?  │
+    └───────┬───────┘
+            │
+     Yes ◄──┴──► No
+      │          │
+      │          ▼
+      │    ┌─────────────────┐
+      │    │ Query Overpass  │
+      │    │ API (primary)   │
+      │    └───────┬─────────┘
+      │            │
+      │     ┌──────┴──────┐
+      │     │   Success?  │
+      │     └──────┬──────┘
+      │            │
+      │     Yes ◄──┴──► No
+      │      │          │
+      │      │          ▼
+      │      │    ┌─────────────────┐
+      │      │    │ Try fallback    │
+      │      │    │ endpoint        │
+      │      │    └───────┬─────────┘
+      │      │            │
+      │      │     ┌──────┴──────┐
+      │      │     │   Success?  │
+      │      │     └──────┬──────┘
+      │      │            │
+      │      │     Yes ◄──┴──► No
+      │      │      │          │
+      │      │      │          ▼
+      │      │      │    ┌─────────────────┐
+      │      │      │    │ Random fallback │
+      │      │      │    │ generation      │
+      │      │      │    └───────┬─────────┘
+      │      │      │            │
+      ▼      ▼      ▼            ▼
+┌─────────────────────────────────────┐
+│   Game Ready with OSM/Fallback Data │
+└─────────────────────────────────────┘
+```
+
+### Surface-Based Speed Modifiers
+
+The pathfinding system uses OSM surface data to adjust travel times:
+
+| Surface Type | Speed Modifier | Notes |
+|--------------|----------------|-------|
+| asphalt, concrete, paved | 1.0 | Full speed |
+| paving_stones | 0.95 | Slight reduction |
+| sett, cobblestone | 0.85-0.90 | Uneven surface |
+| gravel, compacted | 0.75-0.85 | Loose material |
+| dirt, earth | 0.65-0.70 | Unpaved |
+| grass | 0.60 | Off-path |
+| sand | 0.50 | Difficult terrain |
+| mud | 0.40 | Very difficult |
+
+### Transit Mode
+
+Transit travel requires:
+1. Player must be within 200m of a transit stop
+2. Destination must be within 200m of a transit stop
+3. Travel time includes: walk to stop + transit time + walk from stop
+
+Transport stop types:
+- 🚌 Bus (`highway=bus_stop`)
+- 🚂 Train (`railway=station`)
+- 🚇 Subway (`railway=subway_entrance`)
+- 🚊 Tram (`railway=tram_stop`)
+- ⛴️ Ferry (`amenity=ferry_terminal`)
 
 ## Development Guidelines
 
