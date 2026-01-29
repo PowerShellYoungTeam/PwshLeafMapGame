@@ -946,3 +946,33 @@
 [2026-01-28 21:53:55.255] [Error] [CommandRegistry] Failed to execute command: movement.event
 [2026-01-28 21:56:03.972] [Info] [CommandRegistry] Executing command: movement.event
 [2026-01-28 21:56:03.977] [Error] [CommandRegistry] Failed to execute command: movement.event
+[2026-01-28 23:38:59.787] [Info] [Logging] Game logging system initialized
+[2026-01-28 23:38:59.971] [Info] [Logging] Game logging system initialized
+[2026-01-28 23:38:59.981] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-28 23:38:59.992] [Info] [EventSystem] Loaded existing event log with 10 events
+[2026-01-28 23:39:00.026] [Error] [EventSystem] Could not load existing event log
+[2026-01-28 23:39:00.046] [Info] [EventSystem] Event system initialized successfully
+[2026-01-28 23:39:00.087] [Info] [Core] Initializing PathfindingSystem
+[2026-01-28 23:39:00.092] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-28 23:39:00.096] [Info] [Core] Initializing CommunicationBridge
+[2026-01-28 23:39:00.110] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-28 23:39:00.118] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-28 23:39:00.156] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-28 23:39:00.164] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-28 23:39:00.292] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-28 23:39:00.296] [Warning] [CommandRegistry] Failed to send initialization event
+[2026-01-29 00:00:59.875] [Info] [Logging] Game logging system initialized
+[2026-01-29 00:01:00.099] [Info] [Logging] Game logging system initialized
+[2026-01-29 00:01:00.111] [Info] [EventSystem] Initializing PowerShell Event System...
+[2026-01-29 00:01:00.126] [Info] [EventSystem] Loaded existing event log with 10 events
+[2026-01-29 00:01:00.159] [Error] [EventSystem] Could not load existing event log
+[2026-01-29 00:01:00.183] [Info] [EventSystem] Event system initialized successfully
+[2026-01-29 00:01:00.218] [Info] [Core] Initializing PathfindingSystem
+[2026-01-29 00:01:00.223] [Info] [Core] PathfindingSystem initialized successfully
+[2026-01-29 00:01:00.226] [Info] [Core] Initializing CommunicationBridge
+[2026-01-29 00:01:00.234] [Info] [Core] CommunicationBridge initialized successfully
+[2026-01-29 00:01:00.240] [Info] [CommandRegistry] Initializing Command Registry system...
+[2026-01-29 00:01:00.272] [Info] [CommandRegistry] Command Registry initialized successfully
+[2026-01-29 00:01:00.279] [Info] [CommandRegistry] Registering built-in commands...
+[2026-01-29 00:01:00.397] [Info] [CommandRegistry] Built-in commands registered successfully
+[2026-01-29 00:01:00.402] [Warning] [CommandRegistry] Failed to send initialization event
