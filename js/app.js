@@ -42,6 +42,9 @@ class PwshLeafmapGame {
             travelModeSelect.addEventListener('change', (e) => this.setTravelMode(e.target.value));
         }
 
+        // Map layer toggles
+        this.initLayerToggles();
+
         // Initialize the map
         this.gameMap = new GameMap('map', this);
 
@@ -426,6 +429,66 @@ class PwshLeafmapGame {
         });
 
         console.log('Game reset');
+    }
+
+    /**
+     * Initialize map layer toggle handlers
+     */
+    initLayerToggles() {
+        // Footpaths toggle
+        const footpathToggle = document.getElementById('toggleFootpaths');
+        if (footpathToggle) {
+            footpathToggle.addEventListener('change', (e) => {
+                if (this.gameMap) {
+                    const showing = this.gameMap.toggleFootpathLayer();
+                    console.log(`Footpaths layer: ${showing ? 'visible' : 'hidden'}`);
+                }
+            });
+        }
+
+        // Amenities toggle
+        const amenityToggle = document.getElementById('toggleAmenities');
+        if (amenityToggle) {
+            amenityToggle.addEventListener('change', (e) => {
+                if (this.gameMap) {
+                    const showing = this.gameMap.toggleAmenityLayer();
+                    console.log(`Amenities layer: ${showing ? 'visible' : 'hidden'}`);
+                }
+            });
+        }
+
+        // Shops toggle
+        const shopToggle = document.getElementById('toggleShops');
+        if (shopToggle) {
+            shopToggle.addEventListener('change', (e) => {
+                if (this.gameMap) {
+                    const showing = this.gameMap.toggleShopLayer();
+                    console.log(`Shops layer: ${showing ? 'visible' : 'hidden'}`);
+                }
+            });
+        }
+
+        // POIs toggle
+        const poiToggle = document.getElementById('togglePOIs');
+        if (poiToggle) {
+            poiToggle.addEventListener('change', (e) => {
+                if (this.gameMap) {
+                    const showing = this.gameMap.togglePOILayer();
+                    console.log(`POIs layer: ${showing ? 'visible' : 'hidden'}`);
+                }
+            });
+        }
+
+        // Land Use toggle
+        const landUseToggle = document.getElementById('toggleLandUse');
+        if (landUseToggle) {
+            landUseToggle.addEventListener('change', (e) => {
+                if (this.gameMap) {
+                    const showing = this.gameMap.toggleLandUseLayer();
+                    console.log(`Land use layer: ${showing ? 'visible' : 'hidden'}`);
+                }
+            });
+        }
     }
 
     updateUI() {

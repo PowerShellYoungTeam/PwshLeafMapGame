@@ -1,0 +1,154 @@
+{
+  "version": "1.0.0",
+  "defaultCity": "Dumbarton",
+  "cities": {
+    "New York": {
+      "displayName": "New York City",
+      "bounds": {
+        "south": 40.68,
+        "west": -74.05,
+        "north": 40.82,
+        "east": -73.9
+      },
+      "center": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "zoom": 13,
+      "osmDataFile": "newyork_osm.json",
+      "description": "Manhattan and Brooklyn area"
+    },
+    "London": {
+      "displayName": "London",
+      "bounds": {
+        "south": 51.45,
+        "west": -0.2,
+        "north": 51.55,
+        "east": 0.05
+      },
+      "center": {
+        "lat": 51.5074,
+        "lng": -0.1278
+      },
+      "zoom": 13,
+      "osmDataFile": "london_osm.json",
+      "description": "Central London area"
+    },
+    "Tokyo": {
+      "displayName": "Tokyo",
+      "bounds": {
+        "south": 35.62,
+        "west": 139.7,
+        "north": 35.72,
+        "east": 139.82
+      },
+      "center": {
+        "lat": 35.6762,
+        "lng": 139.6503
+      },
+      "zoom": 13,
+      "osmDataFile": "tokyo_osm.json",
+      "description": "Central Tokyo area"
+    },
+    "Glasgow": {
+      "displayName": "Glasgow",
+      "bounds": {
+        "south": 55.83,
+        "west": -4.35,
+        "north": 55.88,
+        "east": -4.15
+      },
+      "center": {
+        "lat": 55.8642,
+        "lng": -4.2518
+      },
+      "zoom": 13,
+      "osmDataFile": "glasgow_osm.json",
+      "description": "Glasgow city centre and surrounding areas"
+    },
+    "Los Angeles": {
+      "displayName": "Los Angeles",
+      "bounds": {
+        "south": 33.95,
+        "west": -118.5,
+        "north": 34.15,
+        "east": -118.15
+      },
+      "center": {
+        "lat": 34.0522,
+        "lng": -118.2437
+      },
+      "zoom": 12,
+      "osmDataFile": "losangeles_osm.json",
+      "description": "Downtown LA and surrounding neighbourhoods"
+    },
+    "Moscow": {
+      "displayName": "Moscow",
+      "bounds": {
+        "south": 55.65,
+        "west": 37.45,
+        "north": 55.85,
+        "east": 37.8
+      },
+      "center": {
+        "lat": 55.7558,
+        "lng": 37.6173
+      },
+      "zoom": 12,
+      "osmDataFile": "moscow_osm.json",
+      "description": "Central Moscow and inner ring"
+    },
+    "Berlin": {
+      "displayName": "Berlin",
+      "bounds": {
+        "south": 52.45,
+        "west": 13.3,
+        "north": 52.6,
+        "east": 13.5
+      },
+      "center": {
+        "lat": 52.52,
+        "lng": 13.405
+      },
+      "zoom": 12,
+      "osmDataFile": "berlin_osm.json",
+      "description": "Central Berlin area"
+    },
+    "Dumbarton": {
+      "displayName": "Dumbarton, Scotland",
+      "bounds": {
+        "south": 55.93,
+        "west": -4.6,
+        "north": 55.97,
+        "east": -4.53
+      },
+      "center": {
+        "lat": 55.9459,
+        "lng": -4.5664
+      },
+      "zoom": 14,
+      "osmDataFile": "dumbarton_osm.json",
+      "description": "Historic town on the River Clyde"
+    }
+  },
+  "settings": {
+    "osmDataPath": "Data/Maps/",
+    "cacheTTL": 86400000,
+    "useLocalFile": true,
+    "fallbackToApi": true,
+    "maxItemsPerLayer": {
+      "amenities": 500,
+      "shops": 500,
+      "pois": 200,
+      "landUse": 100
+    },
+    "layerDefaults": {
+      "footpaths": false,
+      "amenities": false,
+      "shops": false,
+      "pois": false,
+      "landUse": false,
+      "transportStops": true
+    }
+  }
+}

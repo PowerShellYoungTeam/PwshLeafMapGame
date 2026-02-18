@@ -88,6 +88,38 @@
                     </ul>
                 </div>
 
+                <div id="mapLayers"
+                    style="background: rgba(39, 174, 96, 0.1); padding: 1rem; border-radius: 8px; border-left: 4px solid #27ae60; margin: 1rem 0;">
+                    <h4 style="color: #27ae60; margin-bottom: 0.75rem;">Map Layers</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #c0c0d0;">
+                            <input type="checkbox" id="toggleFootpaths" style="accent-color: #27ae60;">
+                            <span>🚶 Footpaths</span>
+                        </label>
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #c0c0d0;">
+                            <input type="checkbox" id="toggleAmenities" style="accent-color: #e67e22;">
+                            <span>🍽️ Amenities</span>
+                        </label>
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #c0c0d0;">
+                            <input type="checkbox" id="toggleShops" style="accent-color: #9b59b6;">
+                            <span>🛒 Shops</span>
+                        </label>
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #c0c0d0;">
+                            <input type="checkbox" id="togglePOIs" style="accent-color: #3498db;">
+                            <span>⭐ Points of Interest</span>
+                        </label>
+                        <label
+                            style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #c0c0d0;">
+                            <input type="checkbox" id="toggleLandUse" style="accent-color: #f39c12;">
+                            <span>🏞️ Land Use Zones</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div id="inventory">
                     <h4>Inventory</h4>
                     <ul id="inventoryList"></ul>
@@ -104,14 +136,14 @@
     <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 
     <!-- Custom JavaScript -->
-    <script src="js/osmDataService.js"></script>
-    <script src="js/events.js"></script>
-    <script src="js/gameCommands.js"></script>
-    <script src="js/communicationBridge.js"></script>
-    <script src="js/pathfinding.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/osmDataService.js?v=5"></script>
+    <script src="js/events.js?v=5"></script>
+    <script src="js/gameCommands.js?v=5"></script>
+    <script src="js/communicationBridge.js?v=5"></script>
+    <script src="js/pathfinding.js?v=5"></script>
+    <script src="js/game.js?v=5"></script>
+    <script src="js/map.js?v=5"></script>
+    <script src="js/app.js?v=5"></script>
 </body>
 
 </html>

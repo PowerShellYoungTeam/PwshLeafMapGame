@@ -1,50 +1,120 @@
 [
   {
-    "source": "powershell",
-    "id": "ps_20260129_000100_adea80d2",
-    "priority": "Normal",
-    "type": "command.registered",
-    "timestamp": "2026-01-29T00:01:00.336",
     "data": {
-      "Command": "registry.listCommands",
       "Description": "List all available commands with optional filtering",
+      "Command": "registry.listCommands",
       "Module": "registry"
-    }
+    },
+    "source": "powershell",
+    "id": "ps_20260218_214325_eab6ed57",
+    "timestamp": "2026-02-18T21:43:25.859",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
-    "source": "powershell",
-    "id": "ps_20260129_000100_dfd67ec8",
-    "priority": "Normal",
-    "type": "command.registered",
-    "timestamp": "2026-01-29T00:01:00.371",
     "data": {
-      "Command": "registry.getDocumentation",
       "Description": "Get comprehensive command documentation",
+      "Command": "registry.getDocumentation",
       "Module": "registry"
-    }
+    },
+    "source": "powershell",
+    "id": "ps_20260218_214325_99491eaa",
+    "timestamp": "2026-02-18T21:43:25.886",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
-    "source": "powershell",
-    "id": "ps_20260129_000100_b94bc4d0",
-    "priority": "Normal",
-    "type": "command.registered",
-    "timestamp": "2026-01-29T00:01:00.376",
     "data": {
-      "Command": "registry.getStatistics",
       "Description": "Get detailed registry performance and usage statistics",
+      "Command": "registry.getStatistics",
       "Module": "registry"
-    }
+    },
+    "source": "powershell",
+    "id": "ps_20260218_214325_13f90c46",
+    "timestamp": "2026-02-18T21:43:25.890",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
-    "source": "powershell",
-    "id": "ps_20260129_000100_42629e0a",
-    "priority": "Normal",
-    "type": "command.registered",
-    "timestamp": "2026-01-29T00:01:00.395",
     "data": {
-      "Command": "registry.getPerformanceMetrics",
       "Description": "Get detailed performance metrics for commands",
+      "Command": "registry.getPerformanceMetrics",
       "Module": "registry"
-    }
+    },
+    "source": "powershell",
+    "id": "ps_20260218_214325_fb934d57",
+    "timestamp": "2026-02-18T21:43:25.907",
+    "priority": "Normal",
+    "type": "command.registered"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T21:43:55.8457505+00:00",
+      "ExecutionId": "3a70204a",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 19.7002,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_214355_94be8230",
+    "timestamp": "2026-02-18T21:43:55.846",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T21:44:37.1522424+00:00",
+      "ExecutionId": "afdf30de",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 4.0493,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_214437_05295ee4",
+    "timestamp": "2026-02-18T21:44:37.152",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T21:44:38.9235766+00:00",
+      "ExecutionId": "d06aa80f",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 3.4138,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_214438_303a18e6",
+    "timestamp": "2026-02-18T21:44:38.923",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T21:44:45.6782074+00:00",
+      "ExecutionId": "d6974e1b",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.9196,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_214445_435ce297",
+    "timestamp": "2026-02-18T21:44:45.678",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T21:44:58.751976+00:00",
+      "ExecutionId": "f2d1d110",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 2.656,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_214458_ab18225e",
+    "timestamp": "2026-02-18T21:44:58.752",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   }
 ]

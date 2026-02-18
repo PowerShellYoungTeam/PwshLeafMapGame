@@ -35,6 +35,36 @@ function Get-RandomCoordinates {
             LngMin = 139.5792
             LngMax = 139.9160
         }
+        "Glasgow"  = @{
+            LatMin = 55.8300
+            LatMax = 55.8800
+            LngMin = -4.3500
+            LngMax = -4.1500
+        }
+        "Los Angeles" = @{
+            LatMin = 33.9500
+            LatMax = 34.1500
+            LngMin = -118.5000
+            LngMax = -118.1500
+        }
+        "Moscow"   = @{
+            LatMin = 55.6500
+            LatMax = 55.8500
+            LngMin = 37.4500
+            LngMax = 37.8000
+        }
+        "Berlin"   = @{
+            LatMin = 52.4500
+            LatMax = 52.6000
+            LngMin = 13.3000
+            LngMax = 13.5000
+        }
+        "Dumbarton" = @{
+            LatMin = 55.9300
+            LatMax = 55.9700
+            LngMin = -4.6000
+            LngMax = -4.5300
+        }
     }
 
     $bounds = $cityBounds[$CityName]
@@ -57,12 +87,12 @@ function New-GameLocation {
     )
 
     $locationTypes = @("treasure", "quest", "shop", "landmark", "mystery")
-    
+
     # Add water-based location types if enabled
     if ($IncludeWaterLocations) {
         $locationTypes += @("dock", "pier", "marina", "platform")
     }
-    
+
     $type = $locationTypes | Get-Random
 
     $coordinates = Get-RandomCoordinates -CityName $City

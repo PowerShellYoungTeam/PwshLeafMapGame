@@ -75,6 +75,33 @@ if (-not $SkipGeneration) {
     Write-Host "⏭️  Skipping game data generation" -ForegroundColor Yellow
 }
 
+# Update config.json to set the selected city as default
+$configPath = "Data\Maps\config.json"
+if (Test-Path $configPath) {
+    try {
+        $config = Get-Content $configPath -Raw | ConvertFrom-Json
+        if ($config.cities.PSObject.Properties.Name -contains $City) {
+            $config.defaultCity = $City
+            $config | ConvertTo-Json -Depth 10 | Set-Content $configPath -Encoding UTF8
+            Write-Host "✓ Set default city to: $City" -ForegroundColor Green
+        } else {
+            Write-Warning "City '$City' not found in config.json. Available: $($config.cities.PSObject.Properties.Name -join ', ')"
+        }
+    } catch {
+        Write-Warning "Could not update config.json: $($_.Exception.Message)"
+    }
+}
+
+# Check for pre-downloaded OSM data
+$osmDataFile = "Data\Maps\$($City.ToLower() -replace ' ', '')_osm.json"
+if (Test-Path $osmDataFile) {
+    Write-Host "✓ Pre-downloaded OSM data found: $osmDataFile" -ForegroundColor Green
+} else {
+    Write-Host "⚠️  No pre-downloaded OSM data for $City" -ForegroundColor Yellow
+    Write-Host "  The game will fetch data from Overpass API (slower)" -ForegroundColor Gray
+    Write-Host "  To pre-download, run: .\scripts\Download-OSMData.ps1 -City '$City'" -ForegroundColor Gray
+}
+
 # Check for existing game data
 if (Test-Path "gamedata.json") {
     Write-Host "✓ Game data file found: gamedata.json" -ForegroundColor Green

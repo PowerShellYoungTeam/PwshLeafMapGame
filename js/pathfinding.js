@@ -110,7 +110,7 @@ class PathfindingManager {
      */
     getDirectPath(start, destination, travelMode) {
         const distance = start.distanceTo(destination);
-        
+
         // Get surface modifier for the path
         const surfaceModifier = this.getPathSurfaceModifier([start, destination]);
         const duration = this.calculateTravelTime(distance, travelMode, surfaceModifier);
@@ -146,11 +146,11 @@ class PathfindingManager {
         };
 
         const speed = speeds[travelMode] || speeds['foot'];
-        
+
         // Apply surface modifier (mainly affects foot/bike travel)
-        const effectiveModifier = (travelMode === 'foot') ? surfaceModifier : 
-                                  (travelMode === 'motorcycle') ? Math.max(0.7, surfaceModifier) : 1.0;
-        
+        const effectiveModifier = (travelMode === 'foot') ? surfaceModifier :
+            (travelMode === 'motorcycle') ? Math.max(0.7, surfaceModifier) : 1.0;
+
         return distance / (speed * effectiveModifier); // seconds
     }
 
@@ -169,12 +169,12 @@ class PathfindingManager {
 
         // Sample points along the path
         const sampleInterval = Math.max(1, Math.floor(coordinates.length / 10));
-        
+
         for (let i = 0; i < coordinates.length; i += sampleInterval) {
             const coord = coordinates[i];
             const lat = coord.lat || coord[0];
             const lng = coord.lng || coord[1];
-            
+
             const modifier = this.osmDataService.getSurfaceSpeedModifier(lat, lng);
             totalModifier += modifier;
             sampleCount++;
