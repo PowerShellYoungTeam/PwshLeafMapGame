@@ -88,6 +88,15 @@ class GameMap {
             console.log('GameMap: defaultCity from config:', config.defaultCity);
             this.mapConfig = config; // Store config for later use
 
+            // Configure routing API keys if provided
+            if (config.routing && config.routing.openRouteServiceApiKey) {
+                this.pathfindingManager.setOpenRouteServiceApiKey(config.routing.openRouteServiceApiKey);
+                console.log('GameMap: OpenRouteService API key configured for pedestrian routing');
+            } else {
+                console.warn('GameMap: No OpenRouteService API key - foot routing will use road fallback');
+                console.warn('GameMap: Get a FREE key at https://openrouteservice.org/dev/#/signup');
+            }
+
             // Helper function to find city case-insensitively
             const findCity = (name) => {
                 if (!name) return null;

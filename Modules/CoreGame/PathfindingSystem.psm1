@@ -89,11 +89,8 @@ function Start-UnitMovement {
         elseif ($TravelMode -eq 'aerial') {
             'direct' # Aerial ignores roads
         }
-        elseif ($TravelMode -eq 'foot' -and $distance -gt 2000) {
-            'warning' # Warn about long foot journey
-        }
         else {
-            'road' # Use road network
+            'road' # Use OSRM road network (supports foot and vehicle profiles)
         }
 
         # Track active movement

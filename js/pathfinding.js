@@ -1,14 +1,29 @@
 // pathfinding.js
-// Client-side pathfinding with OSRM and fallback options
+// Client-side pathfinding with multiple routing service support
 
 class PathfindingManager {
     constructor(map) {
         this.map = map;
+        // OSRM public server only supports 'driving' profile
         this.osrmUrl = 'https://router.project-osrm.org/route/v1';
+        // OpenRouteService for pedestrian routing (free tier: 2000 req/day)
+        // Get your free API key at: https://openrouteservice.org/dev/#/signup
+        this.openRouteServiceUrl = 'https://api.openrouteservice.org/v2/directions';
+        this.openRouteServiceApiKey = null; // Set via setOpenRouteServiceApiKey()
         this.routeCache = new Map();
         this.currentPath = null;
         this.pathLayer = null;
         this.osmDataService = null; // Will be set by GameMap
+    }
+
+    /**
+     * Set OpenRouteService API key for pedestrian routing
+     * Get a free key at: https://openrouteservice.org/dev/#/signup
+     * @param {string} apiKey - Your ORS API key
+     */
+    setOpenRouteServiceApiKey(apiKey) {
+        this.openRouteServiceApiKey = apiKey;
+        console.log('OpenRouteService API key configured for pedestrian routing');
     }
 
     /**
@@ -41,34 +56,106 @@ class PathfindingManager {
             return this.getDirectPath(start, destination, travelMode);
         }
 
-        // Long distance with vehicle: use OSRM
-        if (travelMode !== 'foot') {
+        // Foot travel: use OpenRouteService (proper pedestrian routing)
+        if (travelMode === 'foot') {
             try {
-                const osrmPath = await this.getOSRMPath(start, destination, travelMode);
-                return osrmPath;
+                const footPath = await this.getOpenRouteServicePath(start, destination);
+                return footPath;
             } catch (error) {
-                console.warn('OSRM routing failed, falling back to direct path:', error);
-                return this.getDirectPath(start, destination, travelMode);
+                console.warn('OpenRouteService pedestrian routing failed:', error.message);
+                // Fallback to OSRM driving as last resort (better than straight line)
+                try {
+                    console.log('Falling back to road-based routing...');
+                    const roadPath = await this.getOSRMPath(start, destination, 'driving');
+                    roadPath.travelMode = 'foot'; // Override mode for timing
+                    roadPath.duration = roadPath.distance / 1.4; // Recalc for walking speed
+                    return roadPath;
+                } catch (e) {
+                    console.warn('All routing failed, using direct path');
+                    return this.getDirectPath(start, destination, travelMode);
+                }
             }
         }
 
-        // Long distance on foot: warn but provide path
-        return this.getDirectPath(start, destination, travelMode);
+        // Vehicle travel: use OSRM (driving profile)
+        try {
+            const osrmPath = await this.getOSRMPath(start, destination, travelMode);
+            return osrmPath;
+        } catch (error) {
+            console.warn('OSRM routing failed, falling back to direct path:', error);
+            return this.getDirectPath(start, destination, travelMode);
+        }
     }
 
     /**
-     * Get road-based path from OSRM
+     * Get pedestrian path from OpenRouteService
+     * Uses sidewalks, crossings, avoids buildings/water/barriers
+     */
+    async getOpenRouteServicePath(start, destination) {
+        // Check cache
+        const cacheKey = `ors-foot-${start.lat},${start.lng}-${destination.lat},${destination.lng}`;
+        if (this.routeCache.has(cacheKey)) {
+            console.log('Using cached pedestrian route');
+            return this.routeCache.get(cacheKey);
+        }
+
+        if (!this.openRouteServiceApiKey) {
+            throw new Error('OpenRouteService API key not configured. Get a free key at https://openrouteservice.org/dev/#/signup');
+        }
+
+        // ORS foot-walking profile uses pedestrian infrastructure
+        const url = `${this.openRouteServiceUrl}/foot-walking?api_key=${this.openRouteServiceApiKey}&start=${start.lng},${start.lat}&end=${destination.lng},${destination.lat}`;
+
+        console.log('Fetching OpenRouteService pedestrian route...');
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`ORS API error ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.features || data.features.length === 0) {
+            throw new Error('No pedestrian route found');
+        }
+
+        // Parse GeoJSON response
+        const feature = data.features[0];
+        const coordinates = feature.geometry.coordinates.map(c => L.latLng(c[1], c[0]));
+        const properties = feature.properties.summary;
+
+        const path = {
+            coordinates: coordinates,
+            distance: properties.distance, // meters
+            duration: properties.duration, // seconds
+            type: 'pedestrian',
+            travelMode: 'foot',
+            routingService: 'openrouteservice'
+        };
+
+        // Cache the route
+        this.routeCache.set(cacheKey, path);
+
+        console.log(`Pedestrian route found: ${path.distance.toFixed(0)}m, ${(path.duration / 60).toFixed(1)}min (via sidewalks/crossings)`);
+
+        return path;
+    }
+
+    /**
+     * Get road-based path from OSRM (driving only - public server limitation)
      */
     async getOSRMPath(start, destination, travelMode) {
         // Check cache
-        const cacheKey = `${start.lat},${start.lng}-${destination.lat},${destination.lng}-${travelMode}`;
+        const cacheKey = `osrm-${start.lat},${start.lng}-${destination.lat},${destination.lng}-${travelMode}`;
         if (this.routeCache.has(cacheKey)) {
             console.log('Using cached route');
             return this.routeCache.get(cacheKey);
         }
 
-        // Determine OSRM profile
-        const profile = travelMode === 'foot' ? 'foot' : 'driving';
+        // OSRM public demo only supports 'driving' profile
+        const profile = 'driving';
 
         // Build OSRM URL
         const url = `${this.osrmUrl}/${profile}/${start.lng},${start.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson`;
@@ -91,7 +178,8 @@ class PathfindingManager {
             distance: route.distance, // meters
             duration: route.duration, // seconds
             type: 'road',
-            travelMode: travelMode
+            travelMode: travelMode,
+            routingService: 'osrm'
         };
 
         // Cache the route
@@ -102,9 +190,6 @@ class PathfindingManager {
         return path;
     }
 
-    /**
-     * Get direct line path (fallback)
-     */
     /**
      * Get direct line path (fallback)
      */
@@ -167,8 +252,19 @@ class PathfindingManager {
         let totalModifier = 0;
         let sampleCount = 0;
 
-        // Sample points along the path
-        const sampleInterval = Math.max(1, Math.floor(coordinates.length / 10));
+        // Calculate total path distance for dynamic sampling
+        let totalDistance = 0;
+        for (let i = 1; i < coordinates.length; i++) {
+            const prev = coordinates[i - 1];
+            const curr = coordinates[i];
+            const prevLatLng = L.latLng(prev.lat || prev[0], prev.lng || prev[1]);
+            const currLatLng = L.latLng(curr.lat || curr[0], curr.lng || curr[1]);
+            totalDistance += prevLatLng.distanceTo(currLatLng);
+        }
+
+        // Dynamic sampling: 1 point per 50m, minimum 10, maximum 100 samples
+        const targetSamples = Math.min(100, Math.max(10, Math.floor(totalDistance / 50)));
+        const sampleInterval = Math.max(1, Math.floor(coordinates.length / targetSamples));
 
         for (let i = 0; i < coordinates.length; i += sampleInterval) {
             const coord = coordinates[i];
@@ -250,35 +346,193 @@ class PathfindingManager {
     }
 
     /**
-     * Animate unit movement along path
+     * Animate unit movement along path with smooth interpolation
+     * @param {L.Marker} unitMarker - The marker to animate
+     * @param {Object} path - Path object with coordinates array
+     * @param {number} speed - Speed multiplier (1.0 = normal)
+     * @param {Function} onComplete - Callback when animation completes
+     * @param {Function} onProgress - Optional callback with progress updates
+     * @returns {Object} Animation controller with pause/resume/cancel methods
      */
-    animateMovement(unitMarker, path, speed = 1.0, onComplete = null) {
+    animateMovement(unitMarker, path, speed = 1.0, onComplete = null, onProgress = null) {
         if (!path || !path.coordinates || path.coordinates.length < 2) {
             console.warn('Invalid path for animation');
             if (onComplete) onComplete();
-            return;
+            return null;
         }
 
-        let currentIndex = 0;
-        const totalPoints = path.coordinates.length;
-        const baseInterval = 100; // ms per step
-        const interval = baseInterval / speed;
+        // Resample path for smoother animation (target ~60fps visual smoothness)
+        const smoothedPath = this.resamplePath(path.coordinates, 50); // 50m between points max
 
-        const moveStep = () => {
-            if (currentIndex >= totalPoints) {
+        let currentIndex = 0;
+        let animationFrame = null;
+        let isPaused = false;
+        let isCancelled = false;
+        let lastTimestamp = null;
+        let accumulatedTime = 0;
+
+        // Calculate time per segment based on path duration
+        const totalDuration = (path.duration / speed) * 1000; // ms
+        const timePerPoint = totalDuration / smoothedPath.length;
+        const startTime = performance.now();
+
+        // Store initial position for cancel/return
+        const startPosition = smoothedPath[0];
+
+        const animate = (timestamp) => {
+            if (isCancelled) return;
+            if (isPaused) {
+                animationFrame = requestAnimationFrame(animate);
+                lastTimestamp = null;
+                return;
+            }
+
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const deltaTime = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+            accumulatedTime += deltaTime;
+
+            // Move to next point(s) based on accumulated time
+            while (accumulatedTime >= timePerPoint && currentIndex < smoothedPath.length - 1) {
+                accumulatedTime -= timePerPoint;
+                currentIndex++;
+            }
+
+            if (currentIndex >= smoothedPath.length - 1) {
+                // Ensure we end at exact destination
+                unitMarker.setLatLng(smoothedPath[smoothedPath.length - 1]);
                 console.log('Movement animation complete');
+                if (onProgress) {
+                    onProgress({
+                        progress: 1.0,
+                        currentPosition: smoothedPath[smoothedPath.length - 1],
+                        distanceRemaining: 0,
+                        timeRemaining: 0
+                    });
+                }
                 if (onComplete) onComplete();
                 return;
             }
 
-            const currentPos = path.coordinates[currentIndex];
-            unitMarker.setLatLng(currentPos);
+            // Interpolate between current and next point for extra smoothness
+            const currentPos = smoothedPath[currentIndex];
+            const nextPos = smoothedPath[currentIndex + 1];
+            const segmentProgress = accumulatedTime / timePerPoint;
 
-            currentIndex++;
-            setTimeout(moveStep, interval);
+            const interpolatedLat = currentPos.lat + (nextPos.lat - currentPos.lat) * segmentProgress;
+            const interpolatedLng = currentPos.lng + (nextPos.lng - currentPos.lng) * segmentProgress;
+            const interpolatedPos = L.latLng(interpolatedLat, interpolatedLng);
+
+            unitMarker.setLatLng(interpolatedPos);
+
+            // Update marker rotation to face direction of movement
+            if (unitMarker.setRotationAngle) {
+                const bearing = this.calculateBearing(currentPos, nextPos);
+                unitMarker.setRotationAngle(bearing);
+            }
+
+            // Report progress
+            if (onProgress) {
+                const progress = currentIndex / (smoothedPath.length - 1);
+                const elapsed = timestamp - startTime;
+                const timeRemaining = Math.max(0, totalDuration - elapsed);
+                const distanceRemaining = path.distance * (1 - progress);
+
+                onProgress({
+                    progress: progress,
+                    currentPosition: interpolatedPos,
+                    distanceRemaining: Math.round(distanceRemaining),
+                    timeRemaining: Math.round(timeRemaining / 1000)
+                });
+            }
+
+            animationFrame = requestAnimationFrame(animate);
         };
 
-        moveStep();
+        // Start animation
+        animationFrame = requestAnimationFrame(animate);
+
+        // Return controller object
+        return {
+            pause: () => {
+                isPaused = true;
+                console.log('Movement paused');
+            },
+            resume: () => {
+                isPaused = false;
+                console.log('Movement resumed');
+            },
+            cancel: (returnToStart = false) => {
+                isCancelled = true;
+                if (animationFrame) cancelAnimationFrame(animationFrame);
+                if (returnToStart) {
+                    unitMarker.setLatLng(startPosition);
+                }
+                console.log('Movement cancelled');
+            },
+            setSpeed: (newSpeed) => {
+                // Recalculate time per point for new speed
+                speed = newSpeed;
+            },
+            isPaused: () => isPaused,
+            getProgress: () => currentIndex / (smoothedPath.length - 1)
+        };
+    }
+
+    /**
+     * Resample path to have points at regular intervals
+     * @param {Array} coordinates - Original coordinates
+     * @param {number} maxDistance - Maximum distance between points in meters
+     * @returns {Array} Resampled coordinates
+     */
+    resamplePath(coordinates, maxDistance = 50) {
+        if (coordinates.length < 2) return coordinates;
+
+        const result = [coordinates[0]];
+        let accumulated = 0;
+
+        for (let i = 1; i < coordinates.length; i++) {
+            const prev = coordinates[i - 1];
+            const curr = coordinates[i];
+            const prevLatLng = L.latLng(prev.lat || prev[0], prev.lng || prev[1]);
+            const currLatLng = L.latLng(curr.lat || curr[0], curr.lng || curr[1]);
+            const segmentDist = prevLatLng.distanceTo(currLatLng);
+
+            if (segmentDist > maxDistance) {
+                // Add intermediate points
+                const numPoints = Math.ceil(segmentDist / maxDistance);
+                for (let j = 1; j <= numPoints; j++) {
+                    const t = j / numPoints;
+                    const lat = (prev.lat || prev[0]) + ((curr.lat || curr[0]) - (prev.lat || prev[0])) * t;
+                    const lng = (prev.lng || prev[1]) + ((curr.lng || curr[1]) - (prev.lng || prev[1])) * t;
+                    result.push(L.latLng(lat, lng));
+                }
+            } else {
+                result.push(L.latLng(curr.lat || curr[0], curr.lng || curr[1]));
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Calculate bearing between two points
+     * @param {L.LatLng} start - Start position
+     * @param {L.LatLng} end - End position
+     * @returns {number} Bearing in degrees (0-360)
+     */
+    calculateBearing(start, end) {
+        const startLat = (start.lat || start[0]) * Math.PI / 180;
+        const startLng = (start.lng || start[1]) * Math.PI / 180;
+        const endLat = (end.lat || end[0]) * Math.PI / 180;
+        const endLng = (end.lng || end[1]) * Math.PI / 180;
+
+        const dLng = endLng - startLng;
+        const x = Math.sin(dLng) * Math.cos(endLat);
+        const y = Math.cos(startLat) * Math.sin(endLat) - Math.sin(startLat) * Math.cos(endLat) * Math.cos(dLng);
+
+        let bearing = Math.atan2(x, y) * 180 / Math.PI;
+        return (bearing + 360) % 360;
     }
 
     /**
