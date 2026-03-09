@@ -1,134 +1,274 @@
 [
   {
     "data": {
-      "Module": "registry",
       "Description": "List all available commands with optional filtering",
-      "Command": "registry.listCommands"
+      "Command": "registry.listCommands",
+      "Module": "registry"
     },
-    "timestamp": "2026-02-18T21:10:21.303",
-    "type": "command.registered",
-    "priority": "Normal",
     "source": "powershell",
-    "id": "ps_20260218_211021_61761289"
+    "id": "ps_20260218_214325_eab6ed57",
+    "timestamp": "2026-02-18T21:43:25.859",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
     "data": {
-      "Module": "registry",
       "Description": "Get comprehensive command documentation",
-      "Command": "registry.getDocumentation"
+      "Command": "registry.getDocumentation",
+      "Module": "registry"
     },
-    "timestamp": "2026-02-18T21:10:21.328",
-    "type": "command.registered",
-    "priority": "Normal",
     "source": "powershell",
-    "id": "ps_20260218_211021_776ac23b"
+    "id": "ps_20260218_214325_99491eaa",
+    "timestamp": "2026-02-18T21:43:25.886",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
     "data": {
-      "Module": "registry",
       "Description": "Get detailed registry performance and usage statistics",
-      "Command": "registry.getStatistics"
+      "Command": "registry.getStatistics",
+      "Module": "registry"
     },
-    "timestamp": "2026-02-18T21:10:21.332",
-    "type": "command.registered",
-    "priority": "Normal",
     "source": "powershell",
-    "id": "ps_20260218_211021_f88eccde"
+    "id": "ps_20260218_214325_13f90c46",
+    "timestamp": "2026-02-18T21:43:25.890",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
     "data": {
-      "Module": "registry",
       "Description": "Get detailed performance metrics for commands",
-      "Command": "registry.getPerformanceMetrics"
+      "Command": "registry.getPerformanceMetrics",
+      "Module": "registry"
     },
-    "timestamp": "2026-02-18T21:10:21.349",
-    "type": "command.registered",
-    "priority": "Normal",
     "source": "powershell",
-    "id": "ps_20260218_211021_081e79c7"
+    "id": "ps_20260218_214325_fb934d57",
+    "timestamp": "2026-02-18T21:43:25.907",
+    "priority": "Normal",
+    "type": "command.registered"
   },
   {
     "data": {
-      "ExecutionTimeMs": 28.9226,
-      "CommandName": "movement.event",
-      "ExecutionId": "50b01377",
+      "ExecutionTime": "2026-02-18T21:43:55.8457505+00:00",
+      "ExecutionId": "3a70204a",
       "Error": "Command not found: movement.event",
-      "ExecutionTime": "2026-02-18T21:12:01.4675895+00:00"
+      "ExecutionTimeMs": 19.7002,
+      "CommandName": "movement.event"
     },
-    "timestamp": "2026-02-18T21:12:01.467",
-    "type": "system.commandExecutionFailed",
-    "priority": "High",
     "source": "CommandRegistry",
-    "id": "ps_20260218_211201_6b6a6248"
+    "id": "ps_20260218_214355_94be8230",
+    "timestamp": "2026-02-18T21:43:55.846",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   },
   {
     "data": {
-      "ExecutionTimeMs": 4.7757,
-      "CommandName": "movement.event",
-      "ExecutionId": "7c15f621",
+      "ExecutionTime": "2026-02-18T21:44:37.1522424+00:00",
+      "ExecutionId": "afdf30de",
       "Error": "Command not found: movement.event",
-      "ExecutionTime": "2026-02-18T21:12:09.2833469+00:00"
+      "ExecutionTimeMs": 4.0493,
+      "CommandName": "movement.event"
     },
-    "timestamp": "2026-02-18T21:12:09.283",
-    "type": "system.commandExecutionFailed",
-    "priority": "High",
     "source": "CommandRegistry",
-    "id": "ps_20260218_211209_9669419c"
+    "id": "ps_20260218_214437_05295ee4",
+    "timestamp": "2026-02-18T21:44:37.152",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   },
   {
     "data": {
-      "ExecutionTimeMs": 2.4346,
-      "CommandName": "movement.event",
-      "ExecutionId": "b58b9fe1",
+      "ExecutionTime": "2026-02-18T21:44:38.9235766+00:00",
+      "ExecutionId": "d06aa80f",
       "Error": "Command not found: movement.event",
-      "ExecutionTime": "2026-02-18T21:12:34.6693244+00:00"
+      "ExecutionTimeMs": 3.4138,
+      "CommandName": "movement.event"
     },
-    "timestamp": "2026-02-18T21:12:34.669",
-    "type": "system.commandExecutionFailed",
-    "priority": "High",
     "source": "CommandRegistry",
-    "id": "ps_20260218_211234_8aa1dce1"
+    "id": "ps_20260218_214438_303a18e6",
+    "timestamp": "2026-02-18T21:44:38.923",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   },
   {
     "data": {
-      "ExecutionTimeMs": 2.1263,
-      "CommandName": "movement.event",
-      "ExecutionId": "cebfccc5",
+      "ExecutionTime": "2026-02-18T21:44:45.6782074+00:00",
+      "ExecutionId": "d6974e1b",
       "Error": "Command not found: movement.event",
-      "ExecutionTime": "2026-02-18T21:13:18.1106466+00:00"
+      "ExecutionTimeMs": 1.9196,
+      "CommandName": "movement.event"
     },
-    "timestamp": "2026-02-18T21:13:18.110",
-    "type": "system.commandExecutionFailed",
-    "priority": "High",
     "source": "CommandRegistry",
-    "id": "ps_20260218_211318_a4bc5582"
+    "id": "ps_20260218_214445_435ce297",
+    "timestamp": "2026-02-18T21:44:45.678",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   },
   {
     "data": {
-      "ExecutionTimeMs": 2.4345,
-      "CommandName": "movement.event",
-      "ExecutionId": "a4247425",
+      "ExecutionTime": "2026-02-18T21:44:58.751976+00:00",
+      "ExecutionId": "f2d1d110",
       "Error": "Command not found: movement.event",
-      "ExecutionTime": "2026-02-18T21:13:33.4201381+00:00"
+      "ExecutionTimeMs": 2.656,
+      "CommandName": "movement.event"
     },
-    "timestamp": "2026-02-18T21:13:33.420",
-    "type": "system.commandExecutionFailed",
-    "priority": "High",
     "source": "CommandRegistry",
-    "id": "ps_20260218_211333_a44c560c"
+    "id": "ps_20260218_214458_ab18225e",
+    "timestamp": "2026-02-18T21:44:58.752",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   },
   {
     "data": {
-      "ExecutionTimeMs": 2.8557,
-      "CommandName": "movement.event",
-      "ExecutionId": "ea502cd3",
+      "ExecutionTime": "2026-02-18T22:18:38.317464+00:00",
+      "ExecutionId": "ccb9855e",
       "Error": "Command not found: movement.event",
-      "ExecutionTime": "2026-02-18T21:13:39.6266858+00:00"
+      "ExecutionTimeMs": 2.0689,
+      "CommandName": "movement.event"
     },
-    "timestamp": "2026-02-18T21:13:39.626",
-    "type": "system.commandExecutionFailed",
-    "priority": "High",
     "source": "CommandRegistry",
-    "id": "ps_20260218_211339_b94f8f71"
+    "id": "ps_20260218_221838_df8176f3",
+    "timestamp": "2026-02-18T22:18:38.317",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:18:48.0337626+00:00",
+      "ExecutionId": "26c3e793",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 14.1992,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_221848_b6303218",
+    "timestamp": "2026-02-18T22:18:48.033",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:18:50.1567025+00:00",
+      "ExecutionId": "281ab48e",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.6677,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_221850_acc5853e",
+    "timestamp": "2026-02-18T22:18:50.156",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:18:59.1590922+00:00",
+      "ExecutionId": "adaee4c2",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 3.919,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_221859_35ac4631",
+    "timestamp": "2026-02-18T22:18:59.159",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:19:18.1610579+00:00",
+      "ExecutionId": "9f26856b",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.6296,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_221918_96b82ed5",
+    "timestamp": "2026-02-18T22:19:18.161",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:19:56.4723241+00:00",
+      "ExecutionId": "6d011723",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 2.4754,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_221956_19132432",
+    "timestamp": "2026-02-18T22:19:56.472",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:20:04.2247248+00:00",
+      "ExecutionId": "1d1f3fab",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 2.3737,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_222004_4297f357",
+    "timestamp": "2026-02-18T22:20:04.224",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:20:06.6847123+00:00",
+      "ExecutionId": "0e6bfc98",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.7182,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_222006_aeb1d08b",
+    "timestamp": "2026-02-18T22:20:06.684",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:20:15.024585+00:00",
+      "ExecutionId": "d70f6159",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.4108,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_222015_ae248b0b",
+    "timestamp": "2026-02-18T22:20:15.024",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:20:35.716246+00:00",
+      "ExecutionId": "38cc66bf",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.584,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_222035_d303d62c",
+    "timestamp": "2026-02-18T22:20:35.716",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
+  },
+  {
+    "data": {
+      "ExecutionTime": "2026-02-18T22:20:57.0507947+00:00",
+      "ExecutionId": "f74c6293",
+      "Error": "Command not found: movement.event",
+      "ExecutionTimeMs": 1.5487,
+      "CommandName": "movement.event"
+    },
+    "source": "CommandRegistry",
+    "id": "ps_20260218_222057_43816cc6",
+    "timestamp": "2026-02-18T22:20:57.050",
+    "priority": "High",
+    "type": "system.commandExecutionFailed"
   }
 ]

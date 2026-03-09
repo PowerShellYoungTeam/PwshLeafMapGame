@@ -103,7 +103,7 @@ class GameMap {
             // If city specified, use its bounds; otherwise try to match or use default
             let cityConfig = null;
             let foundCity = cityName ? findCity(cityName) : null;
-            
+
             if (foundCity) {
                 cityConfig = foundCity.config;
                 console.log(`GameMap: Using configured city: ${foundCity.key}`);
@@ -364,12 +364,12 @@ class GameMap {
             'food_court': { emoji: '🍴', color: '#e74c3c' },
             'ice_cream': { emoji: '🍦', color: '#f1c40f' },
             'biergarten': { emoji: '🍻', color: '#27ae60' },
-            
+
             // Financial
             'bank': { emoji: '🏦', color: '#2c3e50' },
             'atm': { emoji: '💳', color: '#34495e' },
             'bureau_de_change': { emoji: '💱', color: '#1abc9c' },
-            
+
             // Healthcare
             'hospital': { emoji: '🏥', color: '#e74c3c' },
             'clinic': { emoji: '⚕️', color: '#c0392b' },
@@ -378,7 +378,7 @@ class GameMap {
             'dentist': { emoji: '🦷', color: '#ecf0f1' },
             'veterinary': { emoji: '🐾', color: '#2ecc71' },
             'nursing_home': { emoji: '🏠', color: '#95a5a6' },
-            
+
             // Education
             'school': { emoji: '🏫', color: '#3498db' },
             'university': { emoji: '🎓', color: '#2980b9' },
@@ -388,7 +388,7 @@ class GameMap {
             'language_school': { emoji: '🗣️', color: '#1abc9c' },
             'driving_school': { emoji: '🚗', color: '#7f8c8d' },
             'music_school': { emoji: '🎵', color: '#9b59b6' },
-            
+
             // Public Services
             'police': { emoji: '👮', color: '#2c3e50' },
             'fire_station': { emoji: '🚒', color: '#e74c3c' },
@@ -399,7 +399,7 @@ class GameMap {
             'embassy': { emoji: '🏢', color: '#3498db' },
             'community_centre': { emoji: '🏘️', color: '#27ae60' },
             'social_facility': { emoji: '🤝', color: '#1abc9c' },
-            
+
             // Religious
             'place_of_worship': { emoji: '⛪', color: '#9b59b6' },
             'church': { emoji: '⛪', color: '#9b59b6' },
@@ -409,7 +409,7 @@ class GameMap {
             'temple': { emoji: '🛕', color: '#f39c12' },
             'synagogue': { emoji: '✡️', color: '#3498db' },
             'monastery': { emoji: '🏛️', color: '#7f8c8d' },
-            
+
             // Entertainment
             'cinema': { emoji: '🎬', color: '#e74c3c' },
             'theatre': { emoji: '🎭', color: '#9b59b6' },
@@ -418,7 +418,7 @@ class GameMap {
             'arts_centre': { emoji: '🎨', color: '#e67e22' },
             'studio': { emoji: '🎤', color: '#3498db' },
             'events_venue': { emoji: '🎪', color: '#c0392b' },
-            
+
             // Transportation
             'fuel': { emoji: '⛽', color: '#7f8c8d' },
             'parking': { emoji: '🅿️', color: '#3498db' },
@@ -430,7 +430,7 @@ class GameMap {
             'bicycle_parking': { emoji: '🚲', color: '#27ae60' },
             'ferry_terminal': { emoji: '⛴️', color: '#2980b9' },
             'charging_station': { emoji: '🔌', color: '#1abc9c' },
-            
+
             // Other Services
             'toilets': { emoji: '🚻', color: '#95a5a6' },
             'shower': { emoji: '🚿', color: '#3498db' },
@@ -444,7 +444,7 @@ class GameMap {
             'clock': { emoji: '🕐', color: '#34495e' },
             'marketplace': { emoji: '🏪', color: '#e67e22' },
             'vending_machine': { emoji: '🎰', color: '#7f8c8d' },
-            
+
             'unknown': { emoji: '📍', color: '#95a5a6' }
         };
 
@@ -530,7 +530,7 @@ class GameMap {
             'tea': { emoji: '🍵', color: '#27ae60' },
             'alcohol': { emoji: '🍷', color: '#8e44ad' },
             'beverages': { emoji: '🧃', color: '#e74c3c' },
-            
+
             // Clothing & Fashion
             'clothes': { emoji: '👕', color: '#9b59b6' },
             'shoes': { emoji: '👟', color: '#7f8c8d' },
@@ -544,14 +544,14 @@ class GameMap {
             'perfumery': { emoji: '🧴', color: '#9b59b6' },
             'hairdresser': { emoji: '💇', color: '#e74c3c' },
             'tattoo': { emoji: '🎨', color: '#2c3e50' },
-            
+
             // Electronics & Tech
             'electronics': { emoji: '📱', color: '#3498db' },
             'computer': { emoji: '💻', color: '#2980b9' },
             'mobile_phone': { emoji: '📱', color: '#1abc9c' },
             'hifi': { emoji: '🔊', color: '#34495e' },
             'appliance': { emoji: '🔌', color: '#7f8c8d' },
-            
+
             // Home & Garden
             'hardware': { emoji: '🔧', color: '#7f8c8d' },
             'doityourself': { emoji: '🛠️', color: '#e67e22' },
@@ -562,7 +562,7 @@ class GameMap {
             'curtain': { emoji: '🪟', color: '#3498db' },
             'garden_centre': { emoji: '🌻', color: '#27ae60' },
             'florist': { emoji: '💐', color: '#e91e63' },
-            
+
             // Entertainment & Hobbies
             'books': { emoji: '📚', color: '#e74c3c' },
             'stationery': { emoji: '📝', color: '#3498db' },
@@ -578,31 +578,31 @@ class GameMap {
             'gift': { emoji: '🎁', color: '#e91e63' },
             'antiques': { emoji: '🏺', color: '#8e6c3a' },
             'second_hand': { emoji: '♻️', color: '#27ae60' },
-            
+
             // Sports & Outdoors
             'sports': { emoji: '⚽', color: '#27ae60' },
             'outdoor': { emoji: '🏕️', color: '#2ecc71' },
             'bicycle': { emoji: '🚲', color: '#3498db' },
             'fishing': { emoji: '🎣', color: '#2980b9' },
             'hunting': { emoji: '🦌', color: '#8e6c3a' },
-            
+
             // Vehicles
             'car': { emoji: '🚗', color: '#e74c3c' },
             'car_parts': { emoji: '⚙️', color: '#7f8c8d' },
             'car_repair': { emoji: '🔧', color: '#34495e' },
             'tyres': { emoji: '🛞', color: '#2c3e50' },
             'motorcycle': { emoji: '🏍️', color: '#c0392b' },
-            
+
             // Health & Wellness
             'chemist': { emoji: '🧪', color: '#27ae60' },
             'medical_supply': { emoji: '🩺', color: '#e74c3c' },
             'optician': { emoji: '👓', color: '#3498db' },
             'hearing_aids': { emoji: '👂', color: '#9b59b6' },
-            
+
             // Pet
             'pet': { emoji: '🐕', color: '#f39c12' },
             'pet_grooming': { emoji: '🐩', color: '#e91e63' },
-            
+
             // Services & Other
             'laundry': { emoji: '🧺', color: '#3498db' },
             'dry_cleaning': { emoji: '👔', color: '#9b59b6' },
@@ -618,7 +618,7 @@ class GameMap {
             'department_store': { emoji: '🏢', color: '#3498db' },
             'mall': { emoji: '🛍️', color: '#e67e22' },
             'kiosk': { emoji: '🏪', color: '#27ae60' },
-            
+
             'general': { emoji: '🏬', color: '#34495e' }
         };
         for (const shop of this.osmDataService.shops) {

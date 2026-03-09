@@ -7,25 +7,25 @@ param(
     [Parameter(Position = 0)]
     [ValidateSet("New York", "London", "Tokyo", "Glasgow", "Los Angeles", "Moscow", "Berlin", "Dumbarton", "Custom")]
     [string]$City = "New York",
-    
+
     [Parameter()]
     [string]$OutputPath = "Data/Maps",
-    
+
     [Parameter()]
     [double]$CustomSouth,
-    
+
     [Parameter()]
     [double]$CustomWest,
-    
+
     [Parameter()]
     [double]$CustomNorth,
-    
+
     [Parameter()]
     [double]$CustomEast,
-    
+
     [Parameter()]
     [switch]$Force,
-    
+
     [Parameter()]
     [int]$RateLimitMs = 1500
 )
@@ -76,7 +76,7 @@ $CurrentEndpointIndex = 0
 
 function Write-Status {
     param([string]$Message, [string]$Type = "Info")
-    
+
     $color = switch ($Type) {
         "Success" { "Green" }
         "Warning" { "Yellow" }
@@ -84,7 +84,7 @@ function Write-Status {
         "Progress" { "Cyan" }
         default { "White" }
     }
-    
+
     Write-Host "[$Type] $Message" -ForegroundColor $color
 }
 
@@ -93,12 +93,12 @@ function Invoke-OverpassQuery {
         [string]$Query,
         [int]$Timeout = 60
     )
-    
+
     $endpoint = $OverpassEndpoints[$script:CurrentEndpointIndex]
     $fullQuery = "[out:json][timeout:$Timeout];$Query"
-    
+
     Write-Status "Querying Overpass API..." -Type "Progress"
-    
+
     try {
         $response = Invoke-RestMethod -Uri $endpoint -Method Post -Body @{ data = $fullQuery } -TimeoutSec ($Timeout + 30)
         return $response
@@ -115,7 +115,7 @@ function Invoke-OverpassQuery {
 
 function Get-WaterBodies {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     way["natural"="water"]($Bbox);
@@ -125,10 +125,10 @@ function Get-WaterBodies {
 );
 out geom;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $waterBodies = @()
-    
+
     foreach ($element in $data.elements) {
         if ($element.type -eq "way" -and $element.geometry.Count -ge 3) {
             $coords = @()
@@ -165,13 +165,13 @@ out geom;
             }
         }
     }
-    
+
     return $waterBodies
 }
 
 function Get-Buildings {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     way["building"]["addr:housenumber"]($Bbox);
@@ -180,17 +180,17 @@ function Get-Buildings {
 );
 out center;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $buildings = @()
-    
+
     foreach ($element in $data.elements) {
         $lat = if ($element.center) { $element.center.lat } else { $element.lat }
         $lon = if ($element.center) { $element.center.lon } else { $element.lon }
-        
+
         if ($null -ne $lat -and $null -ne $lon) {
             $tags = if ($element.tags) { $element.tags } else { @{} }
-            
+
             $buildings += @{
                 id = $element.id
                 lat = $lat
@@ -208,13 +208,13 @@ out center;
             }
         }
     }
-    
+
     return $buildings
 }
 
 function Get-TransportStops {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     node["highway"="bus_stop"]($Bbox);
@@ -227,14 +227,14 @@ function Get-TransportStops {
 );
 out;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $stops = @()
-    
+
     foreach ($element in $data.elements) {
         if ($null -ne $element.lat -and $null -ne $element.lon) {
             $tags = if ($element.tags) { $element.tags } else { @{} }
-            
+
             # Determine stop type
             $stopType = "unknown"
             if ($tags.highway -eq "bus_stop" -or $tags.bus -eq "yes") { $stopType = "bus" }
@@ -245,9 +245,9 @@ out;
             elseif ($tags.public_transport -eq "platform") {
                 $stopType = if ($tags.bus) { "bus" } elseif ($tags.train) { "train" } else { "transit" }
             }
-            
+
             $name = if ($tags.name) { $tags.name } else { "$($stopType.Substring(0,1).ToUpper())$($stopType.Substring(1)) Stop" }
-            
+
             $stops += @{
                 id = $element.id
                 lat = $element.lat
@@ -261,21 +261,21 @@ out;
             }
         }
     }
-    
+
     return $stops
 }
 
 function Get-Footpaths {
     param([string]$Bbox)
-    
+
     $query = @"
 way["highway"~"footway|pedestrian|path|steps|cycleway"]($Bbox);
 out geom;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $paths = @()
-    
+
     foreach ($element in $data.elements) {
         if ($element.type -eq "way" -and $element.geometry.Count -ge 2) {
             $coords = @()
@@ -286,7 +286,7 @@ out geom;
             }
             if ($coords.Count -ge 2) {
                 $tags = if ($element.tags) { $element.tags } else { @{} }
-                
+
                 $paths += @{
                     id = $element.id
                     coordinates = $coords
@@ -297,21 +297,21 @@ out geom;
             }
         }
     }
-    
+
     return $paths
 }
 
 function Get-SurfaceData {
     param([string]$Bbox)
-    
+
     $query = @"
 way["highway"]["surface"]($Bbox);
 out geom;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $surfaces = @()
-    
+
     foreach ($element in $data.elements) {
         if ($element.type -eq "way" -and $element.geometry.Count -ge 2 -and $element.tags.surface) {
             $coords = @()
@@ -332,13 +332,13 @@ out geom;
             }
         }
     }
-    
+
     return $surfaces
 }
 
 function Get-Amenities {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     node["amenity"~"restaurant|cafe|bar|pub|fast_food|bank|atm|hospital|clinic|pharmacy|fuel|parking"]($Bbox);
@@ -346,19 +346,19 @@ function Get-Amenities {
 );
 out center;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $amenities = @()
-    
+
     foreach ($element in $data.elements) {
         $lat = if ($element.center) { $element.center.lat } else { $element.lat }
         $lon = if ($element.center) { $element.center.lon } else { $element.lon }
-        
+
         if ($null -ne $lat -and $null -ne $lon) {
             $tags = if ($element.tags) { $element.tags } else { @{} }
             $amenityType = if ($tags.amenity) { $tags.amenity } else { "unknown" }
             $formattedName = (Get-Culture).TextInfo.ToTitleCase(($amenityType -replace '_', ' '))
-            
+
             $amenities += @{
                 id = $element.id
                 lat = $lat
@@ -373,13 +373,13 @@ out center;
             }
         }
     }
-    
+
     return $amenities
 }
 
 function Get-Shops {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     node["shop"]($Bbox);
@@ -387,19 +387,19 @@ function Get-Shops {
 );
 out center;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $shops = @()
-    
+
     foreach ($element in $data.elements) {
         $lat = if ($element.center) { $element.center.lat } else { $element.lat }
         $lon = if ($element.center) { $element.center.lon } else { $element.lon }
-        
+
         if ($null -ne $lat -and $null -ne $lon) {
             $tags = if ($element.tags) { $element.tags } else { @{} }
             $shopType = if ($tags.shop) { $tags.shop } else { "general" }
             $formattedName = (Get-Culture).TextInfo.ToTitleCase(($shopType -replace '_', ' '))
-            
+
             $shops += @{
                 id = $element.id
                 lat = $lat
@@ -414,13 +414,13 @@ out center;
             }
         }
     }
-    
+
     return $shops
 }
 
 function Get-POIs {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     node["tourism"~"hotel|hostel|motel|attraction|museum|viewpoint|information"]($Bbox);
@@ -431,27 +431,27 @@ function Get-POIs {
 );
 out center;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $pois = @()
-    
+
     foreach ($element in $data.elements) {
         $lat = if ($element.center) { $element.center.lat } else { $element.lat }
         $lon = if ($element.center) { $element.center.lon } else { $element.lon }
-        
+
         if ($null -ne $lat -and $null -ne $lon) {
             $tags = if ($element.tags) { $element.tags } else { @{} }
-            
+
             # Determine category
             $category = "unknown"
             $subtype = ""
             if ($tags.tourism) { $category = "tourism"; $subtype = $tags.tourism }
             elseif ($tags.leisure) { $category = "leisure"; $subtype = $tags.leisure }
             elseif ($tags.historic) { $category = "historic"; $subtype = $tags.historic }
-            
+
             $formattedName = (Get-Culture).TextInfo.ToTitleCase(($subtype -replace '_', ' '))
             if (-not $formattedName) { $formattedName = "Point of Interest" }
-            
+
             $pois += @{
                 id = $element.id
                 lat = $lat
@@ -467,13 +467,13 @@ out center;
             }
         }
     }
-    
+
     return $pois
 }
 
 function Get-LandUse {
     param([string]$Bbox)
-    
+
     $query = @"
 (
     way["landuse"~"residential|commercial|industrial|retail|farmland|forest|grass|meadow|recreation_ground"]($Bbox);
@@ -481,10 +481,10 @@ function Get-LandUse {
 );
 out geom;
 "@
-    
+
     $data = Invoke-OverpassQuery -Query $query
     $landUse = @()
-    
+
     $speedModifiers = @{
         "residential" = 1.0
         "commercial" = 1.0
@@ -497,7 +497,7 @@ out geom;
         "recreation_ground" = 0.9
         "unknown" = 0.8
     }
-    
+
     foreach ($element in $data.elements) {
         if ($element.type -eq "way" -and $element.geometry.Count -ge 3) {
             $coords = @()
@@ -510,7 +510,7 @@ out geom;
                 $tags = if ($element.tags) { $element.tags } else { @{} }
                 $landUseType = if ($tags.landuse) { $tags.landuse } else { "unknown" }
                 $modifier = if ($speedModifiers[$landUseType]) { $speedModifiers[$landUseType] } else { 0.8 }
-                
+
                 $landUse += @{
                     id = $element.id
                     type = "polygon"
@@ -534,7 +534,7 @@ out geom;
                         $tags = if ($element.tags) { $element.tags } else { @{} }
                         $landUseType = if ($tags.landuse) { $tags.landuse } else { "unknown" }
                         $modifier = if ($speedModifiers[$landUseType]) { $speedModifiers[$landUseType] } else { 0.8 }
-                        
+
                         $landUse += @{
                             id = $element.id
                             type = "polygon"
@@ -548,7 +548,7 @@ out geom;
             }
         }
     }
-    
+
     return $landUse
 }
 
@@ -635,7 +635,7 @@ foreach ($dataType in $dataTypes) {
     $currentType++
     Write-Host ""
     Write-Status "[$currentType/$totalTypes] Fetching $($dataType.Name)..." -Type "Progress"
-    
+
     try {
         $result = & $dataType.Function $bbox
         $osmData[$dataType.Name] = $result
@@ -645,7 +645,7 @@ foreach ($dataType in $dataTypes) {
         Write-Status "  Failed to fetch $($dataType.Name): $_" -Type "Error"
         $osmData[$dataType.Name] = @()
     }
-    
+
     # Rate limiting
     if ($currentType -lt $totalTypes) {
         Write-Status "  Waiting $($RateLimitMs)ms (rate limit)..." -Type "Info"
@@ -660,10 +660,10 @@ Write-Status "Saving data to $outputFile..." -Type "Progress"
 try {
     $jsonContent = $osmData | ConvertTo-Json -Depth 10 -Compress:$false
     $jsonContent | Out-File -FilePath $outputFile -Encoding UTF8
-    
+
     $fileSize = (Get-Item $outputFile).Length
     $fileSizeMB = [math]::Round($fileSize / 1MB, 2)
-    
+
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Green
     Write-Status "Download complete!" -Type "Success"

@@ -205,9 +205,9 @@ class OSMDataService {
     boundsMatch(bounds1, bounds2) {
         if (!bounds1 || !bounds2) return false;
         return bounds1.south === bounds2.south &&
-               bounds1.west === bounds2.west &&
-               bounds1.north === bounds2.north &&
-               bounds1.east === bounds2.east;
+            bounds1.west === bounds2.west &&
+            bounds1.north === bounds2.north &&
+            bounds1.east === bounds2.east;
     }
 
     /**
@@ -216,9 +216,9 @@ class OSMDataService {
     boundsOverlap(bounds1, bounds2) {
         if (!bounds1 || !bounds2) return false;
         return !(bounds1.east < bounds2.west ||
-                 bounds1.west > bounds2.east ||
-                 bounds1.north < bounds2.south ||
-                 bounds1.south > bounds2.north);
+            bounds1.west > bounds2.east ||
+            bounds1.north < bounds2.south ||
+            bounds1.south > bounds2.north);
     }
 
     /**
