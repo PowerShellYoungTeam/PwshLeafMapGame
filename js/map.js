@@ -80,7 +80,8 @@ class GameMap {
                     distance: path.distance,
                     duration: path.duration,
                     travelMode: path.travelMode,
-                    pathType: path.type
+                    pathType: path.type,
+                    routeCard: path.routeCard || []
                 });
             }
 
@@ -497,7 +498,9 @@ class GameMap {
                     this.game.updatePathInfo({
                         distance: pathData.distance,
                         duration: pathData.duration,
-                        type: pathData.type
+                        type: pathData.type,
+                        travelMode: pathData.travelMode,
+                        routeCard: pathData.routeCard || []
                     });
                 }
 
