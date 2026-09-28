@@ -159,6 +159,8 @@ class PwshLeafmapGame {
             const durMin = Math.round(data.duration / 60);
             pathDisplay.textContent = `${distKm}km • ~${durMin}min • ${data.travelMode}`;
         }
+
+        this.renderRouteCard(data?.routeCard || []);
     }
 
     hidePathInfo() {
@@ -166,6 +168,50 @@ class PwshLeafmapGame {
         if (pathPanel) {
             pathPanel.style.display = 'none';
         }
+
+        const routeCardPanel = document.getElementById('routeCardPanel');
+        if (routeCardPanel) {
+            routeCardPanel.style.display = 'none';
+        }
+    }
+
+    renderRouteCard(routeCardRows) {
+        const panel = document.getElementById('routeCardPanel');
+        const body = document.getElementById('routeCardBody');
+
+        if (!panel || !body) {
+            return;
+        }
+
+        body.innerHTML = '';
+
+        if (!Array.isArray(routeCardRows) || routeCardRows.length === 0) {
+            panel.style.display = 'none';
+            return;
+        }
+
+        routeCardRows.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row.serial ?? ''}</td>
+                <td>${row.from ?? ''}</td>
+                <td>${row.to ?? ''}</td>
+                <td>${row.directionText ?? ''}</td>
+                <td>${this.formatDistance(row.segmentDistance)}</td>
+                <td>${this.formatDistance(row.cumulativeDistance)}</td>
+            `;
+            body.appendChild(tr);
+        });
+
+        panel.style.display = 'block';
+    }
+
+    formatDistance(distanceMeters) {
+        const meters = Number(distanceMeters) || 0;
+        if (meters < 1000) {
+            return `${Math.round(meters)} m`;
+        }
+        return `${(meters / 1000).toFixed(2)} km`;
     }
 
     async autoLoadGameData() {

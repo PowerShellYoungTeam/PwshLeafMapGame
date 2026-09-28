@@ -90,6 +90,26 @@
                     <h4>Inventory</h4>
                     <ul id="inventoryList"></ul>
                 </div>
+
+                <div id="routeCardPanel"
+                    style="display:none; margin-top: 1rem; background: rgba(0, 212, 255, 0.08); border: 1px solid #2a3f66; border-radius: 6px; padding: 0.6rem;">
+                    <h4 style="margin-bottom: 0.5rem;">Route Card</h4>
+                    <div style="max-height: 260px; overflow: auto;">
+                        <table style="width:100%; border-collapse: collapse; font-size: 0.8rem;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left; border-bottom: 1px solid #4a5f85; padding: 0.25rem;">#</th>
+                                    <th style="text-align:left; border-bottom: 1px solid #4a5f85; padding: 0.25rem;">From</th>
+                                    <th style="text-align:left; border-bottom: 1px solid #4a5f85; padding: 0.25rem;">To</th>
+                                    <th style="text-align:left; border-bottom: 1px solid #4a5f85; padding: 0.25rem;">Direction</th>
+                                    <th style="text-align:left; border-bottom: 1px solid #4a5f85; padding: 0.25rem;">Distance</th>
+                                    <th style="text-align:left; border-bottom: 1px solid #4a5f85; padding: 0.25rem;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="routeCardBody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

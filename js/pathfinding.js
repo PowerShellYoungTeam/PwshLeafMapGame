@@ -63,7 +63,7 @@ class PathfindingManager {
         const profile = travelMode === 'foot' ? 'foot' : 'driving';
 
         // Build OSRM URL
-        const url = `${this.osrmUrl}/${profile}/${start.lng},${start.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson`;
+        const url = `${this.osrmUrl}/${profile}/${start.lng},${start.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson&steps=true`;
 
         console.log('Fetching OSRM route:', url);
 
@@ -83,7 +83,8 @@ class PathfindingManager {
             distance: route.distance, // meters
             duration: route.duration, // seconds
             type: 'road',
-            travelMode: travelMode
+            travelMode: travelMode,
+            routeCard: this.normalizeOSRMRouteToRouteCard(route, start, destination, travelMode, 'road')
         };
 
         // Cache the route
@@ -106,7 +107,8 @@ class PathfindingManager {
             distance: distance,
             duration: duration,
             type: 'direct',
-            travelMode: travelMode
+            travelMode: travelMode,
+            routeCard: this.createDirectRouteCard(start, destination, distance, travelMode, 'direct')
         };
 
         console.log(`Direct path: ${path.distance}m, ${path.duration}s`);
@@ -241,6 +243,154 @@ class PathfindingManager {
     clearCache() {
         this.routeCache.clear();
         console.log('Route cache cleared');
+    }
+
+    /**
+     * Normalize OSRM legs/steps into reusable route-card rows
+     */
+    normalizeOSRMRouteToRouteCard(route, start, destination, travelMode, pathType) {
+        if (!route || !route.legs || route.legs.length === 0) {
+            return this.createDirectRouteCard(start, destination, start.distanceTo(destination), travelMode, pathType);
+        }
+
+        const rows = [];
+        let serial = 1;
+        let cumulativeDistance = 0;
+        let previousLabel = this.formatCoordinateLabel(start);
+
+        route.legs.forEach((leg, legIndex) => {
+            const steps = Array.isArray(leg.steps) ? leg.steps : [];
+            steps.forEach((step, stepIndex) => {
+                const segmentDistance = Number(step.distance) || 0;
+                cumulativeDistance += segmentDistance;
+
+                const currentLabel = this.getStepLabel(step, legIndex, stepIndex);
+                const nextStep = steps[stepIndex + 1];
+                const isLastStep = legIndex === route.legs.length - 1 && stepIndex === steps.length - 1;
+                const toLabel = isLastStep
+                    ? this.formatCoordinateLabel(destination)
+                    : (nextStep ? this.getStepLabel(nextStep, legIndex, stepIndex + 1) : currentLabel);
+
+                rows.push({
+                    serial: serial++,
+                    from: previousLabel,
+                    to: toLabel,
+                    directionText: this.getStepDirectionText(step, toLabel),
+                    segmentDistance: segmentDistance,
+                    cumulativeDistance: cumulativeDistance,
+                    travelMode: travelMode,
+                    pathType: pathType,
+                    roadName: step.name || '',
+                    maneuverType: step.maneuver?.type || '',
+                    modifier: step.maneuver?.modifier || ''
+                });
+
+                previousLabel = currentLabel;
+            });
+        });
+
+        if (rows.length === 0) {
+            return this.createDirectRouteCard(start, destination, start.distanceTo(destination), travelMode, pathType);
+        }
+
+        return rows;
+    }
+
+    /**
+     * Build a synthetic route-card row for direct-line travel
+     */
+    createDirectRouteCard(start, destination, distance, travelMode, pathType) {
+        const bearing = this.getBearing(start, destination);
+        const cardinal = this.bearingToCardinal(bearing);
+
+        return [{
+            serial: 1,
+            from: this.formatCoordinateLabel(start),
+            to: this.formatCoordinateLabel(destination),
+            directionText: `Head ${cardinal} to destination`,
+            segmentDistance: distance,
+            cumulativeDistance: distance,
+            travelMode: travelMode,
+            pathType: pathType,
+            roadName: '',
+            maneuverType: 'direct',
+            modifier: cardinal
+        }];
+    }
+
+    getStepLabel(step, legIndex, stepIndex) {
+        if (step && step.name && step.name.trim().length > 0) {
+            return step.name.trim();
+        }
+
+        return `Segment ${legIndex + 1}.${stepIndex + 1}`;
+    }
+
+    getStepDirectionText(step, toLabel) {
+        const maneuver = step?.maneuver || {};
+        const type = maneuver.type || 'continue';
+        const modifier = maneuver.modifier || '';
+        const roadName = (step?.name || '').trim();
+
+        if (type === 'roundabout') {
+            const exitText = maneuver.exit ? ` (exit ${maneuver.exit})` : '';
+            return `Enter roundabout${exitText}${roadName ? ` onto ${roadName}` : ''}`;
+        }
+
+        if (type === 'arrive') {
+            return `Arrive at ${toLabel}`;
+        }
+
+        if (modifier) {
+            return `${this.capitalize(modifier)} ${type}${roadName ? ` on ${roadName}` : ''}`;
+        }
+
+        return `${this.capitalize(type)}${roadName ? ` on ${roadName}` : ''}`;
+    }
+
+    formatCoordinateLabel(latLng) {
+        if (!latLng || typeof latLng.lat !== 'number' || typeof latLng.lng !== 'number') {
+            return 'Unknown';
+        }
+
+        return `[${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)}]`;
+    }
+
+    getBearing(start, destination) {
+        const startLat = this.toRadians(start.lat);
+        const startLng = this.toRadians(start.lng);
+        const endLat = this.toRadians(destination.lat);
+        const endLng = this.toRadians(destination.lng);
+
+        const y = Math.sin(endLng - startLng) * Math.cos(endLat);
+        const x =
+            Math.cos(startLat) * Math.sin(endLat) -
+            Math.sin(startLat) * Math.cos(endLat) * Math.cos(endLng - startLng);
+
+        const bearing = (this.toDegrees(Math.atan2(y, x)) + 360) % 360;
+        return bearing;
+    }
+
+    bearingToCardinal(bearing) {
+        const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
+        const index = Math.round(bearing / 45) % 8;
+        return directions[index];
+    }
+
+    toRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+
+    toDegrees(radians) {
+        return radians * (180 / Math.PI);
+    }
+
+    capitalize(value) {
+        if (!value || typeof value !== 'string') {
+            return '';
+        }
+
+        return value.charAt(0).toUpperCase() + value.slice(1);
     }
 }
 
